@@ -6,3 +6,63 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum Role {
+  ADMIN
+  USER
+  GUEST
+}
+
+model User {
+  id                String    @id @default(cuid())
+  firstName         String?
+  lastName          String?
+  email             String    @unique
+  passwordHash      String
+  username          String    @unique
+  birthDate         DateTime?
+  adress            String?
+  billingAdress     String?
+  profilePictureUrl String?
+  registrationDate  DateTime  @default(now())
+  isActive          Boolean   @default(true)
+  lastLogIn         DateTime?
+  role              Role      @default(GUEST)
+}
+
+model Product {
+  id                   String            @id @default(cuid())
+  name                 String
+  description          String
+  price                Int
+  pictureUrl           String?
+  quantity             Int
+  rating               Float?
+  ageRecommendationMin Int?
+  ageRecommendationMax Int?
+  playersNumberMin     Int?
+  playersNumberMax     Int?
+  createdAt            DateTime          @default(now())
+  updatedAt            DateTime          @updatedAt
+  categoryProduct      CategoryProduct[]
+}
+
+//előrendelés, kifutott termék? 
+
+model Category {
+  id              String            @id @default(cuid())
+  name            String
+  description     String
+  pictureUrl      String
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  categoryProduct CategoryProduct[]
+}
+
+model CategoryProduct {
+  id         String   @id @default(cuid())
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+  productId  String
+  product    Product  @relation(fields: [productId], references: [id])
+}
