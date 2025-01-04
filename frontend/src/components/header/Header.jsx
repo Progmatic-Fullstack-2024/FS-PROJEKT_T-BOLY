@@ -9,7 +9,7 @@ export default function Header() {
     <header className="flex flex-col font-orienta ">
       <div className="flex bg-primary justify-end h-8 items-center">
         <h2 className="text-white px-3 text-sm">Login</h2>
-        <h2 className="text-white px-3 mr-4 text-sm">Register</h2>
+        <h2 className="text-white px-3 text-sm">Register</h2>
       </div>
       <div className="flex justify-around py-8 bg-primary-light">
         <div className="flex items-center">
