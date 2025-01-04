@@ -8,6 +8,16 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    children: [
+      {
+        path: "/products",
+        element: <App />,
+      },
+      {
+        path: "/products/:productId",
+        element: <App />,
+      },
+    ]
   },
 ]);
 
