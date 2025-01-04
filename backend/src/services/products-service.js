@@ -3,12 +3,13 @@ import HttpError from "../utils/HttpError.js";
 
 const getAllProducts = async () => prisma.product.findMany();
 
-const getAllProductsByCategory = async (categoryId) =>
+const getAllProductsByCategory = async (categoryId, order) =>
   prisma.product.findMany({
     where: { categoryProduct: { some: { categoryId } } },
     include: {
       categoryProduct: { include: { category: { select: { name: true } } } },
     },
+    orderBy: { name: order },
   });
 
 const getProductById = async (id) => {

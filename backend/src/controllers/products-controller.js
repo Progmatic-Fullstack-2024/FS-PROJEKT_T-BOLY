@@ -9,15 +9,18 @@ const getAllProducts = async (req, res, next) => {
   }
 };
 
-const getAllProductsByCategory= async (req, res, next)=>{
-  const {categoryId}= req.params
+const getAllProductsByCategory = async (req, res, next) => {
+  const { categoryId, order = "asc" } = req.params;
   try {
-    const products = await productService.getAllProductsByCategory(categoryId);
+    const products = await productService.getAllProductsByCategory(
+      categoryId,
+      order
+    );
     res.status(200).json(products);
   } catch (error) {
     next(error);
   }
-}
+};
 
 const getProductById = async (req, res, next) => {
   const productId = req.params.id;

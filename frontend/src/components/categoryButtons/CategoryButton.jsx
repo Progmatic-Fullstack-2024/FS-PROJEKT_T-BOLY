@@ -12,12 +12,12 @@ export default function CategoryButton({ category, idx }) {
     <Link className="flex flex-col items-center" to={`/products/category/${category.id}`}>
       <div>
         <img
+          className="w-20 h-20 object-contain"
           src={category.imageUrl || cloudImages[idx % cloudImages.length]}
           alt={category.name}
-          style={{ width: '50px', height: '50px', objectFit: 'contain' }}
         />
       </div>
-      <span style={{ fontSize: '14px', fontWeight: 'bold' }}>{category.name}</span>
+      <span className="text-xl font-bold">{category.name}</span>
     </Link>
   );
 }
