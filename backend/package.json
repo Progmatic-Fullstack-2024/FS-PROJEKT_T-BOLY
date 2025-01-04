@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon --exec ./node_modules/.bin/babel-node -r dotenv/config src/server.js",
+    "seed": "node prisma/seed.js",
     "build": "babel src -d dist",
     "serve": "node -r dotenv/config dist/server.js",
     "lint": "eslint src --ext .js",

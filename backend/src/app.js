@@ -1,10 +1,10 @@
 import express from "express";
-import categoriesRoutes from "./routes/categories-routes.js";
+import apiRoutes from "./routes/api-routes.js";
 
 const app = express();
 
 app.use(express.json());
 
-app.use("/api/categories", categoriesRoutes);
+app.use("/api", apiRoutes);
 
 export default app;
