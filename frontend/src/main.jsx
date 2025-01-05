@@ -1,26 +1,24 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import App from "./App";
-import "./index.css";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import App from './App';
+import './index.css';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <App />,
     children: [
       {
-        path: "/products",
+        path: '/products',
         element: <App />,
       },
       {
-        path: "/products/:productId",
-        element: <App />,
+        path: '/products/category/:categoryId',
+        element: <h1>Product/category</h1>,
       },
-    ]
+    ],
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />
-);
+ReactDOM.createRoot(document.getElementById('root')).render(<RouterProvider router={router} />);

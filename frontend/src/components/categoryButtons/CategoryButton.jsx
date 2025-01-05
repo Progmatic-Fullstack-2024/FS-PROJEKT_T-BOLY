@@ -9,7 +9,7 @@ import VectorCloud5 from '../../assets/VectorCloud5.png';
 const cloudImages = [VectorCloud1, VectorCloud2, VectorCloud3, VectorCloud4, VectorCloud5];
 export default function CategoryButton({ category, idx }) {
   return (
-    <Link className="flex flex-col items-center" to={`/categories/${category.id}`}>
+    <Link className="flex flex-col items-center" to={`/products/category/${category.id}`}>
       <div>
         <img
           src={category.imageUrl || cloudImages[idx % cloudImages.length]}
