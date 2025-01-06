@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import categoryService from '../../services/categoryService';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 export default function Nav() {
   const [categories, setCategories] = useState([]);
+  const { categoryId } = useParams();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -18,12 +19,22 @@ export default function Nav() {
   }, []);
 
   return (
-    <nav>
-      <ul>
-        {categories.map((category) => (
-          <Link key={category.id} to={`/products/category/${category.id}`}>{category.name}</Link>
-        ))}
-      </ul>
-    </nav>
+    <div className="border-2 rounded-lg p-3 pr-12">
+      <h1 className="pb-5 pt-2">Product categories</h1>
+      <nav>
+        <ul>
+          <li className={!categoryId ? 'text-[#F57D0D] pb-2' : 'pb-2'}>
+            <Link to={`/products`}>+ All products</Link>
+          </li>
+          {categories.map((category) => (
+            <li className={categoryId == category.id ? 'text-[#F57D0D] pb-2' : 'pb-2'}>
+              <Link key={category.id} to={`/products/category/${category.id}`}>
+                + {category.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
   );
 }
