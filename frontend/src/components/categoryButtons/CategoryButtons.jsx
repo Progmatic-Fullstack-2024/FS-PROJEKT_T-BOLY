@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+
 import CategoryButton from './CategoryButton';
 import categoryService from '../../services/categoryService';
 
@@ -11,7 +13,7 @@ export default function CategoryButtons() {
         const data = await categoryService.getAllCategories();
         setCategories(data);
       } catch (error) {
-        console.error('Failed to fetch categories:', error);
+        toast.error(`Failed to fetch categories: ${error.message}`);
       }
     };
     fetchCategories();

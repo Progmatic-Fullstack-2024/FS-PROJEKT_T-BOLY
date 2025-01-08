@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
-import categoryService from '../../services/categoryService';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
+import categoryService from '../../services/categoryService';
 
 export default function SelectCategoryInput() {
   const [categories, setCategories] = useState([]);
@@ -12,7 +14,7 @@ export default function SelectCategoryInput() {
         const data = await categoryService.getAllCategories();
         setCategories(data);
       } catch (error) {
-        console.error('Failed to fetch categories:', error);
+        toast.error('Failed to fetch categories:', error);
       }
     };
     fetchCategories();
@@ -35,7 +37,7 @@ export default function SelectCategoryInput() {
         </option>
         {categories.map((category) => (
           <option
-            className={categoryId == category.id ? 'text-primary' : ''}
+            className={categoryId === category.id ? 'text-primary' : ''}
             key={category.id}
             value={category.id}
           >

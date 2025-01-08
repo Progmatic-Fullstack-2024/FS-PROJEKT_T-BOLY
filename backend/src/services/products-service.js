@@ -1,7 +1,8 @@
 import prisma from "../models/prismaClient.js";
 import HttpError from "../utils/HttpError.js";
 
-const getAllProducts = async (order) => prisma.product.findMany({orderBy: { name: order }});
+const getAllProducts = async (order) =>
+  prisma.product.findMany({ orderBy: { name: order } });
 
 const getAllProductsByCategory = async (categoryId, order) =>
   prisma.product.findMany({

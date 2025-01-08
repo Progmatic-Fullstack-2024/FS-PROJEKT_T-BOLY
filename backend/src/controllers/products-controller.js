@@ -19,7 +19,7 @@ const getAllProductsByCategory = async (req, res, next) => {
     } else {
       products = await productService.getAllProductsByCategory(
         categoryId,
-        order
+        order,
       );
     }
     res.status(200).json(products);

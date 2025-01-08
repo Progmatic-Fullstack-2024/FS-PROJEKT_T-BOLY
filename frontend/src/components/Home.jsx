@@ -1,4 +1,4 @@
-import CategoryButtons from "./categoryButtons/CategoryButtons"
+import CategoryButtons from './categoryButtons/CategoryButtons';
 
 export default function Home() {
   return (

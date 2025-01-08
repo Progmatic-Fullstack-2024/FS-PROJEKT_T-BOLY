@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import productService from '../../services/productService.js';
-import categoryService from '../../services/categoryService.js';
-import Nav from './Nav.jsx';
-import SelectCategoryInput from './SelectCategoryInput.jsx'
 import { FiShoppingCart } from 'react-icons/fi';
-import { LuHeart } from "react-icons/lu";
+import { LuHeart } from 'react-icons/lu';
+import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
+import Nav from './Nav.jsx';
+import SelectCategoryInput from './SelectCategoryInput.jsx';
+import categoryService from '../../services/categoryService.js';
+import productService from '../../services/productService.js';
 
 export default function ProductsByCategory() {
   const [productsByCategory, setProductsByCategory] = useState([]);
@@ -15,14 +17,14 @@ export default function ProductsByCategory() {
   useEffect(() => {
     const fetchCategoryById = async () => {
       try {
-        if (categoryId == 'all') {
+        if (categoryId === 'all') {
           setCategoryName('All products');
         } else {
           const data = await categoryService.getCategoryById(categoryId);
           setCategoryName(data.name);
         }
       } catch (error) {
-        console.error('Failed to fetch category name:', error);
+        toast.error('Failed to fetch category name:', error);
       }
     };
 
@@ -31,7 +33,7 @@ export default function ProductsByCategory() {
         const data = await productService.getAllProductsByCategory(categoryId);
         setProductsByCategory(data);
       } catch (error) {
-        console.error('Failed to fetch products:', error);
+        toast.error('Failed to fetch products:', error);
       }
     };
 
@@ -45,7 +47,8 @@ export default function ProductsByCategory() {
       <div className="flex gap-20 m-8">
         <Nav />
         <div>
-          <h1 className="md:w-60 hidden md:block mb-12 text-xl">{categoryName}</h1><SelectCategoryInput/>
+          <h1 className="md:w-60 hidden md:block mb-12 text-xl">{categoryName}</h1>
+          <SelectCategoryInput />
           <div className="flex flex-wrap gap-8 justify-around ">
             {productsByCategory.length > 0 ? (
               productsByCategory.map((product, index) => (

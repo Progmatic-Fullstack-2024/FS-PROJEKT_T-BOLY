@@ -1,8 +1,9 @@
+import { FiShoppingCart } from 'react-icons/fi';
+
 import Nav from './Nav';
 import Searchbar from './Searchbar';
 import LogoOrange from '../../assets/ant-orange.png';
 import LogoText from '../../assets/t-boly-orange.png';
-import { FiShoppingCart } from 'react-icons/fi';
 
 export default function Header() {
   return (
@@ -19,8 +20,8 @@ export default function Header() {
 
         <Nav />
         <div className="flex items-center ">
-          <button>
-            <FiShoppingCart className='m-2'/>
+          <button type="button">
+            <FiShoppingCart className="m-2" />
           </button>
           <Searchbar />
         </div>
