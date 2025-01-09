@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 import './index.css';
 import { AuthProvider } from './contexts/AuthContexts';
+import Homepage from './pages/Homepage';
 
 const router = createBrowserRouter([
   {
@@ -12,8 +13,8 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: '/products',
-        element: <App />,
+        path: '/',
+        element: <Homepage />,
       },
       {
         path: '/products/category/:categoryId',

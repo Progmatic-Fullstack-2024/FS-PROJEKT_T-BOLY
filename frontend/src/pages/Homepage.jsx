@@ -1,11 +1,10 @@
-import Header from '../components/header/Header';
 import CategoryButtons from '../components/categoryButtons/CategoryButtons';
+import Hero from '../components/Hero';
+
 export default function Homepage() {
   return (
     <div>
-      <div>
-        <Header />
-      </div>
+      <Hero />
       <div>
         <h1 style={{ textAlign: 'center', marginTop: '20px', fontWeight: 'bold' }}>
           Find the Perfect Toy
