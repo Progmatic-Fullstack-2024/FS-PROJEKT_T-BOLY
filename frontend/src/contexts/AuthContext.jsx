@@ -31,6 +31,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   const register = async (userData) => {
+    console.log(userData);
     try {
       await authService.register(userData);
       return { ok: true, message: 'Registered successfully.' };
