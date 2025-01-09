@@ -1,4 +1,4 @@
-import Header from '../components/Header/Header';
+import Header from '../components/header/Header';
 import CategoryButtons from '../components/categoryButtons/CategoryButtons';
 export default function Homepage() {
   return (
