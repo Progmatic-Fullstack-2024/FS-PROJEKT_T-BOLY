@@ -28,7 +28,7 @@ export default function RegistrationModal({ onClose }) {
       <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-bold">Register</h2>
-          <button className="text-gray-500 hover:text-black" onClick={onClose}>
+          <button type="button" className="text-gray-500 hover:text-black" onClick={onClose}>
             ✖
           </button>
         </div>

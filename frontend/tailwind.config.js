@@ -20,6 +20,7 @@ export default {
       },
       fontFamily: {
         orienta: ['orienta'],
+        agbalumo: ['Agbalumo'],
       },
     },
   },
