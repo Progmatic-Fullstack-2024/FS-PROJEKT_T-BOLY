@@ -1,24 +1,19 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import { userValidationSchema } from "../../validations/user.validation.js";
-import AuthContext from "../../contexts/AuthContext.jsx";
-import { useContext } from "react";
+import { useContext } from 'react';
 import { toast } from 'react-toastify';
 
-
+import AuthContext from '../../contexts/AuthContext.jsx';
+import { userValidationSchema } from '../../validations/user.validation.js';
 
 export default function RegistrationModal({ onClose }) {
-  const handleFormSubmit = (values) => {
-    console.log('Form Submitted', values);
-  };
+  const { register } = useContext(AuthContext);
 
   const handleRegister = async (values) => {
-    console.log(values);
     const result = await register(values);
     if (result.ok) {
-      toast.success("Registration successful!");
+      toast.success('Registration successful!');
     } else {
-      toast.error("Registration failed!");
+      toast.error('Registration failed!');
     }
     onClose();
   };

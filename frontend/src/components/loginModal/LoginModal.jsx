@@ -1,21 +1,16 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { useContext } from "react";
-import AuthContext from "../../contexts/AuthContexts";
-import * as Yup from 'yup';
-import { userValidationSchema } from "../../validations/user.validation.js";
+import { useContext } from 'react';
 import { toast } from 'react-toastify';
 
-
+import AuthContext from '../../contexts/AuthContext.jsx';
 
 export default function LoginModal({ onClose }) {
-
   const { login } = useContext(AuthContext);
-
 
   const handleLogin = async (values) => {
     const result = await login(values);
     if (result.ok) {
-      toast.success("Logged in succesfully.")
+      toast.success('Logged in succesfully.');
     } else {
       toast.error(`Login failed. ${result.message}`);
     }
