@@ -1,12 +1,24 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { useContext } from "react";
+import AuthContext from "../../contexts/AuthContexts";
 import * as Yup from 'yup';
 import { userValidationSchema } from "../../validations/user.validation.js";
+import { toast } from 'react-toastify';
+
 
 
 export default function LoginModal({ onClose }) {
-  const handleFormSubmit = (values) => {
-    console.log('Form Submitted', values);
-    onClose();
+
+  const { login } = useContext(AuthContext);
+
+
+  const handleLogin = async (values) => {
+    const result = await login(values);
+    if (result.ok) {
+      toast.success("Logged in succesfully.")
+    } else {
+      toast.error(`Login failed. ${result.message}`);
+    }
   };
 
   return (
@@ -14,7 +26,7 @@ export default function LoginModal({ onClose }) {
       <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-bold">Login</h2>
-          <button className="text-gray-500 hover:text-black" onClick={onClose}>
+          <button type="button" className="text-gray-500 hover:text-black" onClick={onClose}>
             ✖
           </button>
         </div>
@@ -25,7 +37,7 @@ export default function LoginModal({ onClose }) {
             username: '',
             password: '',
           }}
-          onSubmit={handleFormSubmit}
+          onSubmit={handleLogin}
         >
           <Form className="space-y-4">
             <div>
