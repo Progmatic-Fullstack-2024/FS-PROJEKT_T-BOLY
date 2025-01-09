@@ -1,7 +1,7 @@
 import { IoSearchOutline } from "react-icons/io5";
 export default function Searchbar() {
   return (
-    <div className="w-40 relative text-xs">
+    <div className="w-40 relative text-xs hidden md:block">
         <input
           type="text"
           placeholder="Search"
