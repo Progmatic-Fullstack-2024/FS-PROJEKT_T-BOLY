@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 import { userValidationSchema } from "../../validations/user.validation.js";
 
 
-export default function RegistrationModal({ onClose }) {
+export default function LoginModal({ onClose }) {
   const handleFormSubmit = (values) => {
     console.log('Form Submitted', values);
     onClose();
@@ -13,7 +13,7 @@ export default function RegistrationModal({ onClose }) {
     <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-bold">Register</h2>
+          <h2 className="text-lg font-bold">Login</h2>
           <button className="text-gray-500 hover:text-black" onClick={onClose}>
             ✖
           </button>
@@ -21,28 +21,13 @@ export default function RegistrationModal({ onClose }) {
 
         <Formik
           initialValues={{
-            firstName: '',
-            lastName: '',
             email: '',
             username: '',
             password: '',
           }}
-          validationSchema={userValidationSchema}
           onSubmit={handleFormSubmit}
         >
           <Form className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium">First Name</label>
-              <Field name="firstName" className="w-full p-2 border rounded-lg" />
-              <ErrorMessage name="firstName" component="div" className="text-red-500 text-sm" />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium">Last Name</label>
-              <Field name="lastName" className="w-full p-2 border rounded-lg" />
-              <ErrorMessage name="lastName" component="div" className="text-red-500 text-sm" />
-            </div>
-
             <div>
               <label className="block text-sm font-medium">Email</label>
               <Field name="email" type="email" className="w-full p-2 border rounded-lg" />
@@ -62,7 +47,7 @@ export default function RegistrationModal({ onClose }) {
             </div>
 
             <button type="submit" className="bg-primary text-white w-full py-2 rounded-lg">
-              Register
+              Login
             </button>
           </Form>
         </Formik>
