@@ -12,14 +12,15 @@ const login = async (req, res, next) => {
 };
 
 const register = async (req, res, next) => {
-  const { email, password, username, passwordAgain } = req.body;
+  const { email, password, username, lastName, firstName } = req.body;
   try {
     await registerValidationSchema.validate({ email, password });
     const newUser = await authService.register({
       email,
       password,
       username,
-      passwordAgain,
+      lastName,
+      firstName,
     });
     res.status(201).json(newUser);
   } catch (error) {

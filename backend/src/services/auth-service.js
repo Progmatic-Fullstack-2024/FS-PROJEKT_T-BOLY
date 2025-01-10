@@ -22,8 +22,7 @@ const login = async ({ email, password }) => {
   return token;
 };
 
-
-const register = async ({ email, username, password, passwordAgain }) => {
+const register = async ({ email, username, password, firstName, lastName }) => {
   const existingUser = await prisma.user.findFirst({
     where: {
       OR: [{ email: email }, { username: username }],
@@ -32,14 +31,15 @@ const register = async ({ email, username, password, passwordAgain }) => {
   if (existingUser)
     throw new HttpError("Email or username already exists", 400);
 
-  if (password != passwordAgain)
-    throw new HttpError(
-      "The password confirmation does not match the password.",
-      404
-    );
   const hashedPassword = await bycrypt.hash(password, 5);
   const newUser = await prisma.user.create({
-    data: { email, username, passwordHash: hashedPassword },
+    data: {
+      email,
+      username,
+      passwordHash: hashedPassword,
+      firstName,
+      lastName,
+    },
   });
   return newUser;
 };
