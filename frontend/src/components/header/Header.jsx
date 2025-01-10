@@ -35,15 +35,14 @@ export default function Header() {
           <img src={LogoOrange} alt="" className="w-18 h-10" />
           <img src={LogoText} alt="" className="w-18 h-4" />
         </div>
-       
-          <Nav className="order-2 sm:order-1 " />
-          <div className="flex  items-center order-1 sm:order-2">
-            <button type='button'>
-              <FiShoppingCart className="m-2" />
-            </button>
-            <Searchbar />
-          </div>
-        
+
+        <Nav className="order-2 sm:order-1 " />
+        <div className="flex  items-center order-1 sm:order-2">
+          <button type="button">
+            <FiShoppingCart className="m-2" />
+          </button>
+          <Searchbar />
+        </div>
       </div>
 
       {isRegisterModalOpen && <RegistrationModal onClose={() => setRegisterModalOpen(false)} />}

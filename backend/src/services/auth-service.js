@@ -25,7 +25,7 @@ const login = async ({ email, password }) => {
 const register = async ({ email, username, password, firstName, lastName }) => {
   const existingUser = await prisma.user.findFirst({
     where: {
-      OR: [{ email: email }, { username: username }],
+      OR: [{ email }, { username }],
     },
   });
   if (existingUser)

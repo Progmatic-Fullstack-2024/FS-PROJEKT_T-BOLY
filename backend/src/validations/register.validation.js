@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-export const registerValidationSchema = yup.object({
+const registerValidationSchema = yup.object({
   email: yup
     .string()
     .email("Invalid email format")
@@ -13,3 +13,5 @@ export const registerValidationSchema = yup.object({
     .matches(/[0-9]/, "Password must contain at least one number")
     .required("Password is required"),
 });
+
+export default registerValidationSchema;
