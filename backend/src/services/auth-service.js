@@ -1,7 +1,7 @@
-import prisma from "../models/prismaClient.js";
-import HttpError from "../utils/HttpError.js";
 import bycrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import prisma from "../models/prismaClient.js";
+import HttpError from "../utils/HttpError.js";
 import { JWT_SECRET } from "../constants/constants.js";
 
 const login = async ({ email, password }) => {

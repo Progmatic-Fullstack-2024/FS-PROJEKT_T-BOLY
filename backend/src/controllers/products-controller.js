@@ -1,23 +1,32 @@
 import productService from "../services/products-service.js";
 
 const getAllProducts = async (req, res, next) => {
+  const { order = "asc" } = req.params;
   try {
-    const product = await productService.getAllProducts();
+    const product = await productService.getAllProducts(order);
     res.status(200).json(product);
   } catch (error) {
     next(error);
   }
 };
 
-const getAllProductsByCategory= async (req, res, next)=>{
-  const {categoryId}= req.params
+const getAllProductsByCategory = async (req, res, next) => {
+  const { categoryId, order = "asc" } = req.params;
   try {
-    const products = await productService.getAllProductsByCategory(categoryId);
+    let products;
+    if (categoryId === "all") {
+      products = await productService.getAllProducts(order);
+    } else {
+      products = await productService.getAllProductsByCategory(
+        categoryId,
+        order,
+      );
+    }
     res.status(200).json(products);
   } catch (error) {
     next(error);
   }
-}
+};
 
 const getProductById = async (req, res, next) => {
   const productId = req.params.id;

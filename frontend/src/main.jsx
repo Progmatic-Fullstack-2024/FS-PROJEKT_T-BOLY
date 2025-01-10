@@ -1,8 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
 import App from './App';
+import ProductsByCategory from './components/products/ProductsByCategory.jsx';
 import './index.css';
+import { AuthProvider } from './contexts/AuthContext.jsx';
+import Homepage from './pages/Homepage';
 
 const router = createBrowserRouter([
   {
@@ -10,15 +14,19 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: '/products',
-        element: <App />,
+        path: '/',
+        element: <Homepage />,
       },
       {
         path: '/products/category/:categoryId',
-        element: <h1>Product/category</h1>,
+        element: <ProductsByCategory />,
       },
     ],
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(<RouterProvider router={router} />);
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <AuthProvider>
+    <RouterProvider router={router} />
+  </AuthProvider>,
+);

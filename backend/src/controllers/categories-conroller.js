@@ -1,8 +1,9 @@
 import categoriesService from "../services/categories-service.js";
 
 const getAllCategories = async (req, res, next) => {
+  const { order = "asc" } = req.params;
   try {
-    const categories = await categoriesService.getAllCategories();
+    const categories = await categoriesService.getAllCategories(order);
     res.status(200).json(categories);
   } catch (error) {
     next(error);

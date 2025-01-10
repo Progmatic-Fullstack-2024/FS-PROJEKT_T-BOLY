@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
-import CategoryButton from "./CategoryButton";
-import categoryService from "../../services/categoryService";
+import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+
+import CategoryButton from './CategoryButton';
+import categoryService from '../../services/categoryService';
 
 export default function CategoryButtons() {
   const [categories, setCategories] = useState([]);
@@ -11,26 +13,19 @@ export default function CategoryButtons() {
         const data = await categoryService.getAllCategories();
         setCategories(data);
       } catch (error) {
-        console.error("Failed to fetch categories:", error);
+        toast.error(`Failed to fetch categories: ${error.message}`);
       }
     };
     fetchCategories();
   }, []);
 
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))",
-        gap: "20px",
-        padding: "20px",
-        textAlign: "center",
-      }}
-    >
-      {categories.map((category, idx) => (
-        <CategoryButton key={category.id} category={category} idx={idx} />
-      ))}
+    <div className="flex flex-col items-center">
+      <div className="flex flex-wrap p-4 gap-20 text-center ">
+        {categories.map((category, idx) => (
+          <CategoryButton key={category.id} category={category} idx={idx} />
+        ))}
+      </div>
     </div>
   );
 }
-

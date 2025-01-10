@@ -1,7 +1,8 @@
 import prisma from "../models/prismaClient.js";
 import HttpError from "../utils/HttpError.js";
 
-const getAllCategories = async () => prisma.category.findMany();
+const getAllCategories = async (order) =>
+  prisma.category.findMany({ orderBy: { name: order } });
 
 const getCategoryById = async (id) => {
   const category = await prisma.category.findUnique({
