@@ -1,11 +1,20 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import { userValidationSchema } from "../../validations/user.validation.js";
+import { useContext } from 'react';
+import { toast } from 'react-toastify';
 
+import AuthContext from '../../contexts/AuthContext.jsx';
+import { userValidationSchema } from '../../validations/user.validation.js';
 
 export default function RegistrationModal({ onClose }) {
-  const handleFormSubmit = (values) => {
-    console.log('Form Submitted', values);
+  const { register } = useContext(AuthContext);
+
+  const handleRegister = async (values) => {
+    const result = await register(values);
+    if (result.ok) {
+      toast.success('Registration successful!');
+    } else {
+      toast.error('Registration failed!');
+    }
     onClose();
   };
 
@@ -14,7 +23,7 @@ export default function RegistrationModal({ onClose }) {
       <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-bold">Register</h2>
-          <button className="text-gray-500 hover:text-black" onClick={onClose}>
+          <button type="button" className="text-gray-500 hover:text-black" onClick={onClose}>
             ✖
           </button>
         </div>
@@ -28,7 +37,7 @@ export default function RegistrationModal({ onClose }) {
             password: '',
           }}
           validationSchema={userValidationSchema}
-          onSubmit={handleFormSubmit}
+          onSubmit={handleRegister}
         >
           <Form className="space-y-4">
             <div>

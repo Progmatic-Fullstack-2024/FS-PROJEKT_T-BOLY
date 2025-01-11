@@ -1,7 +1,7 @@
-import prisma from "../models/prismaClient.js";
-import HttpError from "../utils/HttpError.js";
 import bycrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import prisma from "../models/prismaClient.js";
+import HttpError from "../utils/HttpError.js";
 import { JWT_SECRET } from "../constants/constants.js";
 
 const login = async ({ email, password }) => {
@@ -22,4 +22,26 @@ const login = async ({ email, password }) => {
   return token;
 };
 
-export default { login };
+const register = async ({ email, username, password, firstName, lastName }) => {
+  const existingUser = await prisma.user.findFirst({
+    where: {
+      OR: [{ email }, { username }],
+    },
+  });
+  if (existingUser)
+    throw new HttpError("Email or username already exists", 400);
+
+  const hashedPassword = await bycrypt.hash(password, 5);
+  const newUser = await prisma.user.create({
+    data: {
+      email,
+      username,
+      passwordHash: hashedPassword,
+      firstName,
+      lastName,
+    },
+  });
+  return newUser;
+};
+
+export default { register, login };

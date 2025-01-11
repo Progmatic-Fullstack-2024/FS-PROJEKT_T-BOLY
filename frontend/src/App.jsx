@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
+import Footer from './components/footer/Footer';
 import Header from './components/header/Header';
 
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
         pauseOnHover
         theme="light"
       />
+      <Footer />
     </div>
   );
 }
