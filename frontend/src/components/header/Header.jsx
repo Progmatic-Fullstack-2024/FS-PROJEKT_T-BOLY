@@ -36,8 +36,8 @@ export default function Header() {
           <img src={LogoText} alt="" className="w-18 h-4" />
         </div>
 
-        <Nav />
-        <div className="flex items-center ">
+        <Nav className="order-2 sm:order-1 " />
+        <div className="flex  items-center order-1 sm:order-2">
           <button type="button">
             <FiShoppingCart className="m-2" />
           </button>
