@@ -11,6 +11,7 @@ export default function LoginModal({ onClose }) {
     const result = await login(values);
     if (result.ok) {
       toast.success('Logged in succesfully.');
+      onClose();
     } else {
       toast.error(`Login failed. ${result.message}`);
     }

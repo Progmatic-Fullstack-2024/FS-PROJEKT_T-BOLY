@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { FiShoppingCart } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
@@ -6,31 +6,43 @@ import Nav from './Nav';
 import Searchbar from './Searchbar';
 import LogoOrange from '../../assets/ant-orange.png';
 import LogoText from '../../assets/t-boly-orange.png';
+import AuthContext from '../../contexts/AuthContext';
 import LoginModal from '../loginModal/LoginModal';
 import RegistrationModal from '../registrationModal/RegistrationModal';
 
 export default function Header() {
   const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
+  const { user, logout } = useContext(AuthContext);
 
   return (
     <header className="flex flex-col font-orienta">
-      <div className="flex bg-primary justify-end h-8 items-center">
-        <button
-          type="button"
-          className="text-white px-3 text-sm cursor-pointer"
-          onClick={() => setLoginModalOpen(true)}
-        >
-          Login
-        </button>
-        <button
-          type="button"
-          className="text-white px-3 text-sm cursor-pointer"
-          onClick={() => setRegisterModalOpen(true)}
-        >
-          Register
-        </button>
-      </div>
+      {!user?.email && (
+        <div className="flex bg-primary justify-end h-8 items-center">
+          <button
+            type="button"
+            className="text-white px-3 text-sm cursor-pointer"
+            onClick={() => setLoginModalOpen(true)}
+          >
+            Login
+          </button>
+          <button
+            type="button"
+            className="text-white px-3 text-sm cursor-pointer"
+            onClick={() => setRegisterModalOpen(true)}
+          >
+            Register
+          </button>
+        </div>
+      )}
+      {user?.email && (
+        <div className="flex bg-primary justify-end h-8 items-center">
+          <h3 className="text-white px-3 text-sm">{user.email}</h3>
+          <button type="button" className="text-white px-3 text-sm cursor-pointer" onClick={logout}>
+            Logout
+          </button>
+        </div>
+      )}
       <div className="flex justify-around py-8 bg-primary-light">
         <div className="flex items-center">
           <Link to="/">
