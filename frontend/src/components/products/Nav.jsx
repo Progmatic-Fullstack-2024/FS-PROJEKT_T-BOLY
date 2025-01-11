@@ -21,7 +21,7 @@ export default function Nav() {
   }, []);
 
   return (
-    <div className="shrink-0 md:w-60 hidden md:block h-80 border-2 rounded-lg p-3 ">
+    <div className="shrink-0 md:w-60 hidden md:block h-96 border-2 rounded-lg p-3 ">
       <h1 className="pb-5 pt-2">Product categories</h1>
       <nav>
         <ul>
