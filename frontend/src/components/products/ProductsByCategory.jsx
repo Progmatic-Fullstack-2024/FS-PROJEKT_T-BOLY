@@ -56,8 +56,8 @@ export default function ProductsByCategory() {
                   <div className="flex flex-col gap-1" key={index}>
                     <div className="relative">
                       <img
-                        className="border-2 rounded-lg w-60 h-60 p-10"
-                        src="https://picsum.photos/500/300"
+                        className="border-2 rounded-lg w-80 h-80 p-7 pr-8"
+                        src={product.pictureUrl}
                         alt={product.name}
                       />
                       <button
@@ -73,8 +73,8 @@ export default function ProductsByCategory() {
                         <FiShoppingCart className="m-2" />
                       </button>
                     </div>
-                    <div>{product.name}</div>
-                    <div className="font-medium">${product.price}</div>
+                    <div className="w-60">{product.name}</div>
+                    <div className="font-medium text-lg">${product.price}</div>
                     <div>Rating: {product.rating}</div>
                   </div>
                 </div>

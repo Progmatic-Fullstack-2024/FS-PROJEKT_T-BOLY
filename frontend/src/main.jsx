@@ -2,13 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-
 import App from './App';
-import Home from './components/Home.jsx';
 import ProductsByCategory from './components/products/ProductsByCategory.jsx';
 import './index.css';
 import About from './pages/About.jsx';
 import Contacts from './pages/Contact.jsx';
+import { AuthProvider } from './contexts/AuthContext.jsx';
 import Homepage from './pages/Homepage';
 
 const router = createBrowserRouter([
@@ -36,4 +35,8 @@ const router = createBrowserRouter([
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(<RouterProvider router={router} />);
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <AuthProvider>
+    <RouterProvider router={router} />
+  </AuthProvider>,
+);

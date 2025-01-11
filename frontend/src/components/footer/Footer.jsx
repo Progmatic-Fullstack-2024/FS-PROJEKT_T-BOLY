@@ -1,9 +1,9 @@
-import { FaInstagram, FaTwitter, FaFacebook, FaPinterest } from "react-icons/fa";
+import { FaInstagram, FaTwitter, FaFacebook, FaPinterest } from 'react-icons/fa';
 
-import FooterBg from "../../assets/footer-bg.png"
-import TbolyOrange from "../../assets/t-boly-orange.png"
+import FooterBg from '../../assets/footer-bg.png';
+import TbolyOrange from '../../assets/t-boly-orange.png';
 
-export default function Footer  () {
+export default function Footer() {
   return (
     <footer className="w-full h-[32rem] relative font-orienta">
       {/* Background Image */}
@@ -18,14 +18,8 @@ export default function Footer  () {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
           {/* Logo Section */}
           <div className="flex flex-col items-center md:items-start">
-          <img
-              src={TbolyOrange}
-              alt="T-BOLY Logo"
-              className="h-16 w-auto object-contain -ml-5"
-            />
-            <p className="text-sm mt-2">
-              Nunc consequat interdum varius sit amet mattis.
-            </p>
+            <img src={TbolyOrange} alt="T-BOLY Logo" className="h-16 w-auto object-contain -ml-5" />
+            <p className="text-sm mt-2">Nunc consequat interdum varius sit amet mattis.</p>
             <div className="flex space-x-4 mt-4">
               {/* Social Icons */}
               <div className="text-primary hover:text-opacity-70">
@@ -69,10 +63,16 @@ export default function Footer  () {
               <li>Monday to Friday</li>
               <li>10am - 6pm (New York time)</li>
               <li>
-                Call us: <a className='text-primary' href="tel:1234567868">123-456-7868</a>
+                Call us:{' '}
+                <a className="text-primary" href="tel:1234567868">
+                  123-456-7868
+                </a>
               </li>
               <li>
-                Email us: <a className='text-primary' href="mailto:info@example.com">info@example.com</a>
+                Email us:{' '}
+                <a className="text-primary" href="mailto:info@example.com">
+                  info@example.com
+                </a>
               </li>
             </ul>
           </div>
@@ -80,4 +80,4 @@ export default function Footer  () {
       </div>
     </footer>
   );
-};
+}
