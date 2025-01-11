@@ -34,32 +34,41 @@ export default function Nav() {
           className={`absolute top-16 left-1/2 transform -translate-x-1/2 w-64 bg-white border rounded-lg shadow-lg transition-all duration-300  ${
             isMenuOpen ? 'opacity-100 scale-100 bg-white' : 'opacity-0 scale-95 pointer-events-none'
           } md:static md:transform-none md:opacity-100 md:scale-100 md:w-auto md:flex md:border-none md:shadow-none md:bg-primary-light`}
-        ><div className='flex'>
-          <button
-            type="button"
-              className="bg-orange-400 hover:bg-orange-500 text-white  hover:drop-shadow drop-shadow-[3px_3px_1px_rgba(255,255,255,0.90)] py-2 px-5 mx-4 rounded-full"
-          >
-            <Link to="/"> Home </Link>
-          </button>
-          <button
-            type="button"
-              className="bg-orange-400 hover:bg-orange-500 text-white  hover:drop-shadow drop-shadow-[3px_3px_1px_rgba(255,255,255,0.90)] py-2 px-5 mx-4 rounded-full"
-          >
-            <Link to="/about"> About </Link>
-          </button>
-          <button
-            type="button"
-              className="bg-orange-400 hover:bg-orange-500 text-white  hover:drop-shadow drop-shadow-[3px_3px_1px_rgba(255,255,255,0.90)] py-2 px-5 mx-4 rounded-full"
-          >
-            <Link to="/products/category/all"> Shop </Link>
-          </button>
-          <button
-            type="button"
-              className="bg-orange-400 hover:bg-orange-500 text-white  hover:drop-shadow drop-shadow-[3px_3px_1px_rgba(255,255,255,0.90)] py-2 px-5 mx-4 rounded-full"
-          >
-            <Link to="/contact"> Contact </Link>
-          </button>
-          </div>
+        >
+          <ul className="flex flex-col p-4 md:p-0 md:space-x-8 md:flex-row">
+            <li>
+              <Link
+                to="/"
+                className="block py-2 px-4 rounded hover:bg-gray-100 md:hover:bg-transparent hover:text-primary"
+              >
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/about"
+                className="block py-2 px-4 rounded hover:bg-gray-100 md:hover:bg-transparent hover:text-primary"
+              >
+                About
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/products/category/all"
+                className="block py-2 px-4 rounded hover:bg-gray-100 md:hover:bg-transparent hover:text-primary"
+              >
+                Shop
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/contact"
+                className="block py-2 px-4 rounded hover:bg-gray-100 md:hover:bg-transparent hover:text-primary"
+              >
+                Contact
+              </Link>
+            </li>
+          </ul>{' '}
         </div>
       </div>
     </nav>

@@ -4,8 +4,8 @@ export default function Contacts() {
   return (
     <div className="flex flex-col h-full">
       <div className="font-agbalumo text-6xl p-5">Contact</div>
-      <div className="flex flex-row m-5">
-        <div className="w-1/3 border rounded-xl p-5 m-5 grid place-items-center">
+      <div className="flex md:flex-row m-5 flex-col">
+        <div className="md:w-1/3 border rounded-xl p-5 m-5 grid place-items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -24,7 +24,7 @@ export default function Contacts() {
           <p>123-456-7868</p>
         </div>
 
-        <div className="w-1/3 border rounded-xl p-5 m-5 grid place-items-center">
+        <div className="md:w-1/3 border rounded-xl p-5 m-5 grid place-items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -43,7 +43,7 @@ export default function Contacts() {
           <p>info@tbolygames.example.com</p>
         </div>
 
-        <div className="w-1/3 border rounded-xl p-5 m-5 grid place-items-center">
+        <div className="md:w-1/3 border rounded-xl p-5 m-5 grid place-items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -69,8 +69,8 @@ export default function Contacts() {
         </div>
       </div>
 
-      <div className="flex flex-row">
-        <div className="w-2/3 m-5 text-center items-center ">
+      <div className="flex md:flex-row flex-col">
+        <div className="md:w-2/3 m-5 text-center items-center h-80 md:h-auto">
           <iframe
             title="map"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2694.007946620723!2d19.035464976789147!3d47.52870829335246!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4741d9583cee5b0f%3A0xc140539254ce4408!2sProgmatic%20Academy!5e0!3m2!1shu!2shu!4v1736574400135!5m2!1shu!2shu"
@@ -81,7 +81,7 @@ export default function Contacts() {
           />
         </div>
 
-        <div className="w-1/3 m-10">
+        <div className="md:w-1/3 m-10">
           <div className="font-agbalumo text-2xl pb-10">Contact Us</div>
           <Formik
             initialValues={{

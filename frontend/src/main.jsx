@@ -5,9 +5,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 import ProductsByCategory from './components/products/ProductsByCategory.jsx';
 import './index.css';
+import { AuthProvider } from './contexts/AuthContext.jsx';
 import About from './pages/About.jsx';
 import Contacts from './pages/Contact.jsx';
-import { AuthProvider } from './contexts/AuthContext.jsx';
 import Homepage from './pages/Homepage';
 
 const router = createBrowserRouter([

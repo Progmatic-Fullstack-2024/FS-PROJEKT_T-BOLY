@@ -23,7 +23,7 @@ export default function App() {
         pauseOnHover
         theme="light"
       />
-      <Footer/>
+      <Footer />
     </div>
   );
 }

@@ -17,7 +17,7 @@ export default function Footer() {
       <div className="relative w-full max-w-8xl px-10 py-16 bg-opacity-80 mx-auto flex justify-center items-center h-full">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
           {/* Logo Section */}
-          <div className="flex flex-col items-center md:items-start">
+          <div className="flex mt-10 flex-col items-center md:items-start">
             <img src={TbolyOrange} alt="T-BOLY Logo" className="h-16 w-auto object-contain -ml-5" />
             <p className="text-sm mt-2">Nunc consequat interdum varius sit amet mattis.</p>
             <div className="flex space-x-4 mt-4">
@@ -57,7 +57,7 @@ export default function Footer() {
           </div>
 
           {/* Customer Service Section */}
-          <div>
+          <div className="hidden md:block">
             <h2 className="text-xl font-semibold">Customer Service</h2>
             <ul className="mt-4 space-y-2">
               <li>Monday to Friday</li>

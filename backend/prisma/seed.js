@@ -681,7 +681,8 @@ async function seed() {
         description:
           "A fun puzzle featuring characters from the Cars 3 movie. Perfect for young fans of Lightning McQueen.",
         price: 10.99,
-        pictureUrl: "https://m.media-amazon.com/images/I/91JMM1ZyjsL._AC_UF1000,1000_QL80_.jpg",
+        pictureUrl:
+          "https://m.media-amazon.com/images/I/91JMM1ZyjsL._AC_UF1000,1000_QL80_.jpg",
         quantity: 180,
         rating: 4.8,
         ageRecommendationMin: 5,
@@ -696,7 +697,8 @@ async function seed() {
         description:
           "A vibrant 5000-piece puzzle depicting an underwater scene full of colorful marine life and coral reefs.",
         price: 15.99,
-        pictureUrl: "https://puzzle.cdn.shoprenter.hu/custom/puzzle/image/cache/w700h700wt1q90/product/ravensburger-puzzle/17426_ravensburger_puzzle_5000_tenger_alatt_1.jpg.webp?lastmod=0.1721819247",
+        pictureUrl:
+          "https://puzzle.cdn.shoprenter.hu/custom/puzzle/image/cache/w700h700wt1q90/product/ravensburger-puzzle/17426_ravensburger_puzzle_5000_tenger_alatt_1.jpg.webp?lastmod=0.1721819247",
         quantity: 140,
         rating: 4.7,
         ageRecommendationMin: 12,
