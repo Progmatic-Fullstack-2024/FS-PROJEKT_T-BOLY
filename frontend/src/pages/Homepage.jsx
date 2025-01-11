@@ -1,5 +1,4 @@
 import CategoryButtons from '../components/categoryButtons/CategoryButtons';
-import Header from '../components/header/Header';
 import Hero from '../components/Hero';
 
 export default function Homepage() {

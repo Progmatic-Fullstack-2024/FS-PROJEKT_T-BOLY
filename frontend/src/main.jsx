@@ -7,6 +7,8 @@ import App from './App';
 import Home from './components/Home.jsx';
 import ProductsByCategory from './components/products/ProductsByCategory.jsx';
 import './index.css';
+import About from './pages/About.jsx';
+import Contacts from './pages/Contact.jsx';
 import Homepage from './pages/Homepage';
 
 const router = createBrowserRouter([
@@ -17,6 +19,14 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Homepage />,
+      },
+      {
+        path: '/contact',
+        element: <Contacts />,
+      },
+      {
+        path: '/about',
+        element: <About />,
       },
       {
         path: '/products/category/:categoryId',
