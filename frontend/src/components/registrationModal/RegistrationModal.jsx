@@ -13,8 +13,9 @@ export default function RegistrationModal({ onClose }) {
     if (result.ok) {
       toast.success('Registration successful!');
     } else {
-      toast.error('Registration failed!');
+      toast.error();
     }
+    console.log(result);
     onClose();
   };
 

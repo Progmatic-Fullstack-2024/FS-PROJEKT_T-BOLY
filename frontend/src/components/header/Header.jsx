@@ -17,7 +17,7 @@ export default function Header() {
 
   return (
     <header className="flex flex-col font-orienta">
-      {!user?.email && (
+      {!user?.username && (
         <div className="flex bg-primary justify-end h-8 items-center">
           <button
             type="button"
@@ -35,9 +35,9 @@ export default function Header() {
           </button>
         </div>
       )}
-      {user?.email && (
+      {user?.username && (
         <div className="flex bg-primary justify-end h-8 items-center">
-          <h3 className="text-white px-3 text-sm">{user.email}</h3>
+          <h3 className="text-white px-3 text-sm">Hello {user.username}!</h3>
           <button type="button" className="text-white px-3 text-sm cursor-pointer" onClick={logout}>
             Logout
           </button>
