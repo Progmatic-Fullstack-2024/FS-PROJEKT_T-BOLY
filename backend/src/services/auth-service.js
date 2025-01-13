@@ -9,12 +9,14 @@ const login = async ({ email, password }) => {
   if (!user) throw new HttpError("Invalid email or password", 403);
 
   const isPasswordValid = await bycrypt.compare(password, user.passwordHash);
+  console.log(isPasswordValid);
   if (!isPasswordValid) throw new HttpError("Invalid email or password", 403);
 
   const payload = {
     id: user.id,
     email: user.email,
     role: user.role,
+    username: user.username,
   };
 
   const token = jwt.sign(payload, JWT_SECRET);
@@ -41,6 +43,7 @@ const register = async ({ email, username, password, firstName, lastName }) => {
       lastName,
     },
   });
+
   return newUser;
 };
 
