@@ -22,19 +22,19 @@ export default function Header() {
   };
 
   return (
-    <header className="flex flex-col font-orienta">
+    <header className="flex flex-col">
       {!user?.username && (
         <div className="flex bg-primary justify-end h-8 items-center">
           <button
             type="button"
-            className="text-white px-3 text-sm cursor-pointer"
+            className="text-white px-3 text-m cursor-pointer"
             onClick={() => setLoginModalOpen(true)}
           >
             Login
           </button>
           <button
             type="button"
-            className="text-white px-3 text-sm cursor-pointer"
+            className="text-white px-3 text-m cursor-pointer"
             onClick={() => setRegisterModalOpen(true)}
           >
             Register
@@ -140,7 +140,7 @@ export default function Header() {
         <Nav className="order-2 sm:order-1 " />
         <div className="flex  items-center order-1 sm:order-2">
           <button type="button">
-            <FiShoppingCart className="m-2" />
+            <FiShoppingCart className=" w-6 h-6 m-2" />
           </button>
           <Searchbar />
         </div>
