@@ -23,27 +23,29 @@ export default function Adresses() {
   };
 
   const handleSaveClick = async () => {
-    try {
-
-      const updatedUser = await userService.updateUser(user.id, tempData);
-
-      setUserData({
-        ...userData,
-        ...updatedUser,
-      });
-
-      setUser({
-        ...user,
-        ...updatedUser,
-      });
-
-      setIsEditing(false);
-      toast.success('User data updated successfully!');
-    } catch (error) {
-      console.error('Error updating user data:', error);
-      toast.error('Failed to update user data.');
-    }
-  };
+      try {
+        const response = await userService.updateUser(user.id, tempData);
+    
+        if (response && response.updatedUser && response.token) {
+          const { updatedUser, token } = response;
+    
+          setUser({
+            ...user,
+            ...updatedUser,
+          });
+    
+          localStorage.setItem('token', token);
+    
+          setIsEditing(false);
+          toast.success('User data updated successfully!');
+        } else {
+          toast.error('Failed to update user data: Response is invalid.');
+        }
+      } catch (error) {
+        console.error('Error updating user data:', error);
+        toast.error('Failed to update user data.');
+      }
+    };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -77,8 +79,8 @@ export default function Adresses() {
           <label className="block text-gray-600 text-sm mb-1">Billing adress</label>
           {isEditing ? (
             <input
-              type="email"
-              name="email"
+              type="billingAdress"
+              name="billingAdress"
               value={tempData.billingAdress}
               onChange={handleChange}
               className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-indigo-200"

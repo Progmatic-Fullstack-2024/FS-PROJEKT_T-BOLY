@@ -28,20 +28,23 @@ export default function PersonalData() {
 
   const handleSaveClick = async () => {
     try {
-      const updatedUser = await userService.updateUser(user.id, tempData);
+      const response = await userService.updateUser(user.id, tempData);
   
-      
-      setUser({
-        ...user,
-        ...updatedUser,
-      });
+      if (response && response.updatedUser && response.token) {
+        const { updatedUser, token } = response;
   
-      
-      const newToken = authService.generateToken({ ...user, ...updatedUser });
-      localStorage.setItem('token', newToken);
+        setUser({
+          ...user,
+          ...updatedUser,
+        });
   
-      setIsEditing(false);
-      toast.success('User data updated successfully!');
+        localStorage.setItem('token', token);
+  
+        setIsEditing(false);
+        toast.success('User data updated successfully!');
+      } else {
+        toast.error('Failed to update user data: Response is invalid.');
+      }
     } catch (error) {
       console.error('Error updating user data:', error);
       toast.error('Failed to update user data.');
