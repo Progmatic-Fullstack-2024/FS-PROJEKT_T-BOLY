@@ -1,16 +1,19 @@
-import AuthContext from "../../contexts/AuthContext";
-import { useContext, useState } from "react";
+import AuthContext from '../../contexts/AuthContext';
+import { useContext, useState } from 'react';
+import userService from '../../services/userService';
+import { toast } from 'react-toastify';
+
 
 export default function PersonalData() {
-    const { user } = useContext(AuthContext);
-    const [isEditing, setIsEditing] = useState(false);
+  const { user, setUser } = useContext(AuthContext);
+  const [isEditing, setIsEditing] = useState(false);
   const [userData, setUserData] = useState({
-    name: user.firstName + " " + user.lastName,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    name: user.firstName + ' ' + user.lastName,
     email: user.email,
-    username: user.username
+    username: user.username,
   });
-
-  
 
   const [tempData, setTempData] = useState({ ...userData });
 
@@ -23,9 +26,26 @@ export default function PersonalData() {
     setIsEditing(false);
   };
 
-  const handleSaveClick = () => {
-    setUserData({ ...tempData });
-    setIsEditing(false);
+  const handleSaveClick = async () => {
+    try {
+      const updatedUser = await userService.updateUser(user.id, tempData);
+  
+      
+      setUser({
+        ...user,
+        ...updatedUser,
+      });
+  
+      
+      const newToken = authService.generateToken({ ...user, ...updatedUser });
+      localStorage.setItem('token', newToken);
+  
+      setIsEditing(false);
+      toast.success('User data updated successfully!');
+    } catch (error) {
+      console.error('Error updating user data:', error);
+      toast.error('Failed to update user data.');
+    }
   };
 
   const handleChange = (e) => {
@@ -37,10 +57,9 @@ export default function PersonalData() {
   };
 
   return (
-   
-        <div className="max-w-lg mx-auto mt-10 ml-14  bg-white rounded-lg shadow-md p-8 ">
+    <div className="max-w-lg mx-auto mt-10 md:ml-14  bg-white rounded-lg shadow-md p-8 ">
       <h1 className="text-xl font-bold text-gray-700 mb-4">
-        {isEditing ? "Edit Profile" : "User Profile"}
+        {isEditing ? 'Edit Profile' : 'User Profile'}
       </h1>
       <div className="space-y-4">
         <div>
@@ -85,7 +104,6 @@ export default function PersonalData() {
             <p className="text-gray-800">{userData.username}</p>
           )}
         </div>
-       
       </div>
       <div className="mt-6 flex justify-end space-x-4">
         {isEditing ? (
@@ -112,9 +130,7 @@ export default function PersonalData() {
           </button>
         )}
       </div>
-  
-        
     </div>
-//     
-  )
+    //
+  );
 }

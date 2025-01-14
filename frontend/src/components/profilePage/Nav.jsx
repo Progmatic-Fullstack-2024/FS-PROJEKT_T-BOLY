@@ -40,7 +40,7 @@ export default function Nav() {
       </button>
       
       <nav
-        className={`h-full px-4 py-4 overflow-y-auto p-8  top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
+        className={`h-full  top-0 px-4 py-4 overflow-y-auto p-8  top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
       >
         <h1 className="space-y-2 font-medium">My account</h1>
         <ul className="space-y-4 font-medium">

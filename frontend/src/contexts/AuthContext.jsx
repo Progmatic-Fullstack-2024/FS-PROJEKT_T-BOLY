@@ -53,7 +53,7 @@ export function AuthProvider({ children }) {
     }
   };
 
-  const value = { user, login, register, logout };
+  const value = { user, setUser, login, register, logout };
 
   return <AuthContext.Provider value={value}>{!isLoading && children}</AuthContext.Provider>;
 }
