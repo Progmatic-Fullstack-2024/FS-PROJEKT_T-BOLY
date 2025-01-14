@@ -1,5 +1,5 @@
-import prisma from "../models/prismaClient";
-import HttpError from "../utils/HttpError";
+import prisma from "../models/prismaClient.js";
+import HttpError from "../utils/HttpError.js";
 
 const updateUser = async (id, userData) => {
   const user = prisma.user.findUnique({
