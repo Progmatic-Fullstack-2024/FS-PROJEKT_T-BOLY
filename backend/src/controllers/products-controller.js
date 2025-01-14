@@ -1,28 +1,62 @@
 import productService from "../services/products-service.js";
 
 const getAllProducts = async (req, res, next) => {
-  const { order = "asc" } = req.params;
+  const { sorting = "name", order = "asc", page = 1, limit = 9 } = req.query;
+  const pageNumber = Number(page);
+  const limitNumber = Number(limit);
   try {
-    const product = await productService.getAllProducts(order);
-    res.status(200).json(product);
+    const products = await productService.getAllProducts(
+      sorting,
+      order,
+      pageNumber,
+      limitNumber,
+    );
+    res.status(200).json(products);
   } catch (error) {
     next(error);
   }
 };
 
 const getAllProductsByCategory = async (req, res, next) => {
-  const { categoryId, order = "asc" } = req.params;
+  const { categoryId } = req.params;
+  const { sorting = "name", order = "asc", page = 1, limit = 9 } = req.query;
+  const pageNumber = Number(page);
+  const limitNumber = Number(limit);
+
   try {
     let products;
     if (categoryId === "all") {
-      products = await productService.getAllProducts(order);
+      products = await productService.getAllProducts(
+        sorting,
+        order,
+        pageNumber,
+        limitNumber,
+      );
     } else {
       products = await productService.getAllProductsByCategory(
         categoryId,
+        sorting,
         order,
+        pageNumber,
+        limitNumber,
       );
     }
-    res.status(200).json(products);
+    const totalPages = Math.ceil(
+      (await productService.getTotalProductsCountByCategory(categoryId)) /
+        limitNumber,
+    );
+    res.status(200).json({ products, pageNumber, totalPages });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getTotalProductsCountByCategory = async (req, res, next) => {
+  const { categoryId } = req.params;
+  const count =
+    await productService.getTotalProductsCountByCategory(categoryId);
+  try {
+    res.status(200).json(count);
   } catch (error) {
     next(error);
   }
@@ -116,6 +150,7 @@ const destroyProduct = async (req, res, next) => {
 export default {
   getAllProducts,
   getAllProductsByCategory,
+  getTotalProductsCountByCategory,
   getProductById,
   createProduct,
   updateProduct,

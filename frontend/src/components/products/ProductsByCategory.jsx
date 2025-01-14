@@ -12,9 +12,13 @@ import productService from '../../services/productService.js';
 export default function ProductsByCategory() {
   const [productsByCategory, setProductsByCategory] = useState([]);
   const [categoryName, setCategoryName] = useState('');
+  const [sortingOption, setSortingOption] = useState({ sorting: 'name', order: 'asc' });
+  const [pageNumber, setPageNumber] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const { categoryId } = useParams();
 
   useEffect(() => {
+   
     const fetchCategoryById = async () => {
       try {
         if (categoryId === 'all') {
@@ -30,8 +34,19 @@ export default function ProductsByCategory() {
 
     const fetchProductsByCategory = async () => {
       try {
-        const data = await productService.getAllProductsByCategory(categoryId);
-        setProductsByCategory(data);
+        const { sorting, order } = sortingOption;
+        const data = await productService.getAllProductsByCategory(
+          categoryId,
+          sorting,
+          order,
+          pageNumber,
+          9,
+        );
+        setProductsByCategory(data.products);
+        setTotalPages(data.totalPages);
+        console.log("data", data)
+        console.log("pageNumber", pageNumber)
+        console.log("totalpage", totalPages)
       } catch (error) {
         toast.error('Failed to fetch products:', error);
       }
@@ -39,7 +54,12 @@ export default function ProductsByCategory() {
 
     fetchCategoryById();
     fetchProductsByCategory();
-  }, [categoryId]);
+  }, [categoryId, sortingOption, pageNumber]);
+
+  const handleSortingChange = (e) => {
+    const [sorting, order] = e.target.value.split('-');
+    setSortingOption({ sorting, order });
+  };
 
   return (
     <div>
@@ -48,6 +68,24 @@ export default function ProductsByCategory() {
         <Nav />
         <div>
           <h1 className="md:w-60 hidden md:block mb-12 text-xl">{categoryName}</h1>
+          <div className="flex justify-between mr-8">
+            <div>
+              <label htmlFor="sorting">Sort by:</label>
+              <select
+                id="sorting"
+                onChange={handleSortingChange}
+                value={`${sortingOption.sorting}-${sortingOption.order}`}
+              >
+                <option value="name-asc">Name (A-Z)</option>
+                <option value="name-desc">Name (Z-A)</option>
+                <option value="price-asc">Price (Low to High)</option>
+                <option value="price-desc">Price (High to Low)</option>
+                <option value="rating-asc">Rating (Low to High)</option>
+                <option value="rating-desc">Rating (High to Low)</option>
+              </select>
+            </div>
+          </div>
+
           <SelectCategoryInput />
           <div className="flex flex-wrap gap-8 justify-around ">
             {productsByCategory.length > 0 ? (
@@ -82,6 +120,25 @@ export default function ProductsByCategory() {
             ) : (
               <div>No products found for this category.</div>
             )}
+            </div>
+          <div className="flex gap-5 p-10">
+            <button
+              type="button"
+              onClick={() => setPageNumber(Math.max(1, pageNumber - 1))}
+              disabled={pageNumber === 1}
+            >
+              Previous
+            </button>
+            <div>
+              Page {pageNumber} of {totalPages}
+            </div>
+            <button
+              type="button"
+              onClick={() => setPageNumber(Math.min(totalPages, pageNumber + 1))}
+              disabled={pageNumber === totalPages}
+            >
+              Next
+            </button>
           </div>
         </div>
       </div>

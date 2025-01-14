@@ -1,17 +1,37 @@
 import prisma from "../models/prismaClient.js";
 import HttpError from "../utils/HttpError.js";
 
-const getAllProducts = async (order) =>
-  prisma.product.findMany({ orderBy: { name: order } });
+const getAllProducts = async (sorting, order, pageNumber, limitNumber) =>
+  prisma.product.findMany({
+    orderBy: { [sorting]: order },
+    skip: (pageNumber - 1) * limitNumber,
+    take: limitNumber,
+  });
 
-const getAllProductsByCategory = async (categoryId, order) =>
+const getAllProductsByCategory = async (
+  categoryId,
+  sorting,
+  order,
+  pageNumber,
+  limitNumber,
+) =>
   prisma.product.findMany({
     where: { categoryProduct: { some: { categoryId } } },
     include: {
       categoryProduct: { include: { category: { select: { name: true } } } },
     },
-    orderBy: { name: order },
+    orderBy: { [sorting]: order },
+    skip: (pageNumber - 1) * limitNumber,
+    take: limitNumber,
   });
+
+const getTotalProductsCountByCategory = async (categoryId) => {
+  const count = await prisma.product.count({
+    where:
+      categoryId === "all" ? {} : { categoryProduct: { some: { categoryId } } },
+  });
+  return count;
+};
 
 const getProductById = async (id) => {
   const product = await prisma.product.findUnique({
@@ -52,6 +72,7 @@ const destroyProduct = async (id) => {
 export default {
   getAllProducts,
   getAllProductsByCategory,
+  getTotalProductsCountByCategory,
   getProductById,
   createProduct,
   updateProduct,
