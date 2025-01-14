@@ -86,8 +86,9 @@ export default function PersonalData() {
               type="email"
               name="email"
               value={tempData.email}
+              readOnly
               onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-indigo-200"
+              className=" w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-indigo-200"
             />
           ) : (
             <p className="text-gray-800">{userData.email}</p>
