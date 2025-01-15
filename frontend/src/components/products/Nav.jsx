@@ -21,15 +21,15 @@ export default function Nav() {
   }, []);
 
   return (
-    <div className="shrink-0 md:w-60 hidden md:block h-96 border-2 rounded-lg p-3 ">
-      <h1 className="pb-5 pt-2">Product categories</h1>
+    <div className="shrink-0 md:w-64 hidden md:block h-1/3 border-2 rounded-lg p-3 pl-6">
+      <h1 className="pb-8 pt-4 text-xl">Product categories</h1>
       <nav>
         <ul>
-          <li className={categoryId === 'all' ? 'text-primary pb-2' : 'pb-2'}>
+          <li className={categoryId === 'all' ? 'text-primary pb-3 ' : 'pb-3 '}>
             <Link to="/products/category/all">+ All products</Link>
           </li>
           {categories.map((category) => (
-            <li className={categoryId === category.id ? 'text-primary pb-2' : 'pb-2'}>
+            <li className={categoryId === category.id ? 'text-primary pb-3 ' : 'pb-3 '}>
               <Link key={category.id} to={`/products/category/${category.id}`}>
                 + {category.name}
               </Link>

@@ -45,7 +45,10 @@ const getAllProductsByCategory = async (req, res, next) => {
       (await productService.getTotalProductsCountByCategory(categoryId)) /
         limitNumber,
     );
-    res.status(200).json({ products, pageNumber, totalPages });
+    const totalProducts =
+      await productService.getTotalProductsCountByCategory(categoryId);
+
+    res.status(200).json({ products, pageNumber, totalPages, totalProducts });
   } catch (error) {
     next(error);
   }
