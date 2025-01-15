@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import App from './App';
+import CreateProductByAdmin from './components/products/CreateProductByAdmin.jsx'
 import ProductsByCategory from './components/products/ProductsByCategory.jsx';
 import './index.css';
 import { AuthProvider } from './contexts/AuthContext.jsx';
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: '/products/category/:categoryId',
         element: <ProductsByCategory />,
+      },
+      {
+        path: '/admin/createproduct',
+        element: <CreateProductByAdmin />,
       },
     ],
   },
