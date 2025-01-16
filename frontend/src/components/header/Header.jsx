@@ -38,6 +38,9 @@ export default function Header() {
       {user?.email && (
         <div className="flex bg-primary justify-end h-8 items-center">
           <h3 className="text-white px-3 text-sm">{user.email}</h3>
+          <h3 className="text-white px-3 text-sm">
+            {user.role === 'ADMIN' && <Link to="/admin">Admin page</Link>}
+          </h3>
           <button type="button" className="text-white px-3 text-sm cursor-pointer" onClick={logout}>
             Logout
           </button>
