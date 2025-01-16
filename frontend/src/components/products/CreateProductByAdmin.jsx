@@ -2,14 +2,16 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useContext } from 'react';
 import { toast } from 'react-toastify';
 
-import AuthContext from '../../contexts/AuthContext.jsx';
+// import AuthContext from '../../contexts/AuthContext.jsx';
+import productService from '../../services/productService.js';
 import { productValidationSchema } from '../../validations/product.validation.js';
 
 export default function CreateProductByAdmin({ onClose }) {
-  const { register } = useContext(AuthContext);
+    // const { register } = useContext(AuthContext);
+    // const { createProduct } = useContext(productService);
 
   const handleCreate = async (values) => {
-    const result = await register(values);
+    const result = await productService.createProduct(values);
     console.log(values);
     if (result.ok) {
       toast.success('Create successful!');
@@ -37,7 +39,6 @@ export default function CreateProductByAdmin({ onClose }) {
             price: '',
             pictureUrl: '',
             quantity: '',
-            rating: '',
             ageRecommendationMin: '',
             ageRecommendationMax: '',
             playersNumberMin: '',
@@ -59,7 +60,8 @@ export default function CreateProductByAdmin({ onClose }) {
                   <label className="block text-sm font-medium">Description of the GAME</label>
                   <Field
                     name="description"
-                    type="text"
+                    as="textarea"
+                    rows="5"
                     className="w-full p-2 border rounded-lg h-40"
                   />
                   <ErrorMessage
@@ -79,13 +81,23 @@ export default function CreateProductByAdmin({ onClose }) {
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium">Image URL</label>
+              <label className="block text-sm font-medium">Image URL (paste URL)</label>
               <Field name="imageURL" type="text" className="w-full p-2 border rounded-lg" />
               <ErrorMessage name="imageURL" component="div" className="text-red-500 text-sm" />
             </div>
             <div>
               <label className="block text-sm font-medium">Category</label>
-              <Field name="category" type="text" className="w-full p-2 border rounded-lg" />
+              <Field
+                name="category"
+                type="select"
+                as="select"
+                className="w-full p-2 border rounded-lg"
+              >
+                <option value="">select...</option>
+                <option value="Category1">Category1</option>
+                <option value="Category2">Category2</option>
+                <option value="Category3">Category3</option>
+              </Field>
               <ErrorMessage name="category" component="div" className="text-red-500 text-sm" />
             </div>
 
@@ -115,13 +127,29 @@ export default function CreateProductByAdmin({ onClose }) {
                 <div>
                   <div className="px-1">
                     <label className="text-sm font-medium">min Age</label>
-                    <Field name="minAge" type="number" className="w-full p-2 border rounded-lg" />
-                    <ErrorMessage name="minAge" component="div" className="text-red-500 text-sm" />
+                    <Field
+                      name="ageRecommendationMin"
+                      type="number"
+                      className="w-full p-2 border rounded-lg"
+                    />
+                    <ErrorMessage
+                      name="ageRecommendationMin"
+                      component="div"
+                      className="text-red-500 text-sm"
+                    />
                   </div>
                   <div className="px-1">
                     <label className="text-sm font-medium">max Age</label>
-                    <Field name="maxAge" type="number" className="w-full p-2 border rounded-lg" />
-                    <ErrorMessage name="maxAge" component="div" className="text-red-500 text-sm" />
+                    <Field
+                      name="ageRecommendationMax"
+                      type="number"
+                      className="w-full p-2 border rounded-lg"
+                    />
+                    <ErrorMessage
+                      name="ageRecommendationMax"
+                      component="div"
+                      className="text-red-500 text-sm"
+                    />
                   </div>
                 </div>
               </div>
@@ -132,12 +160,12 @@ export default function CreateProductByAdmin({ onClose }) {
                   <div className="px-1">
                     <label className="text-sm font-medium">min Players</label>
                     <Field
-                      name="minPlayers"
+                      name="playersNumberMin"
                       type="number"
                       className="w-full p-2 border rounded-lg"
                     />
                     <ErrorMessage
-                      name="minPlayers"
+                      name="playersNumberMin"
                       component="div"
                       className="text-red-500 text-sm"
                     />
@@ -145,12 +173,12 @@ export default function CreateProductByAdmin({ onClose }) {
                   <div className="px-1">
                     <label className="block text-sm font-medium">max Players</label>
                     <Field
-                      name="maxPlayers"
+                      name="playersNumberMax"
                       type="number"
                       className="w-full p-2 border rounded-lg "
                     />
                     <ErrorMessage
-                      name="maxPlayers"
+                      name="playersNumberMin"
                       component="div"
                       className="text-red-500 text-sm"
                     />
