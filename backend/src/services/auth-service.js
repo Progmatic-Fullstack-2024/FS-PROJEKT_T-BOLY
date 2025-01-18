@@ -9,7 +9,7 @@ const login = async ({ email, password }) => {
   if (!user) throw new HttpError("Invalid email or password", 403);
 
   const isPasswordValid = await bycrypt.compare(password, user.passwordHash);
-  console.log(isPasswordValid);
+
   if (!isPasswordValid) throw new HttpError("Invalid email or password", 403);
 
   const payload = {
@@ -53,4 +53,29 @@ const register = async ({ email, username, password, firstName, lastName }) => {
   return newUser;
 };
 
-export default { register, login };
+const passwordUpdate = async (id, oldPassword, newPassword) => {
+  const user = await prisma.user.findUnique({
+    where: { id },
+  });
+
+  if (!user) {
+    throw new HttpError("User not found", 404);
+  }
+
+  const isPasswordValid = await bycrypt.compare(oldPassword, user.passwordHash);
+
+  if (!isPasswordValid) {
+    throw new HttpError("Invalid password", 403);
+  }
+
+  const hashedNewPassword = await bycrypt.hash(newPassword, 5);
+
+  const updatedUser = await prisma.user.update({
+    where: { id },
+    data: { passwordHash: hashedNewPassword },
+  });
+
+  return updatedUser;
+};
+
+export default { register, login, passwordUpdate };
