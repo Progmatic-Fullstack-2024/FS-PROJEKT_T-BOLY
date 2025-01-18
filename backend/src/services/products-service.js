@@ -3,6 +3,8 @@ import { fileURLToPath } from "url";
 import path from "path";
 import prisma from "../models/prismaClient.js";
 import HttpError from "../utils/HttpError.js";
+import { createFile } from "./file.service.js";
+// import { createFile, deleteFile, updateFile } from "./file.service.js";
 const exportProducts = async () => {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);

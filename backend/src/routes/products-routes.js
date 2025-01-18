@@ -1,10 +1,12 @@
 import express from "express";
 import productsController from "../controllers/products-controller.js";
 import { authenticate, authorize } from "../middlewares/auth-middleware.js";
+import { upload } from "../middlewares/multer.js";
 
 const router = express.Router();
 
 router.get("/", productsController.getAllProducts);
+
 router.get("/export", productsController.exportProducts);
 router.get(
   "/category/:categoryId",
@@ -14,6 +16,7 @@ router.get("/:id", productsController.getProductById);
 
 router.post(
   "/",
+  upload.single("file"),
   authenticate,
   authorize(["ADMIN"]),
   productsController.createProduct,

@@ -1,5 +1,11 @@
 import api from './axiosInstance';
 
+const createProduct = async (newProductData) => {
+  const response = await api.post('/api/products', newProductData);
+  
+  return response.data;
+};
+
 const exportProducts = async () => {
   try {
     const response = await api.get("/api/products/export", { responseType: "blob" });
@@ -40,4 +46,4 @@ const destroyProduct = async (id) => {
   return response.data;
 };
 
-export default { getAllProductsByCategory, getAllProducts, destroyProduct, getProductById, exportProducts };
+export default { createProduct, getAllProductsByCategory, getAllProducts, destroyProduct, getProductById, exportProducts };

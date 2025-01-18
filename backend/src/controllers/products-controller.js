@@ -1,4 +1,5 @@
 import fs from "fs";
+import { createFile } from "../services/file.service.js";
 import productService from "../services/products-service.js";
 
 const exportProducts = async (req, res, next) => {
@@ -101,26 +102,26 @@ const createProduct = async (req, res, next) => {
     name,
     description,
     price,
-    pictureUrl,
     quantity,
-    rating,
     ageRecommendationMin,
     ageRecommendationMax,
     playersNumberMin,
     playersNumberMax,
   } = req.body;
+  const file = req.file || null;
+
   try {
+    const pictureUrl = await createFile(file);
     const newProduct = await productService.createProduct({
       name,
       description,
-      price,
+      price: Number(price),
       pictureUrl,
-      quantity,
-      rating,
-      ageRecommendationMin,
-      ageRecommendationMax,
-      playersNumberMin,
-      playersNumberMax,
+      quantity: Number(quantity),
+      ageRecommendationMin: Number(ageRecommendationMin),
+      ageRecommendationMax: Number(ageRecommendationMax),
+      playersNumberMin: Number(playersNumberMin),
+      playersNumberMax: Number(playersNumberMax),
     });
     res.status(201).json(newProduct);
   } catch (error) {
