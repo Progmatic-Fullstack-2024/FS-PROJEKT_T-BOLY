@@ -1,0 +1,19 @@
+
+
+.range-slider .range-slider__range {
+    background: #F57D0D !important;
+    transition: height .3s;
+}
+
+.range-slider .range-slider__thumb {
+    background: #F57D0D !important;
+    transition: transform .3s;
+}
+
+.range-slider .range-slider__thumb[data-active] {
+    transform: translate(-50%, -50%) scale(1.25);
+}
+
+.range-slider .range-slider__range[data-active] {
+    height: 16px;
+}

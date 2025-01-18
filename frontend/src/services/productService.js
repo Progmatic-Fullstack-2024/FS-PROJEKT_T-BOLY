@@ -1,15 +1,15 @@
 import api from './axiosInstance';
 
-const getAllProductsByCategory = async (categoryId, sorting, order, page, limit) => {
+const getAllProductsByCategory = async (categoryId, sorting, order, page, limit, filterByMinPrice, filterByMaxPrice) => {
   const response = await api.get(
-    `/api/products/category/${categoryId}?sorting=${sorting}&order=${order}&page=${page}&limit=${limit}`,
+    `/api/products/category/${categoryId}?sorting=${sorting}&order=${order}&page=${page}&limit=${limit}&minPrice=${filterByMinPrice}&maxPrice=${filterByMaxPrice}`,
   );
   return response.data;
 };
 
-const getAllProducts = async (sorting, order, page, limit) => {
+const getAllProducts = async (sorting, order, page, limit, filterByMinPrice, filterByMaxPrice) => {
   const response = await api.get(
-    `/api/products?sorting=${sorting}&order=${order}&page=${page}&limit=${limit}`,
+    `/api/products?sorting=${sorting}&order=${order}&page=${page}&limit=${limit}&minPrice=${filterByMinPrice}&maxPrice=${filterByMaxPrice}`,
   );
   return response.data;
 };

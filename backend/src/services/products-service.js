@@ -1,12 +1,30 @@
 import prisma from "../models/prismaClient.js";
 import HttpError from "../utils/HttpError.js";
 
-const getAllProducts = async (sorting, order, pageNumber, limitNumber) =>
-  prisma.product.findMany({
+const getAllProducts = async (
+  sorting,
+  order,
+  pageNumber,
+  limitNumber,
+  filterByMinPrice,
+  filterByMaxPrice
+) => {
+  const where = {
+    AND: [
+      { price: { gte: filterByMinPrice } },
+      { price: { lte: filterByMaxPrice } },
+    ],
+  };
+  const products = await prisma.product.findMany({
+    where,
     orderBy: { [sorting]: order },
     skip: (pageNumber - 1) * limitNumber,
     take: limitNumber,
   });
+  const totalProducts = await prisma.product.count({ where });
+  const totalPages = Math.ceil(totalProducts / limitNumber);
+  return { products, totalProducts, totalPages };
+};
 
 const getAllProductsByCategory = async (
   categoryId,
@@ -14,9 +32,20 @@ const getAllProductsByCategory = async (
   order,
   pageNumber,
   limitNumber,
-) =>
-  prisma.product.findMany({
-    where: { categoryProduct: { some: { categoryId } } },
+  filterByMinPrice,
+  filterByMaxPrice
+) => {
+  const where = {
+    categoryProduct: {
+      some: { categoryId },
+    },
+    AND: [
+      { price: { gte: filterByMinPrice } },
+      { price: { lte: filterByMaxPrice } },
+    ],
+  };
+  const products = await prisma.product.findMany({
+    where,
     include: {
       categoryProduct: { include: { category: { select: { name: true } } } },
     },
@@ -24,13 +53,10 @@ const getAllProductsByCategory = async (
     skip: (pageNumber - 1) * limitNumber,
     take: limitNumber,
   });
+  const totalProducts = await prisma.product.count({ where });
+  const totalPages = Math.ceil(totalProducts / limitNumber);
 
-const getTotalProductsCountByCategory = async (categoryId) => {
-  const count = await prisma.product.count({
-    where:
-      categoryId === "all" ? {} : { categoryProduct: { some: { categoryId } } },
-  });
-  return count;
+  return { products, totalProducts, totalPages };
 };
 
 const getProductById = async (id) => {
@@ -72,7 +98,6 @@ const destroyProduct = async (id) => {
 export default {
   getAllProducts,
   getAllProductsByCategory,
-  getTotalProductsCountByCategory,
   getProductById,
   createProduct,
   updateProduct,

@@ -1,17 +1,30 @@
 import productService from "../services/products-service.js";
 
 const getAllProducts = async (req, res, next) => {
-  const { sorting = "name", order = "asc", page = 1, limit = 9 } = req.query;
+  const {
+    sorting = "name",
+    order = "asc",
+    page = 1,
+    limit = 9,
+    minPrice = 0,
+    maxPrice = 1000,
+  } = req.query;
   const pageNumber = Number(page);
   const limitNumber = Number(limit);
+  const minPriceNumber = Number(minPrice);
+  const maxPriceNumber = Number(maxPrice);
+
   try {
-    const products = await productService.getAllProducts(
+    const result = await productService.getAllProducts(
       sorting,
       order,
       pageNumber,
       limitNumber,
+      minPriceNumber,
+      maxPriceNumber
     );
-    res.status(200).json(products);
+    const { products, totalPages, totalProducts } = result;
+    res.status(200).json({ products, pageNumber, totalPages, totalProducts });
   } catch (error) {
     next(error);
   }
@@ -19,47 +32,44 @@ const getAllProducts = async (req, res, next) => {
 
 const getAllProductsByCategory = async (req, res, next) => {
   const { categoryId } = req.params;
-  const { sorting = "name", order = "asc", page = 1, limit = 9 } = req.query;
+  const {
+    sorting = "name",
+    order = "asc",
+    page = 1,
+    limit = 9,
+    minPrice = 0,
+    maxPrice = 1000,
+  } = req.query;
   const pageNumber = Number(page);
   const limitNumber = Number(limit);
+  const minPriceNumber = Number(minPrice);
+  const maxPriceNumber = Number(maxPrice);
 
   try {
-    let products;
+    let result;
     if (categoryId === "all") {
-      products = await productService.getAllProducts(
+      result = await productService.getAllProducts(
         sorting,
         order,
         pageNumber,
         limitNumber,
+        minPriceNumber,
+        maxPriceNumber
       );
     } else {
-      products = await productService.getAllProductsByCategory(
+      result = await productService.getAllProductsByCategory(
         categoryId,
         sorting,
         order,
         pageNumber,
         limitNumber,
+        minPriceNumber,
+        maxPriceNumber
       );
     }
-    const totalPages = Math.ceil(
-      (await productService.getTotalProductsCountByCategory(categoryId)) /
-        limitNumber,
-    );
-    const totalProducts =
-      await productService.getTotalProductsCountByCategory(categoryId);
 
+    const { products, totalPages, totalProducts } = result;
     res.status(200).json({ products, pageNumber, totalPages, totalProducts });
-  } catch (error) {
-    next(error);
-  }
-};
-
-const getTotalProductsCountByCategory = async (req, res, next) => {
-  const { categoryId } = req.params;
-  const count =
-    await productService.getTotalProductsCountByCategory(categoryId);
-  try {
-    res.status(200).json(count);
   } catch (error) {
     next(error);
   }
@@ -153,7 +163,6 @@ const destroyProduct = async (req, res, next) => {
 export default {
   getAllProducts,
   getAllProductsByCategory,
-  getTotalProductsCountByCategory,
   getProductById,
   createProduct,
   updateProduct,
