@@ -5,16 +5,16 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 import ProductsByCategory from './components/products/ProductsByCategory.jsx';
 import './index.css';
+import Adresses from './components/profilePage/Adresses.jsx';
+import Favorites from './components/profilePage/Favorites.jsx';
+import Orders from './components/profilePage/Orders.jsx';
+import PassChange from './components/profilePage/PassChange.jsx';
+import PersonalData from './components/profilePage/PersonalData.jsx';
 import { AuthProvider } from './contexts/AuthContext.jsx';
 import About from './pages/About.jsx';
 import Contacts from './pages/Contact.jsx';
 import Homepage from './pages/Homepage';
 import ProfilePage from './pages/ProfilePage.jsx';
-import Adresses from './components/profilePage/Adresses.jsx';
-import Orders from './components/profilePage/Orders.jsx';
-import PersonalData from './components/profilePage/PersonalData.jsx';
-import Favorites from './components/profilePage/Favorites.jsx';
-import PassChange from './components/profilePage/PassChange.jsx';
 
 const router = createBrowserRouter([
   {

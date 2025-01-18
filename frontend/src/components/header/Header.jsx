@@ -47,12 +47,12 @@ export default function Header() {
             onClick={toggleDropdown}
             id="dropdownInformationButton"
             data-dropdown-toggle="dropdownInformation"
-            class="text-white bg-primray hover:bg-primary focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className="text-white bg-primray hover:bg-primary focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             type="button"
           >
             Hello {user.username}!
             <svg
-              class="w-2.5 h-2.5 ms-3"
+              className="w-2.5 h-2.5 ms-3"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -60,9 +60,9 @@ export default function Header() {
             >
               <path
                 stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="m1 1 4 4 4-4"
               />
             </svg>
@@ -70,8 +70,7 @@ export default function Header() {
           {isDropdownOpen && (
             <div
               id="dropdownInformation"
-              className="absolute z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
-              
+              className="absolute top-8 right-14 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
             >
               <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
                 <div>{user.username}</div>
@@ -82,6 +81,7 @@ export default function Header() {
                   <Link
                     className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                     to="profile_page/orders"
+                    onClick={toggleDropdown}
                   >
                     Orders
                   </Link>
@@ -90,6 +90,7 @@ export default function Header() {
                   <Link
                     className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                     to="profile_page/favorites"
+                    onClick={toggleDropdown}
                   >
                     Favorites
                   </Link>
@@ -98,6 +99,7 @@ export default function Header() {
                   <Link
                     className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                     to="profile_page/personal_data"
+                    onClick={toggleDropdown}
                   >
                     Personal Data
                   </Link>
@@ -106,6 +108,7 @@ export default function Header() {
                   <Link
                     className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                     to="profile_page/change_password"
+                    onClick={toggleDropdown}
                   >
                     Change password
                   </Link>
@@ -113,7 +116,8 @@ export default function Header() {
                 <li>
                   <Link
                     className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                    to="profile_page/addresses"
+                    to="profile_page/adresses"
+                    onClick={toggleDropdown}
                   >
                     Addresses
                   </Link>
@@ -127,7 +131,7 @@ export default function Header() {
           </button>
         </div>
       )}
-      <div className="flex justify-around py-8 bg-primary-light">
+      <div className="flex justify-around  py-8 bg-primary-light">
         <div className="flex items-center">
           <Link to="/">
             <img src={LogoOrange} alt="" className="w-18 h-10 hover:opacity-50" />
@@ -140,7 +144,7 @@ export default function Header() {
         <Nav className="order-2 sm:order-1 " />
         <div className="flex  items-center order-1 sm:order-2">
           <button type="button">
-            <FiShoppingCart className=" w-6 h-6 m-2" />
+            <FiShoppingCart className=" w-6 h-6 m-2 hidden md:block" />
           </button>
           <Searchbar />
         </div>

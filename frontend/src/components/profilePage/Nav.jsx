@@ -1,13 +1,17 @@
-import { Link } from 'react-router-dom';
+import { useState, useContext } from 'react';
 import { BsBoxSeam } from 'react-icons/bs';
 import { IoIosHeartEmpty } from 'react-icons/io';
-import { VscAccount } from 'react-icons/vsc';
 import { IoLockClosedOutline } from 'react-icons/io5';
 import { LuHouse } from 'react-icons/lu';
 import { MdKeyboardArrowRight } from 'react-icons/md';
-import { useState } from 'react';
+import { VscAccount } from 'react-icons/vsc';
+import { Link } from 'react-router-dom';
+
+import AuthContext from '../../contexts/AuthContext';
+
 export default function Nav() {
   const [isSidebarOpen, setIsSideBarOpen] = useState(false);
+  const { user } = useContext(AuthContext);
 
   const toggleSidebar = () => {
     setIsSideBarOpen(!isSidebarOpen);
@@ -21,28 +25,29 @@ export default function Nav() {
         data-drawer-toggle="separator-sidebar"
         aria-controls="separator-sidebar"
         type="button"
-        class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+        className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
       >
-        <span class="sr-only">Open sidebar</span>
+        <span className="sr-only">Open sidebar</span>
         <svg
-          class="w-6 h-6"
+          className="w-6 h-6"
           aria-hidden="true"
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            clip-rule="evenodd"
-            fill-rule="evenodd"
+            clipRule="evenodd"
+            fillRule="evenodd"
             d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
-          ></path>
+          />
         </svg>
       </button>
-      
+
       <nav
-        className={`h-full  top-0 px-4 py-4 overflow-y-auto p-8  top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
+        className={` h-full  top-0 px-4 py-4 overflow-y-auto p-8  top-0 left-0 z-40 w-64 transition-transform -translate-x-full sm:translate-x-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full hidden md:block'}`}
       >
-        <h1 className="space-y-2 font-medium">My account</h1>
+        <h2>Welcome, {user?.username}</h2>
+
         <ul className="space-y-4 font-medium">
           <li className="mt-4">
             <Link

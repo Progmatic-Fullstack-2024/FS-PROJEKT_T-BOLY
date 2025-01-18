@@ -1,17 +1,17 @@
 import api from './axiosInstance';
 
 const updateUser = async (id, userData) => {
-    try {
-      const response = await api.put(`/api/user/${id}`, userData);
-      
-      const { updatedUser, token } = response.data;
-  
-      return { updatedUser, token };
-    } catch (error) {
+  const response = await api.put(`/api/user/${id}`, userData);
 
-      console.error('Error updating user:', error);
-      throw error;
-    }
-  };
+  const { updatedUser, token } = response.data;
 
-export default { updateUser };
+  return { updatedUser, token };
+};
+
+const listUsernames = async () => {
+  const response = await api.get('/api/user/usernames');
+  const usernames = response.data;
+  return usernames;
+};
+
+export default { updateUser, listUsernames };
