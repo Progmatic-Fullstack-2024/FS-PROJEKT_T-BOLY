@@ -9,7 +9,7 @@ router.get("/", productsController.getAllProducts);
 
 router.get(
   "/category/:categoryId",
-  productsController.getAllProductsByCategory
+  productsController.getAllProductsByCategory,
 );
 router.get("/:id", productsController.getProductById);
 
@@ -18,21 +18,21 @@ router.post(
   upload.single("file"),
   authenticate,
   authorize(["ADMIN"]),
-  productsController.createProduct
+  productsController.createProduct,
 );
 
 router.put(
   "/:id",
   authenticate,
   authorize(["ADMIN"]),
-  productsController.updateProduct
+  productsController.updateProduct,
 );
 
 router.delete(
   "/:id",
   authenticate,
   authorize(["ADMIN"]),
-  productsController.destroyProduct
+  productsController.destroyProduct,
 );
 
 export default router;
