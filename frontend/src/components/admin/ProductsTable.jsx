@@ -1,113 +1,44 @@
 import React, { useState, useEffect } from 'react';
-import { BsFillFileEarmarkPlusFill, BsDownload } from 'react-icons/bs';
 import { toast } from 'react-toastify';
 
+import AddNewProduct from './CreateProductByAdmin.jsx';
 import ProductRow from './ProductRow.jsx';
 import productService from '../../services/productService.js';
-import AddNewProduct from './CreateProductByAdmin.jsx';
-
-function Pagination({ currentPage, totalPages, onPageChange }) {
-  const handleClick = (page) => {
-    if (page > 0 && page <= totalPages) {
-      onPageChange(page);
-    }
-  };
-
-  return (
-    <nav aria-label="Page navigation example" className="py-4 flex justify-center">
-      <ul className="flex items-center -space-x-px h-8 text-sm">
-        <li>
-          <button
-            type="button"
-            onClick={() => handleClick(currentPage - 1)}
-            className={`flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-orange-300 rounded-s-lg hover:bg-orange-100 hover:text-gray-700 ${
-              currentPage === 1 ? 'cursor-not-allowed opacity-50' : ''
-            }`}
-            disabled={currentPage === 1}
-          >
-            <span className="sr-only">Previous</span>
-            <svg
-              className="w-2.5 h-2.5 rtl:rotate-180"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 6 10"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M5 1 1 5l4 4"
-              />
-            </svg>
-          </button>
-        </li>
-        {Array.from({ length: totalPages }).map((_, index) => (
-          <li key={index}>
-            <button
-              type="button"
-              onClick={() => handleClick(index + 1)}
-              className={`flex items-center justify-center px-3 h-8 leading-tight ${
-                currentPage === index + 1
-                  ? 'text-orange-600 border border-orange-600 bg-orange-50 hover:bg-orange-200 hover:text-orange-700'
-                  : 'text-gray-500 bg-orange-50 border border-orange-300 hover:bg-orange-100 hover:text-gray-700'
-              }`}
-            >
-              {index + 1}
-            </button>
-          </li>
-        ))}
-        <li>
-          <button
-            type="button"
-            onClick={() => handleClick(currentPage + 1)}
-            className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-orange-300 rounded-e-lg hover:bg-orange-100 hover:text-gray-700 ${
-              currentPage === totalPages ? 'cursor-not-allowed opacity-50' : ''
-            }`}
-            disabled={currentPage === totalPages}
-          >
-            <span className="sr-only">Next</span>
-            <svg
-              className="w-2.5 h-2.5 rtl:rotate-180"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 6 10"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="m1 9 4-4-4-4"
-              />
-            </svg>
-          </button>
-        </li>
-      </ul>
-    </nav>
-  );
-}
+import DisplayedProductsNumber from '../products/DisplayProductsNumber.jsx';
+import Pagination from '../products/Pagination.jsx';
 
 export default function ProductsTable() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 5;
+  const [pageNumber, setPageNumber] = useState(1);
   const [productsByCategory, setProductsByCategory] = useState([]);
-  const [totalProducts, setTotalProducts] = useState(0);
+  const [limit] = useState(10);
+
   useEffect(() => {
     const fetchProductsByCategory = async () => {
       try {
-        const data = await productService.getAllProductsByCategory('all', 'name', 'asc', 1, 10);
+        const data = await productService.getAllProductsByCategory(
+          'all',
+          'name',
+          'asc',
+          pageNumber,
+          limit,
+        );
         setProductsByCategory(data);
-        setTotalProducts(data.totalProducts);
       } catch (error) {
         toast.error('Failed to fetch products:', error);
       }
     };
 
     fetchProductsByCategory();
-  }, []);
+  }, [pageNumber, limit]);
+
+  const handleDownload = async () => {
+    try {
+      await productService.exportProducts();
+      toast.success("Products exported successfully!");
+    } catch (error) {
+      toast.error("Failed to export products");
+    }
+  };
 
   return (
     <section className="py-3 sm:py-5">
@@ -117,17 +48,19 @@ export default function ProductsTable() {
             <div className="flex items-center flex-1 space-x-4">
               <h5>
                 <span className="text-black">All Products: </span>
-                <span className="text-black">{totalProducts}</span>
+                <span className="text-black">{productsByCategory.totalProducts}</span>
               </h5>
             </div>
             <div className="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
               <AddNewProduct>Add newProduct</AddNewProduct>
+       
               <button
+                onClick={handleDownload}
                 type="button"
                 className="flex items-center justify-center flex-shrink-0 px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-400 rounded-lg hover:bg-primary hover:text-primary-700 focus:ring-4 focus:ring-gray-200"
               >
                 <BsDownload className="w-4 h-4 mr-2" />
-                Export
+                Export products
               </button>
             </div>
           </div>
@@ -181,12 +114,18 @@ export default function ProductsTable() {
               </tbody>
             </table>
           </div>
-          {/* Pagination */}
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={(page) => setCurrentPage(page)}
-          />
+          <div className="bg-primary bg-opacity-20 flex items-center justify-between p-8">
+            <DisplayedProductsNumber
+              pageNumber={pageNumber}
+              limit={limit}
+              totalProducts={productsByCategory.totalProducts}
+            />
+            <Pagination
+              pageNumber={pageNumber}
+              setPageNumber={setPageNumber}
+              totalPages={productsByCategory.totalPages}
+            />
+          </div>
         </div>
       </div>
     </section>
