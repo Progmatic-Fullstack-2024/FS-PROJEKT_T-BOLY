@@ -1,5 +1,21 @@
 import api from './axiosInstance';
 
+const exportProducts = async () => {
+  try {
+    const response = await api.get("/api/products/export", { responseType: "blob" });
+    const blob = new Blob([response.data], { type: response.headers['content-type'] });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "products.xlsx";
+    link.click();
+    window.URL.revokeObjectURL(url);
+  } catch (error) {
+    throw new Error("Export failed");
+  }
+};
+
+
 const getAllProductsByCategory = async (categoryId, sorting, order, page, limit) => {
   const response = await api.get(
     `/api/products/category/${categoryId}?sorting=${sorting}&order=${order}&page=${page}&limit=${limit}`,
@@ -24,4 +40,4 @@ const destroyProduct = async (id) => {
   return response.data;
 };
 
-export default { getAllProductsByCategory, getAllProducts, destroyProduct, getProductById };
+export default { getAllProductsByCategory, getAllProducts, destroyProduct, getProductById, exportProducts };

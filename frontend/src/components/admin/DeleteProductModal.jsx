@@ -16,7 +16,6 @@ export default function DeleteProductModal({ product }) {
     }
   };
 
-  console.log(isOpen);
   return (
     <>
       <button onClick={() => setIsOpen(true)} type="button" className=" text-red-500">
