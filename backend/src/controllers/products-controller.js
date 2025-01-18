@@ -1,28 +1,75 @@
 import productService from "../services/products-service.js";
 
 const getAllProducts = async (req, res, next) => {
-  const { order = "asc" } = req.params;
+  const {
+    sorting = "name",
+    order = "asc",
+    page = 1,
+    limit = 9,
+    minPrice = 0,
+    maxPrice = 1000,
+  } = req.query;
+  const pageNumber = Number(page);
+  const limitNumber = Number(limit);
+  const minPriceNumber = Number(minPrice);
+  const maxPriceNumber = Number(maxPrice);
+
   try {
-    const product = await productService.getAllProducts(order);
-    res.status(200).json(product);
+    const result = await productService.getAllProducts(
+      sorting,
+      order,
+      pageNumber,
+      limitNumber,
+      minPriceNumber,
+      maxPriceNumber,
+    );
+    const { products, totalPages, totalProducts } = result;
+    res.status(200).json({ products, pageNumber, totalPages, totalProducts });
   } catch (error) {
     next(error);
   }
 };
 
 const getAllProductsByCategory = async (req, res, next) => {
-  const { categoryId, order = "asc" } = req.params;
+  const { categoryId } = req.params;
+  const {
+    sorting = "name",
+    order = "asc",
+    page = 1,
+    limit = 9,
+    minPrice = 0,
+    maxPrice = 1000,
+  } = req.query;
+  const pageNumber = Number(page);
+  const limitNumber = Number(limit);
+  const minPriceNumber = Number(minPrice);
+  const maxPriceNumber = Number(maxPrice);
+
   try {
-    let products;
+    let result;
     if (categoryId === "all") {
-      products = await productService.getAllProducts(order);
-    } else {
-      products = await productService.getAllProductsByCategory(
-        categoryId,
+      result = await productService.getAllProducts(
+        sorting,
         order,
+        pageNumber,
+        limitNumber,
+        minPriceNumber,
+        maxPriceNumber,
+      );
+    } else {
+      result = await productService.getAllProductsByCategory(
+        categoryId,
+        sorting,
+        order,
+        pageNumber,
+        limitNumber,
+        minPriceNumber,
+        maxPriceNumber,
       );
     }
-    res.status(200).json(products);
+
+    const { products, totalPages, totalProducts } = result;
+    res.status(200).json({ products, pageNumber, totalPages, totalProducts });
   } catch (error) {
     next(error);
   }

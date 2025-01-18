@@ -1,17 +1,63 @@
 import prisma from "../models/prismaClient.js";
 import HttpError from "../utils/HttpError.js";
 
-const getAllProducts = async (order) =>
-  prisma.product.findMany({ orderBy: { name: order } });
+const getAllProducts = async (
+  sorting,
+  order,
+  pageNumber,
+  limitNumber,
+  filterByMinPrice,
+  filterByMaxPrice
+) => {
+  const where = {
+    AND: [
+      { price: { gte: filterByMinPrice } },
+      { price: { lte: filterByMaxPrice } },
+    ],
+  };
+  const products = await prisma.product.findMany({
+    where,
+    orderBy: { [sorting]: order },
+    skip: (pageNumber - 1) * limitNumber,
+    take: limitNumber,
+  });
+  const totalProducts = await prisma.product.count({ where });
+  const totalPages = Math.ceil(totalProducts / limitNumber);
+  return { products, totalProducts, totalPages };
+};
 
-const getAllProductsByCategory = async (categoryId, order) =>
-  prisma.product.findMany({
-    where: { categoryProduct: { some: { categoryId } } },
+const getAllProductsByCategory = async (
+  categoryId,
+  sorting,
+  order,
+  pageNumber,
+  limitNumber,
+  filterByMinPrice,
+  filterByMaxPrice
+) => {
+  const where = {
+    categoryProduct: {
+      some: { categoryId },
+    },
+    AND: [
+      { price: { gte: filterByMinPrice } },
+      { price: { lte: filterByMaxPrice } },
+    ],
+  };
+  const products = await prisma.product.findMany({
+    where,
     include: {
       categoryProduct: { include: { category: { select: { name: true } } } },
     },
-    orderBy: { name: order },
+    orderBy: { [sorting]: order },
+    skip: (pageNumber - 1) * limitNumber,
+    take: limitNumber,
   });
+  const totalProducts = await prisma.product.count({ where });
+  const totalPages = Math.ceil(totalProducts / limitNumber);
+
+  return { products, totalProducts, totalPages };
+};
 
 const getProductById = async (id) => {
   const product = await prisma.product.findUnique({
