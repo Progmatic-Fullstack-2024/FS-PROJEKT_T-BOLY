@@ -1,23 +1,18 @@
 import { useState, useEffect } from 'react';
-import { FiShoppingCart } from 'react-icons/fi';
-import { LuHeart } from 'react-icons/lu';
 import { ImList } from 'react-icons/im';
 import { MdGridView } from 'react-icons/md';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import DisplayedProductsNumber from './DisplayedProductsNumber.jsx';
+import FilterByPrice from './FilterByPrice.jsx';
 import Nav from './Nav.jsx';
 import Pagination from './Pagination.jsx';
+import ProductsGrid from './ProductsGrid.jsx';
+import ProductsList from './ProductsList.jsx';
 import SelectCategoryInput from './SelectCategoryInput.jsx';
 import categoryService from '../../services/categoryService.js';
 import productService from '../../services/productService.js';
-
-import RangeSlider from 'react-range-slider-input';
-import 'react-range-slider-input/dist/style.css';
-import './slider.css';
-import ProductsGrid from './ProductsGrid.jsx';
-import ProductsList from './ProductsList.jsx';
 
 export default function ProductsByCategory() {
   const [productsByCategory, setProductsByCategory] = useState([]);
@@ -31,7 +26,9 @@ export default function ProductsByCategory() {
   const [maxPrice, setMaxPrice] = useState(1000);
   const [filterByMinPrice, setFilterByMinPrice] = useState(0);
   const [filterByMaxPrice, setFilterByMaxPrice] = useState(1000);
+  const [filterByPlayersNumber, setFilterByPlayersNumber] = useState('all')
   const [gridView, setGridView] = useState(true);
+  
 
   useEffect(() => {
     const fetchCategoryById = async () => {
@@ -58,8 +55,8 @@ export default function ProductsByCategory() {
           9,
           filterByMinPrice,
           filterByMaxPrice,
+          filterByPlayersNumber
         );
-        console.log(data);
         setProductsByCategory(data.products);
         setTotalPages(data.totalPages);
         setTotalProducts(data.totalProducts);
@@ -69,17 +66,18 @@ export default function ProductsByCategory() {
     };
     fetchCategoryById();
     fetchProductsByCategory();
-  }, [categoryId, sortingOption, pageNumber, filterByMinPrice, filterByMaxPrice]);
+  }, [categoryId, sortingOption, pageNumber, filterByMinPrice, filterByMaxPrice, filterByPlayersNumber]);
 
   useEffect(() => {
     setPageNumber(1);
-  }, [categoryId, sortingOption, filterByMinPrice, filterByMaxPrice]);
+  }, [categoryId, sortingOption, filterByMinPrice, filterByMaxPrice, filterByPlayersNumber]);
 
   useEffect(() => {
     setMinPrice(0);
     setMaxPrice(1000);
     setFilterByMinPrice(0);
     setFilterByMaxPrice(1000);
+    setFilterByPlayersNumber("all")
   }, [categoryId]);
 
   const handleSortingChange = (e) => {
@@ -92,11 +90,17 @@ export default function ProductsByCategory() {
     setFilterByMaxPrice(maxPrice);
   };
 
+  const handleFilterByPlayersNumber=(e)=>{
+    setFilterByPlayersNumber(e.target.value)
+  }
+
   const handleGridView = () => {
     setGridView(true);
+    setPageNumber(1);
   };
   const handleListView = () => {
     setGridView(false);
+    setPageNumber(1);
   };
 
   const getPageNumbers = () => {
@@ -109,13 +113,12 @@ export default function ProductsByCategory() {
       startPage = Math.max(1, endPage - pageLimit + 1);
     }
 
+    // eslint-disable-next-line no-plusplus
     for (let i = startPage; i <= endPage; i++) {
       pageNumbers.push(i);
     }
     return pageNumbers;
   };
-
-  console.log('productsByCategory', productsByCategory);
 
   return (
     <div className="m-20">
@@ -123,48 +126,28 @@ export default function ProductsByCategory() {
       <div className="flex gap-32 m-8">
         <div className="shrink-0 md:w-80 hidden md:block">
           <Nav />
-          <div className="flex flex-col gap-2 p-6 border-2 rounded-lg">
-            <h3 className="text-xl mb-6">Filter by price</h3>
-            <RangeSlider
-              min={0}
-              max={1000}
-              step={1}
-              value={[minPrice, maxPrice]}
-              onInput={(value) => {
-                setMinPrice(value[0]);
-                setMaxPrice(value[1]);
-              }}
-            />
-            <div className="flex justify-between mt-1 mb-3">
-              <div>${minPrice}</div>
-              <div>${maxPrice}</div>
-            </div>
-            <div className="flex justify-end">
-              <button
-                className="w-28 rounded-xl bg-primary p-2 text-white  hover:text-black hover:font-semibold"
-                type="button"
-                onClick={handleFilterByPrice}
-              >
-                Apply
-              </button>
-            </div>
-          </div>
+          <FilterByPrice
+            minPrice={minPrice}
+            maxPrice={maxPrice}
+            setMaxPrice={setMaxPrice}
+            setMinPrice={setMinPrice}
+            handleFilterByPrice={handleFilterByPrice}
+          />
         </div>
-
         <div>
           <h1 className="md:w-80 hidden md:block mb-12 text-4xl">{categoryName}</h1>
-          <div className="flex justify-between mr-44 items-center">
+          <div className="flex justify-between mr-20 items-center">
             <div className="flex justify-between gap-5">
               <button
                 onClick={handleGridView}
-                className={`text-2xl ${gridView ? 'text-primary border-primary' : 'text-gray-200 hover:text-gray-400'}`}
+                className={`text-2xl ${gridView ? 'text-primary border-primary' : 'text-gray-200 hover:text-gray-900'}`}
                 type="button"
               >
                 <MdGridView />
               </button>
               <button
                 onClick={handleListView}
-                className={`text-xl ${!gridView ? 'text-primary border-primary' : 'text-gray-200 hover:text-gray-400'}`}
+                className={`text-xl ${!gridView ? 'text-primary border-primary' : 'text-gray-200 hover:text-gray-900'}`}
                 type="button"
               >
                 <ImList />
@@ -186,15 +169,20 @@ export default function ProductsByCategory() {
             </div>
             <DisplayedProductsNumber pageNumber={pageNumber} totalProducts={totalProducts} />
           </div>
-
-          <SelectCategoryInput />
-          {gridView ? <ProductsGrid productsByCategory={productsByCategory} /> : <ProductsList />}
-          <Pagination
-            pageNumber={pageNumber}
-            setPageNumber={setPageNumber}
-            getPageNumbers={getPageNumbers}
-            totalPages={totalPages}
-          />
+          <div>
+            <SelectCategoryInput />
+            {gridView ? (
+              <ProductsGrid productsByCategory={productsByCategory} />
+            ) : (
+              <ProductsList productsByCategory={productsByCategory} />
+            )}
+            <Pagination
+              pageNumber={pageNumber}
+              setPageNumber={setPageNumber}
+              getPageNumbers={getPageNumbers}
+              totalPages={totalPages}
+            />
+          </div>
         </div>
       </div>
     </div>

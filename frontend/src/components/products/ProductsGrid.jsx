@@ -2,13 +2,15 @@ import React from 'react'
 import { FiShoppingCart } from 'react-icons/fi'
 import { LuHeart } from 'react-icons/lu'
 
-export default function ProductsGrid({productsByCategory, }) {
+import RatingStars from './RatingStars'
+
+export default function ProductsGrid({productsByCategory }) {
   return (
-    <div className="flex flex-wrap gap-8 justify-between mr-44">
+    <div className="flex flex-wrap gap-8 justify-between md:mr-44">
             {productsByCategory && productsByCategory.length > 0 ? (
               productsByCategory.map((product, index) => (
                 <div>
-                  <div className="flex flex-col gap-1" key={index}>
+                  <div className="flex flex-col gap-2" key={index}>
                     <div className="relative">
                       <img
                         className="border-2 rounded-2xl w-80 h-80 p-7 pr-8 shrink-0"
@@ -30,7 +32,7 @@ export default function ProductsGrid({productsByCategory, }) {
                     </div>
                     <div className="w-60">{product.name}</div>
                     <div className="font-medium text-lg">${product.price}</div>
-                    <div>Rating: {product.rating}</div>
+                    <div className="flex gap-2 pb-2"><RatingStars rating={product.rating}/></div>
                   </div>
                 </div>
               ))
