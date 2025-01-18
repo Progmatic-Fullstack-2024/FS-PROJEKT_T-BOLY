@@ -1,5 +1,35 @@
+import XLSX from "xlsx";
+import { fileURLToPath } from "url";
+import path from "path";
 import prisma from "../models/prismaClient.js";
 import HttpError from "../utils/HttpError.js";
+const exportProducts = async () => {
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+  const products = await prisma.product.findMany({
+    include: {
+      categoryProduct: { include: { category: { select: { name: true } } } },
+    },
+  });
+  const worksheetData = [
+    ["Product", "Description", "Category", "Price", "Quantity", "Rating"],
+    ...products.map((product) => [
+      product.name,
+      product.description,
+      product.categoryProduct.map((c) => c.category.name).join(", "),
+      product.price,
+      product.quantity,
+      product.rating,
+    ]),
+  ];
+
+  const workbook = XLSX.utils.book_new();
+  const worksheet = XLSX.utils.aoa_to_sheet(worksheetData);
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Products");
+  const tempFilePath = path.join(__dirname, "products.xlsx");
+  XLSX.writeFile(workbook, tempFilePath);
+  return tempFilePath;
+};
 
 const getAllProducts = async (
   sorting,
@@ -96,6 +126,7 @@ const destroyProduct = async (id) => {
 };
 
 export default {
+  exportProducts,
   getAllProducts,
   getAllProductsByCategory,
   getProductById,
