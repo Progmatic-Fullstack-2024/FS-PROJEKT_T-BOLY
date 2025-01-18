@@ -1,11 +1,11 @@
-import React from 'react';
+
 import RangeSlider from 'react-range-slider-input';
 import 'react-range-slider-input/dist/style.css';
 import './slider.css';
 
 export default function FilterByPrice({minPrice, maxPrice, setMaxPrice, setMinPrice, handleFilterByPrice}) {
   return (
-    <div className="flex flex-col gap-2 p-6 border-2 rounded-lg">
+    <div className="flex flex-col gap-2 p-6 border-2 rounded-lg mb-10">
       <h3 className="text-xl mb-6">Filter by price</h3>
       <RangeSlider
         min={0}

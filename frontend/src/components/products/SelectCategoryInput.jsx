@@ -25,7 +25,7 @@ export default function SelectCategoryInput() {
   };
 
   return (
-    <div className="flex flex-col items-center mb-12">
+    <div className="flex flex-col mb-12">
       <h1 className="md:hidden w-60 pb-3">Select category</h1>
       <select
         value={categoryId}

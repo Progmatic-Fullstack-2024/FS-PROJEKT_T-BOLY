@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { FiShoppingCart } from 'react-icons/fi';
 import { LuHeart } from 'react-icons/lu';
 

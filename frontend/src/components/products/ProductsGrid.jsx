@@ -19,13 +19,13 @@ export default function ProductsGrid({productsByCategory }) {
                       />
                       <button
                         type="submit"
-                        className="absolute top-2 right-2 rounded-full flex items-center justify-center"
+                        className="absolute top-2 right-2 rounded-full flex items-center justify-center hover:text-primary"
                       >
                         <LuHeart className="m-2" />
                       </button>
                       <button
                         type="submit"
-                        className="absolute top-9 right-2 rounded-full flex items-center justify-center"
+                        className="absolute top-9 right-2 rounded-full flex items-center justify-center hover:text-primary"
                       >
                         <FiShoppingCart className="m-2" />
                       </button>

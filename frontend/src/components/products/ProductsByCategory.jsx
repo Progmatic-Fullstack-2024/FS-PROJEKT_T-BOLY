@@ -5,12 +5,15 @@ import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import DisplayedProductsNumber from './DisplayedProductsNumber.jsx';
+import FilterByAge from './FilterByAge.jsx';
+import FilterByPlayersNumber from './FilterByPlayersNumber.jsx';
 import FilterByPrice from './FilterByPrice.jsx';
 import Nav from './Nav.jsx';
 import Pagination from './Pagination.jsx';
 import ProductsGrid from './ProductsGrid.jsx';
 import ProductsList from './ProductsList.jsx';
 import SelectCategoryInput from './SelectCategoryInput.jsx';
+import Sorting from './Sorting.jsx';
 import categoryService from '../../services/categoryService.js';
 import productService from '../../services/productService.js';
 
@@ -24,11 +27,14 @@ export default function ProductsByCategory() {
   const { categoryId } = useParams();
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(1000);
+  const [minAge, setMinAge] = useState(0);
+  const [maxAge, setMaxAge] = useState(100);
   const [filterByMinPrice, setFilterByMinPrice] = useState(0);
   const [filterByMaxPrice, setFilterByMaxPrice] = useState(1000);
-  const [filterByPlayersNumber, setFilterByPlayersNumber] = useState('all')
+  const [filterByMinAge, setFilterByMinAge] = useState(0);
+  const [filterByMaxAge, setFilterByMaxAge] = useState(100);
+  const [filterByPlayersNumber, setFilterByPlayersNumber] = useState('all');
   const [gridView, setGridView] = useState(true);
-  
 
   useEffect(() => {
     const fetchCategoryById = async () => {
@@ -55,7 +61,9 @@ export default function ProductsByCategory() {
           9,
           filterByMinPrice,
           filterByMaxPrice,
-          filterByPlayersNumber
+          filterByMinAge,
+          filterByMaxAge,
+          filterByPlayersNumber,
         );
         setProductsByCategory(data.products);
         setTotalPages(data.totalPages);
@@ -66,18 +74,39 @@ export default function ProductsByCategory() {
     };
     fetchCategoryById();
     fetchProductsByCategory();
-  }, [categoryId, sortingOption, pageNumber, filterByMinPrice, filterByMaxPrice, filterByPlayersNumber]);
+  }, [
+    categoryId,
+    sortingOption,
+    pageNumber,
+    filterByMinPrice,
+    filterByMaxPrice,
+    filterByMinAge,
+    filterByMaxAge,
+    filterByPlayersNumber,
+  ]);
 
   useEffect(() => {
     setPageNumber(1);
-  }, [categoryId, sortingOption, filterByMinPrice, filterByMaxPrice, filterByPlayersNumber]);
+  }, [
+    categoryId,
+    sortingOption,
+    filterByMinPrice,
+    filterByMaxPrice,
+    filterByMinAge,
+    filterByMaxAge,
+    filterByPlayersNumber,
+  ]);
 
   useEffect(() => {
     setMinPrice(0);
     setMaxPrice(1000);
     setFilterByMinPrice(0);
     setFilterByMaxPrice(1000);
-    setFilterByPlayersNumber("all")
+    setMinAge(0);
+    setMaxAge(100);
+    setFilterByMinAge(0);
+    setFilterByMaxAge(100);
+    setFilterByPlayersNumber('all');
   }, [categoryId]);
 
   const handleSortingChange = (e) => {
@@ -90,9 +119,14 @@ export default function ProductsByCategory() {
     setFilterByMaxPrice(maxPrice);
   };
 
-  const handleFilterByPlayersNumber=(e)=>{
-    setFilterByPlayersNumber(e.target.value)
-  }
+  const handleFilterByAge = () => {
+    setFilterByMinAge(minAge);
+    setFilterByMaxAge(maxAge);
+  };
+
+  const handleFilterByPlayersNumber = (e) => {
+    setFilterByPlayersNumber(e.target.value);
+  };
 
   const handleGridView = () => {
     setGridView(true);
@@ -113,8 +147,7 @@ export default function ProductsByCategory() {
       startPage = Math.max(1, endPage - pageLimit + 1);
     }
 
-    // eslint-disable-next-line no-plusplus
-    for (let i = startPage; i <= endPage; i++) {
+    for (let i = startPage; i <= endPage; i += 1) {
       pageNumbers.push(i);
     }
     return pageNumbers;
@@ -133,52 +166,42 @@ export default function ProductsByCategory() {
             setMinPrice={setMinPrice}
             handleFilterByPrice={handleFilterByPrice}
           />
+          <FilterByAge
+            minAge={minAge}
+            maxAge={maxAge}
+            setMaxAge={setMaxAge}
+            setMinAge={setMinAge}
+            handleFilterByAge={handleFilterByAge}
+          />
         </div>
         <div>
-          <h1 className="md:w-80 hidden md:block mb-12 text-4xl">{categoryName}</h1>
-          <div className="flex justify-between mr-20 items-center">
-            <div className="flex justify-between gap-5">
-              <button
-                onClick={handleGridView}
-                className={`text-2xl ${gridView ? 'text-primary border-primary' : 'text-gray-200 hover:text-gray-900'}`}
-                type="button"
-              >
-                <MdGridView />
-              </button>
-              <button
-                onClick={handleListView}
-                className={`text-xl ${!gridView ? 'text-primary border-primary' : 'text-gray-200 hover:text-gray-900'}`}
-                type="button"
-              >
-                <ImList />
-              </button>
-              <select
-                className="p-2"
-                id="sorting"
-                onChange={handleSortingChange}
-                value={`${sortingOption.sorting}-${sortingOption.order}`}
-              >
-                <option value="name-asc">Default sorting</option>
-                <option value="name-asc">Name (A-Z)</option>
-                <option value="name-desc">Name (Z-A)</option>
-                <option value="price-asc">Price (Low to High)</option>
-                <option value="price-desc">Price (High to Low)</option>
-                <option value="rating-asc">Rating (Low to High)</option>
-                <option value="rating-desc">Rating (High to Low)</option>
-              </select>
-              <select
-                className="p-2"
-                id="players-number"
-                onChange={handleFilterByPlayersNumber}
-                value={filterByPlayersNumber}
-              >
-                <option value="all">All</option>
-                <option value="2">Pair (2 players)</option>
-                <option value="2-5">Small group (2-5 players)</option>
-                <option value="6-99">Large group (6-99 players)</option>
-              </select>
+          <h1 className=" hidden md:block mb-12 text-4xl">{categoryName}</h1>
+          <div className="hidden md:block ">
+            <div className="flex justify-between mr-20 items-center">
+              <div className="flex justify-between gap-5">
+                <button
+                  onClick={handleGridView}
+                  className={`text-2xl ${gridView ? 'text-primary border-primary' : 'text-gray-200 hover:text-gray-900'}`}
+                  type="button"
+                >
+                  <MdGridView />
+                </button>
+                <button
+                  onClick={handleListView}
+                  className={`text-xl ${!gridView ? 'text-primary border-primary' : 'text-gray-200 hover:text-gray-900'}`}
+                  type="button"
+                >
+                  <ImList />
+                </button>
+
+                <Sorting handleSortingChange={handleSortingChange} sortingOption={sortingOption} />
+                <FilterByPlayersNumber
+                  handleFilterByPlayersNumber={handleFilterByPlayersNumber}
+                  filterByPlayersNumber={filterByPlayersNumber}
+                />
+              </div>
+              <DisplayedProductsNumber pageNumber={pageNumber} totalProducts={totalProducts} />
             </div>
-            <DisplayedProductsNumber pageNumber={pageNumber} totalProducts={totalProducts} />
           </div>
           <div>
             <SelectCategoryInput />
