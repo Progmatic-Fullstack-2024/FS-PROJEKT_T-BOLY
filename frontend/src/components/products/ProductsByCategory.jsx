@@ -166,6 +166,17 @@ export default function ProductsByCategory() {
                 <option value="rating-asc">Rating (Low to High)</option>
                 <option value="rating-desc">Rating (High to Low)</option>
               </select>
+              <select
+                className="p-2"
+                id="players-number"
+                onChange={handleFilterByPlayersNumber}
+                value={filterByPlayersNumber}
+              >
+                <option value="all">All</option>
+                <option value="2">Pair (2 players)</option>
+                <option value="2-5">Small group (2-5 players)</option>
+                <option value="6-99">Large group (6-99 players)</option>
+              </select>
             </div>
             <DisplayedProductsNumber pageNumber={pageNumber} totalProducts={totalProducts} />
           </div>
