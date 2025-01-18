@@ -6,7 +6,6 @@ const exportProducts = async (req, res, next) => {
   try {
     const filePath = await productService.exportProducts();
     res.status(200).download(filePath);
-    fs.unlinkSync(filePath);
   } catch (error) {
     next(error);
   }
