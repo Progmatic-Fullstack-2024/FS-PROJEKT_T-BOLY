@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 
 import ProductRow from './ProductRow.jsx';
 import productService from '../../services/productService.js';
+import AddNewProduct from './CreateProductByAdmin.jsx';
 
 function Pagination({ currentPage, totalPages, onPageChange }) {
   const handleClick = (page) => {
@@ -120,13 +121,7 @@ export default function ProductsTable() {
               </h5>
             </div>
             <div className="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
-              <button
-                type="button"
-                className="flex items-center justify-center px-4 py-2 text-sm font-medium text-black rounded-lg bg-primary-700 border border-gray-400 hover:bg-primary focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
-              >
-                <BsFillFileEarmarkPlusFill className="h-4 w-4 mr-2" />
-                Add new product
-              </button>
+              <AddNewProduct>Add newProduct</AddNewProduct>
               <button
                 type="button"
                 className="flex items-center justify-center flex-shrink-0 px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-400 rounded-lg hover:bg-primary hover:text-primary-700 focus:ring-4 focus:ring-gray-200"
@@ -155,7 +150,10 @@ export default function ProductsTable() {
                   <th scope="col" className="px-4 py-3 w-48 text-left text-gray-100">
                     Product
                   </th>
-                  <th scope="col" className="px-4 py-3 w-48 text-left text-gray-100 hidden md:table-cell">
+                  <th
+                    scope="col"
+                    className="px-4 py-3 w-48 text-left text-gray-100 hidden md:table-cell"
+                  >
                     Description
                   </th>
                   <th scope="col" className="px-4 py-3 w-36 text-left text-gray-100">
