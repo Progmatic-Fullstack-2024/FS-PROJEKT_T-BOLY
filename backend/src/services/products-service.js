@@ -1,5 +1,7 @@
 import prisma from "../models/prismaClient.js";
 import HttpError from "../utils/HttpError.js";
+import { createFile } from "./file.service.js";
+// import { createFile, deleteFile, updateFile } from "./file.service.js";
 
 const getAllProducts = async (order) =>
   prisma.product.findMany({ orderBy: { name: order } });

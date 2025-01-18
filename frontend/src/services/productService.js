@@ -10,9 +10,9 @@ const getAllProducts = async () => {
   return response.data;
 };
 
-const createProduct = async (productData) => {
-  console.log(productData)
-  const response = await api.post('/api/products', productData);
+const createProduct = async (newProductData) => {
+  const response = await api.post('/api/products', newProductData);
+  
   return response.data;
 };
 
