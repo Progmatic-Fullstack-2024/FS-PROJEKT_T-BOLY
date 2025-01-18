@@ -7,14 +7,36 @@ const getAllProducts = async (
   pageNumber,
   limitNumber,
   filterByMinPrice,
-  filterByMaxPrice
+  filterByMaxPrice,
+  filterByMinAge,
+  filterByMaxAge,
+  filterByPlayersNumber,
 ) => {
   const where = {
     AND: [
       { price: { gte: filterByMinPrice } },
       { price: { lte: filterByMaxPrice } },
+      { ageRecommendationMax: { gte: filterByMinAge } },
+      { ageRecommendationMin: { lte: filterByMaxAge } },
     ],
   };
+  if (filterByPlayersNumber !== "all") {
+    const [minPlayers, maxPlayers] = filterByPlayersNumber
+      .split("-")
+      .map(Number);
+    where.AND.push({
+      AND: [
+        {
+          // A product min játékosszáma kisebb vagy egyenlő a max értékkel
+          playersNumberMax: { gte: minPlayers },
+        },
+        {
+          // A product max játékosszáma nagyobb vagy egyenlő a min értékkel
+          playersNumberMin: { lte: maxPlayers },
+        },
+      ],
+    });
+  }
   const products = await prisma.product.findMany({
     where,
     orderBy: { [sorting]: order },
@@ -33,7 +55,10 @@ const getAllProductsByCategory = async (
   pageNumber,
   limitNumber,
   filterByMinPrice,
-  filterByMaxPrice
+  filterByMaxPrice,
+  filterByMinAge,
+  filterByMaxAge,
+  filterByPlayersNumber,
 ) => {
   const where = {
     categoryProduct: {
@@ -42,8 +67,27 @@ const getAllProductsByCategory = async (
     AND: [
       { price: { gte: filterByMinPrice } },
       { price: { lte: filterByMaxPrice } },
+      { ageRecommendationMax: { gte: filterByMinAge } },
+      { ageRecommendationMin: { lte: filterByMaxAge } },
     ],
   };
+  if (filterByPlayersNumber !== "all") {
+    const [minPlayers, maxPlayers] = filterByPlayersNumber
+      .split("-")
+      .map(Number);
+    where.AND.push({
+      AND: [
+        {
+          // A product min játékosszáma kisebb vagy egyenlő a max értékkel
+          playersNumberMax: { gte: minPlayers },
+        },
+        {
+          // A product max játékosszáma nagyobb vagy egyenlő a min értékkel
+          playersNumberMin: { lte: maxPlayers },
+        },
+      ],
+    });
+  }
   const products = await prisma.product.findMany({
     where,
     include: {

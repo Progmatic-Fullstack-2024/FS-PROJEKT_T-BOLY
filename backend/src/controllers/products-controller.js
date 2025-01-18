@@ -8,11 +8,16 @@ const getAllProducts = async (req, res, next) => {
     limit = 9,
     minPrice = 0,
     maxPrice = 1000,
+    minAge = 0,
+    maxAge = 100,
+    players = "all",
   } = req.query;
   const pageNumber = Number(page);
   const limitNumber = Number(limit);
   const minPriceNumber = Number(minPrice);
   const maxPriceNumber = Number(maxPrice);
+  const minAgeNumber = Number(minAge);
+  const maxAgeNumber = Number(maxAge);
 
   try {
     const result = await productService.getAllProducts(
@@ -21,7 +26,10 @@ const getAllProducts = async (req, res, next) => {
       pageNumber,
       limitNumber,
       minPriceNumber,
-      maxPriceNumber
+      maxPriceNumber,
+      minAgeNumber,
+      maxAgeNumber,
+      players,
     );
     const { products, totalPages, totalProducts } = result;
     res.status(200).json({ products, pageNumber, totalPages, totalProducts });
@@ -39,11 +47,16 @@ const getAllProductsByCategory = async (req, res, next) => {
     limit = 9,
     minPrice = 0,
     maxPrice = 1000,
+    minAge = 0,
+    maxAge = 100,
+    players = "all",
   } = req.query;
   const pageNumber = Number(page);
   const limitNumber = Number(limit);
   const minPriceNumber = Number(minPrice);
   const maxPriceNumber = Number(maxPrice);
+  const minAgeNumber = Number(minAge);
+  const maxAgeNumber = Number(maxAge);
 
   try {
     let result;
@@ -54,7 +67,10 @@ const getAllProductsByCategory = async (req, res, next) => {
         pageNumber,
         limitNumber,
         minPriceNumber,
-        maxPriceNumber
+        maxPriceNumber,
+        minAgeNumber,
+        maxAgeNumber,
+        players,
       );
     } else {
       result = await productService.getAllProductsByCategory(
@@ -64,7 +80,10 @@ const getAllProductsByCategory = async (req, res, next) => {
         pageNumber,
         limitNumber,
         minPriceNumber,
-        maxPriceNumber
+        maxPriceNumber,
+        minAgeNumber,
+        maxAgeNumber,
+        players,
       );
     }
 
