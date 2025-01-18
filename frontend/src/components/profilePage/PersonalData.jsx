@@ -18,7 +18,7 @@ export default function PersonalData() {
       setUsernames(data);
     }
   }, [user]);
-  console.log(usernames);
+
 
   const initialValues = {
     firstName: user?.firstName || '',

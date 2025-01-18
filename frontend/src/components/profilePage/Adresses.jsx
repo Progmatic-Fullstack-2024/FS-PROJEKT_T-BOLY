@@ -73,7 +73,6 @@ export default function Adresses() {
       }
       resetForm();
     } catch (error) {
-      console.error('Error updating user data:', error);
       toast.error('Failed to update user data.');
     }
   };

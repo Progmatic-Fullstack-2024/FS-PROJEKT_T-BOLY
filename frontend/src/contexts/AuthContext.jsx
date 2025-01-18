@@ -55,7 +55,6 @@ export function AuthProvider({ children }) {
 
   const passwordChange = async (id, values) => {
     try {
-      console.log(`id: ${id}, values: ${values}`);
       await authService.passwordChange(id, values);
 
       return { ok: true, message: 'Logged in succesfully.' };
