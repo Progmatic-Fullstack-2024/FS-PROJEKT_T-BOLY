@@ -30,8 +30,8 @@ export default function ProductsGrid({productsByCategory }) {
                         <FiShoppingCart className="m-2" />
                       </button>
                     </div>
-                    <div className="w-60">{product.name}</div>
-                    <div className="font-medium text-lg">${product.price}</div>
+                    <div className="w-60 font-medium">{product.name}</div>
+                    <div className="font-medium text-lg">€{product.price}</div>
                     <div className="flex gap-2 pb-2"><RatingStars rating={product.rating}/></div>
                   </div>
                 </div>

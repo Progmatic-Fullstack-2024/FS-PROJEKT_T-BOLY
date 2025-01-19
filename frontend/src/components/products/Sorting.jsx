@@ -1,9 +1,7 @@
-
-
 export default function Sorting({ handleSortingChange, sortingOption }) {
   return (
     <select
-      className="p-2 w-60"
+      className="p-2 w-60 border-2 rounded-lg hover:border-gray-900 focus:border-primary"
       id="sorting"
       onChange={handleSortingChange}
       value={`${sortingOption.sorting}-${sortingOption.order}`}

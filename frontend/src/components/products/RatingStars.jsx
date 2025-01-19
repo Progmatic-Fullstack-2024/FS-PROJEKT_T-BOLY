@@ -1,4 +1,3 @@
-
 import { BsFillStarFill, BsStar, BsStarHalf } from 'react-icons/bs';
 
 export default function RatingStars({ rating }) {

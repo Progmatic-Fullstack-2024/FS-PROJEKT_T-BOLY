@@ -1,4 +1,3 @@
-
 import RangeSlider from 'react-range-slider-input';
 import 'react-range-slider-input/dist/style.css';
 import './slider.css';
@@ -8,8 +7,8 @@ export default function FilterByPrice({minPrice, maxPrice, setMaxPrice, setMinPr
     <div className="flex flex-col gap-2 p-6 border-2 rounded-lg mb-10">
       <h3 className="text-xl mb-6">Filter by price</h3>
       <RangeSlider
-        min={0}
-        max={1000}
+        min={minPrice}
+        max={maxPrice}
         step={1}
         value={[minPrice, maxPrice]}
         onInput={(value) => {
@@ -18,8 +17,8 @@ export default function FilterByPrice({minPrice, maxPrice, setMaxPrice, setMinPr
         }}
       />
       <div className="flex justify-between mt-1 mb-3">
-        <div>${minPrice}</div>
-        <div>${maxPrice}</div>
+        <div>€{minPrice}</div>
+        <div>€{maxPrice}</div>
       </div>
       <div className="flex justify-end">
         <button

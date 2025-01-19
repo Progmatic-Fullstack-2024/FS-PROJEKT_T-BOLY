@@ -1,9 +1,7 @@
-
 import { FiShoppingCart } from 'react-icons/fi';
 import { LuHeart } from 'react-icons/lu';
 
 import RatingStars from './RatingStars';
-
 
 export default function ProductsList({ productsByCategory }) {
   return (
@@ -21,8 +19,8 @@ export default function ProductsList({ productsByCategory }) {
               </div>
               <div className="flex flex-col w-1/2 gap-3 justify-center">
                 <div className="text-lg font-medium">{product.name}</div>
-                <div>{product.description}</div>
-                <div className="font-medium text-lg pt-3 pb-3">${product.price}</div>
+                <div className="text-justify">{product.description}</div>
+                <div className="font-medium text-lg pt-3 pb-3">€{product.price}</div>
                 <div className="flex gap-2 pb-2"><RatingStars rating={product.rating}/></div>
                 <div className="flex gap-4">
                   <div className="flex">

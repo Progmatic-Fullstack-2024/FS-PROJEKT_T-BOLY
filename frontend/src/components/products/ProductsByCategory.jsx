@@ -22,6 +22,7 @@ export default function ProductsByCategory() {
   const [categoryName, setCategoryName] = useState('');
   const [sortingOption, setSortingOption] = useState({ sorting: 'name', order: 'asc' });
   const [pageNumber, setPageNumber] = useState(1);
+  const [limit, setLimit]=useState(9)
   const [totalPages, setTotalPages] = useState(1);
   const [totalProducts, setTotalProducts] = useState(0);
   const { categoryId } = useParams();
@@ -58,7 +59,7 @@ export default function ProductsByCategory() {
           sorting,
           order,
           pageNumber,
-          9,
+          limit,
           filterByMinPrice,
           filterByMaxPrice,
           filterByMinAge,
@@ -68,6 +69,8 @@ export default function ProductsByCategory() {
         setProductsByCategory(data.products);
         setTotalPages(data.totalPages);
         setTotalProducts(data.totalProducts);
+        setMinPrice(data.minPriceDb);
+        setMaxPrice(data.maxPriceDb);
       } catch (error) {
         toast.error('Failed to fetch products:', error);
       }
@@ -78,6 +81,7 @@ export default function ProductsByCategory() {
     categoryId,
     sortingOption,
     pageNumber,
+    limit,
     filterByMinPrice,
     filterByMaxPrice,
     filterByMinAge,
@@ -98,10 +102,6 @@ export default function ProductsByCategory() {
   ]);
 
   useEffect(() => {
-    setMinPrice(0);
-    setMaxPrice(1000);
-    setFilterByMinPrice(0);
-    setFilterByMaxPrice(1000);
     setMinAge(0);
     setMaxAge(100);
     setFilterByMinAge(0);
@@ -122,6 +122,7 @@ export default function ProductsByCategory() {
   const handleFilterByAge = () => {
     setFilterByMinAge(minAge);
     setFilterByMaxAge(maxAge);
+    
   };
 
   const handleFilterByPlayersNumber = (e) => {
@@ -135,27 +136,12 @@ export default function ProductsByCategory() {
   const handleListView = () => {
     setGridView(false);
     setPageNumber(1);
-  };
-
-  const getPageNumbers = () => {
-    const pageNumbers = [];
-    const pageLimit = 3;
-    let startPage = Math.max(1, pageNumber - Math.floor(pageLimit / 2));
-    const endPage = Math.min(totalPages, startPage + pageLimit - 1);
-
-    if (endPage - startPage + 1 < pageLimit) {
-      startPage = Math.max(1, endPage - pageLimit + 1);
-    }
-
-    for (let i = startPage; i <= endPage; i += 1) {
-      pageNumbers.push(i);
-    }
-    return pageNumbers;
+    setLimit(6)
   };
 
   return (
     <div className="m-20">
-      <h1 className="text-primary m-8 text-3xl">Products</h1>
+      <h1 className="text-primary m-8 text-3xl font-medium">Products</h1>
       <div className="flex gap-32 m-8">
         <div className="shrink-0 md:w-80 hidden md:block">
           <Nav />
@@ -175,10 +161,10 @@ export default function ProductsByCategory() {
           />
         </div>
         <div>
-          <h1 className=" hidden md:block mb-12 text-4xl">{categoryName}</h1>
+          <h1 className=" hidden md:block mb-12 text-3xl">{categoryName}</h1>
           <div className="hidden md:block ">
-            <div className="flex justify-between mr-20 items-center">
-              <div className="flex justify-between gap-5">
+            <div className="flex gap-80 items-center">
+              <div className="flex justify-between gap-6">
                 <button
                   onClick={handleGridView}
                   className={`text-2xl ${gridView ? 'text-primary border-primary' : 'text-gray-200 hover:text-gray-900'}`}
@@ -200,7 +186,7 @@ export default function ProductsByCategory() {
                   filterByPlayersNumber={filterByPlayersNumber}
                 />
               </div>
-              <DisplayedProductsNumber pageNumber={pageNumber} totalProducts={totalProducts} />
+              <DisplayedProductsNumber limit={limit} pageNumber={pageNumber} totalProducts={totalProducts} />
             </div>
           </div>
           <div>
@@ -213,7 +199,6 @@ export default function ProductsByCategory() {
             <Pagination
               pageNumber={pageNumber}
               setPageNumber={setPageNumber}
-              getPageNumbers={getPageNumbers}
               totalPages={totalPages}
             />
           </div>

@@ -22,14 +22,14 @@ export default function Nav() {
 
   return (
     <div className="border-2 rounded-lg p-3 pl-6 mb-10">
-      <h1 className="pb-8 pt-4 text-xl">Product categories</h1>
+      <h1 className="pb-8 pt-4 text-xl font-medium">Product categories</h1>
       <nav>
         <ul>
-          <li className={categoryId === 'all' ? 'text-primary pb-3 ' : 'pb-3 '}>
+          <li className={`pb-3 ${categoryId === 'all' && 'text-primary '}`}>
             <Link to="/products/category/all">+ All products</Link>
           </li>
           {categories.map((category) => (
-            <li className={categoryId === category.id ? 'text-primary pb-3 ' : 'pb-3 '}>
+            <li className={`pb-3 ${categoryId === category.id && 'text-primary'}`}>
               <Link key={category.id} to={`/products/category/${category.id}`}>
                 + {category.name}
               </Link>
