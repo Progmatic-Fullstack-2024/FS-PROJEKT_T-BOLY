@@ -27,11 +27,9 @@ const getAllProducts = async (
     where.AND.push({
       AND: [
         {
-          // A product min játékosszáma kisebb vagy egyenlő a max értékkel
           playersNumberMax: { gte: minPlayers },
         },
         {
-          // A product max játékosszáma nagyobb vagy egyenlő a min értékkel
           playersNumberMin: { lte: maxPlayers },
         },
       ],
@@ -45,7 +43,22 @@ const getAllProducts = async (
   });
   const totalProducts = await prisma.product.count({ where });
   const totalPages = Math.ceil(totalProducts / limitNumber);
-  return { products, totalProducts, totalPages };
+
+  const { _min: minPrice, _max: maxPrice } = await prisma.product.aggregate({
+    _min: { price: true },
+    _max: { price: true },
+  });
+
+  const minPriceValue = minPrice.price || 0;
+  const maxPriceValue = maxPrice.price || 1000;
+
+  return {
+    products,
+    totalProducts,
+    totalPages,
+    minPriceDb: minPriceValue,
+    maxPriceDb: maxPriceValue,
+  };
 };
 
 const getAllProductsByCategory = async (
@@ -78,11 +91,9 @@ const getAllProductsByCategory = async (
     where.AND.push({
       AND: [
         {
-          // A product min játékosszáma kisebb vagy egyenlő a max értékkel
           playersNumberMax: { gte: minPlayers },
         },
         {
-          // A product max játékosszáma nagyobb vagy egyenlő a min értékkel
           playersNumberMin: { lte: maxPlayers },
         },
       ],
@@ -100,7 +111,21 @@ const getAllProductsByCategory = async (
   const totalProducts = await prisma.product.count({ where });
   const totalPages = Math.ceil(totalProducts / limitNumber);
 
-  return { products, totalProducts, totalPages };
+  const { _min: minPrice, _max: maxPrice } = await prisma.product.aggregate({
+    _min: { price: true },
+    _max: { price: true },
+  });
+
+  const minPriceValue = minPrice.price || 0;
+  const maxPriceValue = maxPrice.price || 1000;
+
+  return {
+    products,
+    totalProducts,
+    totalPages,
+    minPriceDb: minPriceValue,
+    maxPriceDb: maxPriceValue,
+  };
 };
 
 const getProductById = async (id) => {

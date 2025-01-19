@@ -31,8 +31,21 @@ const getAllProducts = async (req, res, next) => {
       maxAgeNumber,
       players,
     );
-    const { products, totalPages, totalProducts } = result;
-    res.status(200).json({ products, pageNumber, totalPages, totalProducts });
+    const {
+      products,
+      totalPages,
+      totalProducts,
+      minPriceDb: minPriceValue,
+      maxPriceDb: maxPriceValue,
+    } = result;
+    res.status(200).json({
+      products,
+      pageNumber,
+      totalPages,
+      totalProducts,
+      minPriceDb: minPriceValue,
+      maxPriceDb: maxPriceValue,
+    });
   } catch (error) {
     next(error);
   }
@@ -87,8 +100,21 @@ const getAllProductsByCategory = async (req, res, next) => {
       );
     }
 
-    const { products, totalPages, totalProducts } = result;
-    res.status(200).json({ products, pageNumber, totalPages, totalProducts });
+    const {
+      products,
+      totalPages,
+      totalProducts,
+      minPriceDb: minPriceValue,
+      maxPriceDb: maxPriceValue,
+    } = result;
+    res.status(200).json({
+      products,
+      pageNumber,
+      totalPages,
+      totalProducts,
+      minPriceDb: minPriceValue,
+      maxPriceDb: maxPriceValue,
+    });
   } catch (error) {
     next(error);
   }
