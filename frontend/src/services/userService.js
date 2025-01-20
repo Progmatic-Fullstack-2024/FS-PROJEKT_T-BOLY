@@ -14,4 +14,11 @@ const listUsernames = async () => {
   return usernames;
 };
 
-export default { updateUser, listUsernames };
+const updateProfilePictureUrl = async (userData) => {
+ 
+  const response = await api.patch('/api/user/userimage', userData);
+  const user = response.data;
+  return user;
+};
+
+export default { updateUser, listUsernames, updateProfilePictureUrl };

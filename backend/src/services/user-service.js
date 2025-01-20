@@ -2,20 +2,26 @@ import jwt from "jsonwebtoken";
 import prisma from "../models/prismaClient.js";
 import HttpError from "../utils/HttpError.js";
 import { JWT_SECRET } from "../constants/constants.js";
+import imageService from "./image-service.js";
 
 const updateUser = async (id, userData) => {
   const user = await prisma.user.findUnique({
     where: { id },
   });
 
+  console.log(userData);
+  console.log(user);
+
   if (!user) throw new HttpError("User not found", 404);
+  if (user.profilePictureUrl && userData.profilePictureUrl) {
+    await imageService.deleteFile(user.profilePictureUrl);
+  }
 
   const usernameExist = await prisma.user.findFirst({
     where: {
       AND: [{ username: userData.username }, { id: { not: id } }],
     },
   });
-
   if (userData.username && usernameExist)
     throw new HttpError("Username is taken", 404);
   const updatedUser = await prisma.user.update({
@@ -36,7 +42,7 @@ const updateUser = async (id, userData) => {
       billingAdress: updatedUser.billingAdress,
       profilePictureUrl: updatedUser.profilePictureUrl,
     },
-    JWT_SECRET,
+    JWT_SECRET
   );
 
   return { token, updatedUser };

@@ -1,4 +1,5 @@
 import userService from "../services/user-service.js";
+import imageService from "../services/image-service.js";
 
 const updateUser = async (req, res, next) => {
   const { id } = req.params;
@@ -42,4 +43,19 @@ const listUsernames = async (req, res, next) => {
   }
 };
 
-export default { updateUser, listUsernames };
+const updateProfilePicture = async (req, res, next) => {
+  console.log(req.body, req.file);
+  const file = req.file || null;
+  const { id } = req.user;
+  try {
+    const profilePictureUrl = await imageService.createFile(file);
+    const { token, updatedUser } = await userService.updateUser(id, {
+      profilePictureUrl,
+    });
+    res.status(201).json({ token, updatedUser });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export default { updateUser, listUsernames, updateProfilePicture };

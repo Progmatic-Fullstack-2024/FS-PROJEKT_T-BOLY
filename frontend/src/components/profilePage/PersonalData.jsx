@@ -1,6 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { useContext, useEffect, useState } from 'react';
-import { FcAddImage } from 'react-icons/fc';
+import { useContext, useEffect, useState, useRef } from 'react';
+import { BsPersonCircle } from 'react-icons/bs';
+import { HiOutlineDocumentPlus } from 'react-icons/hi2';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
@@ -11,19 +12,23 @@ export default function PersonalData() {
   const { user, setUser } = useContext(AuthContext);
   const [isEditing, setIsEditing] = useState(false);
   const [usernames, setUsernames] = useState([]);
-
-  useEffect(async () => {
-    if (user?.username) {
-      const data = await userService.listUsernames();
-      setUsernames(data);
-    }
+  const [image, setImage] = useState(null);
+  const fileInputRef = useRef(null);
+  const [isHovered, setIsHovered] = useState(false);
+  useEffect(() => {
+    const fetchUsernames = async () => {
+      if (user?.username) {
+        const data = await userService.listUsernames();
+        setUsernames(data);
+      }
+    };
+    fetchUsernames();
   }, [user]);
-
 
   const initialValues = {
     firstName: user?.firstName || '',
     lastName: user?.lastName || '',
-    name: `${user?.firstName} ${user.lastName}` || '',
+    name: `${user?.firstName} ${user?.lastName}` || '',
     email: user?.email,
     username: user?.username,
     birthDate: user?.birthDate?.split('T')[0] || '',
@@ -79,7 +84,19 @@ export default function PersonalData() {
     setIsEditing(false);
   };
 
-  const handlePictureUpload = () => {};
+  const handlePictureUpload = async () => {
+    fileInputRef.current.click();
+    const formData = new FormData();
+    formData.append('image', image);
+
+    const { user, token } = await userService.updateProfilePictureUrl(formData);
+    localStorage.setItem('token', token);
+  };
+
+  const handleInputChange = (e) => {
+    const newImage = e.target.files[0];
+    setImage(newImage);
+  };
 
   return (
     <div className="mx-auto w-full bg-white rounded-lg shadow-md p-8">
@@ -87,11 +104,36 @@ export default function PersonalData() {
         {isEditing ? 'Edit Profile' : 'User Profile'}
       </h1>
       <div className="flex">
-        <div className="p-4 border rounded mr-8 flex items-center justify-center bg-gray-50 hover:bg-gray-100 pr-8 pl-8">
-          <button onClick={handlePictureUpload} type='button'>
-            <FcAddImage className="w-40 h-40 " />
-          </button>
-        </div>
+        <button
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          type="button"
+          onClick={handlePictureUpload}
+          className=" border w-80 h-80 mr-8 rounded overflow-hidden flex items-center justify-center bg-gray-50 hover:bg-gray-100"
+        >
+          {image || user?.profilePictureUrl ? (
+            <img
+              alt=""
+              src={image ? URL.createObjectURL(image) : user?.profilePictureUrl}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <BsPersonCircle className="w-40 h-40" />
+          )}
+          {isHovered && (
+            <div className="absolute  flex items-center justify-center bg-black bg-opacity-50 w-80 h-80">
+              <span className="text-white text-2xl font-bold">
+                <HiOutlineDocumentPlus />
+              </span>
+            </div>
+          )}
+        </button>
+        <input
+          type="file"
+          className="hidden"
+          ref={fileInputRef}
+          onChange={(e) => handleInputChange(e)}
+        />
         {isEditing ? (
           <Formik
             initialValues={initialValues}
@@ -182,27 +224,24 @@ export default function PersonalData() {
           <div className="space-y-4">
             <div>
               <label className="block text-gray-600 text-sm mb-1">Name</label>
-              <p className="text-gray-800">{`${user.firstName} ${user.lastName}`}</p>
+              <p className="text-gray-800">{`${user?.firstName} ${user?.lastName}`}</p>
             </div>
             <div>
               <label className="block text-gray-600 text-sm mb-1">Email</label>
-              <p className="text-gray-800">{user.email}</p>
+              <p className="text-gray-800">{user?.email}</p>
             </div>
             <div>
               <label className="block text-gray-600 text-sm mb-1">Username</label>
-              <p className="text-gray-800">{user.username}</p>
+              <p className="text-gray-800">{user?.username}</p>
             </div>
             <div>
               <label className="block text-gray-600 text-sm mb-1">Birthday</label>
-              <p className="text-gray-800">{new Date(user.birthDate).toLocaleDateString()}</p>
+              <p className="text-gray-800">{new Date(user?.birthDate).toLocaleDateString()}</p>
             </div>
-            <div>
-              <label className="block text-gray-600 text-sm mb-1">Profile Picture</label>
-              <p className="text-gray-800">{user.profilePictureUrl}</p>
-            </div>
+
             <div className="mt-6 flex justify-end">
               <button
-              type='button'
+                type="button"
                 onClick={handleEditClick}
                 className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-indigo-700"
               >
