@@ -10,7 +10,7 @@ const getAllProducts = async (
   filterByMaxPrice,
   filterByMinAge,
   filterByMaxAge,
-  filterByPlayersNumber,
+  filterByPlayersNumber
 ) => {
   const where = {
     AND: [
@@ -71,7 +71,7 @@ const getAllProductsByCategory = async (
   filterByMaxPrice,
   filterByMinAge,
   filterByMaxAge,
-  filterByPlayersNumber,
+  filterByPlayersNumber
 ) => {
   const where = {
     categoryProduct: {
@@ -131,11 +131,46 @@ const getAllProductsByCategory = async (
 const getProductById = async (id) => {
   const product = await prisma.product.findUnique({
     where: { id },
+    include: {
+      categoryProduct: { include: { category: { select: { name: true } } } },
+    },
   });
   if (!product) {
     throw new HttpError("Product not found", 404);
   }
-  return product;
+
+  const categoryIds = product.categoryProduct.map(
+    (category) => category.categoryId
+  );
+
+  const categoryNames = product.categoryProduct.map(
+    (categoryProduct) => categoryProduct.category.name
+  );
+
+  const relatedProductsByCategory = await prisma.product.findMany({
+    where: {
+      categoryProduct: {
+        some: {
+          categoryId: {
+            in: categoryIds,
+          },
+        },
+      },
+      rating: {
+        not: null,
+      },
+      NOT: {
+        id,
+      },
+    },
+    include: { categoryProduct: true },
+    orderBy: {
+      rating: "desc",
+    },
+    take: 4,
+  });
+
+  return { product, relatedProductsByCategory, categoryNames };
 };
 
 const createProduct = async (productData) => {

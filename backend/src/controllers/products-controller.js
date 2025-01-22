@@ -29,7 +29,7 @@ const getAllProducts = async (req, res, next) => {
       maxPriceNumber,
       minAgeNumber,
       maxAgeNumber,
-      players,
+      players
     );
     const {
       products,
@@ -83,7 +83,7 @@ const getAllProductsByCategory = async (req, res, next) => {
         maxPriceNumber,
         minAgeNumber,
         maxAgeNumber,
-        players,
+        players
       );
     } else {
       result = await productService.getAllProductsByCategory(
@@ -96,7 +96,7 @@ const getAllProductsByCategory = async (req, res, next) => {
         maxPriceNumber,
         minAgeNumber,
         maxAgeNumber,
-        players,
+        players
       );
     }
 
@@ -123,8 +123,9 @@ const getAllProductsByCategory = async (req, res, next) => {
 const getProductById = async (req, res, next) => {
   const productId = req.params.id;
   try {
-    const product = await productService.getProductById(productId);
-    res.status(200).json(product);
+    const { product, relatedProductsByCategory, categoryNames } =
+      await productService.getProductById(productId);
+    res.status(200).json({ product, relatedProductsByCategory, categoryNames });
   } catch (error) {
     next(error);
   }
