@@ -84,18 +84,23 @@ export default function PersonalData() {
     setIsEditing(false);
   };
 
-  const handlePictureUpload = async () => {
+  const handlePictureUpload = () => {
     fileInputRef.current.click();
-    const formData = new FormData();
-    formData.append('image', image);
-
-    const { user, token } = await userService.updateProfilePictureUrl(formData);
-    localStorage.setItem('token', token);
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = async (e) => {
     const newImage = e.target.files[0];
     setImage(newImage);
+    const formData = new FormData();
+    formData.append('image', newImage);
+
+    const { updatedUser, token } = await userService.updateProfilePictureUrl(formData);
+
+    setUser(updatedUser);
+
+    console.log(updatedUser);
+
+    localStorage.setItem('token', token);
   };
 
   return (

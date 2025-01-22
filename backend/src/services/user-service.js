@@ -9,9 +9,6 @@ const updateUser = async (id, userData) => {
     where: { id },
   });
 
-  console.log(userData);
-  console.log(user);
-
   if (!user) throw new HttpError("User not found", 404);
   if (user.profilePictureUrl && userData.profilePictureUrl) {
     await imageService.deleteFile(user.profilePictureUrl);

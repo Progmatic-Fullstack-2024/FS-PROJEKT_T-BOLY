@@ -44,7 +44,6 @@ const listUsernames = async (req, res, next) => {
 };
 
 const updateProfilePicture = async (req, res, next) => {
-  console.log(req.body, req.file);
   const file = req.file || null;
   const { id } = req.user;
   try {
@@ -52,6 +51,7 @@ const updateProfilePicture = async (req, res, next) => {
     const { token, updatedUser } = await userService.updateUser(id, {
       profilePictureUrl,
     });
+
     res.status(201).json({ token, updatedUser });
   } catch (error) {
     next(error);

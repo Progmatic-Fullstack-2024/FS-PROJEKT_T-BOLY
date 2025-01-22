@@ -11,10 +11,6 @@ export const uploadToOwnServer = multer({
 });
 
 export const upload = multer({
-  storage: multer.diskStorage({
-    filename: (req, file, cb) => {
-      cb(null, file.originalname);
-    },
-  }),
+  storage: multer.diskStorage({}),
   limits: { fileSize: 5000000 },
 });
