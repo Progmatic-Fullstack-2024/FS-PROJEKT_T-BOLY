@@ -13,6 +13,7 @@ const updateUser = async (req, res, next) => {
     billingAdress,
     profilePictureUrl,
   } = req.body;
+  console.log(adress, billingAdress);
 
   try {
     const { updatedUser, token } = await userService.updateUser(id, {
@@ -48,7 +49,7 @@ const updateProfilePicture = async (req, res, next) => {
   const { id } = req.user;
   try {
     const profilePictureUrl = await imageService.createFile(file);
-    const { token, updatedUser } = await userService.updateUser(id, {
+    const { token, updatedUser } = await userService.updateProfilePicture(id, {
       profilePictureUrl,
     });
 

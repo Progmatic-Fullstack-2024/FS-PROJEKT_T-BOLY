@@ -10,9 +10,6 @@ const updateUser = async (id, userData) => {
   });
 
   if (!user) throw new HttpError("User not found", 404);
-  if (user.profilePictureUrl && userData.profilePictureUrl) {
-    await imageService.deleteFile(user.profilePictureUrl);
-  }
 
   const usernameExist = await prisma.user.findFirst({
     where: {
@@ -37,9 +34,9 @@ const updateUser = async (id, userData) => {
       birthDate: updatedUser.birthDate,
       adress: updatedUser.adress,
       billingAdress: updatedUser.billingAdress,
-      profilePictureUrl: updatedUser.profilePictureUrl,
+      profilePictureUrl: user.profilePictureUrl,
     },
-    JWT_SECRET
+    JWT_SECRET,
   );
 
   return { token, updatedUser };
@@ -56,4 +53,39 @@ const listUsernames = async (id) => {
   return usernames;
 };
 
-export default { updateUser, listUsernames };
+const updateProfilePicture = async (id, userData) => {
+  const user = await prisma.user.findUnique({
+    where: { id },
+  });
+
+  if (!user) throw new HttpError("User not found", 404);
+  if (user.profilePictureUrl && userData.profilePictureUrl) {
+    await imageService.deleteFile(user.profilePictureUrl);
+  }
+
+  const updatedUser = await prisma.user.update({
+    where: { id },
+    data: userData,
+  });
+  console.log("updated", updatedUser);
+
+  const token = jwt.sign(
+    {
+      id: updatedUser.id,
+      email: updatedUser.email,
+      role: updatedUser.role,
+      username: updatedUser.username,
+      firstName: updatedUser.firstName,
+      lastName: updatedUser.lastName,
+      birthDate: updatedUser.birthDate,
+      adress: updatedUser.adress,
+      billingAdress: updatedUser.billingAdress,
+      profilePictureUrl: updatedUser.profilePictureUrl,
+    },
+    JWT_SECRET,
+  );
+
+  return { token, updatedUser };
+};
+
+export default { updateUser, listUsernames, updateProfilePicture };

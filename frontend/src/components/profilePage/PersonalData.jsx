@@ -13,8 +13,12 @@ export default function PersonalData() {
   const [isEditing, setIsEditing] = useState(false);
   const [usernames, setUsernames] = useState([]);
   const [image, setImage] = useState(null);
+  const [previewImage, setPreviewImage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const fileInputRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
+
   useEffect(() => {
     const fetchUsernames = async () => {
       if (user?.username) {
@@ -45,6 +49,28 @@ export default function PersonalData() {
     email: yup.string().email('Invalid email format').required('Email is required'),
   });
 
+  const handleSavePictureUpload = async () => {
+    if (!image) return;
+
+    setIsLoading(true);
+    const formData = new FormData();
+    formData.append('image', image);
+
+    try {
+      const { updatedUser, token } = await userService.updateProfilePictureUrl(formData);
+      setUser(updatedUser);
+      localStorage.setItem('token', token);
+      toast.success('Image uploaded successfully!');
+    } catch (error) {
+      toast.error('Kép feltöltési hiba:', error.message);
+    } finally {
+      setIsLoading(false);
+      setShowConfirmation(false);
+      setImage(null);
+      setPreviewImage(null);
+    }
+  };
+
   const handleSave = async (values, { setSubmitting }) => {
     try {
       const formattedValues = {
@@ -57,12 +83,12 @@ export default function PersonalData() {
       if (response && response.updatedUser && response.token) {
         const { updatedUser, token } = response;
 
+        localStorage.setItem('token', token);
+
         setUser({
           ...user,
           ...updatedUser,
         });
-
-        localStorage.setItem('token', token);
 
         setIsEditing(false);
         toast.success('User data updated successfully!');
@@ -84,23 +110,23 @@ export default function PersonalData() {
     setIsEditing(false);
   };
 
-  const handlePictureUpload = () => {
-    fileInputRef.current.click();
+  const handlePictureUpload = async () => {
+    if (isEditing) {
+      fileInputRef.current.click();
+    }
   };
 
   const handleInputChange = async (e) => {
     const newImage = e.target.files[0];
     setImage(newImage);
-    const formData = new FormData();
-    formData.append('image', newImage);
+    setPreviewImage(URL.createObjectURL(newImage));
+    setShowConfirmation(true);
+  };
 
-    const { updatedUser, token } = await userService.updateProfilePictureUrl(formData);
-
-    setUser(updatedUser);
-
-    console.log(updatedUser);
-
-    localStorage.setItem('token', token);
+  const handleCancelPictureUpload = () => {
+    setImage(null);
+    setPreviewImage(null);
+    setShowConfirmation(false);
   };
 
   return (
@@ -108,25 +134,33 @@ export default function PersonalData() {
       <h1 className="text-xl font-bold text-gray-700 mb-4">
         {isEditing ? 'Edit Profile' : 'User Profile'}
       </h1>
-      <div className="flex">
+      <div className="flex flex-col lg:flex-row md:flex-row ">
         <button
+          disabled={!isEditing}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           type="button"
           onClick={handlePictureUpload}
-          className=" border w-80 h-80 mr-8 rounded overflow-hidden flex items-center justify-center bg-gray-50 hover:bg-gray-100"
+          className="border w-20 h-20 rounded-full mr-8 md:rounded overflow-hidden flex items-center justify-center bg-gray-50 hover:bg-gray-100 lg:w-80 lg:h-80 lg:rounded md:w-80 md:h-80 md:rounded sm:w-20 sm:h-20 sm:rounded-full"
         >
-          {image || user?.profilePictureUrl ? (
-            <img
-              alt=""
-              src={image ? URL.createObjectURL(image) : user?.profilePictureUrl}
-              className="w-full h-full object-cover"
-            />
-          ) : (
+          {isLoading && isEditing && (
+            <div className="animate-spin border-4 border-gray-300 border-t-gray-800 rounded-full w-16 h-16" />
+          )}
+
+          {!isLoading && previewImage && (
+            <img alt="" src={previewImage} className="w-full h-full object-cover" />
+          )}
+
+          {!isLoading && !previewImage && user?.profilePictureUrl && (
+            <img alt="" src={user.profilePictureUrl} className="w-full h-full object-cover" />
+          )}
+
+          {!isLoading && !previewImage && !user?.profilePictureUrl && (
             <BsPersonCircle className="w-40 h-40" />
           )}
-          {isHovered && (
-            <div className="absolute  flex items-center justify-center bg-black bg-opacity-50 w-80 h-80">
+
+          {isHovered && !isLoading && isEditing && (
+            <div className="absolute flex items-center justify-center bg-black bg-opacity-50 w-20 h-20 rounded-full lg:w-80 lg:h-80 lg:rounded md:w-80 md:h-80 md:rounded sm:w-20 sm:h-20 sm:rounded-full">
               <span className="text-white text-2xl font-bold">
                 <HiOutlineDocumentPlus />
               </span>
@@ -139,6 +173,29 @@ export default function PersonalData() {
           ref={fileInputRef}
           onChange={(e) => handleInputChange(e)}
         />
+        {showConfirmation && !isLoading && (
+          <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
+            <div className="bg-white p-6 rounded shadow-lg">
+              <p className="mb-4 text-lg font-semibold">Do you want to save the picture?</p>
+              <div className="flex justify-end space-x-4">
+                <button
+                  onClick={handleCancelPictureUpload}
+                  className="px-4 py-2 bg-primary-light text-gray-700 rounded-lg hover:bg-gray-400"
+                  type="button"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleSavePictureUpload}
+                  className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-indigo-700"
+                  type="button"
+                >
+                  Mentés
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
         {isEditing ? (
           <Formik
             initialValues={initialValues}

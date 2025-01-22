@@ -1,15 +1,28 @@
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { useContext, useState } from 'react';
 import { toast } from 'react-toastify';
+import * as yup from 'yup';
 
 import AuthContext from '../../contexts/AuthContext';
 import userService from '../../services/userService';
-import { adressValidationSchema } from '../../validations/adress.validation';
 
 export default function Adresses() {
   const { user, setUser } = useContext(AuthContext);
   const [isEditing, setIsEditing] = useState(false);
   const [billingAdressEqual, setBillingAdressEqual] = useState(true);
+
+  const adressValidationSchema = yup.object({
+    country: yup.string().required('Country is required'),
+    city: yup.string().required('City is required'),
+    'postal code': yup.string().required('postal code is required'),
+    street: yup.string().required('Street is requires'),
+    'house number': yup.string().required('House number is requires'),
+    billingCountry: yup.string().required('Billing adress is required'),
+    billingCity: yup.string().required('Billing city is required'),
+    billingStreet: yup.string().required('Billing street is required'),
+    billingHouseNumber: yup.string().required('Billing house number is required'),
+    billingPostalCode: yup.string().required('Billing postal code is required'),
+  });
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -20,8 +33,17 @@ export default function Adresses() {
     setIsEditing(false);
   };
 
-  const handleCheckboxChange = (event) => {
+  const handleCheckboxChange = (event, setFieldValue, values) => {
     setBillingAdressEqual(event.target.checked);
+    const isChecked = event.target.checked;
+
+    if (isChecked) {
+      setFieldValue('billingCountry', values.country);
+      setFieldValue('billingCity', values.city);
+      setFieldValue('billingPostalCode', values['postal code']);
+      setFieldValue('billingStreet', values.street);
+      setFieldValue('billingHouseNumber', values['house number']);
+    }
   };
 
   const handleSaveClick = async (values, resetForm) => {
@@ -51,6 +73,9 @@ export default function Adresses() {
         ].join(', ');
       }
 
+      if (billingAdressEqual) {
+        billingAdress = adress;
+      }
       const response = await userService.updateUser(user.id, {
         adress,
         billingAdress,
@@ -89,18 +114,18 @@ export default function Adresses() {
           city: user.adress?.split(', ')[1] || '',
           'postal code': user.adress?.split(', ')[2] || '',
           street: user.adress?.split(', ')[3] || '',
-          'house number': user.adress?.split(', ')[4] || '',
-          billingCountry: user.billingAdress?.split(', ')[0] || '',
-          billingCity: user.billingAdress?.split(', ')[1] || '',
+          'house number': user?.adress?.split(', ')[4] || '',
+          billingCountry: user?.billingAdress?.split(', ')[0] || '',
+          billingCity: user?.billingAdress?.split(', ')[1] || '',
           billingPostalCode: user?.billingAdress?.split(', ')[2] || '',
-          billingStreet: user.billingAdress?.split(', ')[3] || '',
-          billingHouseNumber: user.billingAdress?.split(', ')[4] || '',
+          billingStreet: user?.billingAdress?.split(', ')[3] || '',
+          billingHouseNumber: user?.billingAdress?.split(', ')[4] || '',
         }}
         validationSchema={adressValidationSchema}
         enableReinitialize
         onSubmit={(values, { resetForm }) => handleSaveClick(values, resetForm)}
       >
-        {({ resetForm }) => (
+        {({ resetForm, setFieldValue, values }) => (
           <Form>
             <div className="space-y-4">
               <div>
@@ -169,13 +194,11 @@ export default function Adresses() {
                     <div className="flex m-4">
                       <div className="flex items-center h-5">
                         <input
-                          id="helper-checkbox"
-                          aria-describedby="helper-checkbox-text"
+                          id="billingAdressCheckbox"
                           type="checkbox"
-                          value=""
                           checked={billingAdressEqual}
-                          onChange={handleCheckboxChange}
-                          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                          onChange={(e) => handleCheckboxChange(e, setFieldValue, values)}
+                          className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                         />
                       </div>
                       <div className="ms-2 text-sm">

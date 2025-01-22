@@ -13,6 +13,6 @@ router.patch(
   "/userimage",
   upload.single("image"),
   authenticate,
-  userController.updateProfilePicture
+  userController.updateProfilePicture,
 );
 export default router;
