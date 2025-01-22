@@ -11,6 +11,7 @@ const updateUser = async (req, res, next) => {
     adress,
     billingAdress,
     profilePictureUrl,
+    role,
   } = req.body;
 
   try {
@@ -25,9 +26,10 @@ const updateUser = async (req, res, next) => {
         adress,
         billingAdress,
         profilePictureUrl,
+        role,
       },
       req.user.id,
-      req.user.role
+      req.user.role,
     );
 
     res.status(200).json({ token, updatedUser });
@@ -38,7 +40,6 @@ const updateUser = async (req, res, next) => {
 
 const deleteUser = async (req, res, next) => {
   const { id } = req.params;
-
   try {
     const result = await userService.deleteUser(id, req.user.id, req.user.role);
     res.status(200).json(result);
@@ -75,7 +76,7 @@ const getAllUsers = async (req, res, next) => {
       Number(pageNumber),
       Number(limitNumber),
       filterByRole,
-      filterByIsActive !== "false"
+      filterByIsActive !== "false",
     );
 
     res.status(200).json({ users, totalUsers, totalPages });

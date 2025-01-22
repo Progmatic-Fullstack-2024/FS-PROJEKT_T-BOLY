@@ -1,6 +1,6 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import React, { useEffect, useRef, useState } from 'react';
-import {BsFillFileEarmarkPlusFill} from "react-icons/bs"
+import { BsFillFileEarmarkPlusFill } from 'react-icons/bs';
 import { toast } from 'react-toastify';
 
 import noImage from '../../assets/noImage.png';
@@ -12,7 +12,7 @@ import { productValidationSchema } from '../../validations/product.validation.js
 export default function CreateProductByAdmin({ onClose }) {
   const fileInputRef = useRef(null);
   const [file, setFile] = useState(null);
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   const [categories, setCategories] = useState([]);
   useEffect(() => {
@@ -61,7 +61,7 @@ export default function CreateProductByAdmin({ onClose }) {
   return (
     <>
       <button
-      onClick={()=>setIsOpen(true)}
+        onClick={() => setIsOpen(true)}
         type="button"
         className="flex items-center justify-center px-4 py-2 text-sm font-medium text-black rounded-lg bg-primary-700 border border-gray-400 hover:bg-primary focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
       >
@@ -74,7 +74,11 @@ export default function CreateProductByAdmin({ onClose }) {
           <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-screen-lg">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-lg font-bold text-orange-500">Create new GAME</h2>
-              <button type="button" className="text-gray-500 hover:text-black" onClick={()=>setIsOpen(false)}>
+              <button
+                type="button"
+                className="text-gray-500 hover:text-black"
+                onClick={() => setIsOpen(false)}
+              >
                 ✖
               </button>
             </div>

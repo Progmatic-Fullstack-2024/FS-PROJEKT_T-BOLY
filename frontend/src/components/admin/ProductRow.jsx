@@ -18,8 +18,6 @@ function renderStars(rating) {
 }
 
 export default function ProductRow({ product }) {
-
-
   return (
     <tr className="border-b dark:border-gray-600 hover:bg-orange-200">
       <td className="w-4 px-4 py-3">
@@ -47,7 +45,7 @@ export default function ProductRow({ product }) {
           <button type="button" className="text-yellow-500">
             <FiEdit />
           </button>
-         <DeleteProductModal product={product} />
+          <DeleteProductModal product={product} />
         </div>
       </td>
     </tr>

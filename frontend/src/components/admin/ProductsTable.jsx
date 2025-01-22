@@ -35,9 +35,9 @@ export default function ProductsTable() {
   const handleDownload = async () => {
     try {
       await productService.exportProducts();
-      toast.success("Products exported successfully!");
+      toast.success('Products exported successfully!');
     } catch (error) {
-      toast.error("Failed to export products");
+      toast.error('Failed to export products');
     }
   };
 
@@ -54,7 +54,7 @@ export default function ProductsTable() {
             </div>
             <div className="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
               <AddNewProduct>Add newProduct</AddNewProduct>
-       
+
               <button
                 onClick={handleDownload}
                 type="button"

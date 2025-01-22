@@ -15,7 +15,7 @@ const createProductCategoryConnection = async (connectionData) => {
   const newConnection = await prisma.categoryProduct.create({
     data: connectionData,
   });
-  console.log("newConnectionData", newConnection)
+  console.log("newConnectionData", newConnection);
   return newConnection;
 };
 

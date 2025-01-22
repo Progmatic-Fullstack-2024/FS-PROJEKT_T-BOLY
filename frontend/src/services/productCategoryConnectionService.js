@@ -7,7 +7,6 @@ const getProductCategoryConnectionById = async (connectionID) => {
 
 const createProductCategoryConnection = async (newConnectionData) => {
   const response = await api.post(`/api/productCategoryConnection`, newConnectionData.data);
-  console.log("Válaszunk: ",response)
   return response.data;
 };
 

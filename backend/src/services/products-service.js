@@ -38,7 +38,7 @@ const getAllProducts = async (
   pageNumber,
   limitNumber,
   filterByMinPrice,
-  filterByMaxPrice
+  filterByMaxPrice,
 ) => {
   const where = {
     AND: [
@@ -64,7 +64,7 @@ const getAllProductsByCategory = async (
   pageNumber,
   limitNumber,
   filterByMinPrice,
-  filterByMaxPrice
+  filterByMaxPrice,
 ) => {
   const where = {
     categoryProduct: {

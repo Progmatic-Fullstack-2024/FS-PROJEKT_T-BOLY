@@ -3,10 +3,8 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import App from './App';
-import CreateProductByAdmin from './components/admin/CreateProductByAdmin.jsx'
 import ProductsTable from './components/admin/ProductsTable.jsx';
 import UserTable from './components/admin/UserTable.jsx';
-
 import ProductsByCategory from './components/products/ProductsByCategory.jsx';
 import './index.css';
 import { AuthProvider } from './contexts/AuthContext.jsx';

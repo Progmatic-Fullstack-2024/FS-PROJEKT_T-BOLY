@@ -4,6 +4,7 @@ import HttpError from "../utils/HttpError.js";
 import { JWT_SECRET } from "../constants/constants.js";
 
 const updateUser = async (id, userData, currentUserId, currentUserRole) => {
+  console.log(userData);
   if (id !== currentUserId && currentUserRole !== "ADMIN") {
     throw new HttpError("Unauthorized", 403);
   }
@@ -31,13 +32,14 @@ const updateUser = async (id, userData, currentUserId, currentUserRole) => {
       profilePictureUrl: updatedUser.profilePictureUrl,
     },
     JWT_SECRET,
-    { expiresIn: "1h" }
+    { expiresIn: "1h" },
   );
 
   return { token, updatedUser };
 };
 
 const deleteUser = async (id, currentUserId, currentUserRole) => {
+  console.table({ id, currentUserId, currentUserRole });
   if (id !== currentUserId && currentUserRole !== "ADMIN") {
     throw new HttpError("Unauthorized", 403);
   }
@@ -68,7 +70,7 @@ const getAllUsers = async (
   pageNumber,
   limitNumber,
   filterByRole,
-  filterByIsActive
+  filterByIsActive,
 ) => {
   const where = {
     AND: [

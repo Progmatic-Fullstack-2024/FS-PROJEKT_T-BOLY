@@ -3,6 +3,8 @@ import { toast } from 'react-toastify';
 
 import UserRow from './UserRow.jsx';
 import userService from '../../services/userService.js';
+import DisplayedProductsNumber from '../products/DisplayProductsNumber.jsx';
+import Pagination from '../products/Pagination.jsx';
 
 export default function UsersTable() {
   const [pageNumber, setPageNumber] = useState(1);
@@ -14,7 +16,7 @@ export default function UsersTable() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const data = await userService.getAllUsers('name', 'asc', pageNumber, limit);
+        const data = await userService.getAllUsers('username', 'asc', pageNumber, limit);
         setUsers(data.users);
         setTotalUsers(data.totalUsers);
         setTotalPages(data.totalPages);
@@ -57,7 +59,7 @@ export default function UsersTable() {
                     Email
                   </th>
                   <th className="px-4 py-3 w-36 text-left text-gray-100">Role</th>
-                  <th className="px-4 py-3 w-36 text-left text-gray-100">Joined</th>
+                  <th className="px-4 py-3 w-36 text-left text-gray-100">Registered</th>
                   <th className="px-4 py-3 w-48 text-left text-gray-100">Actions</th>
                 </tr>
               </thead>
@@ -67,6 +69,18 @@ export default function UsersTable() {
                 ))}
               </tbody>
             </table>
+          </div>
+          <div className="bg-primary bg-opacity-20 flex items-center justify-between p-8">
+            <DisplayedProductsNumber
+              pageNumber={pageNumber}
+              limit={limit}
+              totalProducts={totalUsers}
+            />
+            <Pagination
+              pageNumber={pageNumber}
+              setPageNumber={setPageNumber}
+              totalPages={totalPages}
+            />
           </div>
         </div>
       </div>

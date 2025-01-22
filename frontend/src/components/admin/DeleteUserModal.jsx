@@ -1,21 +1,8 @@
 import { useState } from 'react';
 import { FiTrash } from 'react-icons/fi';
-import { toast } from 'react-toastify';
 
-import userService from '../../services/userService.js';
-
-export default function DeleteUserModal({ user }) {
+export default function DeleteUserModal({ user, onDelete }) {
   const [isOpen, setIsOpen] = useState(false);
-
-  const destroyUser = async (id) => {
-    try {
-      await userService.deleteUser(id);
-      setIsOpen(false);
-      toast.success(`User ${user.name} deleted successfully.`);
-    } catch (error) {
-      toast.error('Failed to delete user(s):', error);
-    }
-  };
 
   return (
     <>
@@ -69,14 +56,14 @@ export default function DeleteUserModal({ user }) {
                   />
                 </svg>
                 <h3 className="mb-5 text-lg font-normal text-gray-50">
-                  Are you sure you want to delete {user.name}?
+                  Are you sure you want to delete {user.username}?
                 </h3>
                 <button
-                  onClick={() => destroyUser(user.id)}
+                  onClick={() => onDelete(user.id)}
                   type="button"
                   className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
                 >
-                  Yes, I'm sure
+                  Yes, Im sure
                 </button>
                 <button
                   onClick={() => setIsOpen(false)}

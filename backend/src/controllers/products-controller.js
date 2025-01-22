@@ -32,7 +32,7 @@ const getAllProducts = async (req, res, next) => {
       pageNumber,
       limitNumber,
       minPriceNumber,
-      maxPriceNumber
+      maxPriceNumber,
     );
     const { products, totalPages, totalProducts } = result;
     res.status(200).json({ products, pageNumber, totalPages, totalProducts });
@@ -65,7 +65,7 @@ const getAllProductsByCategory = async (req, res, next) => {
         pageNumber,
         limitNumber,
         minPriceNumber,
-        maxPriceNumber
+        maxPriceNumber,
       );
     } else {
       result = await productService.getAllProductsByCategory(
@@ -75,7 +75,7 @@ const getAllProductsByCategory = async (req, res, next) => {
         pageNumber,
         limitNumber,
         minPriceNumber,
-        maxPriceNumber
+        maxPriceNumber,
       );
     }
 
