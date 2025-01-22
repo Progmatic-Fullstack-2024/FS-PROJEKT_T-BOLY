@@ -22,7 +22,7 @@ export default function ProductsByCategory() {
   const [categoryName, setCategoryName] = useState('');
   const [sortingOption, setSortingOption] = useState({ sorting: 'name', order: 'asc' });
   const [pageNumber, setPageNumber] = useState(1);
-  const [limit, setLimit]=useState(9)
+  const [limit, setLimit] = useState(9);
   const [totalPages, setTotalPages] = useState(1);
   const [totalProducts, setTotalProducts] = useState(0);
   const { categoryId } = useParams();
@@ -36,6 +36,7 @@ export default function ProductsByCategory() {
   const [filterByMaxAge, setFilterByMaxAge] = useState(100);
   const [filterByPlayersNumber, setFilterByPlayersNumber] = useState('all');
   const [gridView, setGridView] = useState(true);
+  const [priceRange, setPriceRange] = useState({});
 
   useEffect(() => {
     const fetchCategoryById = async () => {
@@ -69,8 +70,7 @@ export default function ProductsByCategory() {
         setProductsByCategory(data.products);
         setTotalPages(data.totalPages);
         setTotalProducts(data.totalProducts);
-        setMinPrice(data.minPriceDb);
-        setMaxPrice(data.maxPriceDb);
+        setPriceRange({ rangeMin: data.minPriceDb, rangeMax: data.maxPriceDb });
       } catch (error) {
         toast.error('Failed to fetch products:', error);
       }
@@ -102,6 +102,10 @@ export default function ProductsByCategory() {
   ]);
 
   useEffect(() => {
+    setMinPrice(priceRange.rangeMin);
+    setMaxPrice(priceRange.rangeMax);
+    setFilterByMinPrice(0)
+    setFilterByMaxPrice(1000)
     setMinAge(0);
     setMaxAge(100);
     setFilterByMinAge(0);
@@ -119,10 +123,23 @@ export default function ProductsByCategory() {
     setFilterByMaxPrice(maxPrice);
   };
 
+  const handleClearFilterByPrice = () => {
+    setMinPrice(priceRange.rangeMin);
+    setMaxPrice(priceRange.rangeMax);
+    setFilterByMinPrice(0)
+    setFilterByMaxPrice(1000)
+  };
+
   const handleFilterByAge = () => {
     setFilterByMinAge(minAge);
     setFilterByMaxAge(maxAge);
-    
+  };
+
+  const handleClearFilterByAge = () => {
+    setMinAge(0);
+    setMaxAge(100);
+    setFilterByMinAge(0);
+    setFilterByMaxAge(100);
   };
 
   const handleFilterByPlayersNumber = (e) => {
@@ -132,11 +149,12 @@ export default function ProductsByCategory() {
   const handleGridView = () => {
     setGridView(true);
     setPageNumber(1);
+    setLimit(9);
   };
   const handleListView = () => {
     setGridView(false);
     setPageNumber(1);
-    setLimit(6)
+    setLimit(6);
   };
 
   return (
@@ -145,19 +163,24 @@ export default function ProductsByCategory() {
       <div className="flex gap-32 m-8">
         <div className="shrink-0 md:w-80 hidden md:block">
           <Nav />
-          <FilterByPrice
-            minPrice={minPrice}
-            maxPrice={maxPrice}
-            setMaxPrice={setMaxPrice}
-            setMinPrice={setMinPrice}
-            handleFilterByPrice={handleFilterByPrice}
-          />
+          {priceRange?.rangeMin && (
+            <FilterByPrice
+              minPrice={minPrice}
+              maxPrice={maxPrice}
+              setMaxPrice={setMaxPrice}
+              setMinPrice={setMinPrice}
+              priceRange={priceRange}
+              handleFilterByPrice={handleFilterByPrice}
+              handleClearFilterByPrice={handleClearFilterByPrice}
+            />
+          )}
           <FilterByAge
             minAge={minAge}
             maxAge={maxAge}
             setMaxAge={setMaxAge}
             setMinAge={setMinAge}
             handleFilterByAge={handleFilterByAge}
+            handleClearFilterByAge={handleClearFilterByAge}
           />
         </div>
         <div>
@@ -186,7 +209,11 @@ export default function ProductsByCategory() {
                   filterByPlayersNumber={filterByPlayersNumber}
                 />
               </div>
-              <DisplayedProductsNumber limit={limit} pageNumber={pageNumber} totalProducts={totalProducts} />
+              <DisplayedProductsNumber
+                limit={limit}
+                pageNumber={pageNumber}
+                totalProducts={totalProducts}
+              />
             </div>
           </div>
           <div>
