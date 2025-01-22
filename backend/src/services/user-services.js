@@ -31,7 +31,7 @@ const updateUser = async (id, userData, currentUserId, currentUserRole) => {
       profilePictureUrl: updatedUser.profilePictureUrl,
     },
     JWT_SECRET,
-    { expiresIn: "1h" },
+    { expiresIn: "1h" }
   );
 
   return { token, updatedUser };
@@ -62,21 +62,38 @@ const getUserById = async (id) => {
   return user;
 };
 
-const getAllUsers = async (filter, sortBy, order, page, limit) => {
-  const skip = (page - 1) * limit;
-  const take = limit;
-  const orderBy = sortBy ? { [sortBy]: order || "asc" } : undefined;
+const getAllUsers = async (
+  sorting,
+  order,
+  pageNumber,
+  limitNumber,
+  filterByRole,
+  filterByIsActive
+) => {
+  const where = {
+    AND: [
+      ...(filterByRole ? [{ role: filterByRole }] : []),
+      ...(filterByIsActive !== undefined
+        ? [{ isActive: filterByIsActive }]
+        : []),
+    ],
+  };
+
+  const orderBy = sorting ? { [sorting]: order || "asc" } : undefined;
+  const skip = (pageNumber - 1) * limitNumber;
+  const take = limitNumber;
 
   const users = await prisma.user.findMany({
-    where: filter,
+    where,
     orderBy,
     skip,
     take,
   });
 
-  const totalUsers = await prisma.user.count({ where: filter });
+  const totalUsers = await prisma.user.count({ where });
+  const totalPages = Math.ceil(totalUsers / limitNumber);
 
-  return { users, totalUsers };
+  return { users, totalUsers, totalPages };
 };
 
 export default { updateUser, deleteUser, getUserById, getAllUsers };

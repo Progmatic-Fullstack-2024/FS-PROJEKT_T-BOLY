@@ -1,4 +1,4 @@
-import userService from "../services/user-services";
+import userService from "../services/user-services.js";
 
 const updateUser = async (req, res, next) => {
   const { id } = req.params;
@@ -27,7 +27,7 @@ const updateUser = async (req, res, next) => {
         profilePictureUrl,
       },
       req.user.id,
-      req.user.role,
+      req.user.role
     );
 
     res.status(200).json({ token, updatedUser });
@@ -59,17 +59,26 @@ const getUserById = async (req, res, next) => {
 };
 
 const getAllUsers = async (req, res, next) => {
-  const { filter, sortBy, order, page = 1, limit = 10 } = req.query;
+  const {
+    sorting,
+    order,
+    pageNumber = 1,
+    limitNumber = 10,
+    filterByRole,
+    filterByIsActive,
+  } = req.query;
 
   try {
-    const result = await userService.getAllUsers(
-      JSON.parse(filter || "{}"),
-      sortBy,
+    const { users, totalUsers, totalPages } = await userService.getAllUsers(
+      sorting,
       order,
-      parseInt(page, 10),
-      parseInt(limit, 10),
+      Number(pageNumber),
+      Number(limitNumber),
+      filterByRole,
+      filterByIsActive !== "false"
     );
-    res.status(200).json(result);
+
+    res.status(200).json({ users, totalUsers, totalPages });
   } catch (error) {
     next(error);
   }

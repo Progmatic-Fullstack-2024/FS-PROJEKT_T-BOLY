@@ -8,6 +8,6 @@ const router = express.Router();
 router.put("/:id", authMiddleware, userController.updateUser);
 router.delete("/:id", authMiddleware, userController.deleteUser);
 router.get("/:id", authMiddleware, userController.getUserById);
-router.get("/", authMiddleware, adminMiddleware, userController.getAllUsers);
+router.get("/", authMiddleware, userController.getAllUsers);
 
 export default router;
