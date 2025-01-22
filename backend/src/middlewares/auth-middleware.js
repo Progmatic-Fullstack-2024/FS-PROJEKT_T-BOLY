@@ -1,30 +1,23 @@
+// auth-middleware.js
+
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../constants/constants.js";
 import HttpError from "../utils/HttpError.js";
 
-export const authenticate = (req, res, next) => {
+const authMiddleware = (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
-  if (!token || token === "undefined") {
-    next(new HttpError("Token is missing", 401));
+
+  if (!token) {
+    return next(new HttpError("Authentication token is missing", 401));
   }
+
   try {
-    const userDecoded = jwt.verify(token, JWT_SECRET);
-    req.user = userDecoded;
-    next();
+    const decoded = jwt.verify(token, JWT_SECRET);
+    req.user = decoded;
+    return next();
   } catch (error) {
-    next(error);
+    return next(new HttpError("Invalid token", 401));
   }
 };
 
-export const authorize = (requiredRoles) => {
-  return (req, res, next) => {
-    console.log(req.user);
-    const { role } = req.user;
-
-    if (!requiredRoles.includes(role)) {
-      next(new HttpError("Unathorized", 403));
-    } else {
-      next();
-    }
-  };
-};
+export default authMiddleware;
