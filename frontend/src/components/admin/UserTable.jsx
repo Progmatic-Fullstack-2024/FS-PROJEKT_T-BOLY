@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { BsSortUp, BsSortDownAlt } from 'react-icons/bs';
 import { toast } from 'react-toastify';
 
 import UserRow from './UserRow.jsx';
@@ -12,11 +13,13 @@ export default function UsersTable() {
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [limit] = useState(10);
+  const [sorting, setSorting] = useState('username');
+  const [order, setOrder] = useState('asc');
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const data = await userService.getAllUsers('username', 'asc', pageNumber, limit);
+        const data = await userService.getAllUsers(sorting, order, pageNumber, limit);
         setUsers(data.users);
         setTotalUsers(data.totalUsers);
         setTotalPages(data.totalPages);
@@ -26,8 +29,24 @@ export default function UsersTable() {
     };
 
     fetchUsers();
-  }, [pageNumber, limit]);
+  }, [pageNumber, limit, sorting, order]);
 
+  const handleSort = (column) => {
+    if (sorting === column) {
+      setOrder((prevOrder) => (prevOrder === 'asc' ? 'desc' : 'asc'));
+    } else {
+      setSorting(column);
+      setOrder('asc');
+    }
+  };
+
+  const renderSortIcon = (column) => {
+    if (sorting === column) {
+      return order === 'asc' ? <BsSortUp className="inline w-5 h-5 ml-1" /> : <BsSortDownAlt className="inline w-5 h-5 ml-1" />;
+    }
+    return null;
+  };
+  
   const handleDelete = async (userId) => {
     try {
       await userService.deleteUser(userId);
@@ -54,12 +73,28 @@ export default function UsersTable() {
             <table className="w-full text-sm text-left text-gray-500 overflow-x-scroll">
               <thead className="text-xs text-gray-700 uppercase bg-primary">
                 <tr>
-                  <th className="px-4 py-3 w-48 text-left text-gray-100">Name</th>
-                  <th className="px-4 py-3 w-48 text-left text-gray-100 hidden md:table-cell">
+                  <th
+                    onClick={() => handleSort('username')}
+                    className="px-4 py-3 w-48 text-left text-gray-100 cursor-pointer"
+                  >
+                    Name
+                    {renderSortIcon('username')}
+                  </th>
+                  <th
+                    onClick={() => handleSort('email')}
+                    className="px-4 py-3 w-48 text-left text-gray-100 cursor-pointer hidden md:table-cell"
+                  >
                     Email
+                    {renderSortIcon('email')}
                   </th>
                   <th className="px-4 py-3 w-36 text-left text-gray-100">Role</th>
-                  <th className="px-4 py-3 w-36 text-left text-gray-100">Registered</th>
+                  <th
+                    onClick={() => handleSort('registrationDate')}
+                    className="px-4 py-3 w-36 text-left text-gray-100 cursor-pointer"
+                  >
+                    Registered
+                    {renderSortIcon('registrationDate')}
+                  </th>
                   <th className="px-4 py-3 w-48 text-left text-gray-100">Actions</th>
                 </tr>
               </thead>
@@ -85,5 +120,5 @@ export default function UsersTable() {
         </div>
       </div>
     </section>
-  );
+  )
 }
