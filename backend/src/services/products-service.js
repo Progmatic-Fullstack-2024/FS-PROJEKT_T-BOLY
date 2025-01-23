@@ -3,6 +3,7 @@ import { fileURLToPath } from "url";
 import path from "path";
 import prisma from "../models/prismaClient.js";
 import HttpError from "../utils/HttpError.js";
+import { updateFile } from "./file.service.js";
 
 const exportProducts = async () => {
   const __filename = fileURLToPath(import.meta.url);
@@ -56,7 +57,6 @@ const getAllProducts = async (
   const totalPages = Math.ceil(totalProducts / limitNumber);
   return { products, totalProducts, totalPages };
 };
-
 const getAllProductsByCategory = async (
   categoryId,
   sorting,
@@ -93,6 +93,9 @@ const getAllProductsByCategory = async (
 const getProductById = async (id) => {
   const product = await prisma.product.findUnique({
     where: { id },
+    include: {
+      categoryProduct: { include: { category: { select: { name: true } } } },
+    },
   });
   if (!product) {
     throw new HttpError("Product not found", 404);
@@ -107,14 +110,15 @@ const createProduct = async (productData) => {
   return newProduct;
 };
 
-const updateProduct = async (id, productData) => {
+const updateProduct = async (id, productData, file) => {
   const product = prisma.product.findUnique({
     where: { id },
   });
   if (!product) throw new HttpError("Product not found", 404);
+  const pictureUrl = await updateFile(product.pictureUrl, file);
   const updatedProduct = await prisma.product.update({
     where: { id },
-    data: productData,
+    data: { ...productData, pictureUrl },
   });
   return updatedProduct;
 };

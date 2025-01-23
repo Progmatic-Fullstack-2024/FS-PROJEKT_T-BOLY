@@ -1,6 +1,6 @@
 import { BsFillStarFill, BsStar, BsStarHalf } from 'react-icons/bs';
-import { FiEdit } from 'react-icons/fi';
 
+import ProductAdminModal from './CreateProductByAdmin.jsx';
 import DeleteProductModal from './DeleteProductModal.jsx';
 
 function renderStars(rating) {
@@ -16,10 +16,8 @@ function renderStars(rating) {
   }
   return stars;
 }
-
-export default function ProductRow({ product }) {
-
-
+export default function ProductRow({ product, onUpdate }) {
+  //console.log(product)
   return (
     <tr className="border-b dark:border-gray-600 hover:bg-orange-200">
       <td className="w-4 px-4 py-3">
@@ -36,7 +34,7 @@ export default function ProductRow({ product }) {
       </td>
       <td className="px-4 py-3">{product.name}</td>
       <td className="px-4 py-3 hidden md:table-cell">{product.description}</td>
-      <td className="px-4 py-3">{product.category}</td>
+      <td className="px-4 py-3">{product?.categoryProduct && product?.categoryProduct.map(c=>c.category.name).join(", ")}</td>
       <td className="px-4 py-3">${product.price}</td>
       <td className="px-4 py-3">{product.quantity}</td>
       <td className="px-4 py-3">
@@ -44,10 +42,8 @@ export default function ProductRow({ product }) {
       </td>
       <td className="px-4 py-3">
         <div className="flex space-x-2">
-          <button type="button" className="text-yellow-500">
-            <FiEdit />
-          </button>
-         <DeleteProductModal product={product} />
+          <ProductAdminModal productIdFromProductRow={product.id} onUpdate={onUpdate} />
+          <DeleteProductModal product={product} />
         </div>
       </td>
     </tr>

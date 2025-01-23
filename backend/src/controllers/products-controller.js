@@ -134,27 +134,27 @@ const updateProduct = async (req, res, next) => {
     name,
     description,
     price,
-    pictureUrl,
     quantity,
-    rating,
     ageRecommendationMin,
     ageRecommendationMax,
     playersNumberMin,
     playersNumberMax,
   } = req.body;
   try {
-    const updatedProduct = await productService.updateProduct(id, {
-      name,
-      description,
-      price,
-      pictureUrl,
-      quantity,
-      rating,
-      ageRecommendationMin,
-      ageRecommendationMax,
-      playersNumberMin,
-      playersNumberMax,
-    });
+    const updatedProduct = await productService.updateProduct(
+      id,
+      {
+        name,
+        description,
+        price: Number(price),
+        quantity: Number(quantity),
+        ageRecommendationMin: Number(ageRecommendationMin),
+        ageRecommendationMax: Number(ageRecommendationMax),
+        playersNumberMin: Number(playersNumberMin),
+        playersNumberMax: Number(playersNumberMax),
+      },
+      req?.file
+    );
     res.status(200).json(updatedProduct);
   } catch (error) {
     next(error);

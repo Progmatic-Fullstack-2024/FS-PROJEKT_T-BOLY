@@ -38,10 +38,10 @@ const updateProductCategoryConnection = async (req, res, next) => {
   }
 };
 const destroyConnection = async (req, res, next) => {
-  const { id } = req.params;
+  const { productId } = req.params;
   try {
     const deletedConnection =
-      await productCategoryService.destroyConnection(id);
+      await productCategoryService.destroyConnection(productId);
     res.status(200).json(deletedConnection);
   } catch (error) {
     next(error);

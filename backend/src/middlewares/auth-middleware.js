@@ -16,15 +16,13 @@ export const authenticate = (req, res, next) => {
   }
 };
 
-export const authorize = (requiredRoles) => {
-  return (req, res, next) => {
-    console.log(req.user);
-    const { role } = req.user;
+export const authorize = (requiredRoles) => (req, res, next) => {
+  console.log(req.user);
+  const { role } = req.user;
 
-    if (!requiredRoles.includes(role)) {
-      next(new HttpError("Unathorized", 403));
-    } else {
-      next();
-    }
-  };
+  if (!requiredRoles.includes(role)) {
+    next(new HttpError("Unathorized", 403));
+  } else {
+    next();
+  }
 };

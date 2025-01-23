@@ -15,7 +15,7 @@ const createProductCategoryConnection = async (connectionData) => {
   const newConnection = await prisma.categoryProduct.create({
     data: connectionData,
   });
-  console.log("newConnectionData", newConnection)
+  console.log("newConnectionData", newConnection);
   return newConnection;
 };
 
@@ -31,11 +31,20 @@ const updateProductCategoryConnection = async (id, connectionData) => {
   return updatedConnectiot;
 };
 
-const destroyConnection = async (id) => {
-  await getConnectionById(id);
-  return prisma.categoryProduct.delete({
-    where: { id },
+const destroyConnection = async (productId) => {
+  const connectionList = await prisma.categoryProduct.findMany({
+    where: { productId },
   });
+  console.log("Connection List: ", connectionList);
+
+  const deletedConnections = await Promise.all(
+    connectionList.map((connection) =>
+      prisma.categoryProduct.delete({
+        where: { id: connection.id },
+      })
+    )
+  );
+  return deletedConnections;
 };
 
 export default {

@@ -10,20 +10,21 @@ router.post(
   "/",
   authenticate,
   authorize(["ADMIN"]),
-  productCategoryController.createProductCategoryConnection
+  productCategoryController.createProductCategoryConnection,
 );
 
 router.put(
   "/:id",
   authenticate,
   authorize(["ADMIN"]),
-  productCategoryController.updateProductCategoryConnection
+  productCategoryController.updateProductCategoryConnection,
 );
 
 router.delete(
-  "/:id",
+  "/:productId",
   authenticate,
   authorize(["ADMIN"]),
-  productCategoryController.destroyConnection
+  productCategoryController.destroyConnection,
 );
+
 export default router;

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { BsDownload } from 'react-icons/bs';
 import { toast } from 'react-toastify';
 
-import AddNewProduct from './CreateProductByAdmin.jsx';
+import ProductAdminModal from './CreateProductByAdmin.jsx';
+// import AddNewProduct from './CreateProductByAdmin.jsx';
 import ProductRow from './ProductRow.jsx';
 import productService from '../../services/productService.js';
 import DisplayedProductsNumber from '../products/DisplayProductsNumber.jsx';
@@ -11,6 +12,8 @@ import Pagination from '../products/Pagination.jsx';
 export default function ProductsTable() {
   const [pageNumber, setPageNumber] = useState(1);
   const [productsByCategory, setProductsByCategory] = useState([]);
+  const [totalProducts, setTotalProducts] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
   const [limit] = useState(10);
 
   useEffect(() => {
@@ -23,7 +26,11 @@ export default function ProductsTable() {
           pageNumber,
           limit,
         );
-        setProductsByCategory(data);
+
+        setProductsByCategory(data.products);
+        setTotalProducts(data.totalProducts);
+        setTotalPages(data.totalPages);
+        setPageNumber(Number(data.pageNumber));
       } catch (error) {
         toast.error('Failed to fetch products:', error);
       }
@@ -32,14 +39,19 @@ export default function ProductsTable() {
     fetchProductsByCategory();
   }, [pageNumber, limit]);
 
+  const onUpdate = (id, values) => {
+    setProductsByCategory((prev) => prev.map((product) => (product.id === id ? values : product)));
+  };
+
   const handleDownload = async () => {
     try {
       await productService.exportProducts();
-      toast.success("Products exported successfully!");
+      toast.success('Products exported successfully!');
     } catch (error) {
-      toast.error("Failed to export products");
+      toast.error('Failed to export products');
     }
   };
+
 
   return (
     <section className="py-3 sm:py-5">
@@ -49,12 +61,11 @@ export default function ProductsTable() {
             <div className="flex items-center flex-1 space-x-4">
               <h5>
                 <span className="text-black">All Products: </span>
-                <span className="text-black">{productsByCategory.totalProducts}</span>
+                <span className="text-black">{totalProducts}</span>
               </h5>
             </div>
             <div className="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
-              <AddNewProduct>Add newProduct</AddNewProduct>
-       
+              <ProductAdminModal>Add newProduct</ProductAdminModal>
               <button
                 onClick={handleDownload}
                 type="button"
@@ -108,9 +119,9 @@ export default function ProductsTable() {
                 </tr>
               </thead>
               <tbody>
-                {productsByCategory?.products &&
-                  productsByCategory.products.map((product) => (
-                    <ProductRow key={product.id} product={product} />
+                {productsByCategory &&
+                  productsByCategory.map((product) => (
+                    <ProductRow key={product.id} product={product} onUpdate={onUpdate} />
                   ))}
               </tbody>
             </table>
@@ -119,12 +130,12 @@ export default function ProductsTable() {
             <DisplayedProductsNumber
               pageNumber={pageNumber}
               limit={limit}
-              totalProducts={productsByCategory.totalProducts}
+              totalProducts={totalProducts}
             />
             <Pagination
               pageNumber={pageNumber}
               setPageNumber={setPageNumber}
-              totalPages={productsByCategory.totalPages}
+              totalPages={totalPages}
             />
           </div>
         </div>
