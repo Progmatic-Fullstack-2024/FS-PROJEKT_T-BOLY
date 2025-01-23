@@ -13,7 +13,7 @@ export default function Pagination({ pageNumber, setPageNumber, totalPages }) {
           disabled={pageNumber <= 1}
         >
           <div
-            className={`flex items-center justify-center px-2 h-10 ms-0 leading-tight text-2xl text-gray-900 bg-white border border-1 border-gray-400 rounded-full ${pageNumber <= 1 ? 'cursor-not-allowed text-gray-100 border-gray-100' : 'hover:text-primary hover:border-primary'}`}
+            className={`flex items-center justify-center px-2 h-10 ms-0 leading-tight text-2xl border border-1 rounded-full ${pageNumber <= 1 ? 'cursor-not-allowed text-gray-300 border-gray-200' : 'text-gray-900 bg-white  border-gray-400 hover:text-primary hover:border-primary'}`}
           >
             <div className="sr-only">Previous</div>
             <MdKeyboardArrowLeft />
@@ -36,7 +36,7 @@ export default function Pagination({ pageNumber, setPageNumber, totalPages }) {
           disabled={pageNumber >= totalPages || pageNumber <= 0}
         >
           <div
-            className={`flex items-center justify-center px-2 h-10 ms-0 leading-tight text-2xl text-gray-900 bg-white border border-1 border-gray-400 rounded-full ${pageNumber >= totalPages || pageNumber <= 0 ? 'cursor-not-allowed text-gray-100 border-gray-100' : 'hover:text-primary hover:border-primary'}`}
+            className={`flex items-center justify-center px-2 h-10 ms-0 leading-tight text-2xl border border-1  rounded-full ${pageNumber >= totalPages || pageNumber <= 0 ? 'cursor-not-allowed text-gray-300 border-gray-200' : 'text-gray-900 bg-white  border-gray-400 hover:text-primary hover:border-primary'}`}
           >
             <div className="sr-only">Next</div>
             <MdKeyboardArrowRight />

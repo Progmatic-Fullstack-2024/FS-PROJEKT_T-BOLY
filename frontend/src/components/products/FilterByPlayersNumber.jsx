@@ -1,4 +1,7 @@
-export default function FilterByPlayersNumber({handleFilterByPlayersNumber, filterByPlayersNumber}) {
+export default function FilterByPlayersNumber({
+  handleFilterByPlayersNumber,
+  filterByPlayersNumber,
+}) {
   return (
     <select
       className="p-2 w-60 border-2 rounded-lg hover:border-gray-900 focus:border-primary"

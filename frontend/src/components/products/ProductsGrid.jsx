@@ -28,7 +28,8 @@ export default function ProductsGrid({ productsByCategory }) {
                 </button>
                 <button
                   type="submit"
-                  className="absolute top-9 right-2 rounded-full flex items-center justify-center hover:text-primary"
+                  className={`absolute top-9 right-2 rounded-full flex items-center justify-center ${product.quantity < 1 ? 'text-gray-300' : 'hover:text-primary'} `}
+                  disabled={product.quantity < 1}
                 >
                   <FiShoppingCart className="m-2" />
                 </button>

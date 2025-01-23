@@ -104,8 +104,8 @@ export default function ProductsByCategory() {
   useEffect(() => {
     setMinPrice(priceRange.rangeMin);
     setMaxPrice(priceRange.rangeMax);
-    setFilterByMinPrice(0)
-    setFilterByMaxPrice(1000)
+    setFilterByMinPrice(0);
+    setFilterByMaxPrice(1000);
     setMinAge(0);
     setMaxAge(100);
     setFilterByMinAge(0);
@@ -126,8 +126,8 @@ export default function ProductsByCategory() {
   const handleClearFilterByPrice = () => {
     setMinPrice(priceRange.rangeMin);
     setMaxPrice(priceRange.rangeMax);
-    setFilterByMinPrice(0)
-    setFilterByMaxPrice(1000)
+    setFilterByMinPrice(0);
+    setFilterByMaxPrice(1000);
   };
 
   const handleFilterByAge = () => {
@@ -158,7 +158,7 @@ export default function ProductsByCategory() {
   };
 
   return (
-    <div className="m-20">
+    <div className="md:m-20">
       <h1 className="text-primary m-8 text-3xl font-medium">Products</h1>
       <div className="flex gap-32 m-8">
         <div className="shrink-0 md:w-80 hidden md:block">
@@ -185,39 +185,36 @@ export default function ProductsByCategory() {
         </div>
         <div>
           <h1 className=" hidden md:block mb-12 text-3xl">{categoryName}</h1>
-          <div className="hidden md:block ">
-            <div className="flex gap-80 items-center">
-              <div className="flex justify-between gap-6">
-                <button
-                  onClick={handleGridView}
-                  className={`text-2xl ${gridView ? 'text-primary border-primary' : 'text-gray-200 hover:text-gray-900'}`}
-                  type="button"
-                >
-                  <MdGridView />
-                </button>
-                <button
-                  onClick={handleListView}
-                  className={`text-xl ${!gridView ? 'text-primary border-primary' : 'text-gray-200 hover:text-gray-900'}`}
-                  type="button"
-                >
-                  <ImList />
-                </button>
-
-                <Sorting handleSortingChange={handleSortingChange} sortingOption={sortingOption} />
-                <FilterByPlayersNumber
-                  handleFilterByPlayersNumber={handleFilterByPlayersNumber}
-                  filterByPlayersNumber={filterByPlayersNumber}
-                />
-              </div>
-              <DisplayedProductsNumber
-                limit={limit}
-                pageNumber={pageNumber}
-                totalProducts={totalProducts}
+          <div className="flex flex-col md:flex-row md:gap-80 gap-6 md:items-center md:mb-12">
+            <div className="flex md:flex-row flex-col justify-between gap-6 md:mb-0 mb-8">
+              <SelectCategoryInput />
+              <button
+                onClick={handleGridView}
+                className={`hidden md:block text-2xl ${gridView ? 'text-primary border-primary' : 'text-gray-200 hover:text-gray-900'}`}
+                type="button"
+              >
+                <MdGridView />
+              </button>
+              <button
+                onClick={handleListView}
+                className={`hidden md:block text-xl ${!gridView ? 'text-primary border-primary' : 'text-gray-200 hover:text-gray-900'}`}
+                type="button"
+              >
+                <ImList />
+              </button>
+              <Sorting handleSortingChange={handleSortingChange} sortingOption={sortingOption} />
+              <FilterByPlayersNumber
+                handleFilterByPlayersNumber={handleFilterByPlayersNumber}
+                filterByPlayersNumber={filterByPlayersNumber}
               />
             </div>
+            <DisplayedProductsNumber
+              limit={limit}
+              pageNumber={pageNumber}
+              totalProducts={totalProducts}
+            />
           </div>
           <div>
-            <SelectCategoryInput />
             {gridView ? (
               <ProductsGrid productsByCategory={productsByCategory} />
             ) : (

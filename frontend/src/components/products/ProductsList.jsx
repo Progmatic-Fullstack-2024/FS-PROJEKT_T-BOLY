@@ -31,7 +31,8 @@ export default function ProductsList({ productsByCategory }) {
                   <div className="flex">
                     <button
                       type="button"
-                      className="flex items-center justify-center gap-3 w-40 rounded-xl border-2 border-primary bg-primary p-2 text-white hover:border-gray-900 hover:text-black"
+                      className={`flex items-center justify-center gap-3 w-40 rounded-xl border-2 ${product.quantity >= 1 ? 'border-primary bg-primary p-2 text-white hover:border-gray-900 hover:text-black' : 'border-gray-200 bg-gray-200 text-gray-900 cursor-not-allowed'}`}
+                      disabled={product.quantity < 1}
                     >
                       <FiShoppingCart />
                       Add to Cart

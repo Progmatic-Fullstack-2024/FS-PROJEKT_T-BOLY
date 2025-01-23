@@ -10,7 +10,7 @@ export default function FilterByPrice({
   setMinPrice,
   handleFilterByPrice,
   priceRange,
-  handleClearFilterByPrice
+  handleClearFilterByPrice,
 }) {
   const min = priceRange.rangeMin;
   const max = priceRange.rangeMax;
@@ -38,7 +38,7 @@ export default function FilterByPrice({
         <div>€{maxPrice}</div>
       </div>
       <div className="flex justify-between">
-      <button
+        <button
           className="w-28 rounded-xl border-2 p-2 hover:border-gray-900"
           type="button"
           onClick={handleClearFilterByPrice}
