@@ -131,8 +131,8 @@ export default function Header() {
           </button>
         </div>
       )}
-      <div className="flex justify-around  py-8 bg-primary-light">
-        <div className="flex items-center">
+      <div className="flex  w-full py-8 bg-primary-light md:justify-around ">
+        <div className="flex items-center md:mr-0 mr-auto">
           <Link to="/">
             <img src={LogoOrange} alt="" className="w-18 h-10 hover:opacity-50" />
           </Link>
@@ -140,11 +140,12 @@ export default function Header() {
             <img src={LogoText} alt="" className="w-18 h-4 hover:opacity-50" />
           </Link>
         </div>
-
-        <Nav className="order-2 sm:order-1 " />
-        <div className="flex  items-center order-1 sm:order-2">
+        <div className="order-2 md:order-1 ">
+          <Nav />
+        </div>
+        <div className="flex order-1 md:order-2">
           <button type="button">
-            <FiShoppingCart className=" w-6 h-6 m-2 hidden md:block" />
+            <FiShoppingCart className=" w-6 h-6 m-2 " />
           </button>
           <Searchbar />
         </div>

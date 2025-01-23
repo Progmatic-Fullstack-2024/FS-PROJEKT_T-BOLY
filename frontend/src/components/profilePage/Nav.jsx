@@ -51,6 +51,7 @@ export default function Nav() {
         <ul className="space-y-4 font-medium">
           <li className="mt-4">
             <Link
+              onClick={() => setIsSideBarOpen(false)}
               className=" flex justify-between  p-4 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               to="orders"
             >
@@ -63,6 +64,7 @@ export default function Nav() {
           </li>
           <li className="">
             <Link
+              onClick={() => setIsSideBarOpen(false)}
               className="border-t border-gray-200  dark:border-gray-700  flex justify-between p-4 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               to="favorites"
             >
@@ -75,6 +77,7 @@ export default function Nav() {
           </li>
           <li className="">
             <Link
+              onClick={() => setIsSideBarOpen(false)}
               className="border-t border-gray-200 dark:border-gray-700  flex justify-between p-4 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               to="personal_data"
             >
@@ -87,6 +90,7 @@ export default function Nav() {
           </li>
           <li className="">
             <Link
+              onClick={() => setIsSideBarOpen(false)}
               className="border-t border-gray-200 dark:border-gray-700  flex justify-between p-4 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               to="change_password"
             >
@@ -99,6 +103,7 @@ export default function Nav() {
           </li>
           <li className="">
             <Link
+              onClick={() => setIsSideBarOpen(false)}
               className="border-t border-gray-200 dark:border-gray-700  flex justify-between p-4 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               to="adresses"
             >

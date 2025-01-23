@@ -1,6 +1,6 @@
 export default function Searchbar() {
   return (
-    <form className="flex items-center max-w-sm mx-auto hidden md:flex">
+    <form className="flex items-center hidden md:flex">
       <label htmlFor="simple-search" className="sr-only">
         Search
       </label>

@@ -17,11 +17,6 @@ export default function Adresses() {
     'postal code': yup.string().required('postal code is required'),
     street: yup.string().required('Street is requires'),
     'house number': yup.string().required('House number is requires'),
-    billingCountry: yup.string().required('Billing adress is required'),
-    billingCity: yup.string().required('Billing city is required'),
-    billingStreet: yup.string().required('Billing street is required'),
-    billingHouseNumber: yup.string().required('Billing house number is required'),
-    billingPostalCode: yup.string().required('Billing postal code is required'),
   });
 
   const handleEditClick = () => {
@@ -33,20 +28,11 @@ export default function Adresses() {
     setIsEditing(false);
   };
 
-  const handleCheckboxChange = (event, setFieldValue, values) => {
+  const handleCheckboxChange = (event) => {
     setBillingAdressEqual(event.target.checked);
-    const isChecked = event.target.checked;
-
-    if (isChecked) {
-      setFieldValue('billingCountry', values.country);
-      setFieldValue('billingCity', values.city);
-      setFieldValue('billingPostalCode', values['postal code']);
-      setFieldValue('billingStreet', values.street);
-      setFieldValue('billingHouseNumber', values['house number']);
-    }
   };
 
-  const handleSaveClick = async (values, resetForm) => {
+  const handleSaveClick = async (values, resetForm, setFieldValue) => {
     try {
       const adress = [
         values.country,
@@ -71,6 +57,14 @@ export default function Adresses() {
           values.street,
           values['house number'],
         ].join(', ');
+      }
+
+      if (billingAdressEqual) {
+        setFieldValue('billingCountry', values.country);
+        setFieldValue('billingCity', values.city);
+        setFieldValue('billingPostalCode', values['postal code']);
+        setFieldValue('billingStreet', values.street);
+        setFieldValue('billingHouseNumber', values['house number']);
       }
 
       if (billingAdressEqual) {
@@ -123,7 +117,9 @@ export default function Adresses() {
         }}
         validationSchema={adressValidationSchema}
         enableReinitialize
-        onSubmit={(values, { resetForm }) => handleSaveClick(values, resetForm)}
+        onSubmit={(values, { resetForm, setFieldValue }) =>
+          handleSaveClick(values, resetForm, setFieldValue)
+        }
       >
         {({ resetForm, setFieldValue, values }) => (
           <Form>
@@ -135,8 +131,8 @@ export default function Adresses() {
                     <div>
                       <label className="block text-gray-600 text-sm mb-1">Country</label>
                       <Field
-                        type="text"
                         name="country"
+                        type="text"
                         className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-indigo-200"
                       />
                       <ErrorMessage name="country" component="div" className="text-red-500" />

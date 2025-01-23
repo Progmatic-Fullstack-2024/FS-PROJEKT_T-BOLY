@@ -49,28 +49,6 @@ export default function PersonalData() {
     email: yup.string().email('Invalid email format').required('Email is required'),
   });
 
-  const handleSavePictureUpload = async () => {
-    if (!image) return;
-
-    setIsLoading(true);
-    const formData = new FormData();
-    formData.append('image', image);
-
-    try {
-      const { updatedUser, token } = await userService.updateProfilePictureUrl(formData);
-      setUser(updatedUser);
-      localStorage.setItem('token', token);
-      toast.success('Image uploaded successfully!');
-    } catch (error) {
-      toast.error('Kép feltöltési hiba:', error.message);
-    } finally {
-      setIsLoading(false);
-      setShowConfirmation(false);
-      setImage(null);
-      setPreviewImage(null);
-    }
-  };
-
   const handleSave = async (values, { setSubmitting }) => {
     try {
       const formattedValues = {
@@ -102,6 +80,28 @@ export default function PersonalData() {
     }
   };
 
+  const handleSavePictureUpload = async () => {
+    if (!image) return;
+
+    setIsLoading(true);
+    const formData = new FormData();
+    formData.append('image', image);
+
+    try {
+      const { updatedUser, token } = await userService.updateProfilePictureUrl(formData);
+      setUser(updatedUser);
+      localStorage.setItem('token', token);
+      toast.success('Image uploaded successfully!');
+    } catch (error) {
+      toast.error('Kép feltöltési hiba:', error.message);
+    } finally {
+      setIsLoading(false);
+      setShowConfirmation(false);
+      setImage(null);
+      setPreviewImage(null);
+    }
+  };
+
   const handleEditClick = () => {
     setIsEditing(true);
   };
@@ -111,9 +111,7 @@ export default function PersonalData() {
   };
 
   const handlePictureUpload = async () => {
-    if (isEditing) {
-      fileInputRef.current.click();
-    }
+    fileInputRef.current.click();
   };
 
   const handleInputChange = async (e) => {
@@ -136,14 +134,14 @@ export default function PersonalData() {
       </h1>
       <div className="flex flex-col lg:flex-row md:flex-row ">
         <button
-          disabled={!isEditing}
+          disabled={isEditing}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           type="button"
           onClick={handlePictureUpload}
           className="border w-20 h-20 rounded-full mr-8 md:rounded overflow-hidden flex items-center justify-center bg-gray-50 hover:bg-gray-100 lg:w-80 lg:h-80 lg:rounded md:w-80 md:h-80 md:rounded sm:w-20 sm:h-20 sm:rounded-full"
         >
-          {isLoading && isEditing && (
+          {isLoading && !isEditing && (
             <div className="animate-spin border-4 border-gray-300 border-t-gray-800 rounded-full w-16 h-16" />
           )}
 
@@ -159,7 +157,7 @@ export default function PersonalData() {
             <BsPersonCircle className="w-40 h-40" />
           )}
 
-          {isHovered && !isLoading && isEditing && (
+          {isHovered && !isLoading && !isEditing && (
             <div className="absolute flex items-center justify-center bg-black bg-opacity-50 w-20 h-20 rounded-full lg:w-80 lg:h-80 lg:rounded md:w-80 md:h-80 md:rounded sm:w-20 sm:h-20 sm:rounded-full">
               <span className="text-white text-2xl font-bold">
                 <HiOutlineDocumentPlus />
@@ -176,6 +174,7 @@ export default function PersonalData() {
         {showConfirmation && !isLoading && (
           <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
             <div className="bg-white p-6 rounded shadow-lg">
+              <img alt="" src={previewImage} className="w-full h-full object-cover rounded" />
               <p className="mb-4 text-lg font-semibold">Do you want to save the picture?</p>
               <div className="flex justify-end space-x-4">
                 <button
