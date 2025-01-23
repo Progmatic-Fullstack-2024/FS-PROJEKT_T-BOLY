@@ -74,25 +74,6 @@ export default function ProductsTable() {
     );
   };
 
-  const handleSort = (column) => {
-    if (sorting === column) {
-      setOrder(order === 'asc' ? 'desc' : 'asc');
-    } else {
-      setSorting(column);
-      setOrder('asc');
-    }
-  };
-
-  const renderSortIcon = (column) => {
-    if (sorting !== column) return null;
-    return order === 'asc' ? (
-      <BsSortUp className="w-5 h-5 inline ml-1" />
-    ) : (
-      <BsSortDownAlt className="w-5 h-5 inline ml-1" />
-    );
-  };
-
-
   return (
     <section className="py-3 sm:py-5">
       <div className="px-4 mx-auto max-w-screen-2xl lg:px-12">
