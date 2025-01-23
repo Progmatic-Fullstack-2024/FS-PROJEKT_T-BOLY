@@ -38,7 +38,7 @@ const getAllProducts = async (
   pageNumber,
   limitNumber,
   filterByMinPrice,
-  filterByMaxPrice,
+  filterByMaxPrice
 ) => {
   const where = {
     AND: [
@@ -48,6 +48,9 @@ const getAllProducts = async (
   };
   const products = await prisma.product.findMany({
     where,
+    include: {
+      categoryProduct: { include: { category: { select: { name: true } } } },
+    },
     orderBy: { [sorting]: order },
     skip: (pageNumber - 1) * limitNumber,
     take: limitNumber,
@@ -64,7 +67,7 @@ const getAllProductsByCategory = async (
   pageNumber,
   limitNumber,
   filterByMinPrice,
-  filterByMaxPrice,
+  filterByMaxPrice
 ) => {
   const where = {
     categoryProduct: {
