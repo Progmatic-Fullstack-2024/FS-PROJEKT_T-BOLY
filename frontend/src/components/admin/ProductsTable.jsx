@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BsDownload } from 'react-icons/bs';
+import { BsDownload, BsSortUp, BsSortDownAlt } from 'react-icons/bs';
 import { toast } from 'react-toastify';
 
 import ProductAdminModal from './CreateProductByAdmin.jsx';
@@ -15,14 +15,16 @@ export default function ProductsTable() {
   const [totalProducts, setTotalProducts] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [limit] = useState(10);
+  const [sorting, setSorting] = useState('name');
+  const [order, setOrder] = useState('asc');
 
   useEffect(() => {
     const fetchProductsByCategory = async () => {
       try {
         const data = await productService.getAllProductsByCategory(
           'all',
-          'name',
-          'asc',
+          sorting,
+          order,
           pageNumber,
           limit,
         );
@@ -37,7 +39,7 @@ export default function ProductsTable() {
     };
 
     fetchProductsByCategory();
-  }, [pageNumber, limit]);
+  }, [pageNumber, limit, sorting, order]);
 
   const onUpdate = (id, values) => {
     setProductsByCategory((prev) => prev.map((product) => (product.id === id ? values : product)));
@@ -47,9 +49,47 @@ export default function ProductsTable() {
     try {
       await productService.exportProducts();
       toast.success('Products exported successfully!');
+      toast.success('Products exported successfully!');
     } catch (error) {
       toast.error('Failed to export products');
+      toast.error('Failed to export products');
     }
+  };
+
+  const handleSort = (column) => {
+    if (sorting === column) {
+      setOrder(order === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSorting(column);
+      setOrder('asc');
+    }
+  };
+
+  const renderSortIcon = (column) => {
+    if (sorting !== column) return null;
+    return order === 'asc' ? (
+      <BsSortUp className="w-5 h-5 inline ml-1" />
+    ) : (
+      <BsSortDownAlt className="w-5 h-5 inline ml-1" />
+    );
+  };
+
+  const handleSort = (column) => {
+    if (sorting === column) {
+      setOrder(order === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSorting(column);
+      setOrder('asc');
+    }
+  };
+
+  const renderSortIcon = (column) => {
+    if (sorting !== column) return null;
+    return order === 'asc' ? (
+      <BsSortUp className="w-5 h-5 inline ml-1" />
+    ) : (
+      <BsSortDownAlt className="w-5 h-5 inline ml-1" />
+    );
   };
 
 
@@ -66,6 +106,7 @@ export default function ProductsTable() {
             </div>
             <div className="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
               <ProductAdminModal>Add newProduct</ProductAdminModal>
+
               <button
                 onClick={handleDownload}
                 type="button"
@@ -92,8 +133,12 @@ export default function ProductsTable() {
                       </label>
                     </div>
                   </th>
-                  <th scope="col" className="px-4 py-3 w-48 text-left text-gray-100">
-                    Product
+                  <th
+                    scope="col"
+                    className="px-4 py-3 w-48 text-left text-gray-100 cursor-pointer"
+                    onClick={() => handleSort('name')}
+                  >
+                    Product {renderSortIcon('name')}
                   </th>
                   <th
                     scope="col"
@@ -104,14 +149,26 @@ export default function ProductsTable() {
                   <th scope="col" className="px-4 py-3 w-36 text-left text-gray-100">
                     Category
                   </th>
-                  <th scope="col" className="px-4 py-3 w-24 text-center text-gray-100">
-                    Price
+                  <th
+                    scope="col"
+                    className="px-4 py-3 w-24 text-center text-gray-100 cursor-pointer"
+                    onClick={() => handleSort('price')}
+                  >
+                    Price {renderSortIcon('price')}
                   </th>
-                  <th scope="col" className="px-4 py-3 w-24 text-center text-gray-100">
-                    Quantity
+                  <th
+                    scope="col"
+                    className="px-4 py-3 w-24 text-center text-gray-100 cursor-pointer"
+                    onClick={() => handleSort('quantity')}
+                  >
+                    Quantity {renderSortIcon('quantity')}
                   </th>
-                  <th scope="col" className="px-4 py-3 w-24 text-center text-gray-100">
-                    Rating
+                  <th
+                    scope="col"
+                    className="px-4 py-3 w-24 text-center text-gray-100 cursor-pointer"
+                    onClick={() => handleSort('rating')}
+                  >
+                    Rating {renderSortIcon('rating')}
                   </th>
                   <th scope="col" className="px-4 py-3 w-48 text-left text-gray-100">
                     Actions
