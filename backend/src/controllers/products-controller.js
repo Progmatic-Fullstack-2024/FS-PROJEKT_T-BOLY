@@ -29,7 +29,7 @@ const getAllProducts = async (req, res, next) => {
       maxPriceNumber,
       minAgeNumber,
       maxAgeNumber,
-      players
+      players,
     );
     const {
       products,
@@ -83,7 +83,7 @@ const getAllProductsByCategory = async (req, res, next) => {
         maxPriceNumber,
         minAgeNumber,
         maxAgeNumber,
-        players
+        players,
       );
     } else {
       result = await productService.getAllProductsByCategory(
@@ -96,7 +96,7 @@ const getAllProductsByCategory = async (req, res, next) => {
         maxPriceNumber,
         minAgeNumber,
         maxAgeNumber,
-        players
+        players,
       );
     }
 

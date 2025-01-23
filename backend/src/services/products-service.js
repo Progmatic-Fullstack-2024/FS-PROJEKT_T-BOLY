@@ -10,7 +10,7 @@ const getAllProducts = async (
   filterByMaxPrice,
   filterByMinAge,
   filterByMaxAge,
-  filterByPlayersNumber
+  filterByPlayersNumber,
 ) => {
   const where = {
     AND: [
@@ -37,7 +37,17 @@ const getAllProducts = async (
   }
   const products = await prisma.product.findMany({
     where,
-    orderBy: { [sorting]: order },
+    orderBy:
+      sorting === "rating"
+        ? {
+            [sorting]: {
+              sort: order,
+              nulls: "last",
+            },
+          }
+        : {
+            [sorting]: order,
+          },
     skip: (pageNumber - 1) * limitNumber,
     take: limitNumber,
   });
@@ -71,7 +81,7 @@ const getAllProductsByCategory = async (
   filterByMaxPrice,
   filterByMinAge,
   filterByMaxAge,
-  filterByPlayersNumber
+  filterByPlayersNumber,
 ) => {
   const where = {
     categoryProduct: {
@@ -104,7 +114,17 @@ const getAllProductsByCategory = async (
     include: {
       categoryProduct: { include: { category: { select: { name: true } } } },
     },
-    orderBy: { [sorting]: order },
+    orderBy:
+      sorting === "rating"
+        ? {
+            [sorting]: {
+              sort: order,
+              nulls: "last",
+            },
+          }
+        : {
+            [sorting]: order,
+          },
     skip: (pageNumber - 1) * limitNumber,
     take: limitNumber,
   });
@@ -140,11 +160,11 @@ const getProductById = async (id) => {
   }
 
   const categoryIds = product.categoryProduct.map(
-    (category) => category.categoryId
+    (category) => category.categoryId,
   );
 
   const categoryNames = product.categoryProduct.map(
-    (categoryProduct) => categoryProduct.category.name
+    (categoryProduct) => categoryProduct.category.name,
   );
 
   const relatedProductsByCategory = await prisma.product.findMany({
