@@ -201,7 +201,7 @@ export default function PersonalData() {
             onSubmit={handleSave}
             validationSchema={personalDataValidationSchema}
           >
-            {({ isSubmitting}) => (
+            {({ isSubmitting }) => (
               <Form className="space-y-4 ">
                 <div>
                   <label className="block text-gray-500 text-sm mb-1">First Name</label>

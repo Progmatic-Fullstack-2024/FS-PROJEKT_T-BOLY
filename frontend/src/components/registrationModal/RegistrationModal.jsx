@@ -15,7 +15,6 @@ export default function RegistrationModal({ onClose }) {
     } else {
       toast.error();
     }
-    console.log(result);
     onClose();
   };
 
