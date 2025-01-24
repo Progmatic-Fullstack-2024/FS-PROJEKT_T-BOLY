@@ -47,7 +47,7 @@ export default function Header() {
             onClick={toggleDropdown}
             id="dropdownInformationButton"
             data-dropdown-toggle="dropdownInformation"
-            className="text-white bg-primray hover:bg-primary focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className="text-white bg-primray hover:bg-primary focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center "
             type="button"
           >
             Hello {user.username}!
@@ -70,16 +70,16 @@ export default function Header() {
           {isDropdownOpen && (
             <div
               id="dropdownInformation"
-              className="absolute top-8 right-14 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+              className="absolute top-8 right-14 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44  "
             >
-              <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
+              <div className="px-4 py-3 text-sm text-gray-900 ">
                 <div>{user.username}</div>
                 <div className="font-medium truncate">{user.email}</div>
               </div>
-              <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
+              <ul className="py-2 text-sm text-gray-700 ">
                 <li>
                   <Link
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    className="block px-4 py-2 hover:bg-gray-100  "
                     to="profile_page/orders"
                     onClick={toggleDropdown}
                   >
@@ -88,7 +88,7 @@ export default function Header() {
                 </li>
                 <li>
                   <Link
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    className="block px-4 py-2 hover:bg-gray-100  "
                     to="profile_page/favorites"
                     onClick={toggleDropdown}
                   >
@@ -97,7 +97,7 @@ export default function Header() {
                 </li>
                 <li>
                   <Link
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    className="block px-4 py-2 hover:bg-gray-100  "
                     to="profile_page/personal_data"
                     onClick={toggleDropdown}
                   >
@@ -106,7 +106,7 @@ export default function Header() {
                 </li>
                 <li>
                   <Link
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    className="block px-4 py-2 hover:bg-gray-100  "
                     to="profile_page/change_password"
                     onClick={toggleDropdown}
                   >
@@ -115,7 +115,7 @@ export default function Header() {
                 </li>
                 <li>
                   <Link
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    className="block px-4 py-2 hover:bg-gray-100  "
                     to="profile_page/adresses"
                     onClick={toggleDropdown}
                   >

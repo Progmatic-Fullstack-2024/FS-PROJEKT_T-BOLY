@@ -4,7 +4,7 @@ import Nav from './Nav';
 
 export default function UserProfile() {
   return (
-    <div className="flex ">
+    <div className="flex">
       <Nav />
       <div className="grow p-8">
         <Outlet />

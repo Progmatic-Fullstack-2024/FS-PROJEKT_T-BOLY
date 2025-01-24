@@ -139,7 +139,7 @@ export default function PersonalData() {
           onMouseLeave={() => setIsHovered(false)}
           type="button"
           onClick={handlePictureUpload}
-          className="border w-20 h-20 rounded-full mr-8 md:rounded overflow-hidden flex items-center justify-center bg-gray-50 hover:bg-gray-100 lg:w-80 lg:h-80 lg:rounded md:w-80 md:h-80 md:rounded sm:w-20 sm:h-20 sm:rounded-full"
+          className="border w-20 h-20 rounded-full mr-8 overflow-hidden flex items-center justify-center bg-gray-50 hover:bg-gray-100 lg:w-80 lg:h-80 lg:rounded md:w-80 md:h-80 md:rounded sm:w-20 sm:h-20 sm:rounded-full"
         >
           {isLoading && !isEditing && (
             <div className="animate-spin border-4 border-gray-300 border-t-gray-800 rounded-full w-16 h-16" />
@@ -291,11 +291,11 @@ export default function PersonalData() {
               <p className="text-gray-800">{new Date(user?.birthDate).toLocaleDateString()}</p>
             </div>
 
-            <div className="mt-6 flex justify-end">
+            <div className="mt-6">
               <button
                 type="button"
                 onClick={handleEditClick}
-                className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-indigo-700"
+                className="px-4 py-2 w-full bg-primary text-white rounded-lg hover:bg-indigo-700"
               >
                 Edit
               </button>
