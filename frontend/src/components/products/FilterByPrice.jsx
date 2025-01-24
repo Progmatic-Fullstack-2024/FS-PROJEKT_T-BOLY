@@ -18,7 +18,7 @@ export default function FilterByPrice({
   useEffect(() => {
     setMinPrice(min);
     setMaxPrice(max);
-  }, []);
+  }, [min, max]);
 
   return (
     <div className="flex flex-col gap-2 p-6 border-2 rounded-lg mb-10">

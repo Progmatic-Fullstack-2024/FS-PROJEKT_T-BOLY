@@ -39,23 +39,16 @@ export default function ProductsByCategory() {
   const [priceRange, setPriceRange] = useState({});
 
   useEffect(() => {
-    const fetchCategoryById = async () => {
+    const fetchCategoryAndProducts = async () => {
       try {
-        if (categoryId === 'all') {
-          setCategoryName('All products');
-        } else {
-          const data = await categoryService.getCategoryById(categoryId);
-          setCategoryName(data.name);
-        }
-      } catch (error) {
-        toast.error('Failed to fetch category name:', error);
-      }
-    };
+        setCategoryName(
+          categoryId === 'all'
+            ? 'All products'
+            : (await categoryService.getCategoryById(categoryId)).name,
+        );
 
-    const fetchProductsByCategory = async () => {
-      try {
         const { sorting, order } = sortingOption;
-        const data = await productService.getAllProductsByCategory(
+        const productData = await productService.getAllProductsByCategory(
           categoryId,
           sorting,
           order,
@@ -67,16 +60,15 @@ export default function ProductsByCategory() {
           filterByMaxAge,
           filterByPlayersNumber,
         );
-        setProductsByCategory(data.products);
-        setTotalPages(data.totalPages);
-        setTotalProducts(data.totalProducts);
-        setPriceRange({ rangeMin: data.minPriceDb, rangeMax: data.maxPriceDb });
+        setProductsByCategory(productData.products);
+        setTotalPages(productData.totalPages);
+        setTotalProducts(productData.totalProducts);
+        setPriceRange({ rangeMin: productData.minPriceDb, rangeMax: productData.maxPriceDb });
       } catch (error) {
-        toast.error('Failed to fetch products:', error);
+        toast.error('Failed to fetch data. Please try again later.');
       }
     };
-    fetchCategoryById();
-    fetchProductsByCategory();
+    fetchCategoryAndProducts();
   }, [
     categoryId,
     sortingOption,
@@ -102,8 +94,10 @@ export default function ProductsByCategory() {
   ]);
 
   useEffect(() => {
-    setMinPrice(priceRange.rangeMin);
-    setMaxPrice(priceRange.rangeMax);
+    if (priceRange.rangeMin !== undefined && priceRange.rangeMax !== undefined) {
+      setMinPrice(priceRange.rangeMin);
+      setMaxPrice(priceRange.rangeMax);
+    }
     setFilterByMinPrice(0);
     setFilterByMaxPrice(1000);
     setMinAge(0);
@@ -111,7 +105,7 @@ export default function ProductsByCategory() {
     setFilterByMinAge(0);
     setFilterByMaxAge(100);
     setFilterByPlayersNumber('all');
-  }, [categoryId]);
+  }, [categoryId, priceRange.rangeMin, priceRange.rangeMax]);
 
   const handleSortingChange = (e) => {
     const [sorting, order] = e.target.value.split('-');
