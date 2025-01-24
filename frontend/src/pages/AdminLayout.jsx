@@ -4,6 +4,7 @@ import { FiMenu, FiSearch, FiUser, FiUsers, FiHome, FiLogOut } from 'react-icons
 import { Outlet, Link } from 'react-router-dom';
 
 import TbolyWhite from '../assets/t-boly-white.png';
+import { ToastContainer } from 'react-toastify';
 
 export default function AdminLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -125,6 +126,18 @@ export default function AdminLayout() {
       <main className="p-4 md:ml-64 h-auto pt-20 bg-primary bg-opacity-40 grow">
         <Outlet />
       </main>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 }
