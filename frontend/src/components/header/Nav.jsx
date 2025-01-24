@@ -5,7 +5,7 @@ export default function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState(true);
 
   return (
-    <nav className="relative text-text-dark">
+    <nav className="relative text-text-dark text-2xl ">
       <div className="max-w-screen-xl flex items-center justify-between mx-auto p-4">
         <button
           type="button"
