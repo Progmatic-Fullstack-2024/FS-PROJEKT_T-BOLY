@@ -13,7 +13,6 @@ const updateUser = async (req, res, next) => {
     billingAdress,
     profilePictureUrl,
   } = req.body;
-  console.log(adress, billingAdress);
 
   try {
     const { updatedUser, token } = await userService.updateUser(id, {
