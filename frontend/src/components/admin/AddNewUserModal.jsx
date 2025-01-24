@@ -4,6 +4,7 @@ import Select from 'react-select';
 import { toast } from 'react-toastify';
 
 import userService from '../../services/userService';
+import { nwUserValidationSchemaByAdmin } from '../../validations/newUserByAdmin.validation';
 
 export default function AddNewUserModal({ setIsOpen }) {
   const [userData, setUserData] = useState([]);
@@ -27,13 +28,13 @@ export default function AddNewUserModal({ setIsOpen }) {
         ...values,
         role: values.role.value.toUpperCase(),
       };
-      await userService.createUser(formattedValues);
+      const response = await userService.createUser(formattedValues);
 
       toast.success('User added successfully!');
 
       setIsOpen(false);
     } catch (error) {
-      toast.error('Problem during creating new user', error);
+      toast.error('Problem during creating new user');
     }
   };
   return (
@@ -51,7 +52,11 @@ export default function AddNewUserModal({ setIsOpen }) {
           </button>
         </div>
 
-        <Formik initialValues={initialValues} onSubmit={handleCreate}>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={handleCreate}
+          validationSchema={nwUserValidationSchemaByAdmin}
+        >
           {({ setFieldValue }) => (
             <Form className="flex flex-row w-full">
               <div className="flex flex-col justify-between items-center mb-4 w-full">
