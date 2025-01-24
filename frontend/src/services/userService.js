@@ -17,4 +17,9 @@ const updateUser = async (id, userData) => {
   return response.data;
 };
 
-export default { getAllUsers, deleteUser, updateUser };
+const createUser = async (userData) => {
+  const response = await api.post('/api/user/', userData);
+  return response.data;
+};
+
+export default { getAllUsers, deleteUser, updateUser, createUser };

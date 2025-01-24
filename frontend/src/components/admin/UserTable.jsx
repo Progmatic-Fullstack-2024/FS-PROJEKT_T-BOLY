@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { BsSortUp, BsSortDownAlt } from 'react-icons/bs';
+import { IoMdPersonAdd } from 'react-icons/io';
 import { toast } from 'react-toastify';
 
+import AddNewUserModal from './AddNewUserModal.jsx';
 import UserRow from './UserRow.jsx';
 import userService from '../../services/userService.js';
 import DisplayedProductsNumber from '../products/DisplayProductsNumber.jsx';
@@ -15,6 +17,7 @@ export default function UsersTable() {
   const [limit] = useState(10);
   const [sorting, setSorting] = useState('username');
   const [order, setOrder] = useState('asc');
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -42,11 +45,15 @@ export default function UsersTable() {
 
   const renderSortIcon = (column) => {
     if (sorting === column) {
-      return order === 'asc' ? <BsSortUp className="inline w-5 h-5 ml-1" /> : <BsSortDownAlt className="inline w-5 h-5 ml-1" />;
+      return order === 'asc' ? (
+        <BsSortUp className="inline w-5 h-5 ml-1" />
+      ) : (
+        <BsSortDownAlt className="inline w-5 h-5 ml-1" />
+      );
     }
     return null;
   };
-  
+
   const handleDelete = async (userId) => {
     try {
       await userService.deleteUser(userId);
@@ -68,6 +75,15 @@ export default function UsersTable() {
                 <span className="text-black">{totalUsers}</span>
               </h5>
             </div>
+            <button
+              onClick={() => setIsOpen(true)}
+              type="button"
+              className="flex items-center justify-center px-4 py-2 text-sm font-medium text-black rounded-lg bg-primary-700 border border-gray-400 hover:bg-primary focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
+            >
+              <IoMdPersonAdd className="h-4 w-4 mr-2 " />
+              Add new user
+            </button>
+            {isOpen && <AddNewUserModal setIsOpen={setIsOpen} />}
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left text-gray-500 overflow-x-scroll">
@@ -120,5 +136,5 @@ export default function UsersTable() {
         </div>
       </div>
     </section>
-  )
+  );
 }

@@ -1,4 +1,20 @@
 import userService from "../services/user-services.js";
+const createUser = async (req, res, next) => {
+  const { firstName, lastName, email, username, role } = req.body;
+
+  try {
+    const newUser = await userService.createUser({
+      firstName,
+      lastName,
+      email,
+      username,
+      role,
+    });
+    res.status(201).json(newUser);
+  } catch (error) {
+    next(error);
+  }
+};
 
 const updateUser = async (req, res, next) => {
   const { id } = req.params;
@@ -29,7 +45,7 @@ const updateUser = async (req, res, next) => {
         role,
       },
       req.user.id,
-      req.user.role,
+      req.user.role
     );
 
     res.status(200).json({ token, updatedUser });
@@ -76,7 +92,7 @@ const getAllUsers = async (req, res, next) => {
       Number(pageNumber),
       Number(limitNumber),
       filterByRole,
-      filterByIsActive !== "false",
+      filterByIsActive !== "false"
     );
 
     res.status(200).json({ users, totalUsers, totalPages });
@@ -85,4 +101,4 @@ const getAllUsers = async (req, res, next) => {
   }
 };
 
-export default { updateUser, deleteUser, getUserById, getAllUsers };
+export default { updateUser, deleteUser, getUserById, getAllUsers, createUser };
