@@ -31,8 +31,8 @@ export default function ProductById() {
         setCategoryNames(data.categoryNames);
         setReviews(false);
         setProductInCartCount(1);
-      } catch (err) {
-        toast.error('Failed to fetch category name:', err);
+      } catch (error) {
+        toast.error(`Failed to fetch product: ${error.message}. Please try again later.`);
       } finally {
         setLoading(false);
       }

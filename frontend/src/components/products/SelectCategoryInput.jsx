@@ -14,7 +14,7 @@ export default function SelectCategoryInput() {
         const data = await categoryService.getAllCategories();
         setCategories(data);
       } catch (error) {
-        toast.error('Failed to fetch categories:', error);
+        toast.error(`Failed to fetch categories: ${error.message}. Please try again later.`);
       }
     };
     fetchCategories();
