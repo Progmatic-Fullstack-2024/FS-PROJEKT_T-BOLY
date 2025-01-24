@@ -9,11 +9,12 @@ export default function LoginModal({ onClose }) {
 
   const handleLogin = async (values) => {
     const result = await login(values);
+    console.log(result);
     if (result.ok) {
       toast.success('Logged in succesfully.');
       onClose();
     } else {
-      toast.error(`Login failed. ${result.message}`);
+      toast.error(`Login failed. ${result.message.response.data.error}`);
     }
   };
 

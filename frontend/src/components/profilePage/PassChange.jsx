@@ -12,7 +12,7 @@ export default function PassChange() {
     if (result.ok) {
       toast.success('Password changed  succesfully.');
     } else {
-      toast.error(`Password change failed. ${result.message}`);
+      toast.error(`Password change failed. ${result.message.response.data.error}`);
     }
   };
   return (

@@ -71,10 +71,10 @@ export default function PersonalData() {
         setIsEditing(false);
         toast.success('User data updated successfully!');
       } else {
-        toast.error('Failed to update user data: Response is invalid.');
+        toast.error(`Failed to update user data, ${response.message.response.data.error}`);
       }
     } catch (error) {
-      toast.error('Failed to update user data.');
+      toast.error(`Failed to update user data.`);
     } finally {
       setSubmitting(false);
     }

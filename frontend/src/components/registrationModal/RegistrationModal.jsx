@@ -13,7 +13,7 @@ export default function RegistrationModal({ onClose }) {
     if (result.ok) {
       toast.success('Registration successful!');
     } else {
-      toast.error();
+      toast.error(`Registration failed, ${result.message.response.data.error}`);
     }
     onClose();
   };
