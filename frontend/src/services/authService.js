@@ -10,4 +10,9 @@ const login = async (credentials) => {
   return response.data;
 };
 
-export default { register, login };
+const passwordChange = async (id, credentials) => {
+  const response = await axiosInstance.put(`/auth/password_change/${id}`, credentials);
+  return response.data;
+};
+
+export default { register, login, passwordChange };
