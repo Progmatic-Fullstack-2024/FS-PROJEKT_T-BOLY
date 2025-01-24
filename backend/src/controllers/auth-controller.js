@@ -28,4 +28,20 @@ const register = async (req, res, next) => {
   }
 };
 
-export default { register, login };
+const passwordChange = async (req, res, next) => {
+  const { id } = req.params;
+  const { oldPassword, newPassword } = req.body;
+
+  try {
+    const updatedUser = await authService.passwordUpdate(
+      id,
+      oldPassword,
+      newPassword,
+    );
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export default { register, login, passwordChange };

@@ -7,4 +7,6 @@ router.post("/login", authController.login);
 
 router.post("/register", authController.register);
 
+router.put("/password_change/:id", authController.passwordChange);
+
 export default router;

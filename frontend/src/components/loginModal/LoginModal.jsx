@@ -13,7 +13,7 @@ export default function LoginModal({ onClose }) {
       toast.success('Logged in succesfully.');
       onClose();
     } else {
-      toast.error(`Login failed. ${result.message}`);
+      toast.error(`Login failed. ${result.message.response.data.error}`);
     }
   };
 

@@ -53,7 +53,18 @@ export function AuthProvider({ children }) {
     }
   };
 
-  const value = { user, login, register, logout };
+  const passwordChange = async (id, values) => {
+    try {
+      await authService.passwordChange(id, values);
+
+      return { ok: true, message: 'Logged in succesfully.' };
+    } catch (error) {
+      toast.error(error);
+      return { ok: false, message: error };
+    }
+  };
+
+  const value = { user, setUser, login, register, logout, passwordChange };
 
   return <AuthContext.Provider value={value}>{!isLoading && children}</AuthContext.Provider>;
 }
