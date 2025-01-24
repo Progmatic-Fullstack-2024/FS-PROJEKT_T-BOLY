@@ -174,7 +174,7 @@ export default function PersonalData() {
         {showConfirmation && !isLoading && (
           <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
             <div className="bg-white p-6 rounded shadow-lg">
-              <img alt="" src={previewImage} className="w-full h-full object-cover rounded" />
+              <img alt="" src={previewImage} className="w-60 h-60 rounded" />
               <p className="mb-4 text-lg font-semibold">Do you want to save the picture?</p>
               <div className="flex justify-end space-x-4">
                 <button
@@ -201,7 +201,7 @@ export default function PersonalData() {
             onSubmit={handleSave}
             validationSchema={personalDataValidationSchema}
           >
-            {({ isSubmitting, setFieldValue }) => (
+            {({ isSubmitting}) => (
               <Form className="space-y-4 ">
                 <div>
                   <label className="block text-gray-500 text-sm mb-1">First Name</label>
@@ -251,15 +251,6 @@ export default function PersonalData() {
                     className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-indigo-200"
                   />
                   <ErrorMessage name="birthDate" component="div" className="text-red-500" />
-                </div>
-
-                <div>
-                  <label className="block text-gray-600 text-sm mb-1">Profile Picture</label>
-                  <input
-                    type="file"
-                    onChange={(e) => setFieldValue('profilePictureUrl', e.target.files[0])}
-                    className="w-full"
-                  />
                 </div>
 
                 <div className="mt-6 flex justify-end space-x-4">
