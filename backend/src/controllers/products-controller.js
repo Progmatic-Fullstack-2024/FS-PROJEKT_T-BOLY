@@ -1,28 +1,120 @@
 import productService from "../services/products-service.js";
 
 const getAllProducts = async (req, res, next) => {
-  const { order = "asc" } = req.params;
+  const {
+    sorting = "name",
+    order = "asc",
+    page = 1,
+    limit = 9,
+    minPrice = 0,
+    maxPrice = 1000,
+    minAge = 0,
+    maxAge = 100,
+    players = "all",
+  } = req.query;
+  const pageNumber = Number(page);
+  const limitNumber = Number(limit);
+  const minPriceNumber = Number(minPrice);
+  const maxPriceNumber = Number(maxPrice);
+  const minAgeNumber = Number(minAge);
+  const maxAgeNumber = Number(maxAge);
+
   try {
-    const product = await productService.getAllProducts(order);
-    res.status(200).json(product);
+    const result = await productService.getAllProducts(
+      sorting,
+      order,
+      pageNumber,
+      limitNumber,
+      minPriceNumber,
+      maxPriceNumber,
+      minAgeNumber,
+      maxAgeNumber,
+      players,
+    );
+    const {
+      products,
+      totalPages,
+      totalProducts,
+      minPriceDb: minPriceValue,
+      maxPriceDb: maxPriceValue,
+    } = result;
+    res.status(200).json({
+      products,
+      pageNumber,
+      totalPages,
+      totalProducts,
+      minPriceDb: minPriceValue,
+      maxPriceDb: maxPriceValue,
+    });
   } catch (error) {
     next(error);
   }
 };
 
 const getAllProductsByCategory = async (req, res, next) => {
-  const { categoryId, order = "asc" } = req.params;
+  const { categoryId } = req.params;
+  const {
+    sorting = "name",
+    order = "asc",
+    page = 1,
+    limit = 9,
+    minPrice = 0,
+    maxPrice = 1000,
+    minAge = 0,
+    maxAge = 100,
+    players = "all",
+  } = req.query;
+  const pageNumber = Number(page);
+  const limitNumber = Number(limit);
+  const minPriceNumber = Number(minPrice);
+  const maxPriceNumber = Number(maxPrice);
+  const minAgeNumber = Number(minAge);
+  const maxAgeNumber = Number(maxAge);
+
   try {
-    let products;
+    let result;
     if (categoryId === "all") {
-      products = await productService.getAllProducts(order);
-    } else {
-      products = await productService.getAllProductsByCategory(
-        categoryId,
+      result = await productService.getAllProducts(
+        sorting,
         order,
+        pageNumber,
+        limitNumber,
+        minPriceNumber,
+        maxPriceNumber,
+        minAgeNumber,
+        maxAgeNumber,
+        players,
+      );
+    } else {
+      result = await productService.getAllProductsByCategory(
+        categoryId,
+        sorting,
+        order,
+        pageNumber,
+        limitNumber,
+        minPriceNumber,
+        maxPriceNumber,
+        minAgeNumber,
+        maxAgeNumber,
+        players,
       );
     }
-    res.status(200).json(products);
+
+    const {
+      products,
+      totalPages,
+      totalProducts,
+      minPriceDb: minPriceValue,
+      maxPriceDb: maxPriceValue,
+    } = result;
+    res.status(200).json({
+      products,
+      pageNumber,
+      totalPages,
+      totalProducts,
+      minPriceDb: minPriceValue,
+      maxPriceDb: maxPriceValue,
+    });
   } catch (error) {
     next(error);
   }
@@ -31,8 +123,9 @@ const getAllProductsByCategory = async (req, res, next) => {
 const getProductById = async (req, res, next) => {
   const productId = req.params.id;
   try {
-    const product = await productService.getProductById(productId);
-    res.status(200).json(product);
+    const { product, relatedProductsByCategory, categoryNames } =
+      await productService.getProductById(productId);
+    res.status(200).json({ product, relatedProductsByCategory, categoryNames });
   } catch (error) {
     next(error);
   }

@@ -14,22 +14,22 @@ export default function Nav() {
         const data = await categoryService.getAllCategories();
         setCategories(data);
       } catch (error) {
-        toast.error('Failed to fetch categories:', error);
+        toast.error(`Failed to fetch categories: ${error.message}. Please try again later.`);
       }
     };
     fetchCategories();
   }, []);
 
   return (
-    <div className="shrink-0 md:w-60 hidden md:block h-96 border-2 rounded-lg p-3 ">
-      <h1 className="pb-5 pt-2">Product categories</h1>
+    <div className="border-2 rounded-lg p-3 pl-6 mb-10">
+      <h1 className="pb-8 pt-4 text-xl font-medium">Product categories</h1>
       <nav>
         <ul>
-          <li className={categoryId === 'all' ? 'text-primary pb-2' : 'pb-2'}>
+          <li className={`pb-3 ${categoryId === 'all' && 'text-primary font-semibold'}`}>
             <Link to="/products/category/all">+ All products</Link>
           </li>
           {categories.map((category) => (
-            <li className={categoryId === category.id ? 'text-primary pb-2' : 'pb-2'}>
+            <li className={`pb-3 ${categoryId === category.id && 'text-primary font-semibold'}`}>
               <Link key={category.id} to={`/products/category/${category.id}`}>
                 + {category.name}
               </Link>
