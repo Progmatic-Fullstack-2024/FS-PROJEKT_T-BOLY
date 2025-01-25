@@ -1,8 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import App from './App';
+import ProductsTable from './components/admin/ProductsTable.jsx';
+import UserTable from './components/admin/UserTable.jsx';
 import ProductById from './components/productDetails/ProductById.jsx';
 import ProductsByCategory from './components/products/ProductsByCategory.jsx';
 import './index.css';
@@ -13,6 +15,7 @@ import PassChange from './components/profilePage/PassChange.jsx';
 import PersonalData from './components/profilePage/PersonalData.jsx';
 import { AuthProvider } from './contexts/AuthContext.jsx';
 import About from './pages/About.jsx';
+import AdminLayout from './pages/AdminLayout.jsx';
 import Contacts from './pages/Contact.jsx';
 import Homepage from './pages/Homepage';
 import ProfilePage from './pages/ProfilePage.jsx';
@@ -52,6 +55,34 @@ const router = createBrowserRouter([
           { path: 'favorites', element: <Favorites /> },
           { path: 'change_password', element: <PassChange /> },
         ],
+      },
+    ],
+  },
+  {
+    path: '/admin',
+    element: <AdminLayout />,
+    children: [
+      {
+        path: 'products',
+        element: <ProductsTable />,
+      },
+      {
+        path: 'users',
+        element: <UserTable />,
+      },
+    ],
+  },
+  {
+    path: '/admin',
+    element: <AdminLayout />,
+    children: [
+      {
+        path: 'products',
+        element: <ProductsTable />,
+      },
+      {
+        path: 'users',
+        element: <UserTable />,
       },
     ],
   },

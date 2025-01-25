@@ -20,4 +20,28 @@ const updateProfilePictureUrl = async (userData) => {
   return updatedUser;
 };
 
-export default { updateUser, listUsernames, updateProfilePictureUrl };
+const getAllUsers = async (sorting, order, page, limit) => {
+  const response = await api.get(
+    `/api/user?sorting=${sorting}&order=${order}&pageNumber=${page}&limitNumber=${limit}`,
+  );
+  return response.data;
+};
+
+const deleteUser = async (id) => {
+  const response = await api.delete(`/api/user/${id}`);
+  return response.data;
+};
+
+const createUser = async (userData) => {
+  const response = await api.post('/api/user/', userData);
+  return response.data;
+};
+
+export default {
+  listUsernames,
+  updateProfilePictureUrl,
+  getAllUsers,
+  deleteUser,
+  updateUser,
+  createUser,
+};

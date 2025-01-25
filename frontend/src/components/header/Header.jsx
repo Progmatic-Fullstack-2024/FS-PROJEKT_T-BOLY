@@ -54,6 +54,7 @@ export default function Header() {
             Hello {user.username}!
             <IoIosArrowDown className="w-4 h-4 ms-3" />
           </button>
+
           {isDropdownOpen && (
             <div
               id="dropdownInformation"
@@ -112,7 +113,9 @@ export default function Header() {
               </ul>
             </div>
           )}
-
+          <h3 className="text-white px-3 text-sm">
+            {user.role === 'ADMIN' && <Link to="/admin">Admin page</Link>}
+          </h3>
           <button type="button" className="text-white px-3 text-sm cursor-pointer" onClick={logout}>
             Logout
           </button>

@@ -214,11 +214,13 @@ export default function ProductsByCategory() {
             ) : (
               <ProductsList productsByCategory={productsByCategory} />
             )}
-            <Pagination
-              pageNumber={pageNumber}
-              setPageNumber={setPageNumber}
-              totalPages={totalPages}
-            />
+            <div className="mt-16">
+              <Pagination
+                pageNumber={pageNumber}
+                setPageNumber={setPageNumber}
+                totalPages={totalPages}
+              />
+            </div>
           </div>
         </div>
       </div>

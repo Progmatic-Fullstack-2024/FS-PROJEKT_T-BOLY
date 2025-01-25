@@ -1,5 +1,9 @@
+import XLSX from "xlsx";
+import { fileURLToPath } from "url";
+import path from "path";
 import prisma from "../models/prismaClient.js";
 import HttpError from "../utils/HttpError.js";
+import { updateFile } from "./file.service.js";
 
 const getAllProducts = async (
   sorting,
@@ -37,6 +41,9 @@ const getAllProducts = async (
   }
   const products = await prisma.product.findMany({
     where,
+    include: {
+      categoryProduct: { include: { category: { select: { name: true } } } },
+    },
     orderBy:
       sorting === "rating"
         ? {
@@ -196,18 +203,25 @@ const getProductById = async (id) => {
 const createProduct = async (productData) => {
   const newProduct = await prisma.product.create({
     data: productData,
+    include: {
+      categoryProduct: { include: { category: { select: { name: true } } } },
+    },
   });
   return newProduct;
 };
 
-const updateProduct = async (id, productData) => {
+const updateProduct = async (id, productData, file) => {
   const product = prisma.product.findUnique({
     where: { id },
   });
   if (!product) throw new HttpError("Product not found", 404);
+  const pictureUrl = await updateFile(product.pictureUrl, file);
   const updatedProduct = await prisma.product.update({
     where: { id },
-    data: productData,
+    data: { ...productData, pictureUrl },
+    include: {
+      categoryProduct: { include: { category: { select: { name: true } } } },
+    },
   });
   return updatedProduct;
 };
@@ -219,7 +233,36 @@ const destroyProduct = async (id) => {
   });
 };
 
+const exportProducts = async () => {
+  const filename = fileURLToPath(import.meta.url);
+  const dirname = path.dirname(filename);
+  const products = await prisma.product.findMany({
+    include: {
+      categoryProduct: { include: { category: { select: { name: true } } } },
+    },
+  });
+  const worksheetData = [
+    ["Product", "Description", "Category", "Price", "Quantity", "Rating"],
+    ...products.map((product) => [
+      product.name,
+      product.description,
+      product.categoryProduct.map((c) => c.category.name).join(", "),
+      product.price,
+      product.quantity,
+      product.rating,
+    ]),
+  ];
+
+  const workbook = XLSX.utils.book_new();
+  const worksheet = XLSX.utils.aoa_to_sheet(worksheetData);
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Products");
+  const tempFilePath = path.join(dirname, "products.xlsx");
+  XLSX.writeFile(workbook, tempFilePath);
+  return tempFilePath;
+};
+
 export default {
+  exportProducts,
   getAllProducts,
   getAllProductsByCategory,
   getProductById,
