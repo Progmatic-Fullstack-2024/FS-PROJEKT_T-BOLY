@@ -5,34 +5,6 @@ import prisma from "../models/prismaClient.js";
 import HttpError from "../utils/HttpError.js";
 import { updateFile } from "./file.service.js";
 
-const exportProducts = async () => {
-  const filename = fileURLToPath(import.meta.url);
-  const dirname = path.dirname(filename);
-  const products = await prisma.product.findMany({
-    include: {
-      categoryProduct: { include: { category: { select: { name: true } } } },
-    },
-  });
-  const worksheetData = [
-    ["Product", "Description", "Category", "Price", "Quantity", "Rating"],
-    ...products.map((product) => [
-      product.name,
-      product.description,
-      product.categoryProduct.map((c) => c.category.name).join(", "),
-      product.price,
-      product.quantity,
-      product.rating,
-    ]),
-  ];
-
-  const workbook = XLSX.utils.book_new();
-  const worksheet = XLSX.utils.aoa_to_sheet(worksheetData);
-  XLSX.utils.book_append_sheet(workbook, worksheet, "Products");
-  const tempFilePath = path.join(dirname, "products.xlsx");
-  XLSX.writeFile(workbook, tempFilePath);
-  return tempFilePath;
-};
-
 const getAllProducts = async (
   sorting,
   order,
@@ -40,26 +12,72 @@ const getAllProducts = async (
   limitNumber,
   filterByMinPrice,
   filterByMaxPrice,
+  filterByMinAge,
+  filterByMaxAge,
+  filterByPlayersNumber,
 ) => {
   const where = {
     AND: [
       { price: { gte: filterByMinPrice } },
       { price: { lte: filterByMaxPrice } },
+      { ageRecommendationMax: { gte: filterByMinAge } },
+      { ageRecommendationMin: { lte: filterByMaxAge } },
     ],
   };
+  if (filterByPlayersNumber !== "all") {
+    const [minPlayers, maxPlayers] = filterByPlayersNumber
+      .split("-")
+      .map(Number);
+    where.AND.push({
+      AND: [
+        {
+          playersNumberMax: { gte: minPlayers },
+        },
+        {
+          playersNumberMin: { lte: maxPlayers },
+        },
+      ],
+    });
+  }
   const products = await prisma.product.findMany({
     where,
     include: {
       categoryProduct: { include: { category: { select: { name: true } } } },
     },
-    orderBy: { [sorting]: order },
+    orderBy:
+      sorting === "rating"
+        ? {
+            [sorting]: {
+              sort: order,
+              nulls: "last",
+            },
+          }
+        : {
+            [sorting]: order,
+          },
     skip: (pageNumber - 1) * limitNumber,
     take: limitNumber,
   });
   const totalProducts = await prisma.product.count({ where });
   const totalPages = Math.ceil(totalProducts / limitNumber);
-  return { products, totalProducts, totalPages };
+
+  const { _min: minPrice, _max: maxPrice } = await prisma.product.aggregate({
+    _min: { price: true },
+    _max: { price: true },
+  });
+
+  const minPriceValue = minPrice.price || 0;
+  const maxPriceValue = maxPrice.price || 1000;
+
+  return {
+    products,
+    totalProducts,
+    totalPages,
+    minPriceDb: minPriceValue,
+    maxPriceDb: maxPriceValue,
+  };
 };
+
 const getAllProductsByCategory = async (
   categoryId,
   sorting,
@@ -68,6 +86,9 @@ const getAllProductsByCategory = async (
   limitNumber,
   filterByMinPrice,
   filterByMaxPrice,
+  filterByMinAge,
+  filterByMaxAge,
+  filterByPlayersNumber,
 ) => {
   const where = {
     categoryProduct: {
@@ -76,21 +97,62 @@ const getAllProductsByCategory = async (
     AND: [
       { price: { gte: filterByMinPrice } },
       { price: { lte: filterByMaxPrice } },
+      { ageRecommendationMax: { gte: filterByMinAge } },
+      { ageRecommendationMin: { lte: filterByMaxAge } },
     ],
   };
+  if (filterByPlayersNumber !== "all") {
+    const [minPlayers, maxPlayers] = filterByPlayersNumber
+      .split("-")
+      .map(Number);
+    where.AND.push({
+      AND: [
+        {
+          playersNumberMax: { gte: minPlayers },
+        },
+        {
+          playersNumberMin: { lte: maxPlayers },
+        },
+      ],
+    });
+  }
   const products = await prisma.product.findMany({
     where,
     include: {
       categoryProduct: { include: { category: { select: { name: true } } } },
     },
-    orderBy: { [sorting]: order },
+    orderBy:
+      sorting === "rating"
+        ? {
+            [sorting]: {
+              sort: order,
+              nulls: "last",
+            },
+          }
+        : {
+            [sorting]: order,
+          },
     skip: (pageNumber - 1) * limitNumber,
     take: limitNumber,
   });
   const totalProducts = await prisma.product.count({ where });
   const totalPages = Math.ceil(totalProducts / limitNumber);
 
-  return { products, totalProducts, totalPages };
+  const { _min: minPrice, _max: maxPrice } = await prisma.product.aggregate({
+    _min: { price: true },
+    _max: { price: true },
+  });
+
+  const minPriceValue = minPrice.price || 0;
+  const maxPriceValue = maxPrice.price || 1000;
+
+  return {
+    products,
+    totalProducts,
+    totalPages,
+    minPriceDb: minPriceValue,
+    maxPriceDb: maxPriceValue,
+  };
 };
 
 const getProductById = async (id) => {
@@ -103,7 +165,39 @@ const getProductById = async (id) => {
   if (!product) {
     throw new HttpError("Product not found", 404);
   }
-  return product;
+
+  const categoryIds = product.categoryProduct.map(
+    (category) => category.categoryId,
+  );
+
+  const categoryNames = product.categoryProduct.map(
+    (categoryProduct) => categoryProduct.category.name,
+  );
+
+  const relatedProductsByCategory = await prisma.product.findMany({
+    where: {
+      categoryProduct: {
+        some: {
+          categoryId: {
+            in: categoryIds,
+          },
+        },
+      },
+      rating: {
+        not: null,
+      },
+      NOT: {
+        id,
+      },
+    },
+    include: { categoryProduct: true },
+    orderBy: {
+      rating: "desc",
+    },
+    take: 4,
+  });
+
+  return { product, relatedProductsByCategory, categoryNames };
 };
 
 const createProduct = async (productData) => {
@@ -137,6 +231,34 @@ const destroyProduct = async (id) => {
   return prisma.product.delete({
     where: { id },
   });
+};
+
+const exportProducts = async () => {
+  const filename = fileURLToPath(import.meta.url);
+  const dirname = path.dirname(filename);
+  const products = await prisma.product.findMany({
+    include: {
+      categoryProduct: { include: { category: { select: { name: true } } } },
+    },
+  });
+  const worksheetData = [
+    ["Product", "Description", "Category", "Price", "Quantity", "Rating"],
+    ...products.map((product) => [
+      product.name,
+      product.description,
+      product.categoryProduct.map((c) => c.category.name).join(", "),
+      product.price,
+      product.quantity,
+      product.rating,
+    ]),
+  ];
+
+  const workbook = XLSX.utils.book_new();
+  const worksheet = XLSX.utils.aoa_to_sheet(worksheetData);
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Products");
+  const tempFilePath = path.join(dirname, "products.xlsx");
+  XLSX.writeFile(workbook, tempFilePath);
+  return tempFilePath;
 };
 
 export default {

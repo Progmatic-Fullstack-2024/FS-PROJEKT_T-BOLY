@@ -24,36 +24,49 @@ const exportProducts = async () => {
   }
 };
 
-const getAllProductsByCategory = async (
-  categoryId,
-  sorting = 'name',
-  order = 'asc',
-  page = 1,
-  limit = 10,
-) => {
-  const response = await api.get(
-    `api/products/category/${categoryId}?sorting=${sorting}&order=${order}&page=${page}&limit=${limit}`,
-  );
-  return response.data;
-};
-
-const getAllProducts = async (sorting = 'name', order = 'asc', page = 1, limit = 10) => {
-  const response = await api.get(
-    `/api/products?sorting=${sorting}&order=${order}&page=${page}&limit=${limit}`,
-  );
-  return response.data;
-};
-
-const getProductById = async (id) => {
-  if (!id) {
-    return { response: 'Ezt a kódrészt még be kell fejeznem' };
-  }
-  const response = await api.get(`/api/products/${id}`);
-  return response.data;
-};
-
 const updatedProduct = async (id, formdata) => {
   const response = await api.put(`/api/products/${id}`, formdata);
+  return response.data;
+};
+
+const getAllProductsByCategory = async (
+  categoryId,
+  sorting,
+  order,
+  page,
+  limit,
+  filterByMinPrice,
+  filterByMaxPrice,
+  filterByMinAge,
+  filterByMaxAge,
+  filterByPlayersNumber,
+) => {
+  const response = await api.get(
+    `/api/products/category/${categoryId}?sorting=${sorting}&order=${order}&page=${page}&limit=${limit}&minPrice=${filterByMinPrice}&maxPrice=${filterByMaxPrice}&minAge=${filterByMinAge}&maxAge=${filterByMaxAge}&players=${filterByPlayersNumber}`,
+  );
+  return response.data;
+};
+
+const getAllProducts = async (
+  sorting,
+  order,
+  page,
+  limit,
+  filterByMinPrice,
+  filterByMaxPrice,
+  filterByMinAge,
+  filterByMaxAge,
+  filterByPlayersNumber,
+) => {
+  const response = await api.get(
+    `/api/products?sorting=${sorting}&order=${order}&page=${page}&limit=${limit}&minPrice=${filterByMinPrice}&maxPrice=${filterByMaxPrice}&minAge=${filterByMinAge}&maxAge=${filterByMaxAge}&players=${filterByPlayersNumber}`,
+  );
+  return response.data;
+};
+
+const getProductById = async (productId) => {
+  
+  const response = await api.get(`/api/products/${productId}`);
   return response.data;
 };
 
@@ -66,8 +79,8 @@ export default {
   createProduct,
   getAllProductsByCategory,
   getAllProducts,
-  destroyProduct,
   getProductById,
+  destroyProduct,
   exportProducts,
   updatedProduct,
 };

@@ -36,8 +36,9 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const product = await productService.getProductById(productIdFromProductRow);
-        setProductData(product);
+        const result = await productService.getProductById(productIdFromProductRow);
+
+        setProductData(result.product);
       } catch (error) {
         toast.error('Failed to fetch product.');
       }

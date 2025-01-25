@@ -26,6 +26,11 @@ export default function ProductsTable() {
           order,
           pageNumber,
           limit,
+          0,
+          1000,
+          0,
+          100,
+          'all',
         );
 
         setProductsByCategory(data.products);
@@ -51,9 +56,7 @@ export default function ProductsTable() {
     try {
       await productService.exportProducts();
       toast.success('Products exported successfully!');
-      toast.success('Products exported successfully!');
     } catch (error) {
-      toast.error('Failed to export products');
       toast.error('Failed to export products');
     }
   };

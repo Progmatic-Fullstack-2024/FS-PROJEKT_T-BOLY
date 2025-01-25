@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.use("/categories", categoriesRoutes);
 router.use("/products", productsRoutes);
-router.use("/productCategoryConnection", productCategoryConnection);
 router.use("/user", userRoutes);
+router.use("/productCategoryConnection", productCategoryConnection);
 
 export default router;

@@ -1,5 +1,6 @@
 import { useState, useContext } from 'react';
 import { FiShoppingCart } from 'react-icons/fi';
+import { IoIosArrowDown } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 
 import Nav from './Nav';
@@ -15,29 +16,103 @@ export default function Header() {
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const { user, logout } = useContext(AuthContext);
 
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!isDropdownOpen);
+  };
+
   return (
-    <header className="flex flex-col font-orienta">
-      {!user?.email && (
+    <header className="flex flex-col">
+      {!user?.username && (
         <div className="flex bg-primary justify-end h-8 items-center">
           <button
             type="button"
-            className="text-white px-3 text-sm cursor-pointer"
+            className="text-white px-3 text-m cursor-pointer"
             onClick={() => setLoginModalOpen(true)}
           >
             Login
           </button>
           <button
             type="button"
-            className="text-white px-3 text-sm cursor-pointer"
+            className="text-white px-3 text-m cursor-pointer"
             onClick={() => setRegisterModalOpen(true)}
           >
             Register
           </button>
         </div>
       )}
-      {user?.email && (
+      {user?.username && (
         <div className="flex bg-primary justify-end h-8 items-center">
-          <h3 className="text-white px-3 text-sm">{user.email}</h3>
+          <button
+            onClick={toggleDropdown}
+            id="dropdownInformationButton"
+            data-dropdown-toggle="dropdownInformation"
+            className="text-white bg-primray hover:bg-primary focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center "
+            type="button"
+          >
+            Hello {user.username}!
+            <IoIosArrowDown className="w-4 h-4 ms-3" />
+          </button>
+
+          {isDropdownOpen && (
+            <div
+              id="dropdownInformation"
+              className="absolute top-8 right-14 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44  "
+            >
+              <div className="px-4 py-3 text-sm text-gray-900 ">
+                <div>{user.username}</div>
+                <div className="font-medium truncate">{user.email}</div>
+              </div>
+              <ul className="py-2 text-sm text-gray-700 ">
+                <li>
+                  <Link
+                    className="block px-4 py-2 hover:bg-gray-100  "
+                    to="profile_page/orders"
+                    onClick={toggleDropdown}
+                  >
+                    Orders
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="block px-4 py-2 hover:bg-gray-100  "
+                    to="profile_page/favorites"
+                    onClick={toggleDropdown}
+                  >
+                    Favorites
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="block px-4 py-2 hover:bg-gray-100  "
+                    to="profile_page/personal_data"
+                    onClick={toggleDropdown}
+                  >
+                    Personal Data
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="block px-4 py-2 hover:bg-gray-100  "
+                    to="profile_page/change_password"
+                    onClick={toggleDropdown}
+                  >
+                    Change password
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="block px-4 py-2 hover:bg-gray-100  "
+                    to="profile_page/adresses"
+                    onClick={toggleDropdown}
+                  >
+                    Addresses
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          )}
           <h3 className="text-white px-3 text-sm">
             {user.role === 'ADMIN' && <Link to="/admin">Admin page</Link>}
           </h3>
@@ -46,8 +121,8 @@ export default function Header() {
           </button>
         </div>
       )}
-      <div className="flex justify-around py-8 bg-primary-light">
-        <div className="flex items-center">
+      <div className="flex  w-full py-8 bg-primary-light md:justify-around ">
+        <div className="flex items-center md:mr-0 mr-auto">
           <Link to="/">
             <img src={LogoOrange} alt="" className="w-18 h-10 hover:opacity-50" />
           </Link>
@@ -55,11 +130,12 @@ export default function Header() {
             <img src={LogoText} alt="" className="w-18 h-4 hover:opacity-50" />
           </Link>
         </div>
-
-        <Nav className="order-2 sm:order-1 " />
-        <div className="flex  items-center order-1 sm:order-2">
+        <div className="order-2 md:order-1 ">
+          <Nav />
+        </div>
+        <div className="flex order-1 md:order-2">
           <button type="button">
-            <FiShoppingCart className="m-2" />
+            <FiShoppingCart className=" w-6 h-6 m-2 " />
           </button>
           <Searchbar />
         </div>
