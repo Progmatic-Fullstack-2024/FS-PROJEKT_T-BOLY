@@ -1,5 +1,4 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { useState } from 'react';
 import Select from 'react-select';
 import { toast } from 'react-toastify';
 
@@ -7,7 +6,6 @@ import userService from '../../services/userService';
 import { nwUserValidationSchemaByAdmin } from '../../validations/newUserByAdmin.validation';
 
 export default function AddNewUserModal({ setIsOpen }) {
-  const [userData, setUserData] = useState([]);
   const roleOptions = [
     { value: 'user', label: 'User' },
     { value: 'admin', label: 'Admin' },
@@ -15,11 +13,11 @@ export default function AddNewUserModal({ setIsOpen }) {
   ];
 
   const initialValues = {
-    firstName: userData?.firstName,
-    lastName: userData?.lastName,
-    username: userData?.username,
-    email: userData?.email,
-    role: userData?.role,
+    firstName: '',
+    lastName: '',
+    username: '',
+    email: '',
+    role: '',
   };
 
   const handleCreate = async (values) => {
@@ -29,8 +27,7 @@ export default function AddNewUserModal({ setIsOpen }) {
         role: values.role.value.toUpperCase(),
       };
       const response = await userService.createUser(formattedValues);
-
-      toast.success('User added successfully!');
+      if (response) toast.success('User added successfully!');
 
       setIsOpen(false);
     } catch (error) {

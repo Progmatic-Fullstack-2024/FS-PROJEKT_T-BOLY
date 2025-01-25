@@ -4,12 +4,13 @@ import { toast } from 'react-toastify';
 
 import productService from '../../services/productService.js';
 
-export default function DeleteProductModal({ product }) {
+export default function DeleteProductModal({ product, onDelete }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const destroyProduct = async (id) => {
     try {
       await productService.destroyProduct(id);
+      onDelete(id);
       setIsOpen(false);
     } catch (error) {
       toast.error('Failed to delete product(s):', error);

@@ -9,7 +9,7 @@ export default function App() {
     <div className="flex flex-col h-screen">
       <Header />
       <div className="grow">
-        <Outlet/>
+        <Outlet />
       </div>
       <ToastContainer
         position="top-center"

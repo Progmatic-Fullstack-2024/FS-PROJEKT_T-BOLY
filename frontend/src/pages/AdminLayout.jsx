@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { BsDice5, BsCreditCard } from 'react-icons/bs';
 import { FiMenu, FiSearch, FiUser, FiUsers, FiHome, FiLogOut } from 'react-icons/fi';
 import { Outlet, Link } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
 import TbolyWhite from '../assets/t-boly-white.png';
-import { ToastContainer } from 'react-toastify';
 
 export default function AdminLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);

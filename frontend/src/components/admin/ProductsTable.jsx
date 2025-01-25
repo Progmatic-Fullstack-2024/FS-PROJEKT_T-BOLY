@@ -3,7 +3,6 @@ import { BsDownload, BsSortUp, BsSortDownAlt } from 'react-icons/bs';
 import { toast } from 'react-toastify';
 
 import ProductAdminModal from './CreateProductByAdmin.jsx';
-// import AddNewProduct from './CreateProductByAdmin.jsx';
 import ProductRow from './ProductRow.jsx';
 import productService from '../../services/productService.js';
 import DisplayedProductsNumber from '../products/DisplayProductsNumber.jsx';
@@ -43,6 +42,9 @@ export default function ProductsTable() {
 
   const onUpdate = (id, values) => {
     setProductsByCategory((prev) => prev.map((product) => (product.id === id ? values : product)));
+  };
+  const onDelete = (id) => {
+    setProductsByCategory((prev) => prev.filter((product) => product.id !== id));
   };
 
   const handleDownload = async () => {
@@ -102,7 +104,7 @@ export default function ProductsTable() {
             <table className="w-full text-sm text-left text-gray-500 overflow-x-scroll">
               <thead className="text-xs text-gray-700 uppercase bg-primary">
                 <tr>
-                  <th scope="col" className="p-4 w-12 text-center">
+                  {/* <th scope="col" className="p-4 w-12 text-center">
                     <div className="flex items-center">
                       <input
                         id="checkbox-all"
@@ -113,7 +115,7 @@ export default function ProductsTable() {
                         checkbox
                       </label>
                     </div>
-                  </th>
+                  </th> */}
                   <th
                     scope="col"
                     className="px-4 py-3 w-48 text-left text-gray-100 cursor-pointer"
@@ -159,7 +161,12 @@ export default function ProductsTable() {
               <tbody>
                 {productsByCategory &&
                   productsByCategory.map((product) => (
-                    <ProductRow key={product.id} product={product} onUpdate={onUpdate} />
+                    <ProductRow
+                      key={product.id}
+                      product={product}
+                      onUpdate={onUpdate}
+                      onDelete={onDelete}
+                    />
                   ))}
               </tbody>
             </table>

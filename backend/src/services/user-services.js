@@ -21,7 +21,7 @@ const createUser = async (userData) => {
   const characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   let otp = "";
-  for (let i = 0; i < 12; i++) {
+  for (let i = 0; i < 12; i += 1) {
     otp += characters[Math.floor(Math.random() * characters.length)];
   }
 
@@ -66,7 +66,7 @@ const updateUser = async (id, userData, currentUserId, currentUserRole) => {
       profilePictureUrl: updatedUser.profilePictureUrl,
     },
     JWT_SECRET,
-    { expiresIn: "1h" }
+    { expiresIn: "1h" },
   );
 
   return { token, updatedUser };
@@ -101,7 +101,7 @@ const getAllUsers = async (
   pageNumber,
   limitNumber,
   filterByRole,
-  filterByIsActive
+  filterByIsActive,
 ) => {
   const where = {
     AND: [

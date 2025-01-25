@@ -2,8 +2,8 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import React, { useEffect, useRef, useState } from 'react';
 import { BsFillFileEarmarkPlusFill } from 'react-icons/bs';
 import { FiEdit } from 'react-icons/fi';
-import { toast } from 'react-toastify';
 import Select from 'react-select';
+import { toast } from 'react-toastify';
 
 import noImage from '../../assets/noImage.png';
 import categoryService from '../../services/categoryService.js';
@@ -17,8 +17,8 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
   const [isOpen, setIsOpen] = useState(false);
 
   const [categoryOptions, setCategoryOptions] = useState([]);
-  const [existedCategories, setexistedCategories] = useState([]);
-  const [productData, setProductData] = useState([]);
+  const [productData, setProductData] = useState({});
+  const [initialValues, setInitialValues] = useState({});
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -26,26 +26,47 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
         const data = await categoryService.getAllCategories();
         setCategoryOptions(data.map((c) => ({ value: c.id, label: c.name })));
       } catch (error) {
-        toast.error('Failed to fetch categories:', error);
+        toast.error('Failed to fetch categories.');
       }
     };
 
-    fetchCategories();
-  }, []);
+    if (isOpen) fetchCategories();
+  }, [isOpen]);
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const product = await productService.getProductById(productIdFromProductRow);
         setProductData(product);
-        setexistedCategories(productData.categoryProduct[0].category.name);
       } catch (error) {
-        toast.error('Failed to fetch product:', error);
+        toast.error('Failed to fetch product.');
       }
     };
 
-    fetchProduct();
+    if (isOpen) {
+      fetchProduct();
+    }
   }, [isOpen]);
+
+  useEffect(() => {
+    if (productData && isOpen)
+      setInitialValues({
+        id: productData?.id,
+        name: productData?.name,
+        description: productData?.description,
+        price: productData?.price,
+        quantity: productData?.quantity,
+        ageRecommendationMin: productData?.ageRecommendationMin,
+        ageRecommendationMax: productData?.ageRecommendationMax,
+        playersNumberMin: productData?.playersNumberMin,
+        playersNumberMax: productData?.playersNumberMax,
+        category:
+          productData?.categoryProduct?.map((c) => ({
+            value: c.categoryId,
+            label: c.category.name,
+          })) || [],
+      });
+  }, [productData, isOpen]);
 
   const handleFileChange = (e) => {
     const newFile = e.target.files[0];
@@ -62,12 +83,6 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
     const result = await productService.createProduct(formData);
 
     const productId = result.id;
-    // const categoryId = values.category;
-
-    // const connectionResult = await productCategoryConnectionService.createProductCategoryConnection(
-    //   { data: { categoryId, productId } },
-    // );
-    // console.log('New connection result:', connectionResult.id);
 
     values.category.map(async (category) => {
       await productCategoryConnectionService.createProductCategoryConnection({
@@ -75,16 +90,10 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
         productId,
       });
     });
-
-
-    // if (connectionResult.id) {
-    //   toast.success('Create successful!');
-    // } else {
-    //   toast.error('Create failed!');
-    // }
     setIsOpen(false);
+    setInitialValues({});
   };
-  //------------------------------------------------------------
+
   const handleUpdate = async (values) => {
     const formData = new FormData();
     Object.keys(values).forEach((key) => {
@@ -92,19 +101,19 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
     });
     formData.append('file', file);
 
-    const result = await productService.updatedProduct(productIdFromProductRow, formData);
-    if (result) {
-      onUpdate(productIdFromProductRow, result);
-    }
-
     await productCategoryConnectionService.destroyProductCategoryConnection(values.id);
-    
+
     values.category.map(async (category) => {
       await productCategoryConnectionService.createProductCategoryConnection({
         categoryId: category.value,
         productId: values.id,
       });
     });
+
+    const result = await productService.updatedProduct(productIdFromProductRow, formData);
+    if (result) {
+      onUpdate(productIdFromProductRow, result);
+    }
 
     if (result) {
       toast.success('Connection Update successful!');
@@ -113,22 +122,7 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
     }
 
     setIsOpen(false);
-  };
-
-  //------------------------------------------------------------
-  const initialValues = {
-    id: productData?.id,
-    name: productData?.name,
-    description: productData?.description,
-    price: productData?.price,
-    quantity: productData?.quantity,
-    ageRecommendationMin: productData?.ageRecommendationMin,
-    ageRecommendationMax: productData?.ageRecommendationMax,
-    playersNumberMin: productData?.playersNumberMin,
-    playersNumberMax: productData?.playersNumberMax,
-    category:
-      productData?.categoryProduct?.map((c) => ({ value: c.categoryId, label: c.category.name })) ||
-      [],
+    setInitialValues({});
   };
 
   return (
@@ -167,6 +161,7 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
             </div>
 
             <Formik
+              enableReinitialize
               initialValues={initialValues}
               validationSchema={productValidationSchema}
               onSubmit={!productIdFromProductRow ? handleCreate : handleUpdate}
@@ -205,7 +200,11 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
                       </div>
                     </div>
 
-                    <div className="flex w-1/3 border m-5 align-middle justify-center rounded-lg">
+                    <button
+                      onClick={() => fileInputRef.current.click()}
+                      type="button"
+                      className="flex w-1/3 border m-5 align-middle justify-center rounded-lg"
+                    >
                       <input
                         ref={fileInputRef}
                         type="file"
@@ -214,27 +213,27 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
                       />
 
                       <img
-                        onClick={() => fileInputRef.current.click()}
                         className={`object-contain h-60  hover:grayscale-0 cursor-pointer ${file || productData?.playersNumberMax ? '' : 'grayscale blur-[2px] hover:blur-0'}`}
                         src={
                           (file && URL.createObjectURL(file)) || productData?.pictureUrl || noImage
                         }
                         alt="NoImage"
                       />
-                    </div>
+                    </button>
                   </div>
                   <div>
                     <label className="block text-left text-sm font-medium">Category</label>
-
-                    <Select
-                      defaultValue={initialValues.category}
-                      isMulti
-                      name="colors"
-                      options={categoryOptions}
-                      className="basic-multi-select"
-                      classNamePrefix="select"
-                      onChange={(selectedOptions) => setFieldValue('category', selectedOptions)}
-                    />
+                    {(initialValues?.name || !productIdFromProductRow) && (
+                      <Select
+                        defaultValue={initialValues.category}
+                        isMulti
+                        name="colors"
+                        options={categoryOptions}
+                        className="basic-multi-select"
+                        classNamePrefix="select"
+                        onChange={(selectedOptions) => setFieldValue('category', selectedOptions)}
+                      />
+                    )}
 
                     <ErrorMessage
                       name="category"

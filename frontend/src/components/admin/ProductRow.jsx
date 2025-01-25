@@ -17,10 +17,10 @@ function renderStars(rating) {
   return stars;
 }
 
-export default function ProductRow({ product, onUpdate}) {
+export default function ProductRow({ product, onUpdate, onDelete }) {
   return (
     <tr className="border-b dark:border-gray-600 hover:bg-orange-200">
-      <td className="w-4 px-4 py-3">
+      {/* <td className="w-4 px-4 py-3">
         <div className="flex items-center">
           <input
             id="checkbox-1"
@@ -31,10 +31,12 @@ export default function ProductRow({ product, onUpdate}) {
             checkbox
           </label>
         </div>
-      </td>
+      </td> */}
       <td className="px-4 py-3">{product.name}</td>
       <td className="px-4 py-3 hidden md:table-cell">{product.description}</td>
-      <td className="px-4 py-3">{product.categoryProduct.map((c) => c.category.name).join(", ")}</td>
+      <td className="px-4 py-3">
+        {product.categoryProduct.map((c) => c.category.name).join(', ')}
+      </td>
       <td className="px-4 py-3">${product.price}</td>
       <td className="px-4 py-3">{product.quantity}</td>
       <td className="px-4 py-3">
@@ -43,7 +45,7 @@ export default function ProductRow({ product, onUpdate}) {
       <td className="px-4 py-3">
         <div className="flex space-x-2">
           <ProductAdminModal productIdFromProductRow={product.id} onUpdate={onUpdate} />
-          <DeleteProductModal product={product} />
+          <DeleteProductModal product={product} onDelete={onDelete} />
         </div>
       </td>
     </tr>

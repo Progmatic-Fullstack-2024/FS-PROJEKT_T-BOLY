@@ -1,4 +1,3 @@
-import fs from "fs";
 import { createFile } from "../services/file.service.js";
 import productService from "../services/products-service.js";
 
@@ -153,7 +152,7 @@ const updateProduct = async (req, res, next) => {
         playersNumberMin: Number(playersNumberMin),
         playersNumberMax: Number(playersNumberMax),
       },
-      req?.file
+      req?.file,
     );
     res.status(200).json(updatedProduct);
   } catch (error) {

@@ -1,4 +1,5 @@
 import userService from "../services/user-services.js";
+
 const createUser = async (req, res, next) => {
   const { firstName, lastName, email, username, role } = req.body;
 
@@ -45,7 +46,7 @@ const updateUser = async (req, res, next) => {
         role,
       },
       req.user.id,
-      req.user.role
+      req.user.role,
     );
 
     res.status(200).json({ token, updatedUser });
@@ -92,7 +93,7 @@ const getAllUsers = async (req, res, next) => {
       Number(pageNumber),
       Number(limitNumber),
       filterByRole,
-      filterByIsActive !== "false"
+      filterByIsActive !== "false",
     );
 
     res.status(200).json({ users, totalUsers, totalPages });
