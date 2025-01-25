@@ -65,7 +65,6 @@ const getAllProducts = async (
 };
 
 const getProductById = async (productId) => {
-  
   const response = await api.get(`/api/products/${productId}`);
   return response.data;
 };
