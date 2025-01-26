@@ -134,9 +134,9 @@ export default function Header() {
           <Nav />
         </div>
         <div className="flex order-1 md:order-2">
-          <button type="button">
-            <FiShoppingCart className=" w-6 h-6 m-2 " />
-          </button>
+          <Link to="/shoppingCart">
+            <FiShoppingCart className=" w-6 h-6 m-7" />
+          </Link>
           <Searchbar />
         </div>
       </div>

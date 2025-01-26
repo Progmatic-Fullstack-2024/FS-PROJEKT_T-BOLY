@@ -13,6 +13,7 @@ import Favorites from './components/profilePage/Favorites.jsx';
 import Orders from './components/profilePage/Orders.jsx';
 import PassChange from './components/profilePage/PassChange.jsx';
 import PersonalData from './components/profilePage/PersonalData.jsx';
+import ShoppingCart from './components/shoppingCart/ShoppingCart.jsx';
 import { AuthProvider } from './contexts/AuthContext.jsx';
 import About from './pages/About.jsx';
 import AdminLayout from './pages/AdminLayout.jsx';
@@ -45,6 +46,7 @@ const router = createBrowserRouter([
         path: '/products/:productId',
         element: <ProductById />,
       },
+      { path: '/shoppingCart', element: <ShoppingCart /> },
       {
         path: '/profile_page',
         element: <ProfilePage />,
