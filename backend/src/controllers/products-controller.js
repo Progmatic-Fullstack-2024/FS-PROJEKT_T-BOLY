@@ -16,16 +16,16 @@ const getAllProducts = async (req, res, next) => {
     order = "asc",
     page = 1,
     limit = 9,
-    minPrice = 0,
-    maxPrice = 1000,
+    minimumPrice = 0,
+    maximumPrice = 1000,
     minAge = 0,
     maxAge = 100,
     players = "all",
   } = req.query;
   const pageNumber = Number(page);
   const limitNumber = Number(limit);
-  const minPriceNumber = Number(minPrice);
-  const maxPriceNumber = Number(maxPrice);
+  const minPriceNumber = Number(minimumPrice);
+  const maxPriceNumber = Number(maximumPrice);
   const minAgeNumber = Number(minAge);
   const maxAgeNumber = Number(maxAge);
 
@@ -68,16 +68,16 @@ const getAllProductsByCategory = async (req, res, next) => {
     order = "asc",
     page = 1,
     limit = 9,
-    minPrice = 0,
-    maxPrice = 1000,
+    minimumPrice = 0,
+    maximumPrice = 1000,
     minAge = 0,
     maxAge = 100,
     players = "all",
   } = req.query;
   const pageNumber = Number(page);
   const limitNumber = Number(limit);
-  const minPriceNumber = Number(minPrice);
-  const maxPriceNumber = Number(maxPrice);
+  const minPriceNumber = Number(minimumPrice);
+  const maxPriceNumber = Number(maximumPrice);
   const minAgeNumber = Number(minAge);
   const maxAgeNumber = Number(maxAge);
 

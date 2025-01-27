@@ -1,4 +1,5 @@
 const getPageNumbers = (pageNumber, totalPages) => {
+
   const pageNumbers = [];
   const pageLimit = 3;
   let startPage = Math.max(1, pageNumber - Math.floor(pageLimit / 2));
