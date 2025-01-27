@@ -8,7 +8,7 @@ export default function Pagination({ totalPages }) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const pageNumber = Number(searchParams.get('page'));
-  
+
   const setPageNumber = (value) => {
     if (value) {
       searchParams.set('page', value);

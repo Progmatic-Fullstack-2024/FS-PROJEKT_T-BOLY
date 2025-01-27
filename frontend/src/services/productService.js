@@ -30,18 +30,12 @@ const updatedProduct = async (id, formdata) => {
 };
 
 const getAllProductsByCategory = async (categoryId, searchParams) => {
-  const response = await api.get(
-    `/api/products/category/${categoryId}?${searchParams}`,
-  );
+  const response = await api.get(`/api/products/category/${categoryId}?${searchParams}`);
   return response.data;
 };
 
-const getAllProducts = async (
-searchParams
-) => {
-  const response = await api.get(
-    `/api/products?${searchParams}`,
-  );
+const getAllProducts = async (searchParams) => {
+  const response = await api.get(`/api/products?${searchParams}`);
   return response.data;
 };
 

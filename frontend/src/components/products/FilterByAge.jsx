@@ -3,14 +3,8 @@ import 'react-range-slider-input/dist/style.css';
 import './slider.css';
 import { useSearchParams } from 'react-router-dom';
 
-export default function FilterByPrice({
-  minAge,
-  maxAge,
-  setMaxAge,
-  setMinAge,
-}) {
-
-  const [searchParams, setSearchParams]=useSearchParams()
+export default function FilterByPrice({ minAge, maxAge, setMaxAge, setMinAge }) {
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const handleFilterByAge = () => {
     searchParams.set('minAge', minAge);

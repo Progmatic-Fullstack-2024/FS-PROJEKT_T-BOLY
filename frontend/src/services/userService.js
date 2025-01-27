@@ -21,9 +21,7 @@ const updateProfilePictureUrl = async (userData) => {
 };
 
 const getAllUsers = async (queryParams) => {
-  const response = await api.get(
-    `/api/user?${queryParams}`,
-  );
+  const response = await api.get(`/api/user?${queryParams}`);
   return response.data;
 };
 

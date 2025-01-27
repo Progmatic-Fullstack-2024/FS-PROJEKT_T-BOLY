@@ -14,9 +14,8 @@ const getAllProducts = async (
   maximumPrice,
   minAge,
   maxAge,
-  players
+  players,
 ) => {
-
   const where = {
     AND: [
       { price: { gte: minimumPrice } },
@@ -88,7 +87,7 @@ const getAllProductsByCategory = async (
   maximumPrice,
   minAge,
   maxAge,
-  players
+  players,
 ) => {
   const where = {
     categoryProduct: {
@@ -144,7 +143,6 @@ const getAllProductsByCategory = async (
   const minPriceValue = minPrice.price || 0;
   const maxPriceValue = maxPrice.price || 1000;
 
-
   return {
     products,
     totalProducts,
@@ -166,11 +164,11 @@ const getProductById = async (id) => {
   }
 
   const categoryIds = product.categoryProduct.map(
-    (category) => category.categoryId
+    (category) => category.categoryId,
   );
 
   const categoryNames = product.categoryProduct.map(
-    (categoryProduct) => categoryProduct.category.name
+    (categoryProduct) => categoryProduct.category.name,
   );
 
   const relatedProductsByCategory = await prisma.product.findMany({
