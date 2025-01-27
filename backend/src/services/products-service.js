@@ -62,7 +62,6 @@ const getAllProducts = async (
   const totalPages = Math.ceil(totalProducts / limit);
 
   const { _min: minPrice, _max: maxPrice } = await prisma.product.aggregate({
-    where,
     _min: { price: true },
     _max: { price: true },
   });
@@ -91,7 +90,6 @@ const getAllProductsByCategory = async (
   maxAge,
   players
 ) => {
-  console.log("mini", minimumPrice);
   const where = {
     categoryProduct: {
       some: { categoryId },
@@ -139,13 +137,13 @@ const getAllProductsByCategory = async (
   const totalPages = Math.ceil(totalProducts / limit);
 
   const { _min: minPrice, _max: maxPrice } = await prisma.product.aggregate({
-    where,
     _min: { price: true },
     _max: { price: true },
   });
 
   const minPriceValue = minPrice.price || 0;
   const maxPriceValue = maxPrice.price || 1000;
+
 
   return {
     products,

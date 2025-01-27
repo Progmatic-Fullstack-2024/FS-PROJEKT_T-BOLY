@@ -27,9 +27,6 @@ export default function FilterByPrice({
     setSearchParams(searchParams);
   };
 
-  console.log("minp", minPrice)
-  console.log("maxp", maxPrice)
-
   const handleClearFilterByPrice = () => {
     setMinPrice(min);
     setMaxPrice(max);

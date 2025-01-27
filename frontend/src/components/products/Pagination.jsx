@@ -17,7 +17,7 @@ export default function Pagination({ totalPages }) {
     }
     setSearchParams(searchParams);
   };
-  console.log("pagepagination", pageNumber)
+
   return (
     <div className="flex justify-center mr-44">
       <div className="flex items-center h-12 gap-2">
