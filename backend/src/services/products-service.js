@@ -8,26 +8,25 @@ import { updateFile } from "./file.service.js";
 const getAllProducts = async (
   sorting,
   order,
-  pageNumber,
-  limitNumber,
-  filterByMinPrice,
-  filterByMaxPrice,
-  filterByMinAge,
-  filterByMaxAge,
-  filterByPlayersNumber,
+  page,
+  limit,
+  minimumPrice,
+  maximumPrice,
+  minAge,
+  maxAge,
+  players,
 ) => {
   const where = {
     AND: [
-      { price: { gte: filterByMinPrice } },
-      { price: { lte: filterByMaxPrice } },
-      { ageRecommendationMax: { gte: filterByMinAge } },
-      { ageRecommendationMin: { lte: filterByMaxAge } },
+      { price: { gte: minimumPrice } },
+      { price: { lte: maximumPrice } },
+      { ageRecommendationMax: { gte: minAge } },
+      { ageRecommendationMin: { lte: maxAge } },
     ],
   };
-  if (filterByPlayersNumber !== "all") {
-    const [minPlayers, maxPlayers] = filterByPlayersNumber
-      .split("-")
-      .map(Number);
+
+  if (players !== "all") {
+    const [minPlayers, maxPlayers] = players.split("-").map(Number);
     where.AND.push({
       AND: [
         {
@@ -55,11 +54,11 @@ const getAllProducts = async (
         : {
             [sorting]: order,
           },
-    skip: (pageNumber - 1) * limitNumber,
-    take: limitNumber,
+    skip: (page - 1) * limit,
+    take: limit,
   });
   const totalProducts = await prisma.product.count({ where });
-  const totalPages = Math.ceil(totalProducts / limitNumber);
+  const totalPages = Math.ceil(totalProducts / limit);
 
   const { _min: minPrice, _max: maxPrice } = await prisma.product.aggregate({
     _min: { price: true },
@@ -82,29 +81,27 @@ const getAllProductsByCategory = async (
   categoryId,
   sorting,
   order,
-  pageNumber,
-  limitNumber,
-  filterByMinPrice,
-  filterByMaxPrice,
-  filterByMinAge,
-  filterByMaxAge,
-  filterByPlayersNumber,
+  page,
+  limit,
+  minimumPrice,
+  maximumPrice,
+  minAge,
+  maxAge,
+  players,
 ) => {
   const where = {
     categoryProduct: {
       some: { categoryId },
     },
     AND: [
-      { price: { gte: filterByMinPrice } },
-      { price: { lte: filterByMaxPrice } },
-      { ageRecommendationMax: { gte: filterByMinAge } },
-      { ageRecommendationMin: { lte: filterByMaxAge } },
+      { price: { gte: minimumPrice } },
+      { price: { lte: maximumPrice } },
+      { ageRecommendationMax: { gte: minAge } },
+      { ageRecommendationMin: { lte: maxAge } },
     ],
   };
-  if (filterByPlayersNumber !== "all") {
-    const [minPlayers, maxPlayers] = filterByPlayersNumber
-      .split("-")
-      .map(Number);
+  if (players !== "all") {
+    const [minPlayers, maxPlayers] = players.split("-").map(Number);
     where.AND.push({
       AND: [
         {
@@ -132,11 +129,11 @@ const getAllProductsByCategory = async (
         : {
             [sorting]: order,
           },
-    skip: (pageNumber - 1) * limitNumber,
-    take: limitNumber,
+    skip: (page - 1) * limit,
+    take: limit,
   });
   const totalProducts = await prisma.product.count({ where });
-  const totalPages = Math.ceil(totalProducts / limitNumber);
+  const totalPages = Math.ceil(totalProducts / limit);
 
   const { _min: minPrice, _max: maxPrice } = await prisma.product.aggregate({
     _min: { price: true },

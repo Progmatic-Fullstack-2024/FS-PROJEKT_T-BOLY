@@ -1,10 +1,30 @@
-export default function Sorting({ handleSortingChange, sortingOption }) {
+import { useSearchParams } from 'react-router-dom';
+
+export default function Sorting() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const sortingValue = searchParams.get('sorting') || 'name';
+  const orderValue = searchParams.get('order') || 'asc';
+
+  const handleSortingChange = (e) => {
+    const [sorting, order] = e.target.value.split('-');
+
+    if (sorting) {
+      searchParams.set('sorting', sorting);
+    } else searchParams.delete('sorting');
+
+    if (order) {
+      searchParams.set('order', order);
+    } else searchParams.delete('order');
+
+    setSearchParams(searchParams);
+  };
+
   return (
     <select
       className="p-2 w-60 border-2 rounded-lg hover:border-gray-900 focus:border-primary"
       id="sorting"
       onChange={handleSortingChange}
-      value={`${sortingOption.sorting}-${sortingOption.order}`}
+      value={`${sortingValue}-${orderValue}`}
     >
       <option value="name-asc">Default sorting</option>
       <option value="name-asc">Name (A-Z)</option>

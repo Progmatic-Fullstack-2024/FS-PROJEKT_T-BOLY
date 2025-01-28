@@ -1,15 +1,25 @@
 import RangeSlider from 'react-range-slider-input';
 import 'react-range-slider-input/dist/style.css';
 import './slider.css';
+import { useSearchParams } from 'react-router-dom';
 
-export default function FilterByPrice({
-  minAge,
-  maxAge,
-  setMaxAge,
-  setMinAge,
-  handleFilterByAge,
-  handleClearFilterByAge,
-}) {
+export default function FilterByPrice({ minAge, maxAge, setMaxAge, setMinAge }) {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const handleFilterByAge = () => {
+    searchParams.set('minAge', minAge);
+    searchParams.set('maxAge', maxAge);
+    setSearchParams(searchParams);
+  };
+
+  const handleClearFilterByAge = () => {
+    setMinAge(0);
+    setMaxAge(100);
+    searchParams.delete('minAge');
+    searchParams.delete('maxAge');
+    setSearchParams(searchParams);
+  };
+
   return (
     <div className="flex flex-col gap-2 p-6 border-2 rounded-lg mb-10">
       <h3 className="text-xl mb-6">Filter by Age</h3>
