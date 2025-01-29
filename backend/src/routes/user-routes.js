@@ -12,7 +12,7 @@ router.patch(
   "/userimage",
   upload.single("image"),
   authMiddleware,
-  userController.updateProfilePicture,
+  userController.updateProfilePicture
 );
 
 router.put("/:id", authMiddleware, userController.updateUser);
