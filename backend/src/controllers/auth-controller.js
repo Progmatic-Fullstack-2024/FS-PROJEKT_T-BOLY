@@ -2,9 +2,9 @@ import authService from "../services/auth-service.js";
 import registerValidationSchema from "../validations/register.validation.js";
 
 const login = async (req, res, next) => {
-  const { email, password } = req.body;
+  const { identifier, password } = req.body;
   try {
-    const token = await authService.login({ email, password });
+    const token = await authService.login({ identifier, password });
     res.json(token);
   } catch (error) {
     next(error);
