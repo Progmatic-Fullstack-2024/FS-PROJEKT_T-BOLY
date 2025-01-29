@@ -13,21 +13,35 @@ enum Role {
   GUEST
 }
 
+enum Status {
+  AWAITINGPAYMENT
+  PROCESSING
+  PACKED
+  OUTFORDELIVERY
+  DELIVERED
+  COMPLETED
+  CANCELED
+}
+
 model User {
-  id                String    @id @default(cuid())
+  id                String     @id @default(cuid())
   firstName         String?
   lastName          String?
-  email             String    @unique
+  email             String     @unique
   passwordHash      String
-  username          String    @unique
+  username          String     @unique
   birthDate         DateTime?
   adress            String?
   billingAdress     String?
   profilePictureUrl String?
-  registrationDate  DateTime  @default(now())
-  isActive          Boolean   @default(true)
+  registrationDate  DateTime   @default(now())
+  isActive          Boolean    @default(true)
   lastLogIn         DateTime?
-  role              Role      @default(GUEST)
+  role              Role       @default(GUEST)
+  Cart              Cart[]
+  Order             Order[]
+  Review            Review[]
+  WishList          WishList[]
 }
 
 model Product {
@@ -36,6 +50,7 @@ model Product {
   description          String
   price                Int
   pictureUrl           String?
+  morePictureUrl       String[]
   quantity             Int
   rating               Float?
   ageRecommendationMin Int?
@@ -45,6 +60,12 @@ model Product {
   createdAt            DateTime          @default(now())
   updatedAt            DateTime          @updatedAt
   categoryProduct      CategoryProduct[]
+  isDeleted            Boolean           @default(false)
+  CartItem             CartItem[]
+  OrderItem            OrderItem[]
+  Review               Review[]
+  WishListItem         WishListItem[]
+  Discount             Discount[]
 }
 
 //előrendelés, kifutott termék? 
@@ -65,4 +86,87 @@ model CategoryProduct {
   category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   productId  String
   product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model Cart {
+  id        String     @id @default(cuid())
+  userId    String
+  user      User       @relation(fields: [userId], references: [id])
+  products  CartItem[]
+  createdAt DateTime   @default(now())
+}
+
+model CartItem {
+  id        String  @id @default(cuid())
+  cart      Cart    @relation(fields: [cartId], references: [id])
+  cartId    String
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+}
+
+model Order {
+  id         String      @id @default(cuid())
+  userId     String
+  user       User        @relation(fields: [userId], references: [id])
+  products   OrderItem[]
+  paymentId  String
+  totalPrice Int
+  status     Status
+  createdAt  DateTime    @default(now())
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  order     Order   @relation(fields: [orderId], references: [id])
+  orderId   String
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+  price     Int
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+  review    String?
+  rating    Int
+  createdAt DateTime @default(now())
+}
+
+model WishList {
+  id        String         @id @default(cuid())
+  userId    String
+  user      User           @relation(fields: [userId], references: [id])
+  products  WishListItem[]
+  createdAt DateTime       @default(now())
+}
+
+model WishListItem {
+  id         String   @id @default(cuid())
+  wishListId String
+  wishList   WishList @relation(fields: [wishListId], references: [id])
+  productId  String
+  product    Product  @relation(fields: [productId], references: [id])
+}
+
+model Discount {
+  id         String   @id @default(cuid())
+  productId  String
+  product    Product  @relation(fields: [productId], references: [id])
+  percentage Float
+  startDate  DateTime
+  endDate    DateTime
+  createdAt  DateTime @default(now())
+}
+
+model Coupon {
+  id        String   @id @default(cuid())
+  code      String
+  validFrom DateTime
+  validTo   DateTime
+  isActive  Boolean  @default(true)
 }

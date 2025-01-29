@@ -1,49 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import { BsDownload, BsSortUp, BsSortDownAlt } from 'react-icons/bs';
+import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import ProductAdminModal from './CreateProductByAdmin.jsx';
 import ProductRow from './ProductRow.jsx';
 import productService from '../../services/productService.js';
-import DisplayedProductsNumber from '../products/DisplayProductsNumber.jsx';
+import DisplayedProductsNumber from '../products/DisplayedProductsNumber.jsx';
 import Pagination from '../products/Pagination.jsx';
 
 export default function ProductsTable() {
-  const [pageNumber, setPageNumber] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
   const [productsByCategory, setProductsByCategory] = useState([]);
   const [totalProducts, setTotalProducts] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-  const [limit] = useState(10);
-  const [sorting, setSorting] = useState('name');
-  const [order, setOrder] = useState('asc');
+
+  const sorting = searchParams.get('sorting');
+  const order = searchParams.get('order');
 
   useEffect(() => {
     const fetchProductsByCategory = async () => {
       try {
-        const data = await productService.getAllProductsByCategory(
-          'all',
-          sorting,
-          order,
-          pageNumber,
-          limit,
-          0,
-          1000,
-          0,
-          100,
-          'all',
-        );
+        const data = await productService.getAllProductsByCategory('all', searchParams.toString());
 
         setProductsByCategory(data.products);
         setTotalProducts(data.totalProducts);
         setTotalPages(data.totalPages);
-        setPageNumber(Number(data.pageNumber));
       } catch (error) {
         toast.error('Failed to fetch products:', error);
       }
     };
 
     fetchProductsByCategory();
-  }, [pageNumber, limit, sorting, order]);
+  }, [searchParams]);
 
   const onUpdate = (id, values) => {
     setProductsByCategory((prev) => prev.map((product) => (product.id === id ? values : product)));
@@ -63,11 +52,12 @@ export default function ProductsTable() {
 
   const handleSort = (column) => {
     if (sorting === column) {
-      setOrder(order === 'asc' ? 'desc' : 'asc');
+      searchParams.set('order', order === 'asc' ? 'desc' : 'asc');
     } else {
-      setSorting(column);
-      setOrder('asc');
+      searchParams.set('sorting', column);
+      searchParams.set('order', 'asc');
     }
+    setSearchParams(searchParams);
   };
 
   const renderSortIcon = (column) => {
@@ -175,16 +165,8 @@ export default function ProductsTable() {
             </table>
           </div>
           <div className="bg-primary bg-opacity-20 flex items-center justify-between p-8">
-            <DisplayedProductsNumber
-              pageNumber={pageNumber}
-              limit={limit}
-              totalProducts={totalProducts}
-            />
-            <Pagination
-              pageNumber={pageNumber}
-              setPageNumber={setPageNumber}
-              totalPages={totalPages}
-            />
+            <DisplayedProductsNumber totalProducts={totalProducts} />
+            <Pagination totalPages={totalPages} />
           </div>
         </div>
       </div>
