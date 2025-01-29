@@ -8,13 +8,12 @@ export default function LoginModal({ onClose }) {
   const { login } = useContext(AuthContext);
 
   const handleLogin = async (values) => {
-    console.log(values)
     const result = await login(values);
     if (result.ok) {
       toast.success('Logged in successfully.');
       onClose();
     } else {
-      toast.error(`Login failed. ${result.message}`);
+      toast.error(`Login failed. ${result.message.response.data.error}`);
     }
   };
 

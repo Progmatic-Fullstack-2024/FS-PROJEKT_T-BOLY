@@ -1,4 +1,47 @@
-import userService from "../services/user-services.js";
+import userService from "../services/user-service.js";
+import imageService from "../services/image-service.js";
+
+const listUsernames = async (req, res, next) => {
+  const userId = req?.user.id || "";
+  try {
+    const usernames = await userService.listUsernames(userId);
+    res.status(200).json(usernames);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const updateProfilePicture = async (req, res, next) => {
+  const file = req.file || null;
+  const { id } = req.user;
+  try {
+    const profilePictureUrl = await imageService.createFile(file);
+    const { token, updatedUser } = await userService.updateProfilePicture(id, {
+      profilePictureUrl,
+    });
+
+    res.status(201).json({ token, updatedUser });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const createUser = async (req, res, next) => {
+  const { firstName, lastName, email, username, role } = req.body;
+
+  try {
+    const newUser = await userService.createUser({
+      firstName,
+      lastName,
+      email,
+      username,
+      role,
+    });
+    res.status(201).json(newUser);
+  } catch (error) {
+    next(error);
+  }
+};
 
 const updateUser = async (req, res, next) => {
   const { id } = req.params;
@@ -11,6 +54,7 @@ const updateUser = async (req, res, next) => {
     adress,
     billingAdress,
     profilePictureUrl,
+    role,
   } = req.body;
 
   try {
@@ -25,9 +69,10 @@ const updateUser = async (req, res, next) => {
         adress,
         billingAdress,
         profilePictureUrl,
+        role,
       },
       req.user.id,
-      req.user.role
+      req.user.role,
     );
 
     res.status(200).json({ token, updatedUser });
@@ -38,7 +83,6 @@ const updateUser = async (req, res, next) => {
 
 const deleteUser = async (req, res, next) => {
   const { id } = req.params;
-
   try {
     const result = await userService.deleteUser(id, req.user.id, req.user.role);
     res.status(200).json(result);
@@ -62,8 +106,8 @@ const getAllUsers = async (req, res, next) => {
   const {
     sorting,
     order,
-    pageNumber = 1,
-    limitNumber = 10,
+    page = 1,
+    limit = 9,
     filterByRole,
     filterByIsActive,
   } = req.query;
@@ -72,10 +116,10 @@ const getAllUsers = async (req, res, next) => {
     const { users, totalUsers, totalPages } = await userService.getAllUsers(
       sorting,
       order,
-      Number(pageNumber),
-      Number(limitNumber),
+      Number(page),
+      Number(limit),
       filterByRole,
-      filterByIsActive !== "false"
+      filterByIsActive !== "false",
     );
 
     res.status(200).json({ users, totalUsers, totalPages });
@@ -84,4 +128,12 @@ const getAllUsers = async (req, res, next) => {
   }
 };
 
-export default { updateUser, deleteUser, getUserById, getAllUsers };
+export default {
+  updateUser,
+  deleteUser,
+  getUserById,
+  getAllUsers,
+  createUser,
+  listUsernames,
+  updateProfilePicture,
+};
