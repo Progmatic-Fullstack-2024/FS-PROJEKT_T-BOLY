@@ -37,6 +37,11 @@ const createUser = async (userData) => {
   return response.data;
 };
 
+const getUserById = async (id) => {
+  const response = await api.get(`/api/user/${id}`);
+  return response.data;
+};
+
 export default {
   listUsernames,
   updateProfilePictureUrl,
@@ -44,4 +49,5 @@ export default {
   deleteUser,
   updateUser,
   createUser,
+  getUserById,
 };

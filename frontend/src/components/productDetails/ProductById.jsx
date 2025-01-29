@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import DescriptionReview from './DescriptionReview';
 import QuantityChangeButtons from './QuantityChangeButtons';
 import RelatedProducts from './RelatedProducts';
+import ReviewModal from './ReviewModal';
 import SharingButtons from './SharingButtons';
 import ShortDescription from './ShortDescription';
 import productService from '../../services/productService';
@@ -14,6 +15,7 @@ import RatingStars from '../products/RatingStars';
 
 export default function ProductById() {
   const { productId } = useParams();
+  const [isReviewOpen, setIsReviewOpen] = useState(false);
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [relatedProductsByCategory, setRelatedProductsByCategory] = useState([]);
@@ -64,6 +66,10 @@ export default function ProductById() {
     setReviews(true);
   };
 
+  const handleNewReview = () => {
+    setIsReviewOpen(true);
+  };
+
   return (
     <div>
       {product ? (
@@ -88,7 +94,15 @@ export default function ProductById() {
               <div className="mt-8 mb-8 font-medium text-2xl">€{product.price}</div>
               <div className="flex gap-2 pb-2 items-center">
                 <RatingStars rating={product.rating} /> (Reviews)
+                <button
+                  className="flex items-center justify-center gap-3 w-40 rounded-xl border-2 border-primary rounded-xl bg-primary p-2 text-white hover:border-gray-900 hover:text-black"
+                  type="button"
+                  onClick={handleNewReview}
+                >
+                  Rate this product
+                </button>
               </div>
+              {isReviewOpen && <ReviewModal setIsReviewOpen={setIsReviewOpen} />}
               <div className="hidden md:block">{product.description}</div>
 
               <div className="flex md:gap-12 gap-3 mt-10 mb-10">

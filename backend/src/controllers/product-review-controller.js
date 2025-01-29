@@ -15,4 +15,15 @@ const createReview = async (req, res, next) => {
   }
 };
 
-export default { createReview };
+const listAllReviewByProduct = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const reviews = await productReview.listAllReviewByProduct(id);
+    res.status(200).json(reviews);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export default { createReview, listAllReviewByProduct };

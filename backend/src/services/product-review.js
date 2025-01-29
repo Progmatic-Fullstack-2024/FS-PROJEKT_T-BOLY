@@ -24,4 +24,11 @@ const createReview = async ({ productId, userId, rating, review }) => {
   return newReview;
 };
 
-export default { createReview };
+const listAllReviewByProduct = async (id) => {
+  const reviews = await prisma.review.findMany({
+    where: { productId: id },
+  });
+  return reviews;
+};
+
+export default { createReview, listAllReviewByProduct };
