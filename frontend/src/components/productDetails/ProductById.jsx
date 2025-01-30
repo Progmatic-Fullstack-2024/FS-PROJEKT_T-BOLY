@@ -7,11 +7,12 @@ import { toast } from 'react-toastify';
 import DescriptionReview from './DescriptionReview';
 import QuantityChangeButtons from './QuantityChangeButtons';
 import RelatedProducts from './RelatedProducts';
-import ReviewModal from './ReviewModal';
 import SharingButtons from './SharingButtons';
 import ShortDescription from './ShortDescription';
 import productService from '../../services/productService';
+import reviewService from '../../services/reviewService';
 import RatingStars from '../products/RatingStars';
+import ReviewModal from '../Reviews/ReviewModal';
 
 export default function ProductById() {
   const { productId } = useParams();
@@ -22,6 +23,7 @@ export default function ProductById() {
   const [categoryNames, setCategoryNames] = useState([]);
   const [productInCartCount, setProductInCartCount] = useState(1);
   const [reviews, setReviews] = useState(false);
+  const [numberOfAllRating, setNumberOfAllRating] = useState(0);
 
   useEffect(() => {
     const fetchProductById = async () => {
@@ -33,6 +35,8 @@ export default function ProductById() {
         setCategoryNames(data.categoryNames);
         setReviews(false);
         setProductInCartCount(1);
+        const allReviewByProduct = await reviewService.allReviewByProduct(productId);
+        setNumberOfAllRating(allReviewByProduct.length);
       } catch (error) {
         toast.error(`Failed to fetch product: ${error.message}. Please try again later.`);
       } finally {
@@ -93,7 +97,7 @@ export default function ProductById() {
               <h1 className="md:text-3xl text-2xl md:font-normal font-semibold">{product.name}</h1>
               <div className="mt-8 mb-8 font-medium text-2xl">€{product.price}</div>
               <div className="flex gap-2 pb-2 items-center">
-                <RatingStars rating={product.rating} /> (Reviews)
+                <RatingStars rating={product.rating} /> ({numberOfAllRating})
                 <button
                   className="flex items-center justify-center gap-3 w-40 rounded-xl border-2 border-primary rounded-xl bg-primary p-2 text-white hover:border-gray-900 hover:text-black"
                   type="button"

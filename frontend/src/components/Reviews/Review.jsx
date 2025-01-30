@@ -32,10 +32,10 @@ export default function Review({ review }) {
   getUser();
 
   return (
-    <div>
-      <div className="flex items-center mb-4">
-        <img src={user.profilePictureUrl} alt="" />
-        <div className="font-medium ">
+    <div className='p-2 border m-3 rounded-xl'>
+      <div className="flex mb-4">
+        <div className="font-medium flex items-center justify-center">
+        <img src={user.profilePictureUrl} alt="" className='rounded-full w-10 h-10 mr-4 ml-2' />
           <p className="block text-sm text-gray-500 dark:text-gray-400">{`${user.firstName}  ${user.lastName}`}</p>
         </div>
       </div>

@@ -1,6 +1,12 @@
-import Reviews from './Reviews';
+import Reviews from '../Reviews/Reviews';
 
-export default function DescriptionReview({ handleDescription, reviews, handleReviews, product }) {
+export default function DescriptionReview({
+  handleDescription,
+  reviews,
+  handleReviews,
+  product,
+  numberOfAllRating,
+}) {
   return (
     <div className="flex flex-col border-2 rounded-xl p-10 gap-14 md:mt-20 mt-10">
       <div className="flex justify-center text-2xl gap-8">
@@ -20,7 +26,11 @@ export default function DescriptionReview({ handleDescription, reviews, handleRe
           Reviews
         </button>
       </div>
-      {reviews ? <Reviews /> : <div className="text-justify">{product?.description}</div>}
+      {reviews ? (
+        <Reviews numberOfAllRating={numberOfAllRating} product={product} />
+      ) : (
+        <div className="text-justify">{product?.description}</div>
+      )}
     </div>
   );
 }
