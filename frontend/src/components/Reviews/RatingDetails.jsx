@@ -13,9 +13,9 @@ export default function RatingDetails({ ratings, product }) {
         </div>
         <h3>({totalRatings})</h3>
       </div>
-      <div className="w-full m-2">
+      <div className="w-full m-2  flex flex-col-reverse">
         {ratings.map((rating) => (
-          <RatingBar
+          <RatingBar 
             percentage={(rating.count / totalRatings) * 100 || 0}
             key={rating.label}
             label={rating.label}
