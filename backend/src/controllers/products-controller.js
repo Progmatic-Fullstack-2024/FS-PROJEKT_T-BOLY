@@ -39,7 +39,7 @@ const getAllProducts = async (req, res, next) => {
       maxPriceNumber,
       minAgeNumber,
       maxAgeNumber,
-      players,
+      players
     );
     const {
       products,
@@ -93,7 +93,7 @@ const getAllProductsByCategory = async (req, res, next) => {
         maxPriceNumber,
         minAgeNumber,
         maxAgeNumber,
-        players,
+        players
       );
     } else {
       result = await productService.getAllProductsByCategory(
@@ -106,7 +106,7 @@ const getAllProductsByCategory = async (req, res, next) => {
         maxPriceNumber,
         minAgeNumber,
         maxAgeNumber,
-        players,
+        players
       );
     }
 
@@ -180,6 +180,7 @@ const updateProduct = async (req, res, next) => {
     description,
     price,
     quantity,
+    isDeleted,
     ageRecommendationMin,
     ageRecommendationMax,
     playersNumberMin,
@@ -193,12 +194,15 @@ const updateProduct = async (req, res, next) => {
         description,
         price: Number(price),
         quantity: Number(quantity),
+        isDeleted: isDeleted !== "false",
         ageRecommendationMin: Number(ageRecommendationMin),
         ageRecommendationMax: Number(ageRecommendationMax),
         playersNumberMin: Number(playersNumberMin),
         playersNumberMax: Number(playersNumberMax),
       },
-      req?.file,
+      console.log(req.files),
+      req?.files["file"][0],
+      req?.files["moreImages"]
     );
     res.status(200).json(updatedProduct);
   } catch (error) {

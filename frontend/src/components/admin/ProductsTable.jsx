@@ -156,6 +156,14 @@ export default function ProductsTable() {
                   >
                     Rating {renderSortIcon('rating')}
                   </th>
+                  <th
+                    scope="col"
+                    className="px-4 py-3 w-24 text-center text-gray-100 cursor-pointer"
+                    onClick={() => handleSort('status')}
+                    
+                  >
+                    Status {renderSortIcon('status')}
+                  </th>
                   <th scope="col" className="px-4 py-3 w-48 text-left text-gray-100">
                     Actions
                   </th>

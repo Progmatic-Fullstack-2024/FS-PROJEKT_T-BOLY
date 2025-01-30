@@ -3,7 +3,8 @@ import { fileURLToPath } from "url";
 import path from "path";
 import prisma from "../models/prismaClient.js";
 import HttpError from "../utils/HttpError.js";
-import { updateFile } from "./file.service.js";
+import { updateFile, uploadMoreFiles } from "./file.service.js";
+
 
 const getAllProducts = async (
   sorting,
@@ -14,7 +15,7 @@ const getAllProducts = async (
   filterByMaxPrice,
   filterByMinAge,
   filterByMaxAge,
-  filterByPlayersNumber,
+  filterByPlayersNumber
 ) => {
   const where = {
     AND: [
@@ -88,7 +89,7 @@ const getAllProductsByCategory = async (
   filterByMaxPrice,
   filterByMinAge,
   filterByMaxAge,
-  filterByPlayersNumber,
+  filterByPlayersNumber
 ) => {
   const where = {
     categoryProduct: {
@@ -167,11 +168,11 @@ const getProductById = async (id) => {
   }
 
   const categoryIds = product.categoryProduct.map(
-    (category) => category.categoryId,
+    (category) => category.categoryId
   );
 
   const categoryNames = product.categoryProduct.map(
-    (categoryProduct) => categoryProduct.category.name,
+    (categoryProduct) => categoryProduct.category.name
   );
 
   const relatedProductsByCategory = await prisma.product.findMany({
@@ -210,19 +211,23 @@ const createProduct = async (productData) => {
   return newProduct;
 };
 
-const updateProduct = async (id, productData, file) => {
+const updateProduct = async (id, productData, file, files) => {
   const product = prisma.product.findUnique({
     where: { id },
   });
   if (!product) throw new HttpError("Product not found", 404);
   const pictureUrl = await updateFile(product.pictureUrl, file);
+
+  const morePictureUrl = await uploadMoreFiles(files)
+
   const updatedProduct = await prisma.product.update({
     where: { id },
-    data: { ...productData, pictureUrl },
+    data: { ...productData, pictureUrl, morePictureUrl },
     include: {
       categoryProduct: { include: { category: { select: { name: true } } } },
     },
   });
+
   return updatedProduct;
 };
 
@@ -269,4 +274,4 @@ export default {
   createProduct,
   updateProduct,
   destroyProduct,
-};
+  };

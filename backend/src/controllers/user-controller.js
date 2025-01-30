@@ -1,5 +1,5 @@
 import userService from "../services/user-service.js";
-import imageService from "../services/image-service.js";
+import { createFile } from "../services/file.service.js";
 
 const listUsernames = async (req, res, next) => {
   const userId = req?.user.id || "";
@@ -15,7 +15,7 @@ const updateProfilePicture = async (req, res, next) => {
   const file = req.file || null;
   const { id } = req.user;
   try {
-    const profilePictureUrl = await imageService.createFile(file);
+    const profilePictureUrl = await createFile(file);
     const { token, updatedUser } = await userService.updateProfilePicture(id, {
       profilePictureUrl,
     });
@@ -72,7 +72,7 @@ const updateUser = async (req, res, next) => {
         role,
       },
       req.user.id,
-      req.user.role,
+      req.user.role
     );
 
     res.status(200).json({ token, updatedUser });
@@ -119,7 +119,7 @@ const getAllUsers = async (req, res, next) => {
       Number(pageNumber),
       Number(limitNumber),
       filterByRole,
-      filterByIsActive !== "false",
+      filterByIsActive !== "false"
     );
 
     res.status(200).json({ users, totalUsers, totalPages });

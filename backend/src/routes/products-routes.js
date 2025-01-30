@@ -12,7 +12,7 @@ router.get("/export", productsController.exportProducts);
 router.get(
   "/category/:categoryId",
   productsController.getAllProductsByCategory,
-  productsController.getAllProductsByCategory,
+  productsController.getAllProductsByCategory
 );
 router.get("/:id", productsController.getProductById);
 
@@ -20,14 +20,14 @@ router.post(
   "/",
   upload.single("file"),
   authenticate,
-  productsController.createProduct,
+  productsController.createProduct
 );
 
 router.put(
   "/:id",
   upload.single("file"),
   authenticate,
-  productsController.updateProduct,
+  productsController.updateProduct
 );
 
 router.delete("/:id", authenticate, productsController.destroyProduct);

@@ -14,6 +14,7 @@ import { productValidationSchema } from '../../validations/product.validation.js
 export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate }) {
   const fileInputRef = useRef(null);
   const [file, setFile] = useState(null);
+  const [gallery, setGallery] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
 
   const [categoryOptions, setCategoryOptions] = useState([]);
@@ -33,21 +34,21 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
     if (isOpen) fetchCategories();
   }, [isOpen]);
 
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const result = await productService.getProductById(productIdFromProductRow);
+  if (productIdFromProductRow) {
+    useEffect(() => {
+      const fetchProduct = async () => {
+        try {
+          const result = await productService.getProductById(productIdFromProductRow);
 
-        setProductData(result.product);
-      } catch (error) {
-        toast.error('Failed to fetch product.');
-      }
-    };
+          setProductData(result.product);
+        } catch (error) {
+          toast.error('Failed to fetch product.');
+        }
+      };
 
-    if (isOpen) {
       fetchProduct();
-    }
-  }, [isOpen]);
+    }, [isOpen]);
+  }
 
   useEffect(() => {
     if (productData && isOpen)
@@ -57,6 +58,7 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
         description: productData?.description,
         price: productData?.price,
         quantity: productData?.quantity,
+        isDeleted: productData?.isDeleted,
         ageRecommendationMin: productData?.ageRecommendationMin,
         ageRecommendationMax: productData?.ageRecommendationMax,
         playersNumberMin: productData?.playersNumberMin,
@@ -74,12 +76,20 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
     setFile(newFile);
   };
 
+  const handleMoreFileChange = (e) => {
+    const moreImages = Array.from(e.target.files);
+    
+    setGallery(moreImages);
+  };
+
   const handleCreate = async (values) => {
     const formData = new FormData();
     Object.keys(values).forEach((key) => {
       formData.append(key, values[key]);
     });
+
     formData.append('file', file);
+    formData.append('moreImages', gallery);
 
     const result = await productService.createProduct(formData);
 
@@ -91,8 +101,8 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
         productId,
       });
     });
-    setIsOpen(false);
     setInitialValues({});
+    setIsOpen(false);
   };
 
   const handleUpdate = async (values) => {
@@ -100,7 +110,9 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
     Object.keys(values).forEach((key) => {
       formData.append(key, values[key]);
     });
+
     formData.append('file', file);
+    formData.append('moreImages', gallery);
 
     await productCategoryConnectionService.destroyProductCategoryConnection(values.id);
 
@@ -144,8 +156,8 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
       )}
 
       {isOpen && (
-        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-screen-lg">
+        <div className="fixed ms:modal-content overflow-y-auto w-full inset-0 bg-gray-800 bg-opacity-50 flex justify-center md:items-center z-50">
+          <div className="bg-white rounded-lg shadow-lg p-6 w-full sm:max-w-screen-lg h-max">
             <div className="flex justify-between items-center mb-4">
               {!productIdFromProductRow ? (
                 <h2 className="text-lg font-bold text-orange-500">Create new GAME</h2>
@@ -169,8 +181,8 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
             >
               {({ setFieldValue }) => (
                 <Form className="space-y-4">
-                  <div className="flex justify-between items-center mb-4">
-                    <div className="flex flex-col w-2/3">
+                  <div className="flex md:h-60  md:flex-row flex-col justify-between items-center mb-4">
+                    <div className="flex flex-col w-full md:w-2/3">
                       <div>
                         <label className="block text-left text-sm font-medium">
                           The name of the GAME
@@ -204,7 +216,7 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
                     <button
                       onClick={() => fileInputRef.current.click()}
                       type="button"
-                      className="flex w-1/3 border m-5 align-middle justify-center rounded-lg"
+                      className="flex max-h-60 w-full md:w-1/3 border m-5 align-middle justify-center rounded-lg"
                     >
                       <input
                         ref={fileInputRef}
@@ -214,7 +226,7 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
                       />
 
                       <img
-                        className={`object-contain h-60  hover:grayscale-0 cursor-pointer ${file || productData?.playersNumberMax ? '' : 'grayscale blur-[2px] hover:blur-0'}`}
+                        className={`object-contain hover:grayscale-0 cursor-pointer ${file || productData?.playersNumberMax ? '' : 'grayscale blur-[2px] hover:blur-0'}`}
                         src={
                           (file && URL.createObjectURL(file)) || productData?.pictureUrl || noImage
                         }
@@ -223,28 +235,50 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
                     </button>
                   </div>
                   <div>
-                    <label className="block text-left text-sm font-medium">Category</label>
-                    {(initialValues?.name || !productIdFromProductRow) && (
-                      <Select
-                        defaultValue={initialValues.category}
-                        isMulti
-                        name="colors"
-                        options={categoryOptions}
-                        className="basic-multi-select"
-                        classNamePrefix="select"
-                        onChange={(selectedOptions) => setFieldValue('category', selectedOptions)}
-                      />
-                    )}
+                    <input type="file" multiple onChange={handleMoreFileChange} />
+                  </div>
+                  <div className="flex md:flex-row flex-col gap-x-3 ">
+                    <div className="md:w-2/3">
+                      <label className="block text-left text-sm font-medium">Category</label>
+                      {(initialValues?.name || !productIdFromProductRow) && (
+                        <Select
+                          defaultValue={initialValues.category}
+                          isMulti
+                          name="colors"
+                          options={categoryOptions}
+                          className="basic-multi-select"
+                          classNamePrefix="select"
+                          onChange={(selectedOptions) => setFieldValue('category', selectedOptions)}
+                        />
+                      )}
 
-                    <ErrorMessage
-                      name="category"
-                      component="div"
-                      className="text-red-500 text-sm"
-                    />
+                      <ErrorMessage
+                        name="category"
+                        component="div"
+                        className="text-red-500 text-sm"
+                      />
+                    </div>
+
+                    <div className="flex justify-center w-full md:w-1/3 mt-5">
+                      <div className="flex">
+                        <label className="inline-flex items-center cursor-pointer ">
+                          <Field type="checkbox" name="isDeleted" className="sr-only peer" />
+                          <span className="ms-3 text-xl font-medium text-gray-900 dark:text-gray-300 mr-4">
+                            Active
+                          </span>
+                          <div className="relative sm:w-28 w-20 h-7 bg-green-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[6px] after:bg-white after:border-gray-300 after:border after:rounded after:h-6 sm:after:w-12 after:w-8 after:transition-all dark:border-gray-600 peer-checked:bg-red-400 dark:peer-checked:bg-red-400">
+                            &nbsp;
+                          </div>
+                          <span className="ms-3 text-xl font-medium text-gray-900 dark:text-gray-300 ml-4">
+                            Deleted
+                          </span>
+                        </label>
+                      </div>
+                    </div>
                   </div>
 
-                  <div className="flex flex-row gap-4">
-                    <div className="flex flex-col justify-between items-center border rounded-lg p-2 w-1/3">
+                  <div className="flex md:flex-row sm:flex-row flex-col gap-4">
+                    <div className="flex flex-col justify-between items-center border rounded-lg p-2 md:w-1/3">
                       <p className="text-xs text-orange-500">Price / Quantity</p>
                       <div>
                         <div className="px-1">
@@ -276,7 +310,7 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
                       </div>
                     </div>
 
-                    <div className="flex flex-col justify-between items-center border rounded-lg p-2 w-1/3">
+                    <div className="flex flex-col justify-between items-center border rounded-lg p-2 md:w-1/3">
                       <p className="text-xs text-orange-500">Recommended min - max ages</p>
                       <div>
                         <div className="px-1">
@@ -308,7 +342,7 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
                       </div>
                     </div>
 
-                    <div className="flex flex-col justify-between items-center border rounded-lg p-2 w-1/3">
+                    <div className="flex flex-col justify-between items-center border rounded-lg p-2 md:w-1/3">
                       <p className="text-xs text-orange-500">
                         Recommended min - max Players number
                       </p>
