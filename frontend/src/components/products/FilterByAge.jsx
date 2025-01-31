@@ -9,6 +9,8 @@ export default function FilterByPrice({ minAge, maxAge, setMaxAge, setMinAge }) 
   const handleFilterByAge = () => {
     searchParams.set('minAge', minAge);
     searchParams.set('maxAge', maxAge);
+    searchParams.set('page', 1);
+    searchParams.set('limit', 9);
     setSearchParams(searchParams);
   };
 
@@ -17,6 +19,8 @@ export default function FilterByPrice({ minAge, maxAge, setMaxAge, setMinAge }) 
     setMaxAge(100);
     searchParams.delete('minAge');
     searchParams.delete('maxAge');
+    searchParams.set('page', 1);
+    searchParams.set('limit', 9);
     setSearchParams(searchParams);
   };
 

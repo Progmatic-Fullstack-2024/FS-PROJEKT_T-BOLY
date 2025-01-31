@@ -24,6 +24,8 @@ export default function FilterByPrice({
   const handleFilterByPrice = () => {
     searchParams.set('minimumPrice', minPrice);
     searchParams.set('maximumPrice', maxPrice);
+    searchParams.set('page', 1);
+    searchParams.set('limit', 9);
     setSearchParams(searchParams);
   };
 
@@ -32,6 +34,8 @@ export default function FilterByPrice({
     setMaxPrice(max);
     searchParams.delete('minimumPrice');
     searchParams.delete('maximumPrice');
+    searchParams.set('page', 1);
+    searchParams.set('limit', 9);
     setSearchParams(searchParams);
   };
 
