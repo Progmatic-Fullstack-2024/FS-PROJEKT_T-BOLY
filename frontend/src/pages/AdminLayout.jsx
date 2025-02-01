@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { BsDice5, BsCreditCard } from 'react-icons/bs';
-import { FiMenu, FiSearch, FiUser, FiUsers, FiHome, FiLogOut } from 'react-icons/fi';
+import { FiMenu, FiUser, FiUsers, FiHome, FiLogOut } from 'react-icons/fi';
 import { Outlet, Link } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
 import TbolyWhite from '../assets/t-boly-white.png';
+import SearchBar from '../components/SearchBar/SearchBar';
 
 export default function AdminLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -29,32 +30,11 @@ export default function AdminLayout() {
                 ADMIN
               </span>
             </Link>
-            <form action="#" method="GET" className="hidden md:block md:pl-2">
-              <label htmlFor="topbar-search" className="sr-only">
-                Search
-              </label>
-              <div className="relative md:w-64 lg:w-96">
-                <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                  <FiSearch className="w-5 h-5 text-gray-50" />
-                </div>
-                <input
-                  type="text"
-                  name="search"
-                  id="topbar-search"
-                  className="bg-white bg-opacity-50 border border-gray-300 text-gray-50 text-sm rounded-lg md:block w-full pl-10 p-2.5 focus:outline-none placeholder:text-gray-50"
-                  placeholder="Search"
-                />
-              </div>
-            </form>
+            <div className="hidden md:block md:pl-2">
+              <SearchBar/>
+            </div>
           </div>
           <div className="flex items-center lg:order-2">
-            <button
-              type="button"
-              className="md:hidden p-2 mr-1 text-gray-50 rounded-lg hover:text-gray-900 hover:bg-gray-100 focus:ring-4 focus:ring-gray-300"
-            >
-              <FiSearch className="w-6 h-6" />
-              <span className="sr-only">Search</span>
-            </button>
             <button
               type="button"
               className="p-2 mr-1 text-gray-50 rounded-lg hover:text-gray-900 hover:bg-gray-100 focus:ring-4 focus:ring-gray-300"
@@ -124,7 +104,7 @@ export default function AdminLayout() {
       </aside>
 
       <main className="p-4 md:ml-64 h-auto pt-20 bg-primary bg-opacity-40 grow">
-        <Outlet />
+        <Outlet/>
       </main>
       <ToastContainer
         position="top-center"

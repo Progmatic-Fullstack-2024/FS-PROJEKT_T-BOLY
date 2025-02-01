@@ -34,7 +34,7 @@ export default function ProductRow({ product, onUpdate, onDelete }) {
       </td> */}
       <td className="px-4 py-3">{product.name}</td>
       <td className="px-4 py-3 hidden md:table-cell">{product.description}</td>
-      <td className="px-4 py-3">
+      <td className="px-4 py-3 hidden md:table-cell">
         {product?.categoryProduct?.map((c) => c.category.name).join(', ')}
       </td>
       <td className="px-4 py-3">${product.price}</td>
