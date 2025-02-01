@@ -12,7 +12,6 @@ router.get("/export", productsController.exportProducts);
 router.get(
   "/category/:categoryId",
   productsController.getAllProductsByCategory,
-  productsController.getAllProductsByCategory,
 );
 router.get("/:id", productsController.getProductById);
 

@@ -16,6 +16,7 @@ const getAllProducts = async (req, res, next) => {
     order = "asc",
     page = 1,
     limit = 9,
+    search,
     minimumPrice = 0,
     maximumPrice = 1000,
     minAge = 0,
@@ -28,18 +29,18 @@ const getAllProducts = async (req, res, next) => {
   const maxPriceNumber = Number(maximumPrice);
   const minAgeNumber = Number(minAge);
   const maxAgeNumber = Number(maxAge);
-
   try {
     const result = await productService.getAllProducts(
       sorting,
       order,
       pageNumber,
       limitNumber,
+      search,
       minPriceNumber,
       maxPriceNumber,
       minAgeNumber,
       maxAgeNumber,
-      players,
+      players
     );
     const {
       products,
@@ -68,6 +69,7 @@ const getAllProductsByCategory = async (req, res, next) => {
     order = "asc",
     page = 1,
     limit = 9,
+    search,
     minimumPrice = 0,
     maximumPrice = 1000,
     minAge = 0,
@@ -80,6 +82,7 @@ const getAllProductsByCategory = async (req, res, next) => {
   const maxPriceNumber = Number(maximumPrice);
   const minAgeNumber = Number(minAge);
   const maxAgeNumber = Number(maxAge);
+  console.log(search);
 
   try {
     let result;
@@ -89,11 +92,12 @@ const getAllProductsByCategory = async (req, res, next) => {
         order,
         pageNumber,
         limitNumber,
+        search,
         minPriceNumber,
         maxPriceNumber,
         minAgeNumber,
         maxAgeNumber,
-        players,
+        players
       );
     } else {
       result = await productService.getAllProductsByCategory(
@@ -102,11 +106,12 @@ const getAllProductsByCategory = async (req, res, next) => {
         order,
         pageNumber,
         limitNumber,
+        search,
         minPriceNumber,
         maxPriceNumber,
         minAgeNumber,
         maxAgeNumber,
-        players,
+        players
       );
     }
 
@@ -198,7 +203,7 @@ const updateProduct = async (req, res, next) => {
         playersNumberMin: Number(playersNumberMin),
         playersNumberMax: Number(playersNumberMax),
       },
-      req?.file,
+      req?.file
     );
     res.status(200).json(updatedProduct);
   } catch (error) {

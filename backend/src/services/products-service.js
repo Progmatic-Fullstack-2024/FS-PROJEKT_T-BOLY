@@ -10,11 +10,12 @@ const getAllProducts = async (
   order,
   page,
   limit,
+  search,
   minimumPrice,
   maximumPrice,
   minAge,
   maxAge,
-  players,
+  players
 ) => {
   const where = {
     AND: [
@@ -34,6 +35,21 @@ const getAllProducts = async (
         },
         {
           playersNumberMin: { lte: maxPlayers },
+        },
+      ],
+    });
+  }
+  if (search && search.trim()) {
+    where.AND.push({
+      OR: [
+        { name: { contains: search, mode: "insensitive" } },
+        { description: { contains: search, mode: "insensitive" } },
+        {
+          categoryProduct: {
+            some: {
+              category: { name: { contains: search, mode: "insensitive" } },
+            },
+          },
         },
       ],
     });
@@ -83,12 +99,14 @@ const getAllProductsByCategory = async (
   order,
   page,
   limit,
+  search,
   minimumPrice,
   maximumPrice,
   minAge,
   maxAge,
-  players,
+  players
 ) => {
+  console.log("getAllProductsByCategory");
   const where = {
     categoryProduct: {
       some: { categoryId },
@@ -109,6 +127,21 @@ const getAllProductsByCategory = async (
         },
         {
           playersNumberMin: { lte: maxPlayers },
+        },
+      ],
+    });
+  }
+  if (search && search.trim()) {
+    where.AND.push({
+      OR: [
+        { name: { contains: search, mode: "insensitive" } },
+        { description: { contains: search, mode: "insensitive" } },
+        {
+          categoryProduct: {
+            some: {
+              category: { name: { contains: search, mode: "insensitive" } },
+            },
+          },
         },
       ],
     });
@@ -164,11 +197,11 @@ const getProductById = async (id) => {
   }
 
   const categoryIds = product.categoryProduct.map(
-    (category) => category.categoryId,
+    (category) => category.categoryId
   );
 
   const categoryNames = product.categoryProduct.map(
-    (categoryProduct) => categoryProduct.category.name,
+    (categoryProduct) => categoryProduct.category.name
   );
 
   const relatedProductsByCategory = await prisma.product.findMany({
