@@ -1,9 +1,23 @@
 import React from 'react';
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from 'react-icons/md';
+import { useSearchParams } from 'react-router-dom';
 
 import getPageNumbers from '../../utils/getPageNumbers';
 
-export default function Pagination({ pageNumber, setPageNumber, totalPages }) {
+export default function Pagination({ totalPages }) {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const pageNumber = Number(searchParams.get('page'));
+
+  const setPageNumber = (value) => {
+    if (value) {
+      searchParams.set('page', value);
+    } else {
+      searchParams.delete('page');
+    }
+    setSearchParams(searchParams);
+  };
+
   return (
     <div className="flex justify-center mr-44">
       <div className="flex items-center h-12 gap-2">

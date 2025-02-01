@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ImList } from 'react-icons/im';
 import { MdGridView } from 'react-icons/md';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import DisplayedProductsNumber from './DisplayedProductsNumber.jsx';
@@ -20,9 +20,7 @@ import productService from '../../services/productService.js';
 export default function ProductsByCategory() {
   const [productsByCategory, setProductsByCategory] = useState([]);
   const [categoryName, setCategoryName] = useState('');
-  const [sortingOption, setSortingOption] = useState({ sorting: 'name', order: 'asc' });
-  const [pageNumber, setPageNumber] = useState(1);
-  const [limit, setLimit] = useState(9);
+  const [searchParams, setSearchParams] = useSearchParams();
   const [totalPages, setTotalPages] = useState(1);
   const [totalProducts, setTotalProducts] = useState(0);
   const { categoryId } = useParams();
@@ -30,11 +28,6 @@ export default function ProductsByCategory() {
   const [maxPrice, setMaxPrice] = useState(1000);
   const [minAge, setMinAge] = useState(0);
   const [maxAge, setMaxAge] = useState(100);
-  const [filterByMinPrice, setFilterByMinPrice] = useState(0);
-  const [filterByMaxPrice, setFilterByMaxPrice] = useState(1000);
-  const [filterByMinAge, setFilterByMinAge] = useState(0);
-  const [filterByMaxAge, setFilterByMaxAge] = useState(100);
-  const [filterByPlayersNumber, setFilterByPlayersNumber] = useState('all');
   const [gridView, setGridView] = useState(true);
   const [priceRange, setPriceRange] = useState({});
 
@@ -47,19 +40,11 @@ export default function ProductsByCategory() {
             : (await categoryService.getCategoryById(categoryId)).name,
         );
 
-        const { sorting, order } = sortingOption;
         const productData = await productService.getAllProductsByCategory(
           categoryId,
-          sorting,
-          order,
-          pageNumber,
-          limit,
-          filterByMinPrice,
-          filterByMaxPrice,
-          filterByMinAge,
-          filterByMaxAge,
-          filterByPlayersNumber,
+          searchParams.toString(),
         );
+
         setProductsByCategory(productData.products);
         setTotalPages(productData.totalPages);
         setTotalProducts(productData.totalProducts);
@@ -69,86 +54,36 @@ export default function ProductsByCategory() {
       }
     };
     fetchCategoryAndProducts();
-  }, [
-    categoryId,
-    sortingOption,
-    pageNumber,
-    limit,
-    filterByMinPrice,
-    filterByMaxPrice,
-    filterByMinAge,
-    filterByMaxAge,
-    filterByPlayersNumber,
-  ]);
+  }, [categoryId, searchParams]);
 
   useEffect(() => {
-    setPageNumber(1);
-  }, [
-    categoryId,
-    sortingOption,
-    filterByMinPrice,
-    filterByMaxPrice,
-    filterByMinAge,
-    filterByMaxAge,
-    filterByPlayersNumber,
-  ]);
+    searchParams.set('page', 1);
+    searchParams.set('limit', 9);
+    setSearchParams(searchParams);
+  }, [categoryId]);
 
   useEffect(() => {
     if (priceRange.rangeMin !== undefined && priceRange.rangeMax !== undefined) {
       setMinPrice(priceRange.rangeMin);
       setMaxPrice(priceRange.rangeMax);
     }
-    setFilterByMinPrice(0);
-    setFilterByMaxPrice(1000);
     setMinAge(0);
     setMaxAge(100);
-    setFilterByMinAge(0);
-    setFilterByMaxAge(100);
-    setFilterByPlayersNumber('all');
+    // searchParams.delete('players');
+    // setSearchParams(searchParams);
   }, [categoryId, priceRange.rangeMin, priceRange.rangeMax]);
-
-  const handleSortingChange = (e) => {
-    const [sorting, order] = e.target.value.split('-');
-    setSortingOption({ sorting, order });
-  };
-
-  const handleFilterByPrice = () => {
-    setFilterByMinPrice(minPrice);
-    setFilterByMaxPrice(maxPrice);
-  };
-
-  const handleClearFilterByPrice = () => {
-    setMinPrice(priceRange.rangeMin);
-    setMaxPrice(priceRange.rangeMax);
-    setFilterByMinPrice(0);
-    setFilterByMaxPrice(1000);
-  };
-
-  const handleFilterByAge = () => {
-    setFilterByMinAge(minAge);
-    setFilterByMaxAge(maxAge);
-  };
-
-  const handleClearFilterByAge = () => {
-    setMinAge(0);
-    setMaxAge(100);
-    setFilterByMinAge(0);
-    setFilterByMaxAge(100);
-  };
-
-  const handleFilterByPlayersNumber = (e) => {
-    setFilterByPlayersNumber(e.target.value);
-  };
 
   const handleGridView = () => {
     setGridView(true);
-    setPageNumber(1);
-    setLimit(9);
+    searchParams.set('page', 1);
+    searchParams.set('limit', 9);
+    setSearchParams(searchParams);
   };
   const handleListView = () => {
     setGridView(false);
-    setPageNumber(1);
-    setLimit(6);
+    searchParams.set('page', 1);
+    searchParams.set('limit', 6);
+    setSearchParams(searchParams);
   };
 
   return (
@@ -164,8 +99,6 @@ export default function ProductsByCategory() {
               setMaxPrice={setMaxPrice}
               setMinPrice={setMinPrice}
               priceRange={priceRange}
-              handleFilterByPrice={handleFilterByPrice}
-              handleClearFilterByPrice={handleClearFilterByPrice}
             />
           )}
           <FilterByAge
@@ -173,8 +106,6 @@ export default function ProductsByCategory() {
             maxAge={maxAge}
             setMaxAge={setMaxAge}
             setMinAge={setMinAge}
-            handleFilterByAge={handleFilterByAge}
-            handleClearFilterByAge={handleClearFilterByAge}
           />
         </div>
         <div>
@@ -196,17 +127,10 @@ export default function ProductsByCategory() {
               >
                 <ImList />
               </button>
-              <Sorting handleSortingChange={handleSortingChange} sortingOption={sortingOption} />
-              <FilterByPlayersNumber
-                handleFilterByPlayersNumber={handleFilterByPlayersNumber}
-                filterByPlayersNumber={filterByPlayersNumber}
-              />
+              <Sorting />
+              <FilterByPlayersNumber />
             </div>
-            <DisplayedProductsNumber
-              limit={limit}
-              pageNumber={pageNumber}
-              totalProducts={totalProducts}
-            />
+            <DisplayedProductsNumber totalProducts={totalProducts} />
           </div>
           <div>
             {gridView ? (
@@ -215,11 +139,7 @@ export default function ProductsByCategory() {
               <ProductsList productsByCategory={productsByCategory} />
             )}
             <div className="mt-16">
-              <Pagination
-                pageNumber={pageNumber}
-                setPageNumber={setPageNumber}
-                totalPages={totalPages}
-              />
+              <Pagination totalPages={totalPages} />
             </div>
           </div>
         </div>

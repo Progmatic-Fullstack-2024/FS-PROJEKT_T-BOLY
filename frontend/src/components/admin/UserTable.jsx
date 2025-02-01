@@ -1,28 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { BsSortUp, BsSortDownAlt } from 'react-icons/bs';
 import { IoMdPersonAdd } from 'react-icons/io';
+import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import AddNewUserModal from './AddNewUserModal.jsx';
 import UserRow from './UserRow.jsx';
 import userService from '../../services/userService.js';
-import DisplayedProductsNumber from '../products/DisplayProductsNumber.jsx';
+import DisplayedProductsNumber from '../products/DisplayedProductsNumber.jsx';
 import Pagination from '../products/Pagination.jsx';
 
 export default function UsersTable() {
-  const [pageNumber, setPageNumber] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
   const [users, setUsers] = useState([]);
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-  const [limit] = useState(10);
-  const [sorting, setSorting] = useState('username');
-  const [order, setOrder] = useState('asc');
   const [isOpen, setIsOpen] = useState(false);
+  const sorting = searchParams.get('sorting');
+  const order = searchParams.get('order');
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const data = await userService.getAllUsers(sorting, order, pageNumber, limit);
+        const data = await userService.getAllUsers(searchParams.toString());
         setUsers(data.users);
         setTotalUsers(data.totalUsers);
         setTotalPages(data.totalPages);
@@ -32,15 +32,16 @@ export default function UsersTable() {
     };
 
     fetchUsers();
-  }, [pageNumber, limit, sorting, order]);
+  }, [searchParams]);
 
   const handleSort = (column) => {
     if (sorting === column) {
-      setOrder((prevOrder) => (prevOrder === 'asc' ? 'desc' : 'asc'));
+      searchParams.set('order', order === 'asc' ? 'desc' : 'asc');
     } else {
-      setSorting(column);
-      setOrder('asc');
+      searchParams.set('sorting', column);
+      searchParams.set('order', 'asc');
     }
+    setSearchParams(searchParams);
   };
 
   const renderSortIcon = (column) => {
@@ -90,11 +91,11 @@ export default function UsersTable() {
               <thead className="text-xs text-gray-700 uppercase bg-primary">
                 <tr>
                   <th
-                    onClick={() => handleSort('username')}
+                    onClick={() => handleSort('firstName')}
                     className="px-4 py-3 w-48 text-left text-gray-100 cursor-pointer"
                   >
                     Name
-                    {renderSortIcon('username')}
+                    {renderSortIcon('firstName')}
                   </th>
                   <th
                     onClick={() => handleSort('email')}
@@ -122,16 +123,8 @@ export default function UsersTable() {
             </table>
           </div>
           <div className="bg-primary bg-opacity-20 flex items-center justify-between p-8">
-            <DisplayedProductsNumber
-              pageNumber={pageNumber}
-              limit={limit}
-              totalProducts={totalUsers}
-            />
-            <Pagination
-              pageNumber={pageNumber}
-              setPageNumber={setPageNumber}
-              totalPages={totalPages}
-            />
+            <DisplayedProductsNumber totalProducts={totalUsers} />
+            <Pagination totalPages={totalPages} />
           </div>
         </div>
       </div>
