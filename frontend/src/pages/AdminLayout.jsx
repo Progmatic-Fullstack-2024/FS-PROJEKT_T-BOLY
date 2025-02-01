@@ -5,6 +5,7 @@ import { Outlet, Link } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
 import TbolyWhite from '../assets/t-boly-white.png';
+import SearchBar from '../components/SearchBar/SearchBar';
 
 export default function AdminLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -29,7 +30,7 @@ export default function AdminLayout() {
                 ADMIN
               </span>
             </Link>
-            <form action="#" method="GET" className="hidden md:block md:pl-2">
+            {/* <form action="#" method="GET" className="hidden md:block md:pl-2">
               <label htmlFor="topbar-search" className="sr-only">
                 Search
               </label>
@@ -41,11 +42,12 @@ export default function AdminLayout() {
                   type="text"
                   name="search"
                   id="topbar-search"
-                  className="bg-white bg-opacity-50 border border-gray-300 text-gray-50 text-sm rounded-lg md:block w-full pl-10 p-2.5 focus:outline-none placeholder:text-gray-50"
+                  className="bg-red-500 bg-opacity-50 border border-gray-300 text-gray-50 text-sm rounded-lg md:block w-full pl-10 p-2.5 focus:outline-none placeholder:text-gray-50"
                   placeholder="Search"
                 />
               </div>
-            </form>
+            </form> */}
+            <SearchBar />
           </div>
           <div className="flex items-center lg:order-2">
             <button
