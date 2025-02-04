@@ -5,7 +5,7 @@ export default function RatingDetails({ ratings, product, numberOfRatings }) {
   return (
     <div className="space-y-2 flex w-full">
       <div className="flex items-center flex-col m-2">
-        <h2 className="text-3xl">{product.product.rating.toFixed(1)}</h2>
+        <h2 className="text-3xl">{product?.product?.rating?.toFixed(1)}</h2>
         <div className="flex">
           <RatingStars rating={product.product.rating} />
         </div>
