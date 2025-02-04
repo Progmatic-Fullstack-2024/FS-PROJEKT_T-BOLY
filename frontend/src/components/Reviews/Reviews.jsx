@@ -6,9 +6,13 @@ import { toast } from 'react-toastify';
 import RatingDetails from './RatingDetails';
 import Review from './Review';
 import reviewService from '../../services/reviewService';
+import Pagination from '../products/Pagination';
 
 export default function Reviews(product) {
   const [reviews, setReviews] = useState([]);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const [totalPages, setTotalPages] = useState(1);
   const [ratings, setRatings] = useState([
     { label: 1, count: 0 },
     { label: 2, count: 0 },
@@ -16,20 +20,26 @@ export default function Reviews(product) {
     { label: 4, count: 0 },
     { label: 5, count: 0 },
   ]);
-  
+
   const [isReviewOpen, setIsReviewOpen] = useState(false);
   const { productId } = useParams();
   useEffect(() => {
     const fetchReviewsByProduct = async () => {
       try {
-        const allReviewByProduct = await reviewService.allReviewByProduct(productId);
-        setReviews(allReviewByProduct);
+        const response = await reviewService.allReviewByProduct(
+          productId,
+          pageNumber,
+          itemsPerPage,
+        );
+        console.log('Fetched reviews: ', response.reviews);
+        setReviews(response.reviews);
+        setTotalPages(response.totalPages);
       } catch (error) {
         toast.error(`Failed to fetch product: ${error.message}. Please try again later.`);
       }
     };
     fetchReviewsByProduct();
-  }, [productId]);
+  }, [productId, pageNumber, itemsPerPage]);
 
   useEffect(() => {
     if (reviews.length === 0) return;
@@ -77,7 +87,9 @@ export default function Reviews(product) {
           ))}
         </div>
       )}
-      
+      {isReviewOpen && (
+        <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} totalPages={totalPages} />
+      )}
     </div>
   );
 }

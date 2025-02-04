@@ -1,7 +1,7 @@
+import emailjs from 'emailjs-com';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import Select from 'react-select';
 import { toast } from 'react-toastify';
-import emailjs from 'emailjs-com';
 
 import userService from '../../services/userService';
 import { nwUserValidationSchemaByAdmin } from '../../validations/newUserByAdmin.validation';

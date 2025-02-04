@@ -37,11 +37,17 @@ const createReview = async ({ productId, userId, rating, review }) => {
   return newReview;
 };
 
-const listAllReviewByProduct = async (id) => {
+const listAllReviewByProduct = async (id, page, limit) => {
+  const offset = (page - 1) * limit;
   const reviews = await prisma.review.findMany({
     where: { productId: id },
+    skip: offset,
+    take: limit,
+    orderBy: { createdAt: "desc" },
   });
-  return reviews;
+  const totalReviews = await prisma.review.count({ where: { productId: id } });
+  const totalPages = Math.ceil(totalReviews / limit);
+  return { reviews, totalPages };
 };
 
 export default { createReview, listAllReviewByProduct };
