@@ -11,8 +11,8 @@ const allReviewByProduct = async (productId, pageNumber, itemsPerPage) => {
   const response = await api.get(`/api/productReview/${productId}`, {
     params: { pageNumber, itemsPerPage },
   });
-  const { reviews, totalPages } = response.data;
-  return { reviews, totalPages };
+  const { reviews, totalPages, allReviews } = response.data;
+  return { reviews, totalPages, allReviews };
 };
 
 export default { createReview, allReviewByProduct };

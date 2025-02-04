@@ -35,8 +35,8 @@ export default function ProductById() {
         setCategoryNames(data.categoryNames);
         setReviews(false);
         setProductInCartCount(1);
-        const allReviewByProduct = await reviewService.allReviewByProduct(productId);
-        setNumberOfAllRating(allReviewByProduct.length);
+        const response = await reviewService.allReviewByProduct(productId);
+        setNumberOfAllRating(response.allReviews.length);
       } catch (error) {
         toast.error(`Failed to fetch product: ${error.message}. Please try again later.`);
       } finally {

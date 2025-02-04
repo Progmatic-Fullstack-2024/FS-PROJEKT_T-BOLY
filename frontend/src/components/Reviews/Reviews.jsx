@@ -10,6 +10,7 @@ import Pagination from '../products/Pagination';
 
 export default function Reviews(product) {
   const [reviews, setReviews] = useState([]);
+  const [allReviews, setAllReviews] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
   const [totalPages, setTotalPages] = useState(1);
@@ -31,7 +32,7 @@ export default function Reviews(product) {
           pageNumber,
           itemsPerPage,
         );
-        console.log('Fetched reviews: ', response.reviews);
+        setAllReviews(response.allReviews);
         setReviews(response.reviews);
         setTotalPages(response.totalPages);
       } catch (error) {
@@ -44,7 +45,7 @@ export default function Reviews(product) {
   useEffect(() => {
     if (reviews.length === 0) return;
 
-    const rates = reviews.map((review) => review.rating);
+    const rates = allReviews.map((review) => review.rating);
 
     const countOccurrences = (arr) => {
       const counts = arr.reduce((acc, num) => {
@@ -67,7 +68,7 @@ export default function Reviews(product) {
       <div className='p-4  mx-auto flex"'>
         <h1 className="text-2x font-bold mb-4">Summary of ratings</h1>
         <div>
-          <RatingDetails ratings={ratings} product={product} />
+          <RatingDetails ratings={ratings} product={product} numberOfRatings={allReviews.length} />
         </div>
         <button
           className="text-primary flex justify-center m-2 "

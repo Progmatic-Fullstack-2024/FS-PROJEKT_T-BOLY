@@ -19,17 +19,14 @@ const listAllReviewByProduct = async (req, res, next) => {
   const { id } = req.params;
   const { pageNumber, itemsPerPage } = req.query;
 
-  const page = Number(pageNumber);
-  const itemsPer = Number(itemsPerPage);
+  const page = Number(pageNumber) || 1;
+  const itemsPer = Number(itemsPerPage) || 5;
   console.log("pageNumber:", page, "items", itemsPer);
 
   try {
-    const { reviews, totalPages } = await productReview.listAllReviewByProduct(
-      id,
-      page,
-      itemsPer
-    );
-    res.status(200).json({ reviews, totalPages });
+    const { reviews, totalPages, allReviews } =
+      await productReview.listAllReviewByProduct(id, page, itemsPer);
+    res.status(200).json({ reviews, totalPages, allReviews });
   } catch (error) {
     next(error);
   }

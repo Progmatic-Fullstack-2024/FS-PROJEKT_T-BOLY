@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 
 import AuthContext from '../../contexts/AuthContext';
 import reviewService from '../../services/reviewService';
+import { reviewValidationSchema } from '../../validations/review.validations';
 
 export default function ReviewModal({ setIsReviewOpen }) {
   const { user } = useContext(AuthContext);
@@ -47,6 +48,7 @@ export default function ReviewModal({ setIsReviewOpen }) {
           onSubmit={(values) => {
             handleSubmit(values);
           }}
+          validationSchema={reviewValidationSchema}
         >
           {({ values, setFieldValue }) => (
             <Form className="space-y-4">
