@@ -37,13 +37,13 @@ export default function ProductRow({ product, onUpdate, onDelete }) {
       <td className="px-4 py-3">
         {product?.categoryProduct?.map((c) => c.category.name).join(', ')}
       </td>
-      <td className="px-4 py-3 text-right">${product.price}</td>
+      <td className="px-4 py-3 text-right">€ {product.price}</td>
       <td className="px-4 py-3 text-right">{product.quantity}</td>
       <td className="px-4 py-3">
         <div className="flex justify-center space-x-1">{renderStars(4.5)}</div>
       </td>
       <td className="px-4 py-3">
-        <div className="flex justify-center space-x-1">{product.isDeleted?"Deleted":""}</div>
+        <div className="flex justify-center space-x-1">{product.isDeleted ? 'Deleted' : ''}</div>
       </td>
       <td className="px-4 py-3">
         <div className="flex space-x-2">

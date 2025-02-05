@@ -160,7 +160,6 @@ export default function ProductsTable() {
                     scope="col"
                     className="px-4 py-3 w-24 text-center text-gray-100 cursor-pointer"
                     onClick={() => handleSort('status')}
-                    
                   >
                     Status {renderSortIcon('status')}
                   </th>
@@ -171,14 +170,16 @@ export default function ProductsTable() {
               </thead>
               <tbody>
                 {productsByCategory &&
-                  productsByCategory.map((product) => (
-                    <ProductRow
-                      key={product.id}
-                      product={product}
-                      onUpdate={onUpdate}
-                      onDelete={onDelete}
-                    />
-                  ))}
+                  productsByCategory
+                    .filter((product) => !product.isDeleted)
+                    .map((product) => (
+                      <ProductRow
+                        key={product.id}
+                        product={product}
+                        onUpdate={onUpdate}
+                        onDelete={onDelete}
+                      />
+                    ))}
               </tbody>
             </table>
           </div>
