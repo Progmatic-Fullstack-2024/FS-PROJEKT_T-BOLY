@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 import ProductsTable from './components/admin/ProductsTable.jsx';
 import UserTable from './components/admin/UserTable.jsx';
+import CheckOut from './components/checkOut/CheckOut.jsx';
 import ProductById from './components/productDetails/ProductById.jsx';
 import ProductsByCategory from './components/products/ProductsByCategory.jsx';
 import './index.css';
@@ -15,6 +16,7 @@ import PassChange from './components/profilePage/PassChange.jsx';
 import PersonalData from './components/profilePage/PersonalData.jsx';
 import ShoppingCart from './components/shoppingCart/ShoppingCart.jsx';
 import { AuthProvider } from './contexts/AuthContext.jsx';
+import { CartProvider } from './contexts/CartContext.jsx';
 import About from './pages/About.jsx';
 import AdminLayout from './pages/AdminLayout.jsx';
 import Contacts from './pages/Contact.jsx';
@@ -47,6 +49,7 @@ const router = createBrowserRouter([
         element: <ProductById />,
       },
       { path: '/shoppingCart', element: <ShoppingCart /> },
+      { path: '/checkOut', element: <CheckOut /> },
       {
         path: '/profile_page',
         element: <ProfilePage />,
@@ -92,6 +95,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <AuthProvider>
-    <RouterProvider router={router} />
+    <CartProvider>
+      <RouterProvider router={router} />
+    </CartProvider>
   </AuthProvider>,
 );
