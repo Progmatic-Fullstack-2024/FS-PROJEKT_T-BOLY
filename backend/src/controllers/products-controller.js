@@ -181,12 +181,16 @@ const createProduct = async (req, res, next) => {
 };
 
 const updateProduct = async (req, res, next) => {
+  const file = req.files.file ? req.files.file[0] : null;
+  const files = req.files.moreImages || null;
+
   const { id } = req.params;
   const {
     name,
     description,
     price,
     quantity,
+    isDeleted,
     ageRecommendationMin,
     ageRecommendationMax,
     playersNumberMin,
@@ -200,12 +204,14 @@ const updateProduct = async (req, res, next) => {
         description,
         price: Number(price),
         quantity: Number(quantity),
+        isDeleted: isDeleted !== "false",
         ageRecommendationMin: Number(ageRecommendationMin),
         ageRecommendationMax: Number(ageRecommendationMax),
         playersNumberMin: Number(playersNumberMin),
         playersNumberMax: Number(playersNumberMax),
       },
-      req?.file,
+      file,
+      files,
     );
     res.status(200).json(updatedProduct);
   } catch (error) {

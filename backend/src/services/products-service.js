@@ -3,7 +3,7 @@ import { fileURLToPath } from "url";
 import path from "path";
 import prisma from "../models/prismaClient.js";
 import HttpError from "../utils/HttpError.js";
-import { updateFile } from "./file.service.js";
+import { updateFile, uploadMoreFiles } from "./file.service.js";
 
 const getAllProducts = async (
   sorting,
@@ -216,26 +216,37 @@ const createProduct = async (productData) => {
   return newProduct;
 };
 
-const updateProduct = async (id, productData, file) => {
-  const product = prisma.product.findUnique({
+const updateProduct = async (id, productData, file, files) => {
+  // console.log(file, files)
+  const product = await prisma.product.findUnique({
     where: { id },
   });
   if (!product) throw new HttpError("Product not found", 404);
   const pictureUrl = await updateFile(product.pictureUrl, file);
+
+  const morePictureUrl = await uploadMoreFiles(files);
+  if (product?.morePictureUrl) morePictureUrl.push(...product.morePictureUrl);
+  console.log(product);
   const updatedProduct = await prisma.product.update({
     where: { id },
-    data: { ...productData, pictureUrl },
+    data: {
+      ...productData,
+      pictureUrl,
+      morePictureUrl,
+    },
     include: {
       categoryProduct: { include: { category: { select: { name: true } } } },
     },
   });
+
   return updatedProduct;
 };
 
 const destroyProduct = async (id) => {
   await getProductById(id);
-  return prisma.product.delete({
+  return prisma.product.update({
     where: { id },
+    data: { isDeleted: true },
   });
 };
 

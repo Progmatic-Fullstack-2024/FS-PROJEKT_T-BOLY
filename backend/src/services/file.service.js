@@ -32,7 +32,6 @@ export const deleteFile = async (url) => {
   if (url) {
     const publicId = extractPublicId(url);
     const deletedImage = await cloudinary.uploader.destroy(publicId);
-    console.log(deletedImage);
     if (deletedImage.result !== "ok") {
       throw new HttpError("Could not delete image", 404);
     }
@@ -48,4 +47,12 @@ export const updateFile = async (url, file) => {
     return updatedImageUrl;
   }
   return url;
+};
+
+export const uploadMoreFiles = async (files) => {
+  console.log(files);
+  if (!files?.length) return [];
+
+  const moreImages = await Promise.all(files.map((file) => createFile(file)));
+  return moreImages;
 };

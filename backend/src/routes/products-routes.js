@@ -18,14 +18,20 @@ router.get("/:id", productsController.getProductById);
 
 router.post(
   "/",
-  upload.single("file"),
+  upload.fields([
+    { name: "file", maxCount: 1 },
+    { name: "moreImages", maxCount: 10 },
+  ]),
   authenticate,
   productsController.createProduct,
 );
 
 router.put(
   "/:id",
-  upload.single("file"),
+  upload.fields([
+    { name: "file", maxCount: 1 },
+    { name: "moreImages", maxCount: 10 },
+  ]),
   authenticate,
   productsController.updateProduct,
 );
