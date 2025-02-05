@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import App from './App';
+import OrdersTable from './components/admin/OrdersTable.jsx';
 import ProductsTable from './components/admin/ProductsTable.jsx';
 import UserTable from './components/admin/UserTable.jsx';
 import ProductById from './components/productDetails/ProductById.jsx';
@@ -83,6 +84,10 @@ const router = createBrowserRouter([
       {
         path: 'users',
         element: <UserTable />,
+      },
+      {
+        path: 'orders',
+        element: <OrdersTable />,
       },
     ],
   },
