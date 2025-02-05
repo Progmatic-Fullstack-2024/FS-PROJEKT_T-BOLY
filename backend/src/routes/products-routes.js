@@ -12,22 +12,28 @@ router.get("/export", productsController.exportProducts);
 router.get(
   "/category/:categoryId",
   productsController.getAllProductsByCategory,
-  productsController.getAllProductsByCategory
+  productsController.getAllProductsByCategory,
 );
 router.get("/:id", productsController.getProductById);
 
 router.post(
   "/",
-  upload.single("file"),
+  upload.fields([
+    { name: "file", maxCount: 1 },
+    { name: "moreImages", maxCount: 10 },
+  ]),
   authenticate,
-  productsController.createProduct
+  productsController.createProduct,
 );
 
 router.put(
   "/:id",
-  upload.single("file"),
+  upload.fields([
+    { name: "file", maxCount: 1 },
+    { name: "moreImages", maxCount: 10 },
+  ]),
   authenticate,
-  productsController.updateProduct
+  productsController.updateProduct,
 );
 
 router.delete("/:id", authenticate, productsController.destroyProduct);

@@ -25,9 +25,8 @@ const exportProducts = async () => {
 };
 
 const updatedProduct = async (id, formdata) => {
-  console.log(Object.fromEntries(formdata))
   const response = await api.put(`/api/products/${id}`, formdata);
-  
+
   return response.data;
 };
 

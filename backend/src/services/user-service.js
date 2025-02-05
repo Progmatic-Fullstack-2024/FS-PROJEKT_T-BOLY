@@ -44,7 +44,7 @@ const updateProfilePicture = async (id, userData) => {
       billingAdress: updatedUser.billingAdress,
       profilePictureUrl: updatedUser.profilePictureUrl,
     },
-    JWT_SECRET
+    JWT_SECRET,
   );
 
   return { token, updatedUser };
@@ -120,7 +120,7 @@ const updateUser = async (id, userData, currentUserId, currentUserRole) => {
       billingAdress: updatedUser.billingAdress,
       profilePictureUrl: updatedUser.profilePictureUrl,
     },
-    JWT_SECRET
+    JWT_SECRET,
   );
 
   return { token, updatedUser };
@@ -155,7 +155,7 @@ const getAllUsers = async (
   pageNumber,
   limitNumber,
   filterByRole,
-  filterByIsActive
+  filterByIsActive,
 ) => {
   const where = {
     AND: [

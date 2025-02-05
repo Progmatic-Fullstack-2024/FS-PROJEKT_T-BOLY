@@ -50,9 +50,9 @@ export const updateFile = async (url, file) => {
 };
 
 export const uploadMoreFiles = async (files) => {
-  if (!files?.length) return []
-  const moreImages = await Promise.all(
-    files.map((file) => cloudinary.uploader.upload(file))
-  );
+  console.log(files);
+  if (!files?.length) return [];
+
+  const moreImages = await Promise.all(files.map((file) => createFile(file)));
   return moreImages;
 };
