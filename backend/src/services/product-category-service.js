@@ -39,8 +39,8 @@ const destroyConnection = async (productId) => {
     connectionList.map((connection) =>
       prisma.categoryProduct.delete({
         where: { id: connection.id },
-      })
-    )
+      }),
+    ),
   );
   return deletedConnections;
 };
