@@ -1,4 +1,4 @@
-import Reviews from '../Reviews/Reviews';
+import Reviews from '../reviews2/Reviews';
 
 export default function DescriptionReview({
   handleDescription,
