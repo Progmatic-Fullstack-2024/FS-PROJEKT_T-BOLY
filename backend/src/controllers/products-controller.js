@@ -65,6 +65,7 @@ const getAllProducts = async (req, res, next) => {
 
 const getAllProductsByCategory = async (req, res, next) => {
   const { categoryId } = req.params;
+
   const {
     sorting = "name",
     order = "asc",

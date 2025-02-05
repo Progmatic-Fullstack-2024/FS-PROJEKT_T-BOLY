@@ -19,7 +19,7 @@ export default function Pagination({ totalPages }) {
   };
 
   return (
-    <div className="flex justify-center mr-44">
+    <div className="flex justify-center">
       <div className="flex items-center h-12 gap-2">
         <button
           type="button"

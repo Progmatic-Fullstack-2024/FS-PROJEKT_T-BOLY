@@ -5,6 +5,7 @@ import userRoutes from "./user-routes.js";
 import productCategoryConnection from "./product-category.routes.js";
 import shoppingCartRoutes from "./shoppingCart-routes.js";
 import wishlistRoutes from "./wishlist-routes.js";
+import reviewRoutes from "./review-routes.js";
 
 const router = express.Router();
 
@@ -14,5 +15,6 @@ router.use("/user", userRoutes);
 router.use("/productCategoryConnection", productCategoryConnection);
 router.use("/shoppingCart", shoppingCartRoutes);
 router.use("/wishlist", wishlistRoutes);
+router.use("/productReview", reviewRoutes);
 
 export default router;

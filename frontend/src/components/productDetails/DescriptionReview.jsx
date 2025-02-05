@@ -1,4 +1,12 @@
-export default function DescriptionReview({ handleDescription, reviews, handleReviews }) {
+import Reviews from '../reviews/Reviews';
+
+export default function DescriptionReview({
+  handleDescription,
+  reviews,
+  handleReviews,
+  product,
+  numberOfAllRating,
+}) {
   return (
     <div className="flex flex-col border-2 rounded-xl p-10 gap-14 md:mt-20 mt-10">
       <div className="flex justify-center text-2xl gap-8">
@@ -19,7 +27,7 @@ export default function DescriptionReview({ handleDescription, reviews, handleRe
         </button>
       </div>
       {reviews ? (
-        <div>Reviews</div>
+        <Reviews numberOfAllRating={numberOfAllRating} product={product} />
       ) : (
         <div className="text-justify mr-12 ml-12">
           Bag stretch chase imaginary bugs rub face on everything behind the couch give attitude
