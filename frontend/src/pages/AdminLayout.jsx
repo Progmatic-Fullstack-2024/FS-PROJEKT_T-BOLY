@@ -24,7 +24,11 @@ export default function AdminLayout() {
               <FiMenu className="w-6 h-6" />
               <span className="sr-only">Toggle sidebar</span>
             </button>
-            <button type="button" onClick={() => navigate('/')} className="flex items-center mr-1 cursor-pointer">
+            <button
+              type="button"
+              onClick={() => navigate('/')}
+              className="flex items-center mr-1 cursor-pointer"
+            >
               <img src={TbolyWhite} className="mr-3 h-8" alt="Ant Logo" />
               <span className="flex items-center self-center text-2xl font-semibold whitespace-nowrap text-white">
                 ADMIN
