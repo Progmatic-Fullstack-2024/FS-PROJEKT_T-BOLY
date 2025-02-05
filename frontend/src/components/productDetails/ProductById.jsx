@@ -13,7 +13,7 @@ import productService from '../../services/productService';
 import reviewService from '../../services/reviewService';
 import AddToWishlistHeart from '../products/AddToWishlistHeart';
 import RatingStars from '../products/RatingStars';
-import ReviewModal from '../reviews2/ReviewModal';
+import ReviewModal from '../reviews/ReviewModal';
 
 export default function ProductById() {
   const { productId } = useParams();
