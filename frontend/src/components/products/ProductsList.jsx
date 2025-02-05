@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import { FiShoppingCart } from 'react-icons/fi';
-import { LuHeart } from 'react-icons/lu';
 import { Link } from 'react-router-dom';
 
+import AddToWishlistHeart from './AddToWishlistHeart';
 import RatingStars from './RatingStars';
 import OutOfStock from '../../assets/out_of_stock.png';
 import CartContext from '../../contexts/CartContext';
@@ -59,12 +59,9 @@ export default function ProductsList({ productsByCategory }) {
                       </button>
                     )}
                   </div>
-                  <button
-                    type="button"
-                    className="flex items-center text-xl justify-center p-1 hover:text-primary"
-                  >
-                    <LuHeart className="m-2" />
-                  </button>
+                  <div className="text-3xl">
+                    <AddToWishlistHeart product={product} />
+                  </div>
                 </div>
               </div>
             </div>

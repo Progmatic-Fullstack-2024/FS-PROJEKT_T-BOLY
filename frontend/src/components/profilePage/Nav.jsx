@@ -55,11 +55,11 @@ export default function Nav() {
             <Link
               onClick={() => setIsSideBarOpen(false)}
               className="border-t border-gray-200 flex justify-between p-4 text-gray-900 rounded-lg  hover:bg-gray-100  group"
-              to="favorites"
+              to="wishlist"
             >
               <span className="flex  pb-0">
                 <IoIosHeartEmpty className=" pb-0 mr-4 flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 " />{' '}
-                Favorites
+                Wishlist
               </span>
               <MdKeyboardArrowRight className="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 " />
             </Link>
