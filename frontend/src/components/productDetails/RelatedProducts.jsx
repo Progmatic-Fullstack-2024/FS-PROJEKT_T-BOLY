@@ -1,7 +1,7 @@
 import { FiShoppingCart } from 'react-icons/fi';
-import { LuHeart } from 'react-icons/lu';
 import { Link } from 'react-router-dom';
 
+import AddToWishlistHeart from '../products/AddToWishlistHeart';
 import RatingStars from '../products/RatingStars';
 
 export default function RelatedProducts({ relatedProductsByCategory }) {
@@ -19,12 +19,9 @@ export default function RelatedProducts({ relatedProductsByCategory }) {
                   alt={relatedProduct.name}
                 />
               </Link>
-              <button
-                type="submit"
-                className="absolute top-2 right-2 rounded-full flex items-center justify-center hover:text-primary"
-              >
-                <LuHeart className="m-2" />
-              </button>
+              <div className="absolute top-2 right-2">
+                <AddToWishlistHeart product={relatedProduct} />
+              </div>
               <button
                 type="submit"
                 className="absolute top-9 right-2 rounded-full flex items-center justify-center hover:text-primary"

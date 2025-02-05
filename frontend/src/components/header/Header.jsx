@@ -77,10 +77,10 @@ export default function Header() {
                 <li>
                   <Link
                     className="block px-4 py-2 hover:bg-gray-100  "
-                    to="profile_page/favorites"
+                    to="profile_page/wishlist"
                     onClick={toggleDropdown}
                   >
-                    Favorites
+                    Wishlist
                   </Link>
                 </li>
                 <li>

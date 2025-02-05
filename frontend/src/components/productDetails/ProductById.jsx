@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { FiShoppingCart } from 'react-icons/fi';
-import { LuHeart } from 'react-icons/lu';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -10,6 +9,7 @@ import RelatedProducts from './RelatedProducts';
 import SharingButtons from './SharingButtons';
 import ShortDescription from './ShortDescription';
 import productService from '../../services/productService';
+import AddToWishlistHeart from '../products/AddToWishlistHeart';
 import RatingStars from '../products/RatingStars';
 
 export default function ProductById() {
@@ -108,12 +108,12 @@ export default function ProductById() {
                     Add to Cart
                   </button>
                 </div>
-                <button
-                  type="button"
-                  className="hidden md:flex items-center text-xl justify-center hover:text-primary"
+                <div
+                 
+                  className=" text-4xl relative"
                 >
-                  <LuHeart />
-                </button>
+                  <AddToWishlistHeart product={product}/>
+                </div>
               </div>
               <ShortDescription categoryNames={categoryNames} product={product} />
             </div>

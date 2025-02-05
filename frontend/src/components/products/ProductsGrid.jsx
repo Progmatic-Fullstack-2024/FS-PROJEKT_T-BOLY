@@ -1,8 +1,8 @@
 import React from 'react';
 import { FiShoppingCart } from 'react-icons/fi';
-import { LuHeart } from 'react-icons/lu';
 import { Link } from 'react-router-dom';
 
+import AddToWishlistHeart from './AddToWishlistHeart';
 import RatingStars from './RatingStars';
 
 export default function ProductsGrid({ productsByCategory }) {
@@ -20,12 +20,9 @@ export default function ProductsGrid({ productsByCategory }) {
                     alt={product.name}
                   />
                 </Link>
-                <button
-                  type="submit"
-                  className="absolute top-2 right-2 rounded-full flex items-center justify-center hover:text-primary"
-                >
-                  <LuHeart className="m-2" />
-                </button>
+                <div className='absolute top-2 right-2'>
+                <AddToWishlistHeart product={product}/>
+                </div>
                 <button
                   type="submit"
                   className={`absolute top-9 right-2 rounded-full flex items-center justify-center ${product.quantity < 1 ? 'text-gray-300' : 'hover:text-primary'} `}

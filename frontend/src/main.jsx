@@ -9,11 +9,12 @@ import ProductById from './components/productDetails/ProductById.jsx';
 import ProductsByCategory from './components/products/ProductsByCategory.jsx';
 import './index.css';
 import Adresses from './components/profilePage/Adresses.jsx';
-import Favorites from './components/profilePage/Favorites.jsx';
 import Orders from './components/profilePage/Orders.jsx';
 import PassChange from './components/profilePage/PassChange.jsx';
 import PersonalData from './components/profilePage/PersonalData.jsx';
+import Wishlist from './components/profilePage/Wishlist.jsx';
 import { AuthProvider } from './contexts/AuthContext.jsx';
+import { WishlistProvider } from './contexts/WishlistContext.jsx';
 import About from './pages/About.jsx';
 import AdminLayout from './pages/AdminLayout.jsx';
 import Contacts from './pages/Contact.jsx';
@@ -52,7 +53,7 @@ const router = createBrowserRouter([
           { path: 'adresses', element: <Adresses /> },
           { path: 'orders', element: <Orders /> },
           { path: 'personal_data', element: <PersonalData /> },
-          { path: 'favorites', element: <Favorites /> },
+          { path: 'wishlist', element: <Wishlist /> },
           { path: 'change_password', element: <PassChange /> },
         ],
       },
@@ -90,6 +91,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <AuthProvider>
-    <RouterProvider router={router} />
+    <WishlistProvider>
+      <RouterProvider router={router} />
+    </WishlistProvider>
   </AuthProvider>,
 );
