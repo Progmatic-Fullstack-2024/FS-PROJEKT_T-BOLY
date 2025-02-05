@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { BsDice5, BsCreditCard } from 'react-icons/bs';
 import { FiMenu, FiSearch, FiUser, FiUsers, FiHome, FiLogOut } from 'react-icons/fi';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, Link, useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
 import TbolyWhite from '../assets/t-boly-white.png';
 
 export default function AdminLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div className="antialiased bg-gray-50 h-screen flex flex-col">
@@ -23,12 +24,16 @@ export default function AdminLayout() {
               <FiMenu className="w-6 h-6" />
               <span className="sr-only">Toggle sidebar</span>
             </button>
-            <Link to="/admin" className="flex items-center mr-1">
+            <button
+              type="button"
+              onClick={() => navigate('/')}
+              className="flex items-center mr-1 cursor-pointer"
+            >
               <img src={TbolyWhite} className="mr-3 h-8" alt="Ant Logo" />
               <span className="flex items-center self-center text-2xl font-semibold whitespace-nowrap text-white">
                 ADMIN
               </span>
-            </Link>
+            </button>
             <form action="#" method="GET" className="hidden md:block md:pl-2">
               <label htmlFor="topbar-search" className="sr-only">
                 Search
@@ -58,6 +63,7 @@ export default function AdminLayout() {
             <button
               type="button"
               className="p-2 mr-1 text-gray-50 rounded-lg hover:text-gray-900 hover:bg-gray-100 focus:ring-4 focus:ring-gray-300"
+              onClick={() => navigate('/profile_page/personal_data')}
             >
               <FiUser className="w-6 h-6" />
               <span className="sr-only">User menu</span>
