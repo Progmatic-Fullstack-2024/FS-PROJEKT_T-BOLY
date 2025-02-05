@@ -47,6 +47,7 @@ const getAllProducts = async (req, res, next) => {
       totalProducts,
       minPriceDb: minPriceValue,
       maxPriceDb: maxPriceValue,
+      topProductsByRating,
     } = result;
     res.status(200).json({
       products,
@@ -55,6 +56,7 @@ const getAllProducts = async (req, res, next) => {
       totalProducts,
       minPriceDb: minPriceValue,
       maxPriceDb: maxPriceValue,
+      topProductsByRating,
     });
   } catch (error) {
     next(error);
@@ -135,7 +137,11 @@ const getProductById = async (req, res, next) => {
   try {
     const { product, relatedProductsByCategory, categoryNames } =
       await productService.getProductById(productId);
-    res.status(200).json({ product, relatedProductsByCategory, categoryNames });
+    res.status(200).json({
+      product,
+      relatedProductsByCategory,
+      categoryNames,
+    });
   } catch (error) {
     next(error);
   }
