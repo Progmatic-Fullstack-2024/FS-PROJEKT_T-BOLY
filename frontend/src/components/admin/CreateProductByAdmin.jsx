@@ -1,10 +1,12 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import React, { useEffect, useRef, useState } from 'react';
 import { BsFillFileEarmarkPlusFill } from 'react-icons/bs';
+import { FaPlus } from 'react-icons/fa';
 import { FiEdit } from 'react-icons/fi';
 import Select from 'react-select';
 import { toast } from 'react-toastify';
 
+import ImageDeleteButton from './ImageDeleteButton.jsx';
 import noImage from '../../assets/noImage.png';
 import categoryService from '../../services/categoryService.js';
 import productCategoryConnectionService from '../../services/productCategoryConnectionService.js';
@@ -13,13 +15,17 @@ import { productValidationSchema } from '../../validations/product.validation.js
 
 export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate }) {
   const fileInputRef = useRef(null);
+  const moreFileInputRef = useRef(null);
   const [file, setFile] = useState(null);
-  const [gallery, setGallery] = useState(null);
+  const [gallery, setGallery] = useState([]);
+
   const [isOpen, setIsOpen] = useState(false);
 
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [productData, setProductData] = useState({});
   const [initialValues, setInitialValues] = useState({});
+  const [isHovered, setIsHovered] = useState(false);
+  const [setIsHoveredGallery] = useState(false);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -47,7 +53,7 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
       };
 
       fetchProduct();
-    }, [isOpen]);
+    }, [isOpen, gallery]);
   }
 
   useEffect(() => {
@@ -78,8 +84,11 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
 
   const handleMoreFileChange = (e) => {
     const moreImages = Array.from(e.target.files);
-    
     setGallery(moreImages);
+  };
+
+  const handleSetGallery = (updatedImages) => {
+    setGallery(updatedImages);
   };
 
   const handleCreate = async (values) => {
@@ -112,7 +121,7 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
     });
 
     formData.append('file', file);
-    formData.append('moreImages', gallery);
+    gallery.forEach((galleryItem) => formData.append('moreImages', galleryItem));
 
     await productCategoryConnectionService.destroyProductCategoryConnection(values.id);
 
@@ -136,7 +145,36 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
 
     setIsOpen(false);
     setInitialValues({});
+    setGallery([]);
   };
+
+  const addImage = (
+    <div className="flex flex-row content-center justify-center!isHoveredGalleryw-1/4 max-h-[120px]">
+      <button
+        onClick={() => moreFileInputRef.current.click()}
+        type="button"
+        onMouseEnter={() => productData?.pictureUrl && setIsHoveredGallery(true)}
+        onMouseLeave={() => productData?.pictureUrl && setIsHoveredGallery(false)}
+      >
+        <input
+          ref={moreFileInputRef}
+          type="file"
+          multiple
+          onChange={handleMoreFileChange}
+          className="hidden object-contain cursor-pointer"
+        />
+        <FaPlus className="text-gray-500 text-4xl hover:text-orange-500 m-3" />
+        {/* {!isHoveredGallery ? (
+          <FaPlus className="text-gray-500 text-3xl" />
+        ) : (
+          <div className="relative flex flex-row content-center justify-items-start text-white text-2xl z-50 w-[305px] overflow-clip bg-orange-500 bg:opacity-80">
+            <FaPlus className=" grow text-3xl" />
+            add image to gallery
+          </div>
+        )} */}
+      </button>
+    </div>
+  );
 
   return (
     <>
@@ -156,7 +194,7 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
       )}
 
       {isOpen && (
-        <div className="fixed ms:modal-content overflow-y-auto w-full inset-0 bg-gray-800 bg-opacity-50 flex justify-center md:items-center z-50">
+        <div className="fixed ms:modal-content w-full inset-0 bg-gray-800 bg-opacity-50 flex justify-center md:items-center z-50">
           <div className="bg-white rounded-lg shadow-lg p-6 w-full sm:max-w-screen-lg h-max">
             <div className="flex justify-between items-center mb-4">
               {!productIdFromProductRow ? (
@@ -167,7 +205,10 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
               <button
                 type="button"
                 className="text-gray-500 hover:text-black"
-                onClick={() => setIsOpen(false)}
+                onClick={() => {
+                  setIsOpen(false);
+                  setGallery([]);
+                }}
               >
                 ✖
               </button>
@@ -181,7 +222,7 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
             >
               {({ setFieldValue }) => (
                 <Form className="space-y-4">
-                  <div className="flex md:h-60  md:flex-row flex-col justify-between items-center mb-4">
+                  <div className="flex md:h-60 md:flex-row flex-col justify-between items-center mb-4">
                     <div className="flex flex-col w-full md:w-2/3">
                       <div>
                         <label className="block text-left text-sm font-medium">
@@ -212,31 +253,111 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
                         />
                       </div>
                     </div>
+                    <div className="relative isolate flex flex-col gap-2 m-5 h-[270px] md:w-1/3">
+                      <div
+                        className="relative flex "
+                        onMouseEnter={() => productData?.pictureUrl && setIsHovered(true)}
+                        onMouseLeave={() => productData?.pictureUrl && setIsHovered(false)}
+                      >
+                        <div>
+                          <button
+                            onClick={() => fileInputRef.current.click()}
+                            type="button"
+                            className="relative flex max-h-[170px] w-full border align-middle justify-center rounded-lg "
+                          >
+                            <input
+                              ref={fileInputRef}
+                              type="file"
+                              className="hidden"
+                              onChange={handleFileChange}
+                            />
 
-                    <button
-                      onClick={() => fileInputRef.current.click()}
-                      type="button"
-                      className="flex max-h-60 w-full md:w-1/3 border m-5 align-middle justify-center rounded-lg"
-                    >
-                      <input
-                        ref={fileInputRef}
-                        type="file"
-                        className="hidden"
-                        onChange={handleFileChange}
-                      />
+                            <img
+                              className={` object-contain hover:grayscale-0 cursor-pointer ${file || productData?.playersNumberMax ? '' : 'grayscale blur-[2px] hover:blur-0'}`}
+                              src={
+                                (file && URL.createObjectURL(file)) ||
+                                productData?.pictureUrl ||
+                                noImage
+                              }
+                              alt="NoImage"
+                            />
+                            <span className="absolute -right-2 -bottom-1 text-white bg-orange-500 bg-opacity-80 rounded px-2">
+                              Main image
+                            </span>
+                          </button>
+                        </div>
+                        {isHovered && (
+                          <button
+                            onClick={() => fileInputRef.current.click()}
+                            type="button"
+                            className="flex content-center items-center"
+                          >
+                            <input
+                              ref={fileInputRef}
+                              type="file"
+                              className="hidden"
+                              onChange={handleFileChange}
+                            />
 
-                      <img
-                        className={`object-contain hover:grayscale-0 cursor-pointer ${file || productData?.playersNumberMax ? '' : 'grayscale blur-[2px] hover:blur-0'}`}
-                        src={
-                          (file && URL.createObjectURL(file)) || productData?.pictureUrl || noImage
-                        }
-                        alt="NoImage"
-                      />
-                    </button>
+                            <div
+                              className="absolute inset-2 flex items-center bg-orange-500 rounded-lg bg-opacity-80 text-center text-white text-4xl font-bold"
+                              onChange={handleFileChange}
+                            >
+                              Change Main Image
+                            </div>
+                          </button>
+                        )}
+                      </div>
+
+                      <div className="flex flex-row h-[100%] w-[100%] border rounded-lg ">
+                        <div
+                          className={`w-[280px] h-[90px] flex flex-row ${productData?.morePictureUrl?.length >= 3 ? 'overflow-x-scroll' : ''} rounded-lg`}
+                        >
+                          {gallery?.length > 0
+                            ? gallery.map((item, index) => {
+                                const url = URL.createObjectURL(item);
+
+                                return (
+                                  <div className="relative content-center m-1 max-w-[80px] hover:scale-95 p-0.5 rounded ">
+                                    <ImageDeleteButton url={url} gallery={gallery} />
+
+                                    <img
+                                      key={index}
+                                      src={url}
+                                      className={`object-fill cursor-pointer content-center justify-items-center ${
+                                        gallery.length > 0 || productData?.playersNumberMax
+                                          ? ''
+                                          : 'grayscale blur-[2px] hover:blur-0'
+                                      }`}
+                                      alt={`Kép ${index + 1}`}
+                                    />
+                                  </div>
+                                );
+                              })
+                            : productData?.morePictureUrl?.map((url) => (
+                                <div className="relative content-center mt-1 w-[80px] hover:scale-95 p-0.5 rounded shrink-0 ">
+                                  <ImageDeleteButton
+                                    url={url}
+                                    gallery={gallery}
+                                    productId={productData.id}
+                                    onUpdate={handleSetGallery}
+                                  />
+                                  <img src={url} alt="product" className="h-[69px]" />
+                                </div>
+                              ))}
+                        </div>
+                        {addImage ||
+                          (gallery.length === 0 &&
+                            productData.morePictureUrl.length === 0 &&
+                            addImage)}
+                      </div>
+
+                      <span className="absolute -right-2 -bottom-1 text-white bg-orange-500 bg-opacity-80  rounded px-2">
+                        {productData?.morePictureUrl?.length || 0} images in gallery
+                      </span>
+                    </div>
                   </div>
-                  <div>
-                    <input type="file" multiple onChange={handleMoreFileChange} />
-                  </div>
+
                   <div className="flex md:flex-row flex-col gap-x-3 ">
                     <div className="md:w-2/3">
                       <label className="block text-left text-sm font-medium">Category</label>
@@ -270,7 +391,7 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
                             &nbsp;
                           </div>
                           <span className="ms-3 text-xl font-medium text-gray-900 dark:text-gray-300 ml-4">
-                            Deleted
+                            Inactive
                           </span>
                         </label>
                       </div>
