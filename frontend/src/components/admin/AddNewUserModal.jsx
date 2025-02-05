@@ -3,9 +3,9 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import Select from 'react-select';
 import { toast } from 'react-toastify';
 
+import { PUBLIC_KEY , TEMPLATE_ID , SERVICE_ID } from '../../constants/constants';
 import userService from '../../services/userService';
 import { nwUserValidationSchemaByAdmin } from '../../validations/newUserByAdmin.validation';
-
 
 export default function AddNewUserModal({ setIsOpen }) {
   const roleOptions = [
@@ -25,12 +25,12 @@ export default function AddNewUserModal({ setIsOpen }) {
   const sendEmail = async (formData) => {
     try {
       const response = await emailjs.send(
-        'service_9w6gw6b', // Az EmailJS-ben létrehozott Service ID
-        'template_qmtei8p', // Az EmailJS-ben létrehozott Template ID
+        SERVICE_ID, // Az EmailJS-ben létrehozott Service ID
+        TEMPLATE_ID, // Az EmailJS-ben létrehozott Template ID
         formData,
-        '-p_F7gpjQhlUiE4hK', // Az API kulcs (Public Key)
+        PUBLIC_KEY, // Az API kulcs (Public Key)
       );
-      return response;npm run format:fix
+      return response;
     } catch (error) {
       toast.error('Failed to send email:', error);
       throw error;
