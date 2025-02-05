@@ -108,11 +108,8 @@ export default function ProductById() {
                     Add to Cart
                   </button>
                 </div>
-                <div
-                 
-                  className=" text-4xl relative"
-                >
-                  <AddToWishlistHeart product={product}/>
+                <div className=" text-4xl relative">
+                  <AddToWishlistHeart product={product} />
                 </div>
               </div>
               <ShortDescription categoryNames={categoryNames} product={product} />

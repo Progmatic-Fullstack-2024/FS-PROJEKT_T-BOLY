@@ -38,8 +38,8 @@ export default function ProductsList({ productsByCategory }) {
                       Add to Cart
                     </button>
                   </div>
-                  <div className='text-3xl'>
-                 <AddToWishlistHeart product={product}/>
+                  <div className="text-3xl">
+                    <AddToWishlistHeart product={product} />
                   </div>
                 </div>
               </div>

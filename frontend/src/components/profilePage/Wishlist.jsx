@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+
 import WishlistContext from '../../contexts/WishlistContext';
 
 export default function Wishlist() {
@@ -7,7 +8,6 @@ export default function Wishlist() {
   if (wishlist.length === 0) {
     return <p className="text-center text-gray-500">Your favorites list is empty.</p>;
   }
-  console.log(wishlist);
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">Favorites</h1>

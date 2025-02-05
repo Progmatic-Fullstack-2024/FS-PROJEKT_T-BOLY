@@ -15,12 +15,16 @@ export default function AddToWishlistHeart({ product }) {
     }
   };
   return (
-      <button
-        onClick={handleClick}
-        type="button"
-        className="rounded-full flex items-center justify-center hover:text-primary"
-      >
-        {isInWishlist ? <IoHeartSharp className="m-2 text-primary" /> : <IoHeartOutline className="m-2" />}
-      </button>
+    <button
+      onClick={handleClick}
+      type="button"
+      className="rounded-full flex items-center justify-center hover:text-primary"
+    >
+      {isInWishlist ? (
+        <IoHeartSharp className="m-2 text-primary" />
+      ) : (
+        <IoHeartOutline className="m-2" />
+      )}
+    </button>
   );
 }

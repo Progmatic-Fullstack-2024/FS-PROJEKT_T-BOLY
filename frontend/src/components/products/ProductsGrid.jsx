@@ -20,8 +20,8 @@ export default function ProductsGrid({ productsByCategory }) {
                     alt={product.name}
                   />
                 </Link>
-                <div className='absolute top-2 right-2'>
-                <AddToWishlistHeart product={product}/>
+                <div className="absolute top-2 right-2">
+                  <AddToWishlistHeart product={product} />
                 </div>
                 <button
                   type="submit"
