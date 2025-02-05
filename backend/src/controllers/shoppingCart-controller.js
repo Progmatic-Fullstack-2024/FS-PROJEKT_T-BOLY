@@ -9,11 +9,11 @@ const getAllShoppingCarts = async (req, res, next) => {
   }
 };
 
-const getShoppingCartById = async (req, res, next) => {
-  const shoppingCartId = req.params.id;
+const getShoppingCartByUserId = async (req, res, next) => {
+  const userId = req.user.id;
   try {
     const shoppingCart =
-      await shoppingCartService.getShoppingCartById(shoppingCartId);
+      await shoppingCartService.getShoppingCartByUserId(userId);
     res.status(200).json(shoppingCart);
   } catch (error) {
     next(error);
@@ -21,10 +21,10 @@ const getShoppingCartById = async (req, res, next) => {
 };
 
 const createShoppingCart = async (req, res, next) => {
-  // const { data } = req.body;
+  const userId = req.user.id;
   try {
     const newShoppingCart = await shoppingCartService.createShoppingCart({
-      //data
+      userId,
     });
     res.status(201).json(newShoppingCart);
   } catch (error) {
@@ -32,28 +32,45 @@ const createShoppingCart = async (req, res, next) => {
   }
 };
 
-const updateShoppingCart = async (req, res, next) => {
-  const { shoppingCartId } = req.params;
-  //const { data } = req.body;
+const addCartItem = async (req, res, next) => {
+  const userId = req.user.id;
+  const { productId, quantity } = req.body;
   try {
-    const updatedShoppingCart = await shoppingCartService.updateShoppingCart(
-      shoppingCartId,
-      {
-        //data
-      }
+    const addedCartItem = await shoppingCartService.addCartItem(
+      userId,
+      productId,
+      quantity,
     );
-    res.status(200).json(updatedShoppingCart);
+    res.status(201).json(addedCartItem);
   } catch (error) {
     next(error);
   }
 };
 
-const destroyShoppingCart = async (req, res, next) => {
-  const { shoppingCartId } = req.params;
+const updateCartItem = async (req, res, next) => {
+  const userId = req.user.id;
+  const { productId, quantity } = req.body;
   try {
-    const destroyedShoppingCart =
-      await shoppingCartService.destroyShoppingCart(shoppingCartId);
-    res.status(200).json(destroyedShoppingCart);
+    const updatedCartItem = await shoppingCartService.updateCartItem(
+      userId,
+      productId,
+      quantity,
+    );
+    res.status(200).json(updatedCartItem);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const removeCartItem = async (req, res, next) => {
+  const userId = req.user.id;
+  const { productId } = req.body;
+  try {
+    const removedCartItem = await shoppingCartService.removeCartItem(
+      userId,
+      productId,
+    );
+    res.status(200).json(removedCartItem);
   } catch (error) {
     next(error);
   }
@@ -61,8 +78,9 @@ const destroyShoppingCart = async (req, res, next) => {
 
 export default {
   getAllShoppingCarts,
-  getShoppingCartById,
+  getShoppingCartByUserId,
   createShoppingCart,
-  updateShoppingCart,
-  destroyShoppingCart,
+  addCartItem,
+  updateCartItem,
+  removeCartItem,
 };
