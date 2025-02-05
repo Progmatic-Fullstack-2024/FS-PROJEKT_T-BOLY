@@ -68,12 +68,23 @@ const getAllProducts = async (
   const minPriceValue = minPrice.price || 0;
   const maxPriceValue = maxPrice.price || 1000;
 
+  const topProductsByRating = await prisma.product.findMany({
+    where: {
+      rating: { not: null },
+    },
+    orderBy: {
+      rating: "desc",
+    },
+    take: 4,
+  });
+
   return {
     products,
     totalProducts,
     totalPages,
     minPriceDb: minPriceValue,
     maxPriceDb: maxPriceValue,
+    topProductsByRating,
   };
 };
 
@@ -180,21 +191,19 @@ const getProductById = async (id) => {
           },
         },
       },
-      rating: {
-        not: null,
-      },
-      NOT: {
-        id,
-      },
+      rating: { not: null },
+      NOT: { id },
     },
     include: { categoryProduct: true },
-    orderBy: {
-      rating: "desc",
-    },
+    orderBy: { rating: "desc" },
     take: 4,
   });
 
-  return { product, relatedProductsByCategory, categoryNames };
+  return {
+    product,
+    relatedProductsByCategory,
+    categoryNames,
+  };
 };
 
 const createProduct = async (productData) => {

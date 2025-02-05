@@ -57,6 +57,8 @@ export default function ProductsTable() {
       searchParams.set('sorting', column);
       searchParams.set('order', 'asc');
     }
+    searchParams.set('page', 1);
+    searchParams.set('limit', 9);
     setSearchParams(searchParams);
   };
 
