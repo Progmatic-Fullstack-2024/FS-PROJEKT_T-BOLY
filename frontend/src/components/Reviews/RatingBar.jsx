@@ -1,5 +1,3 @@
-
-
 export default function RatingBar({ label, percentage, count }) {
   return (
     <div className="flex items-center space-x-4 w-full ">

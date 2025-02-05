@@ -30,7 +30,7 @@ export default function AddNewUserModal({ setIsOpen }) {
         formData,
         '-p_F7gpjQhlUiE4hK', // Az API kulcs (Public Key)
       );
-      return response;
+      return response;npm run format:fix
     } catch (error) {
       toast.error('Failed to send email:', error);
       throw error;
