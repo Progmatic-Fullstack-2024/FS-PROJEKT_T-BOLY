@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { AiOutlineHeart } from 'react-icons/ai';
 
 import WishlistContext from '../../contexts/WishlistContext';
 
@@ -6,11 +7,19 @@ export default function Wishlist() {
   const { wishlist, removeProductFromWishlist } = useContext(WishlistContext);
 
   if (wishlist.length === 0) {
-    return <p className="text-center text-gray-500">Your favorites list is empty.</p>;
+    return (
+      <div className="mx-auto w-full h-full bg-white rounded-2xl shadow-lg p-12 flex flex-col items-center justify-center">
+        <AiOutlineHeart className="text-primary text-6xl mb-6" />
+        <p className="text-center text-3xl font-semibold text-gray-700">Your wishlist is empty</p>
+        <p className="text-center text-gray-500 mt-4">
+          Start adding items to your wishlist by browsing our products.
+        </p>
+      </div>
+    );
   }
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Favorites</h1>
+    <div className="mx-auto w-full h-full bg-white rounded-lg shadow-md p-8">
+      <h1 className="text-2xl font-bold mb-4">Wishlist</h1>
       <ul className="space-y-4">
         {wishlist.map((item) => (
           <li

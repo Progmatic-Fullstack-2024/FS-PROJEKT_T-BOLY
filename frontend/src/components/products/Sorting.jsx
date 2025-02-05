@@ -16,6 +16,8 @@ export default function Sorting() {
       searchParams.set('order', order);
     } else searchParams.delete('order');
 
+    searchParams.set('page', 1);
+    searchParams.set('limit', 9);
     setSearchParams(searchParams);
   };
 
