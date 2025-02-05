@@ -12,7 +12,7 @@ export default function Reviews(product) {
   const [reviews, setReviews] = useState([]);
   const [allReviews, setAllReviews] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const [itemsPerPage] = useState(5);
   const [totalPages, setTotalPages] = useState(1);
   const [ratings, setRatings] = useState([
     { label: 1, count: 0 },

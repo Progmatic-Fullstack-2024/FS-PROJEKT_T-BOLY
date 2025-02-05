@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import Select from 'react-select';
 import { toast } from 'react-toastify';
 
-import { PUBLIC_KEY , TEMPLATE_ID , SERVICE_ID } from '../../constants/constants';
+import { PUBLIC_KEY, TEMPLATE_ID, SERVICE_ID } from '../../constants/constants';
 import userService from '../../services/userService';
 import { nwUserValidationSchemaByAdmin } from '../../validations/newUserByAdmin.validation';
 

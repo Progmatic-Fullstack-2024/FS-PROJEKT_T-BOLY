@@ -21,13 +21,13 @@ const createReview = async ({ productId, userId, rating, review }) => {
       review,
     },
   });
-  const result = await prisma.review.aggregate({
+  const { _avg: avg } = await prisma.review.aggregate({
     where: { productId },
     _avg: {
       rating: true,
     },
   });
-  const averageRating = result._avg.rating || 0;
+  const averageRating = avg.rating || 0;
 
   await prisma.product.update({
     where: { id: productId },
