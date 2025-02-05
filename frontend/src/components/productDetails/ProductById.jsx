@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { FiShoppingCart } from 'react-icons/fi';
-import { LuHeart } from 'react-icons/lu';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import DescriptionReview from './DescriptionReview';
@@ -9,17 +8,24 @@ import QuantityChangeButtons from './QuantityChangeButtons';
 import RelatedProducts from './RelatedProducts';
 import SharingButtons from './SharingButtons';
 import ShortDescription from './ShortDescription';
+import CartContext from '../../contexts/CartContext';
 import productService from '../../services/productService';
+import reviewService from '../../services/reviewService';
+import AddToWishlistHeart from '../products/AddToWishlistHeart';
 import RatingStars from '../products/RatingStars';
+import ReviewModal from '../reviews/ReviewModal';
 
 export default function ProductById() {
   const { productId } = useParams();
+  const [isReviewOpen, setIsReviewOpen] = useState(false);
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [relatedProductsByCategory, setRelatedProductsByCategory] = useState([]);
   const [categoryNames, setCategoryNames] = useState([]);
   const [productInCartCount, setProductInCartCount] = useState(1);
   const [reviews, setReviews] = useState(false);
+  const { cart, addToCart } = useContext(CartContext);
+  const [numberOfAllRating, setNumberOfAllRating] = useState(0);
 
   useEffect(() => {
     const fetchProductById = async () => {
@@ -30,7 +36,8 @@ export default function ProductById() {
         setRelatedProductsByCategory(data.relatedProductsByCategory);
         setCategoryNames(data.categoryNames);
         setReviews(false);
-        setProductInCartCount(1);
+        const response = await reviewService.allReviewByProduct(productId);
+        setNumberOfAllRating(response.allReviews.length);
       } catch (error) {
         toast.error(`Failed to fetch product: ${error.message}. Please try again later.`);
       } finally {
@@ -64,6 +71,10 @@ export default function ProductById() {
     setReviews(true);
   };
 
+  const handleNewReview = () => {
+    setIsReviewOpen(true);
+  };
+
   return (
     <div>
       {product ? (
@@ -87,33 +98,53 @@ export default function ProductById() {
               <h1 className="md:text-3xl text-2xl md:font-normal font-semibold">{product.name}</h1>
               <div className="mt-8 mb-8 font-medium text-2xl">€{product.price}</div>
               <div className="flex gap-2 pb-2 items-center">
-                <RatingStars rating={product.rating} /> (Reviews)
-              </div>
-              <div className="hidden md:block">{product.description}</div>
-
-              <div className="flex md:gap-12 gap-3 mt-10 mb-10">
-                <QuantityChangeButtons
-                  handleDecrement={handleDecrement}
-                  handleIncrement={handleIncrement}
-                  product={product}
-                  productInCartCount={productInCartCount}
-                />
-                <div className="flex">
-                  <button
-                    type="button"
-                    className={`flex items-center justify-center gap-3 w-40 rounded-xl border-2 ${product.quantity >= 1 ? 'border-primary bg-primary p-2 text-white hover:border-gray-900 hover:text-black' : 'border-gray-200 bg-gray-200 text-gray-900 cursor-not-allowed'}`}
-                    disabled={product.quantity < 1}
-                  >
-                    <FiShoppingCart />
-                    Add to Cart
-                  </button>
-                </div>
+                <RatingStars rating={product.rating} /> ({numberOfAllRating})
                 <button
+                  className="flex items-center justify-center ml-4 gap-3 w-40 border-2 border-primary rounded-xl bg-primary p-2 text-white hover:border-gray-900 hover:text-black"
                   type="button"
-                  className="hidden md:flex items-center text-xl justify-center hover:text-primary"
+                  onClick={handleNewReview}
                 >
-                  <LuHeart />
+                  Rate this product
                 </button>
+              </div>
+              {isReviewOpen && <ReviewModal setIsReviewOpen={setIsReviewOpen} />}
+              <div className="hidden md:block">{product.description}</div>
+              <div className="flex md:gap-12 gap-3 mt-10 mb-10">
+                {!cart.some((item) => item.productId === product.id) && (
+                  <QuantityChangeButtons
+                    handleDecrement={handleDecrement}
+                    handleIncrement={handleIncrement}
+                    product={product}
+                    productInCartCount={productInCartCount}
+                    maxQuantity={product.quantity}
+                  />
+                )}
+                <div className="flex">
+                  {cart.find((item) => item.productId === product.id) ? (
+                    <Link
+                      to="/shoppingCart"
+                      className="flex px-5 py-3 items-center justify-center gap-3 w-40 rounded-xl border-2 border-green-600 bg-green-600 text-white hover:border-gray-900 hover:text-black"
+                    >
+                      <FiShoppingCart />
+                      In cart
+                    </Link>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        addToCart(productId, productInCartCount) && setProductInCartCount(1)
+                      }
+                      className={`flex items-center justify-center gap-3 w-40 rounded-xl border-2 ${product.quantity >= 1 ? 'border-primary bg-primary p-2 text-white hover:border-gray-900 hover:text-black' : 'border-gray-200 bg-gray-200 text-gray-900 cursor-not-allowed'}`}
+                      disabled={product.quantity < 1}
+                    >
+                      <FiShoppingCart />
+                      {product.quantity < 1 ? 'Out of Stock' : 'Add to Cart'}
+                    </button>
+                  )}
+                </div>
+                <div className=" text-4xl relative">
+                  <AddToWishlistHeart product={product} />
+                </div>
               </div>
               <ShortDescription categoryNames={categoryNames} product={product} />
             </div>

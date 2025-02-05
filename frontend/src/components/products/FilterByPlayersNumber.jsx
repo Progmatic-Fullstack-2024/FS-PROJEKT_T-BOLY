@@ -9,6 +9,8 @@ export default function FilterByPlayersNumber() {
     } else {
       searchParams.set('players', e.target.value);
     }
+    searchParams.set('page', 1);
+    searchParams.set('limit', 9);
     setSearchParams(searchParams);
   };
 

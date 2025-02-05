@@ -2,6 +2,7 @@ import RangeSlider from 'react-range-slider-input';
 import 'react-range-slider-input/dist/style.css';
 import './slider.css';
 import { useSearchParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export default function FilterByPrice({ minAge, maxAge, setMaxAge, setMinAge }) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -9,6 +10,8 @@ export default function FilterByPrice({ minAge, maxAge, setMaxAge, setMinAge }) 
   const handleFilterByAge = () => {
     searchParams.set('minAge', minAge);
     searchParams.set('maxAge', maxAge);
+    searchParams.set('page', 1);
+    searchParams.set('limit', 9);
     setSearchParams(searchParams);
   };
 
@@ -17,7 +20,20 @@ export default function FilterByPrice({ minAge, maxAge, setMaxAge, setMinAge }) 
     setMaxAge(100);
     searchParams.delete('minAge');
     searchParams.delete('maxAge');
+    searchParams.set('page', 1);
+    searchParams.set('limit', 9);
     setSearchParams(searchParams);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    if (name === 'inputMinAge' && !Number.isNaN(value)) {
+      setMinAge(value);
+    } else if (name === 'inputMaxAge' && !Number.isNaN(value)) {
+      setMaxAge(value);
+    } else {
+      toast.error('You need to give a number.');
+    }
   };
 
   return (
@@ -33,9 +49,27 @@ export default function FilterByPrice({ minAge, maxAge, setMaxAge, setMinAge }) 
           setMaxAge(value[1]);
         }}
       />
-      <div className="flex justify-between mt-1 mb-3">
-        <div>{minAge}</div>
-        <div>{maxAge}</div>
+      <div className="flex justify-between mb-3 mt-3">
+        <div>
+          <input
+            type="number"
+            name="inputMinAge"
+            value={minAge}
+            onChange={handleInputChange}
+            className="w-20 p-2 border-2 rounded-xl text-center hover:border-gray-900"
+            min={0}
+          />
+        </div>
+        <div>
+          <input
+            type="number"
+            name="inputMaxAge"
+            value={maxAge}
+            onChange={handleInputChange}
+            className="w-20 p-2 border-2 rounded-xl text-center hover:border-gray-900"
+            min={0}
+          />
+        </div>
       </div>
       <div className="flex justify-between">
         <button
