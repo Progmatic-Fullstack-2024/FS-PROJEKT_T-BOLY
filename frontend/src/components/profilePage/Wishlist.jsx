@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { AiOutlineHeart } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 
 import WishlistContext from '../../contexts/WishlistContext';
 
@@ -26,7 +27,7 @@ export default function Wishlist() {
             key={item.product.id}
             className="flex items-center justify-between p-4 border rounded-lg shadow-sm"
           >
-            <div className="flex items-center space-x-4">
+            <Link to={`/products/${item.product.id}`} className="flex items-center space-x-4">
               <img
                 src={item.product?.pictureUrl || '/placeholder-image.png'}
                 alt={item.product.name}
@@ -36,7 +37,7 @@ export default function Wishlist() {
                 <h2 className="text-lg font-semibold">{item.product.name}</h2>
                 <p className="text-sm text-gray-500">{item.product.description}</p>
               </div>
-            </div>
+            </Link>
             <button
               type="button"
               onClick={() => removeProductFromWishlist(item.product.id)}
