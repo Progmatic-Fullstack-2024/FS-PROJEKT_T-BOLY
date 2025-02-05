@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import userService from '../../services/userService';
 import { nwUserValidationSchemaByAdmin } from '../../validations/newUserByAdmin.validation';
 
+
 export default function AddNewUserModal({ setIsOpen }) {
   const roleOptions = [
     { value: 'user', label: 'User' },
