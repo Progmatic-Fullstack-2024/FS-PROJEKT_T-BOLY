@@ -20,10 +20,8 @@ const updateProfilePictureUrl = async (userData) => {
   return updatedUser;
 };
 
-const getAllUsers = async (sorting, order, page, limit) => {
-  const response = await api.get(
-    `/api/user?sorting=${sorting}&order=${order}&pageNumber=${page}&limitNumber=${limit}`,
-  );
+const getAllUsers = async (queryParams) => {
+  const response = await api.get(`/api/user?${queryParams}`);
   return response.data;
 };
 

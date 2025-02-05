@@ -10,7 +10,7 @@ export default function LoginModal({ onClose }) {
   const handleLogin = async (values) => {
     const result = await login(values);
     if (result.ok) {
-      toast.success('Logged in succesfully.');
+      toast.success('Logged in successfully.');
       onClose();
     } else {
       toast.error(`Login failed. ${result.message.response.data.error}`);
@@ -29,23 +29,16 @@ export default function LoginModal({ onClose }) {
 
         <Formik
           initialValues={{
-            email: '',
-            username: '',
+            identifier: '',
             password: '',
           }}
           onSubmit={handleLogin}
         >
           <Form className="space-y-4">
             <div>
-              <label className="block text-sm font-medium">Email</label>
-              <Field name="email" type="email" className="w-full p-2 border rounded-lg" />
-              <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium">Username</label>
-              <Field name="username" className="w-full p-2 border rounded-lg" />
-              <ErrorMessage name="username" component="div" className="text-red-500 text-sm" />
+              <label className="block text-sm font-medium">Email or Username</label>
+              <Field name="identifier" className="w-full p-2 border rounded-lg" />
+              <ErrorMessage name="identifier" component="div" className="text-red-500 text-sm" />
             </div>
 
             <div>

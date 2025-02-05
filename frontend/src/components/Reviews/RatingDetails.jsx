@@ -7,7 +7,7 @@ export default function RatingDetails({ ratings, product, numberOfRatings }) {
       <div className="flex items-center flex-col m-2">
         <h2 className="text-3xl">{product?.product?.rating?.toFixed(1)}</h2>
         <div className="flex">
-          <RatingStars rating={product.product.rating} />
+          {product?.product?.rating && <RatingStars rating={product?.product?.rating} />}
         </div>
         <h3>({numberOfRatings})</h3>
       </div>

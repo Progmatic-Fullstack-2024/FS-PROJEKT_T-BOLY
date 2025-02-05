@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { FiShoppingCart } from 'react-icons/fi';
 import { IoIosArrowDown } from 'react-icons/io';
 import { Link } from 'react-router-dom';
@@ -8,15 +8,22 @@ import Searchbar from './Searchbar';
 import LogoOrange from '../../assets/ant-orange.png';
 import LogoText from '../../assets/t-boly-orange.png';
 import AuthContext from '../../contexts/AuthContext';
+import CartContext from '../../contexts/CartContext';
 import LoginModal from '../loginModal/LoginModal';
 import RegistrationModal from '../registrationModal/RegistrationModal';
 
 export default function Header() {
   const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
-  const { user, logout } = useContext(AuthContext);
-
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
+  const { user, logout } = useContext(AuthContext);
+  const { cart } = useContext(CartContext);
+
+  useEffect(() => {
+    const totalCount = cart.reduce((total, item) => total + item.quantity, 0);
+    setCartCount(totalCount);
+  }, [cart]);
 
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
@@ -77,10 +84,10 @@ export default function Header() {
                 <li>
                   <Link
                     className="block px-4 py-2 hover:bg-gray-100  "
-                    to="profile_page/favorites"
+                    to="profile_page/wishlist"
                     onClick={toggleDropdown}
                   >
-                    Favorites
+                    Wishlist
                   </Link>
                 </li>
                 <li>
@@ -134,9 +141,14 @@ export default function Header() {
           <Nav />
         </div>
         <div className="flex order-1 md:order-2">
-          <button type="button">
-            <FiShoppingCart className=" w-6 h-6 m-2 " />
-          </button>
+          <Link to="/shoppingCart" className="relative">
+            <FiShoppingCart className="w-6 h-6 m-7" />
+            {cartCount > 0 && (
+              <span className="absolute top-5 right-3 bg-red-600 text-white rounded-full text-xs px-1">
+                {cartCount}
+              </span>
+            )}
+          </Link>
           <Searchbar />
         </div>
       </div>

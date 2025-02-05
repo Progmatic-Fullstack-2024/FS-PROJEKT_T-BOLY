@@ -29,7 +29,16 @@ export default function DescriptionReview({
       {reviews ? (
         <Reviews numberOfAllRating={numberOfAllRating} product={product} />
       ) : (
-        <div className="text-justify">{product?.description}</div>
+        <div className="text-justify mr-12 ml-12">
+          Bag stretch chase imaginary bugs rub face on everything behind the couch give attitude
+          swat at dog intently stare at the same spot claw drapes need to chase tail, hide when
+          guests come over attack feet make muffins lick butt leave dead animals as gifts destroy
+          couch. Give attitude swat at dog flop over rub face on everything hide when guests come
+          over intrigued by the shower chase imaginary bugs attack feet need to chase tail behind
+          the couch make muffins intently sniff hand why must they do that, destroy couch bag
+          stretch hopped up on goofballs leave dead animals as gifts intently stare at the same spot
+          lick butt claw drapes hunt anything that moves hopped up on goofballs.
+        </div>
       )}
     </div>
   );

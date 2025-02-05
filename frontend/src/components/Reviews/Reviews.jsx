@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { IoIosArrowDown } from 'react-icons/io';
+import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -71,14 +71,16 @@ export default function Reviews(product) {
           <RatingDetails ratings={ratings} product={product} numberOfRatings={allReviews.length} />
         </div>
         <button
-          className="text-primary flex justify-center m-2 "
-          onClick={() => {
-            setIsReviewOpen(!isReviewOpen);
-          }}
+          className="text-primary flex justify-center m-2"
+          onClick={() => setIsReviewOpen(!isReviewOpen)}
           type="button"
         >
-          I want to see all the reviews
-          <IoIosArrowDown className="mt-1 ml-1" />
+          {isReviewOpen ? 'Hide reviews' : 'Show reviews'}
+          {isReviewOpen ? (
+            <IoIosArrowUp className="mt-[6px] ml-1" />
+          ) : (
+            <IoIosArrowDown className="mt-[6px] ml-1" />
+          )}
         </button>
       </div>
       {isReviewOpen && (
