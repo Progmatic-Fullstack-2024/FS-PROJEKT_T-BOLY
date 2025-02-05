@@ -39,6 +39,19 @@ export default function FilterByPrice({
     setSearchParams(searchParams);
   };
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    if (name === 'inputMinPrice') {
+      if (!Number.isNaN(value)) {
+        setMinPrice(value);
+      }
+    } else if (name === 'inputMaxPrice') {
+      if (!Number.isNaN(value)) {
+        setMaxPrice(value);
+      }
+    }
+  };
+
   return (
     <div className="flex flex-col gap-2 p-6 border-2 rounded-lg mb-10">
       <h3 className="text-xl mb-6">Filter by price</h3>
@@ -52,9 +65,29 @@ export default function FilterByPrice({
           setMaxPrice(value[1]);
         }}
       />
-      <div className="flex justify-between mt-1 mb-3">
-        <div>€{minPrice}</div>
-        <div>€{maxPrice}</div>
+      <div className="flex justify-between mb-3 mt-3">
+        <div>
+          <span className="text-xl">€</span>
+          <input
+            type="number"
+            name="inputMinPrice"
+            value={minPrice}
+            onChange={handleInputChange}
+            className="w-20 p-2 border-2 rounded-xl text-center hover:border-gray-900"
+            min={0}
+          />
+        </div>
+        <div>
+          <span className="text-xl">€</span>
+          <input
+            type="number"
+            name="inputMaxPrice"
+            value={maxPrice}
+            onChange={handleInputChange}
+            className="w-20 p-2 border-2 rounded-xl text-center hover:border-gray-900"
+            min={0}
+          />
+        </div>
       </div>
       <div className="flex justify-between">
         <button
