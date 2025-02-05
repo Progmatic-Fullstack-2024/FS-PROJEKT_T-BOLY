@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import RatingDetails from './RatingDetails';
@@ -9,9 +9,9 @@ import reviewService from '../../services/reviewService';
 import Pagination from '../products/Pagination';
 
 export default function Reviews(product) {
+  const [searchParams] = useSearchParams();
   const [reviews, setReviews] = useState([]);
   const [allReviews, setAllReviews] = useState([]);
-  const [pageNumber, setPageNumber] = useState(1);
   const [itemsPerPage] = useState(5);
   const [totalPages, setTotalPages] = useState(1);
   const [ratings, setRatings] = useState([
@@ -21,6 +21,8 @@ export default function Reviews(product) {
     { label: 4, count: 0 },
     { label: 5, count: 0 },
   ]);
+
+  const pageNumber = searchParams.get('page') || 1;
 
   const [isReviewOpen, setIsReviewOpen] = useState(false);
   const { productId } = useParams();
@@ -90,9 +92,7 @@ export default function Reviews(product) {
           ))}
         </div>
       )}
-      {isReviewOpen && (
-        <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} totalPages={totalPages} />
-      )}
+      {isReviewOpen && <Pagination totalPages={totalPages} />}
     </div>
   );
 }
