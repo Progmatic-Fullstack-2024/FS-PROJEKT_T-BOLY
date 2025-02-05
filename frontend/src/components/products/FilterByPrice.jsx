@@ -2,16 +2,17 @@ import { useEffect } from 'react';
 import RangeSlider from 'react-range-slider-input';
 import 'react-range-slider-input/dist/style.css';
 import './slider.css';
+import { useSearchParams } from 'react-router-dom';
 
 export default function FilterByPrice({
   minPrice,
   maxPrice,
   setMaxPrice,
   setMinPrice,
-  handleFilterByPrice,
   priceRange,
-  handleClearFilterByPrice,
 }) {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const min = priceRange.rangeMin;
   const max = priceRange.rangeMax;
 
@@ -19,6 +20,37 @@ export default function FilterByPrice({
     setMinPrice(min);
     setMaxPrice(max);
   }, [min, max]);
+
+  const handleFilterByPrice = () => {
+    searchParams.set('minimumPrice', minPrice);
+    searchParams.set('maximumPrice', maxPrice);
+    searchParams.set('page', 1);
+    searchParams.set('limit', 9);
+    setSearchParams(searchParams);
+  };
+
+  const handleClearFilterByPrice = () => {
+    setMinPrice(min);
+    setMaxPrice(max);
+    searchParams.delete('minimumPrice');
+    searchParams.delete('maximumPrice');
+    searchParams.set('page', 1);
+    searchParams.set('limit', 9);
+    setSearchParams(searchParams);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    if (name === 'inputMinPrice') {
+      if (!Number.isNaN(value)) {
+        setMinPrice(value);
+      }
+    } else if (name === 'inputMaxPrice') {
+      if (!Number.isNaN(value)) {
+        setMaxPrice(value);
+      }
+    }
+  };
 
   return (
     <div className="flex flex-col gap-2 p-6 border-2 rounded-lg mb-10">
@@ -33,9 +65,29 @@ export default function FilterByPrice({
           setMaxPrice(value[1]);
         }}
       />
-      <div className="flex justify-between mt-1 mb-3">
-        <div>€{minPrice}</div>
-        <div>€{maxPrice}</div>
+      <div className="flex justify-between mb-3 mt-3">
+        <div>
+          <span className="text-xl">€</span>
+          <input
+            type="number"
+            name="inputMinPrice"
+            value={minPrice}
+            onChange={handleInputChange}
+            className="w-20 p-2 border-2 rounded-xl text-center hover:border-gray-900"
+            min={0}
+          />
+        </div>
+        <div>
+          <span className="text-xl">€</span>
+          <input
+            type="number"
+            name="inputMaxPrice"
+            value={maxPrice}
+            onChange={handleInputChange}
+            className="w-20 p-2 border-2 rounded-xl text-center hover:border-gray-900"
+            min={0}
+          />
+        </div>
       </div>
       <div className="flex justify-between">
         <button

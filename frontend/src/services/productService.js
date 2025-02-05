@@ -30,38 +30,13 @@ const updatedProduct = async (id, formdata) => {
   return response.data;
 };
 
-const getAllProductsByCategory = async (
-  categoryId,
-  sorting,
-  order,
-  page,
-  limit,
-  filterByMinPrice,
-  filterByMaxPrice,
-  filterByMinAge,
-  filterByMaxAge,
-  filterByPlayersNumber,
-) => {
-  const response = await api.get(
-    `/api/products/category/${categoryId}?sorting=${sorting}&order=${order}&page=${page}&limit=${limit}&minPrice=${filterByMinPrice}&maxPrice=${filterByMaxPrice}&minAge=${filterByMinAge}&maxAge=${filterByMaxAge}&players=${filterByPlayersNumber}`,
-  );
+const getAllProductsByCategory = async (categoryId, searchParams) => {
+  const response = await api.get(`/api/products/category/${categoryId}?${searchParams}`);
   return response.data;
 };
 
-const getAllProducts = async (
-  sorting,
-  order,
-  page,
-  limit,
-  filterByMinPrice,
-  filterByMaxPrice,
-  filterByMinAge,
-  filterByMaxAge,
-  filterByPlayersNumber,
-) => {
-  const response = await api.get(
-    `/api/products?sorting=${sorting}&order=${order}&page=${page}&limit=${limit}&minPrice=${filterByMinPrice}&maxPrice=${filterByMaxPrice}&minAge=${filterByMinAge}&maxAge=${filterByMaxAge}&players=${filterByPlayersNumber}`,
-  );
+const getAllProducts = async (searchParams) => {
+  const response = await api.get(`/api/products?${searchParams}`);
   return response.data;
 };
 
