@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import DescriptionReview from './DescriptionReview';
+import PictureModal from './PicturesModal';
 import QuantityChangeButtons from './QuantityChangeButtons';
 import RelatedProducts from './RelatedProducts';
 import SharingButtons from './SharingButtons';
@@ -26,6 +27,8 @@ export default function ProductById() {
   const [reviews, setReviews] = useState(false);
   const { cart, addToCart } = useContext(CartContext);
   const [numberOfAllRating, setNumberOfAllRating] = useState(0);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedPictureIndex, setSelectedPictureIndex] = useState(0);
 
   useEffect(() => {
     const fetchProductById = async () => {
@@ -75,6 +78,13 @@ export default function ProductById() {
     setIsReviewOpen(true);
   };
 
+  const allPictures = [product.pictureUrl, ...product.morePictureUrl];
+
+  const handlePictureClick = (index) => {
+    setSelectedPictureIndex(index);
+    setModalOpen(true);
+  };
+
   return (
     <div>
       {product ? (
@@ -84,15 +94,31 @@ export default function ProductById() {
             <h1 className="text-primary text-3xl font-medium">{` ${product.name}`}</h1>
           </div>
           <div className=" flex flex-col md:flex-row justify-between gap-32">
-            <div className="h-80 w-80 md:h-1/3 md:w-1/3 flex flex-col gap-7 md:gap-16 md:mb-5 mb-5">
-              <div className="flex border-2 rounded-2xl min-h-96 w-full items-center">
+            <div className="h-80 w-80 md:h-1/3 md:w-1/3 flex flex-col gap-7 md:gap-6 md:mb-5 mb-5">
+              <button
+                type="button"
+                onClick={() => handlePictureClick(0)}
+                className="flex border-2 rounded-2xl min-h-96 w-full items-center"
+              >
                 <img
-                  className="h-full w-full p-7 pr-8 shrink-0"
+                  className="h-full w-full p-7 pr-8 shrink-0 cursor-pointer"
                   src={product.pictureUrl}
                   alt={product.name}
                 />
+              </button>
+              <div className="flex h-40 gap-2 justify-between">
+                {product.morePictureUrl.slice(0, 3).map((picture, index) => (
+                  <button
+                    key={index}
+                    type="button"
+                    onClick={() => handlePictureClick(index + 1)}
+                    className="w-32 h-32 flex-shrink-0 p-3 border-2 rounded-xl"
+                    aria-label={`View picture ${index + 1}`}
+                  >
+                    <img src={picture} alt="" />
+                  </button>
+                ))}
               </div>
-              <SharingButtons />
             </div>
             <div className="flex flex-col md:gap-8 md:w-2/3 md:h-2/3">
               <h1 className="md:text-3xl text-2xl md:font-normal font-semibold">{product.name}</h1>
@@ -109,6 +135,7 @@ export default function ProductById() {
               </div>
               {isReviewOpen && <ReviewModal setIsReviewOpen={setIsReviewOpen} />}
               <div className="hidden md:block">{product.description}</div>
+              <SharingButtons />
               <div className="flex md:gap-12 gap-3 mt-10 mb-10">
                 {!cart.some((item) => item.productId === product.id) && (
                   <QuantityChangeButtons
@@ -156,6 +183,12 @@ export default function ProductById() {
             product={product}
           />
           <RelatedProducts relatedProductsByCategory={relatedProductsByCategory} />
+          <PictureModal
+            isOpen={modalOpen}
+            onClose={() => setModalOpen(false)}
+            allPictures={allPictures}
+            selectedPictureIndex={selectedPictureIndex}
+          />
         </div>
       ) : (
         <div>Product not found</div>
