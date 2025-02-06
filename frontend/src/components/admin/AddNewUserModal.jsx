@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import Select from 'react-select';
 import { toast } from 'react-toastify';
 
-import { PUBLIC_KEY, TEMPLATE_ID, SERVICE_ID } from '../../constants/constants';
+import { VITE_PUBLIC_KEY, VITE_SERVICE_ID, VITE_TEMPLATE_ID } from '../../constants/constants';
 import userService from '../../services/userService';
 import { nwUserValidationSchemaByAdmin } from '../../validations/newUserByAdmin.validation';
 
@@ -25,10 +25,10 @@ export default function AddNewUserModal({ setIsOpen }) {
   const sendEmail = async (formData) => {
     try {
       const response = await emailjs.send(
-        SERVICE_ID, // Az EmailJS-ben létrehozott Service ID
-        TEMPLATE_ID, // Az EmailJS-ben létrehozott Template ID
+        VITE_SERVICE_ID, // Az EmailJS-ben létrehozott Service ID
+        VITE_TEMPLATE_ID, // Az EmailJS-ben létrehozott Template ID
         formData,
-        PUBLIC_KEY, // Az API kulcs (Public Key)
+        VITE_PUBLIC_KEY, // Az API kulcs (Public Key)
       );
       return response;
     } catch (error) {
