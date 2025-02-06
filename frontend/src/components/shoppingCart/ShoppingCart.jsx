@@ -42,20 +42,22 @@ export default function ShoppingCart() {
           </tbody>
         </table>
       </div>
-      <div className="mt-20 mb-20 flex justify-between">
-        <div className="flex gap-5 ml-5">
-          <input
-            className="w-96 rounded-xl border-2 border-gray-300 p-2 hover:border-gray-900"
-            type="text"
-            placeholder="Coupon code"
-          />
-          <button
-            className="w-28 text-center rounded-xl border-2 border-primary bg-primary p-2 text-white  hover:text-black hover:border-gray-900"
-            type="submit"
-          >
-            Apply
-          </button>
-        </div>
+      <div className={`mt-20 mb-20 flex ${cart.length > 0 ? 'justify-between' : 'justify-end'}`}>
+        {cart.length > 0 && (
+          <div className="flex gap-5 ml-5">
+            <input
+              className="w-96 rounded-xl border-2 border-gray-300 p-2 hover:border-gray-900"
+              type="text"
+              placeholder="Coupon code"
+            />
+            <button
+              className="w-28 text-center rounded-xl border-2 border-primary bg-primary p-2 text-white  hover:text-black hover:border-gray-900"
+              type="submit"
+            >
+              Apply
+            </button>
+          </div>
+        )}
         <Link
           to="/products/category/all"
           className="mr-12 w-52 text-center rounded-xl border-2 border-primary bg-primary p-2 text-white  hover:text-black hover:border-gray-900"
@@ -63,7 +65,7 @@ export default function ShoppingCart() {
           Continue shopping
         </Link>
       </div>
-      <SubtotalTable />
+      {cart.length > 0 && <SubtotalTable />}
     </div>
   );
 }
