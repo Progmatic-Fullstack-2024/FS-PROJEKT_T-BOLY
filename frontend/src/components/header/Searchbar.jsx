@@ -1,18 +1,23 @@
 import { useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export default function SearchBar() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [query, setQuery] = useState(searchParams.get('search') || '');
+  const [query, setQuery] = useState('');
+  const navigate = useNavigate();
 
   const handleSearch = () => {
-    if (query.trim() !== '') {
-      searchParams.set('search', query);
+    if (query) {
+      const params = new URLSearchParams();
+      if (query.trim() !== '') {
+        params.set('search', query);
+      }
+
+      navigate(`/products/category/all?${params.toString()}`);
     } else {
-      searchParams.delete('search');
+      toast.error('Add a keyword for searching');
     }
-    setSearchParams(searchParams);
   };
 
   const handleKeyDown = (e) => {

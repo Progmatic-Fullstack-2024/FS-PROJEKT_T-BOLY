@@ -158,7 +158,7 @@ export default function PersonalData() {
           )}
 
           {isHovered && !isLoading && !isEditing && (
-            <div className="absolute flex items-center justify-center bg-black bg-opacity-50 w-20 h-20 rounded-full md:w-80 md:h-80 md:rounded">
+            <div className="absolute flex items-center justify-center bg-black bg-opacity-50 w-36 h-36 rounded-full md:w-80 md:h-80 md:rounded ">
               <span className="text-white text-2xl font-bold">
                 <HiOutlineDocumentPlus />
               </span>
