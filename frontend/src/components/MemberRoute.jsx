@@ -7,7 +7,7 @@ export default function MemberRoute({ children }) {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  if (!user || !(user.role !== 'USER' && user.role !== 'ADMIN')) {
+  if (!user || !(user.role === 'USER' || user.role === 'ADMIN')) {
     return (
       <div className="flex items-center justify-center p-40 bg-primary-light">
         <div className="max-w-md w-full p-10 bg-white rounded-2xl shadow-xl text-center border border-gray-200">
