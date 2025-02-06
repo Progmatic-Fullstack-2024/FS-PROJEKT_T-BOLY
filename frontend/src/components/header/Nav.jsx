@@ -1,12 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AiOutlineCloseCircle, AiOutlineMenu } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activePath, setActivePath] = useState('/');
+  const location = useLocation();
+
+  useEffect(() => {
+    setActivePath(location.pathname);
+  }, [location]);
 
   return (
-    <nav className="text-text-dark text-2xl ">
+    <nav className="text-text-dark text-2xl">
       <div className="max-w-screen-xl flex items-center justify-between mx-auto p-4">
         <button
           type="button"
@@ -34,7 +40,7 @@ export default function Nav() {
               <Link
                 to="/"
                 onClick={() => setIsMenuOpen(false)}
-                className="block py-2 px-4 rounded hover:bg-gray-100 md:hover:bg-transparent hover:text-primary"
+                className={activePath === '/' ? 'text-orange-500 font-bold' : 'hover:text-primary'}
               >
                 Home
               </Link>
@@ -43,7 +49,7 @@ export default function Nav() {
               <Link
                 to="/about"
                 onClick={() => setIsMenuOpen(false)}
-                className="block py-2 px-4 rounded hover:bg-gray-100 md:hover:bg-transparent hover:text-primary"
+                className={activePath === '/about' ? 'text-orange-500 font-bold' : 'hover:text-primary'}
               >
                 About
               </Link>
@@ -52,7 +58,7 @@ export default function Nav() {
               <Link
                 to="/products/category/all"
                 onClick={() => setIsMenuOpen(false)}
-                className="block py-2 px-4 rounded hover:bg-gray-100 md:hover:bg-transparent hover:text-primary"
+                className={activePath === '/products/category/all' ? 'text-orange-500 font-bold' : 'hover:text-primary'}
               >
                 Shop
               </Link>
@@ -61,12 +67,12 @@ export default function Nav() {
               <Link
                 to="/contact"
                 onClick={() => setIsMenuOpen(false)}
-                className="block py-2 px-4 rounded hover:bg-gray-100 md:hover:bg-transparent hover:text-primary"
+                className={activePath === '/contact' ? 'text-orange-500 font-bold' : 'hover:text-primary'}
               >
                 Contact
               </Link>
             </li>
-          </ul>{' '}
+          </ul>
         </div>
       </div>
     </nav>
