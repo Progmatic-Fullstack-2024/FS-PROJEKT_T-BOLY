@@ -53,7 +53,7 @@ export default function TopProductsByRating() {
                   alt={topProduct.name}
                 />
               </Link>
-              <div className="text-3xl">
+              <div className=" absolute text-xl top-2 right-1 ">
                 <AddToWishlistHeart product={topProduct} />
               </div>
               <button
