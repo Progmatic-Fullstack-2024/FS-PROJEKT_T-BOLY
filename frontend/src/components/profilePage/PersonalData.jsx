@@ -93,7 +93,7 @@ export default function PersonalData() {
       localStorage.setItem('token', token);
       toast.success('Image uploaded successfully!');
     } catch (error) {
-      toast.error('Kép feltöltési hiba:', error.message);
+      toast.error('Error uploading image');
     } finally {
       setIsLoading(false);
       setShowConfirmation(false);
@@ -139,7 +139,7 @@ export default function PersonalData() {
           onMouseLeave={() => setIsHovered(false)}
           type="button"
           onClick={handlePictureUpload}
-          className="border w-20 h-20 rounded-full mr-8 overflow-hidden flex items-center justify-center bg-gray-50 hover:bg-gray-100 lg:w-80 lg:h-80 lg:rounded md:w-80 md:h-80 md:rounded sm:w-20 sm:h-20 sm:rounded-full"
+          className="border w-32 h-32 mx-auto md:ml-0 md:mr-8 my-5 md:my-0 rounded-full overflow-hidden flex items-center justify-center bg-gray-50 hover:bg-gray-100 md:w-80 md:h-80 md:rounded"
         >
           {isLoading && !isEditing && (
             <div className="animate-spin border-4 border-gray-300 border-t-gray-800 rounded-full w-16 h-16" />
@@ -158,7 +158,7 @@ export default function PersonalData() {
           )}
 
           {isHovered && !isLoading && !isEditing && (
-            <div className="absolute flex items-center justify-center bg-black bg-opacity-50 w-20 h-20 rounded-full lg:w-80 lg:h-80 lg:rounded md:w-80 md:h-80 md:rounded sm:w-20 sm:h-20 sm:rounded-full">
+            <div className="absolute flex items-center justify-center bg-black bg-opacity-50 w-20 h-20 rounded-full md:w-80 md:h-80 md:rounded">
               <span className="text-white text-2xl font-bold">
                 <HiOutlineDocumentPlus />
               </span>
@@ -175,7 +175,7 @@ export default function PersonalData() {
           <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
             <div className="bg-white p-6 rounded shadow-lg">
               <img alt="" src={previewImage} className="w-60 h-60 rounded" />
-              <p className="mb-4 text-lg font-semibold">Do you want to save the picture?</p>
+              <p className="mb-4 text-lg font-semibold">Would you like to save this picture?</p>
               <div className="flex justify-end space-x-4">
                 <button
                   onClick={handleCancelPictureUpload}
@@ -186,10 +186,10 @@ export default function PersonalData() {
                 </button>
                 <button
                   onClick={handleSavePictureUpload}
-                  className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-indigo-700"
+                  className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-opacity-90"
                   type="button"
                 >
-                  Mentés
+                  Save
                 </button>
               </div>
             </div>
@@ -202,68 +202,72 @@ export default function PersonalData() {
             validationSchema={personalDataValidationSchema}
           >
             {({ isSubmitting }) => (
-              <Form className="space-y-4 ">
-                <div>
-                  <label className="block text-gray-500 text-sm mb-1">First Name</label>
-                  <Field
-                    name="firstName"
-                    type="text"
-                    className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-indigo-200"
-                  />
-                  <ErrorMessage name="firstName" component="div" className="text-red-500" />
+              <Form className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-gray-500 text-sm mb-1">First Name</label>
+                    <Field
+                      name="firstName"
+                      type="text"
+                      className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-primary-light"
+                    />
+                    <ErrorMessage name="firstName" component="div" className="text-red-500" />
+                  </div>
+
+                  <div>
+                    <label className="block text-gray-600 text-sm mb-1">Last Name</label>
+                    <Field
+                      name="lastName"
+                      type="text"
+                      className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-primary-light"
+                    />
+                    <ErrorMessage name="lastName" component="div" className="text-red-500" />
+                  </div>
+
+                  <div>
+                    <label className="block text-gray-600 text-sm mb-1">Username</label>
+                    <Field
+                      name="username"
+                      type="text"
+                      className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-primary-light"
+                    />
+                    <ErrorMessage name="username" component="div" className="text-red-500" />
+                  </div>
                 </div>
 
-                <div>
-                  <label className="block text-gray-600 text-sm mb-1">Last Name</label>
-                  <Field
-                    name="lastName"
-                    type="text"
-                    className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-indigo-200"
-                  />
-                  <ErrorMessage name="lastName" component="div" className="text-red-500" />
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-gray-600 text-sm mb-1">Email</label>
+                    <Field
+                      name="email"
+                      type="email"
+                      className="w-full px-4 py-2 border rounded-lg text-gray-700 bg-gray-100 focus:outline-none"
+                      readOnly
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-gray-600 text-sm mb-1">Birthday</label>
+                    <Field
+                      name="birthDate"
+                      type="date"
+                      className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-primary-light"
+                    />
+                    <ErrorMessage name="birthDate" component="div" className="text-red-500" />
+                  </div>
                 </div>
 
-                <div>
-                  <label className="block text-gray-600 text-sm mb-1">Username</label>
-                  <Field
-                    name="username"
-                    type="text"
-                    className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-indigo-200"
-                  />
-                  <ErrorMessage name="username" component="div" className="text-red-500" />
-                </div>
-
-                <div>
-                  <label className="block text-gray-600 text-sm mb-1">Email</label>
-                  <Field
-                    name="email"
-                    type="email"
-                    className="w-full px-4 py-2 border rounded-lg text-gray-700 bg-gray-100 focus:outline-none"
-                    readOnly
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-gray-600 text-sm mb-1">Birthday</label>
-                  <Field
-                    name="birthDate"
-                    type="date"
-                    className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-indigo-200"
-                  />
-                  <ErrorMessage name="birthDate" component="div" className="text-red-500" />
-                </div>
-
-                <div className="mt-6 flex justify-end space-x-4">
+                <div className="md:col-span-2 mt-6 ml-auto lg:w-1/2 flex justify-end space-x-4">
                   <button
                     type="button"
                     onClick={handleCancelClick}
-                    className="px-4 py-2 bg-primary-light text-gray-700 rounded-lg hover:bg-gray-400"
+                    className="px-4 py-2 lg:w-1/3 bg-primary-light text-gray-700 rounded-lg hover:bg-gray-400"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-indigo-700"
+                    className="px-4 py-2 lg:w-1/2 bg-primary text-white rounded-lg hover:bg-opacity-90"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? 'Saving...' : 'Save'}
@@ -295,7 +299,7 @@ export default function PersonalData() {
               <button
                 type="button"
                 onClick={handleEditClick}
-                className="px-4 py-2 w-full bg-primary text-white rounded-lg hover:bg-indigo-700"
+                className="px-4 py-2 mt-4 w-full bg-primary text-white rounded-lg hover:bg-opacity-90"
               >
                 Edit
               </button>

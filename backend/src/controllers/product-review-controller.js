@@ -21,7 +21,6 @@ const listAllReviewByProduct = async (req, res, next) => {
 
   const pageNumber = Number(page) || 1;
   const itemsPer = Number(itemsPerPage) || 5;
-  console.log("pageNumber:", pageNumber, "items", itemsPer);
 
   try {
     const { reviews, totalPages, allReviews } =

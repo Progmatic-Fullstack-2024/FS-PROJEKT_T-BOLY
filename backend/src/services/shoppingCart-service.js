@@ -19,7 +19,7 @@ const getShoppingCartByUserId = async (userId) => {
   });
 
   if (!shoppingCart) {
-    throw new HttpError("Shopping cart not found", 404);
+    return [];
   }
 
   const cartItems = shoppingCart?.products?.map((cartItem) => ({

@@ -50,7 +50,6 @@ export const updateFile = async (url, file) => {
 };
 
 export const uploadMoreFiles = async (files) => {
-  console.log(files);
   if (!files?.length) return [];
 
   const moreImages = await Promise.all(files.map((file) => createFile(file)));

@@ -25,7 +25,6 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
   const [productData, setProductData] = useState({});
   const [initialValues, setInitialValues] = useState({});
   const [isHovered, setIsHovered] = useState(false);
-  const [setIsHoveredGallery] = useState(false);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -121,7 +120,8 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
     });
 
     formData.append('file', file);
-    gallery.forEach((galleryItem) => formData.append('moreImages', galleryItem));
+    if (gallery.length)
+      gallery.forEach((galleryItem) => formData.append('moreImages', galleryItem));
 
     await productCategoryConnectionService.destroyProductCategoryConnection(values.id);
 
@@ -150,12 +150,7 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
 
   const addImage = (
     <div className="flex flex-row content-center justify-center!isHoveredGalleryw-1/4 max-h-[120px]">
-      <button
-        onClick={() => moreFileInputRef.current.click()}
-        type="button"
-        onMouseEnter={() => productData?.pictureUrl && setIsHoveredGallery(true)}
-        onMouseLeave={() => productData?.pictureUrl && setIsHoveredGallery(false)}
-      >
+      <button onClick={() => moreFileInputRef.current.click()} type="button">
         <input
           ref={moreFileInputRef}
           type="file"
@@ -164,14 +159,6 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
           className="hidden object-contain cursor-pointer"
         />
         <FaPlus className="text-gray-500 text-4xl hover:text-orange-500 m-3" />
-        {/* {!isHoveredGallery ? (
-          <FaPlus className="text-gray-500 text-3xl" />
-        ) : (
-          <div className="relative flex flex-row content-center justify-items-start text-white text-2xl z-50 w-[305px] overflow-clip bg-orange-500 bg:opacity-80">
-            <FaPlus className=" grow text-3xl" />
-            add image to gallery
-          </div>
-        )} */}
       </button>
     </div>
   );
@@ -194,7 +181,7 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
       )}
 
       {isOpen && (
-        <div className="fixed ms:modal-content w-full inset-0 bg-gray-800 bg-opacity-50 flex justify-center md:items-center z-50">
+        <div className="fixed w-full m-0 inset-0 bg-gray-800 bg-opacity-50 flex justify-center md:items-center z-50">
           <div className="bg-white rounded-lg shadow-lg p-6 w-full sm:max-w-screen-lg h-max">
             <div className="flex justify-between items-center mb-4">
               {!productIdFromProductRow ? (
@@ -259,11 +246,11 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
                         onMouseEnter={() => productData?.pictureUrl && setIsHovered(true)}
                         onMouseLeave={() => productData?.pictureUrl && setIsHovered(false)}
                       >
-                        <div>
+                        <div className="w-full">
                           <button
                             onClick={() => fileInputRef.current.click()}
                             type="button"
-                            className="relative flex max-h-[170px] w-full border align-middle justify-center rounded-lg "
+                            className="relative flex h-[170px] w-full border align-middle justify-center rounded-lg"
                           >
                             <input
                               ref={fileInputRef}
@@ -273,7 +260,7 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
                             />
 
                             <img
-                              className={` object-contain hover:grayscale-0 cursor-pointer ${file || productData?.playersNumberMax ? '' : 'grayscale blur-[2px] hover:blur-0'}`}
+                              className={`object-contain max-w-full max-h-full hover:grayscale-0 cursor-pointer ${file || productData?.playersNumberMax ? '' : 'grayscale blur-[2px] hover:blur-0'}`}
                               src={
                                 (file && URL.createObjectURL(file)) ||
                                 productData?.pictureUrl ||
@@ -281,6 +268,7 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
                               }
                               alt="NoImage"
                             />
+
                             <span className="absolute -right-2 -bottom-1 text-white bg-orange-500 bg-opacity-80 rounded px-2">
                               Main image
                             </span>

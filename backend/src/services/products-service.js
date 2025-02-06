@@ -10,6 +10,7 @@ const getAllProducts = async (
   order,
   page,
   limit,
+  search,
   minimumPrice,
   maximumPrice,
   minAge,
@@ -34,6 +35,21 @@ const getAllProducts = async (
         },
         {
           playersNumberMin: { lte: maxPlayers },
+        },
+      ],
+    });
+  }
+  if (search && search.trim()) {
+    where.AND.push({
+      OR: [
+        { name: { contains: search, mode: "insensitive" } },
+        { description: { contains: search, mode: "insensitive" } },
+        {
+          categoryProduct: {
+            some: {
+              category: { name: { contains: search, mode: "insensitive" } },
+            },
+          },
         },
       ],
     });
@@ -94,6 +110,7 @@ const getAllProductsByCategory = async (
   order,
   page,
   limit,
+  search,
   minimumPrice,
   maximumPrice,
   minAge,
@@ -120,6 +137,21 @@ const getAllProductsByCategory = async (
         },
         {
           playersNumberMin: { lte: maxPlayers },
+        },
+      ],
+    });
+  }
+  if (search && search.trim()) {
+    where.AND.push({
+      OR: [
+        { name: { contains: search, mode: "insensitive" } },
+        { description: { contains: search, mode: "insensitive" } },
+        {
+          categoryProduct: {
+            some: {
+              category: { name: { contains: search, mode: "insensitive" } },
+            },
+          },
         },
       ],
     });
@@ -217,7 +249,6 @@ const createProduct = async (productData) => {
 };
 
 const updateProduct = async (id, productData, file, files) => {
-  // console.log(file, files)
   const product = await prisma.product.findUnique({
     where: { id },
   });
@@ -226,7 +257,6 @@ const updateProduct = async (id, productData, file, files) => {
 
   const morePictureUrl = await uploadMoreFiles(files);
   if (product?.morePictureUrl) morePictureUrl.push(...product.morePictureUrl);
-  console.log(product);
   const updatedProduct = await prisma.product.update({
     where: { id },
     data: {

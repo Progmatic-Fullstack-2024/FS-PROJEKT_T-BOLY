@@ -16,6 +16,7 @@ const getAllProducts = async (req, res, next) => {
     order = "asc",
     page = 1,
     limit = 9,
+    search,
     minimumPrice = 0,
     maximumPrice = 1000,
     minAge = 0,
@@ -28,13 +29,13 @@ const getAllProducts = async (req, res, next) => {
   const maxPriceNumber = Number(maximumPrice);
   const minAgeNumber = Number(minAge);
   const maxAgeNumber = Number(maxAge);
-
   try {
     const result = await productService.getAllProducts(
       sorting,
       order,
       pageNumber,
       limitNumber,
+      search,
       minPriceNumber,
       maxPriceNumber,
       minAgeNumber,
@@ -71,6 +72,7 @@ const getAllProductsByCategory = async (req, res, next) => {
     order = "asc",
     page = 1,
     limit = 9,
+    search,
     minimumPrice = 0,
     maximumPrice = 1000,
     minAge = 0,
@@ -92,6 +94,7 @@ const getAllProductsByCategory = async (req, res, next) => {
         order,
         pageNumber,
         limitNumber,
+        search,
         minPriceNumber,
         maxPriceNumber,
         minAgeNumber,
@@ -105,6 +108,7 @@ const getAllProductsByCategory = async (req, res, next) => {
         order,
         pageNumber,
         limitNumber,
+        search,
         minPriceNumber,
         maxPriceNumber,
         minAgeNumber,
