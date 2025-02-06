@@ -49,7 +49,9 @@ export default function Nav() {
               <Link
                 to="/about"
                 onClick={() => setIsMenuOpen(false)}
-                className={activePath === '/about' ? 'text-orange-500 font-bold' : 'hover:text-primary'}
+                className={
+                  activePath === '/about' ? 'text-orange-500 font-bold' : 'hover:text-primary'
+                }
               >
                 About
               </Link>
@@ -58,7 +60,11 @@ export default function Nav() {
               <Link
                 to="/products/category/all"
                 onClick={() => setIsMenuOpen(false)}
-                className={activePath === '/products/category/all' ? 'text-orange-500 font-bold' : 'hover:text-primary'}
+                className={
+                  activePath === '/products/category/all'
+                    ? 'text-orange-500 font-bold'
+                    : 'hover:text-primary'
+                }
               >
                 Shop
               </Link>
@@ -67,7 +73,9 @@ export default function Nav() {
               <Link
                 to="/contact"
                 onClick={() => setIsMenuOpen(false)}
-                className={activePath === '/contact' ? 'text-orange-500 font-bold' : 'hover:text-primary'}
+                className={
+                  activePath === '/contact' ? 'text-orange-500 font-bold' : 'hover:text-primary'
+                }
               >
                 Contact
               </Link>

@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect, useRef } from 'react';
 import { FiShoppingCart, FiLogOut } from 'react-icons/fi';
 import { IoIosArrowDown } from 'react-icons/io';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Nav from './Nav';
 import Searchbar from './Searchbar';
@@ -19,6 +19,7 @@ export default function Header() {
   const [cartCount, setCartCount] = useState(0);
   const { user, logout } = useContext(AuthContext);
   const { cart } = useContext(CartContext);
+  const navigate = useNavigate();
 
   const dropdownRef = useRef(null);
 
@@ -132,7 +133,7 @@ export default function Header() {
               </div>
             )}
           </div>
-          
+
           <h3 className="text-white px-3 text-sm">
             {user.role === 'ADMIN' && <Link to="/admin">Admin page</Link>}
           </h3>
@@ -140,7 +141,10 @@ export default function Header() {
           <button
             type="button"
             className="flex items-center text-white px-3 text-sm cursor-pointer hover:bg-red-600 hover:text-white rounded-md p-2 transition duration-300"
-            onClick={logout}
+            onClick={() => {
+              logout();
+              navigate('/');
+            }}
           >
             <FiLogOut className="w-5 h-5 mr-1" /> Logout
           </button>
