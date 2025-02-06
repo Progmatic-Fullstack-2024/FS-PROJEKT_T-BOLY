@@ -6,12 +6,12 @@ import * as yup from 'yup';
 import AuthContext from '../../contexts/AuthContext';
 import userService from '../../services/userService';
 
-export default function Addresses() {
+export default function Adresses() {
   const { user, setUser } = useContext(AuthContext);
   const [isEditing, setIsEditing] = useState(false);
-  const [billingAddressEqual, setBillingAddressEqual] = useState(true);
+  const [billingAdressEqual, setBillingAdressEqual] = useState(true);
 
-  const addressValidationSchema = yup.object({
+  const adressValidationSchema = yup.object({
     country: yup.string().required('Country is required'),
     city: yup.string().required('City is required'),
     postalCode: yup.string().required('Postal code is required'),
@@ -26,16 +26,16 @@ export default function Addresses() {
     setIsEditing(false);
   };
 
-  const handleCheckboxChange = () => setBillingAddressEqual(!billingAddressEqual);
+  const handleCheckboxChange = () => setBillingAdressEqual(!billingAdressEqual);
 
   const handleSaveClick = async (values, resetForm, setFieldValue) => {
     try {
-      const address = `${values.country}, ${values.city}, ${values.postalCode}, ${values.street}, ${values.houseNumber}`;
-      const billingAddress = billingAddressEqual
-        ? address
+      const adress = `${values.country}, ${values.city}, ${values.postalCode}, ${values.street}, ${values.houseNumber}`;
+      const billingAdress = billingAdressEqual
+        ? adress
         : `${values.billingCountry}, ${values.billingCity}, ${values.billingPostalCode}, ${values.billingStreet}, ${values.billingHouseNumber}`;
 
-      if (billingAddressEqual) {
+      if (billingAdressEqual) {
         setFieldValue('billingCountry', values.country);
         setFieldValue('billingCity', values.city);
         setFieldValue('billingPostalCode', values.postalCode);
@@ -43,7 +43,7 @@ export default function Addresses() {
         setFieldValue('billingHouseNumber', values.houseNumber);
       }
 
-      const response = await userService.updateUser(user.id, { address, billingAddress });
+      const response = await userService.updateUser(user.id, { adress, billingAdress });
 
       if (response?.updatedUser && response.token) {
         setUser({ ...user, ...response.updatedUser });
@@ -61,22 +61,22 @@ export default function Addresses() {
 
   return (
     <div className="mx-auto w-full h-full bg-white rounded-2xl shadow-lg px-12 py-8">
-      <h1 className="text-2xl font-semibold text-gray-800 mb-8">Manage Addresses</h1>
+      <h1 className="text-2xl font-semibold text-gray-800 mb-8">Manage Adresses</h1>
 
       <Formik
         initialValues={{
-          country: user.address?.split(', ')[0] || '',
-          city: user.address?.split(', ')[1] || '',
-          postalCode: user.address?.split(', ')[2] || '',
-          street: user.address?.split(', ')[3] || '',
-          houseNumber: user.address?.split(', ')[4] || '',
-          billingCountry: user.billingAddress?.split(', ')[0] || '',
-          billingCity: user.billingAddress?.split(', ')[1] || '',
-          billingPostalCode: user.billingAddress?.split(', ')[2] || '',
-          billingStreet: user.billingAddress?.split(', ')[3] || '',
-          billingHouseNumber: user.billingAddress?.split(', ')[4] || '',
+          country: user.adress?.split(', ')[0] || '',
+          city: user.adress?.split(', ')[1] || '',
+          postalCode: user.adress?.split(', ')[2] || '',
+          street: user.adress?.split(', ')[3] || '',
+          houseNumber: user.adress?.split(', ')[4] || '',
+          billingCountry: user.billingAdress?.split(', ')[0] || '',
+          billingCity: user.billingAdress?.split(', ')[1] || '',
+          billingPostalCode: user.billingAdress?.split(', ')[2] || '',
+          billingStreet: user.billingAdress?.split(', ')[3] || '',
+          billingHouseNumber: user.billingAdress?.split(', ')[4] || '',
         }}
-        validationSchema={addressValidationSchema}
+        validationSchema={adressValidationSchema}
         enableReinitialize
         onSubmit={(values, { resetForm, setFieldValue }) =>
           handleSaveClick(values, resetForm, setFieldValue)
@@ -85,7 +85,7 @@ export default function Addresses() {
         {({ resetForm }) => (
           <Form className="space-y-5">
             <div>
-              <h2 className="text-xl font-semibold text-gray-700 mb-4">Main Address</h2>
+              <h2 className="text-xl font-semibold text-gray-700 mb-4">Main Adress</h2>
               {isEditing ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
@@ -148,29 +148,29 @@ export default function Addresses() {
                 </div>
               ) : (
                 <p className="text-gray-800">
-                  {user.address ? user.address : 'No main address has been added yet.'}
+                  {user.adress ? user.adress : 'No main adress has been added yet.'}
                 </p>
               )}
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold text-gray-700 mb-4">Billing Address</h2>
+              <h2 className="text-xl font-semibold text-gray-700 mb-4">Billing Adress</h2>
               {isEditing ? (
                 <>
                   <div className="flex items-center space-x-2 mb-4">
                     <input
                       type="checkbox"
-                      id="billingAddressCheckbox"
-                      checked={billingAddressEqual}
+                      id="billingAdressCheckbox"
+                      checked={billingAdressEqual}
                       onChange={handleCheckboxChange}
                       className="w-5 h-5 text-primary border-gray-300 rounded focus:ring-primary"
                     />
-                    <label htmlFor="billingAddressCheckbox" className="text-sm text-gray-600">
-                      Same as main address
+                    <label htmlFor="billingAdressCheckbox" className="text-sm text-gray-600">
+                      Same as main adress
                     </label>
                   </div>
 
-                  {!billingAddressEqual && (
+                  {!billingAdressEqual && (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm text-gray-600 mb-1">Billing Country</label>
@@ -250,9 +250,9 @@ export default function Addresses() {
                 </>
               ) : (
                 <p className="text-gray-800">
-                  {user.billingAddress
-                    ? user.billingAddress
-                    : 'No billing address has been added yet.'}
+                  {user.billingAdress
+                    ? user.billingAdress
+                    : 'No billing adress has been added yet.'}
                 </p>
               )}
             </div>

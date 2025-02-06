@@ -24,8 +24,10 @@ export default function Nav() {
 
         <div
           className={`absolute top-44 left-0 transform w-full text-center border rounded-lg shadow-lg transition-all duration-300 ${
-            isMenuOpen ? 'opacity-95 scale-100 bg-primary-light text-primary' : 'opacity-0 scale-95'
-          } pointer-events-auto md:pointer-events-auto md:static md:transform-none md:opacity-100 md:scale-100 md:w-auto md:flex md:border-none md:shadow-none md:bg-primary-light`}
+            isMenuOpen
+              ? 'opacity-95 scale-100 bg-primary-light text-primary'
+              : 'opacity-0 scale-95 pointer-events-none'
+          } md:pointer-events-auto md:static md:transform-none md:opacity-100 md:scale-100 md:w-auto md:flex md:border-none md:shadow-none md:bg-primary-light`}
         >
           <ul className="flex flex-col p-4 md:p-0 md:space-x-8 md:flex-row">
             <li>

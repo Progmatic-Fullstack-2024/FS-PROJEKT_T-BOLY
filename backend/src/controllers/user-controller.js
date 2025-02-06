@@ -57,6 +57,8 @@ const updateUser = async (req, res, next) => {
     role,
   } = req.body;
 
+  console.table({ adress, billingAdress });
+
   try {
     const { updatedUser, token } = await userService.updateUser(
       id,
