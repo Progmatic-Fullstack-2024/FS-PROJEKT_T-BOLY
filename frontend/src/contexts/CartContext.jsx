@@ -1,26 +1,32 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
+import AuthContext from './AuthContext.jsx';
 import shoppingCartService from '../services/shoppingCartService.js';
 
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
+  const { user } = useContext(AuthContext);
   const [cart, setCart] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getCart = async () => {
       try {
-        const userCart = await shoppingCartService.getShoppingCartByUserId();
-        setCart(userCart);
+        if (user?.username) {
+          const userCart = await shoppingCartService.getShoppingCartByUserId();
+          setCart(userCart);
+        } else {
+          setCart([]);
+        }
       } catch (error) {
         toast.error('Error fetching cart');
       }
     };
     getCart();
     setIsLoading(false);
-  }, []);
+  }, [user?.username]);
 
   const addToCart = async (productId, quantity) => {
     try {

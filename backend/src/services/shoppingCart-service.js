@@ -45,7 +45,7 @@ const createShoppingCart = async (userId) => {
   }
 
   const newShoppingCart = await prisma.cart.create({
-    data: userId,
+    data: { userId },
   });
   return newShoppingCart;
 };
