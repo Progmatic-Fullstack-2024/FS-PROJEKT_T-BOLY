@@ -12,7 +12,7 @@ const getWishlistByUserId = async (userId) => {
   });
 
   if (!wishlist) {
-    throw new Error(`No wishlist found for userId: ${userId}`);
+    return [];
   }
 
   return wishlist;
