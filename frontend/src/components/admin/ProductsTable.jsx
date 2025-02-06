@@ -3,6 +3,7 @@ import { BsDownload, BsSortUp, BsSortDownAlt } from 'react-icons/bs';
 import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
+import CategorySelect from './CategorySelect.jsx';
 import ProductAdminModal from './CreateProductByAdmin.jsx';
 import ProductRow from './ProductRow.jsx';
 import productService from '../../services/productService.js';
@@ -14,6 +15,7 @@ export default function ProductsTable() {
   const [productsByCategory, setProductsByCategory] = useState([]);
   const [totalProducts, setTotalProducts] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
   const sorting = searchParams.get('sorting');
   const order = searchParams.get('order');
@@ -21,7 +23,10 @@ export default function ProductsTable() {
   useEffect(() => {
     const fetchProductsByCategory = async () => {
       try {
-        const data = await productService.getAllProductsByCategory('all', searchParams.toString());
+        const data = await productService.getAllProductsByCategory(
+          selectedCategory,
+          searchParams.toString(),
+        );
 
         setProductsByCategory(data.products);
         setTotalProducts(data.totalProducts);
@@ -32,7 +37,7 @@ export default function ProductsTable() {
     };
 
     fetchProductsByCategory();
-  }, [searchParams]);
+  }, [searchParams, selectedCategory]);
 
   const onUpdate = (id, values) => {
     setProductsByCategory((prev) => prev.map((product) => (product.id === id ? values : product)));
@@ -57,6 +62,8 @@ export default function ProductsTable() {
       searchParams.set('sorting', column);
       searchParams.set('order', 'asc');
     }
+    searchParams.set('page', 1);
+    searchParams.set('limit', 9);
     setSearchParams(searchParams);
   };
 
@@ -80,6 +87,7 @@ export default function ProductsTable() {
                 <span className="text-black">{totalProducts}</span>
               </h5>
             </div>
+            <CategorySelect setSelectedCategory={setSelectedCategory} />
             <div className="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
               <ProductAdminModal>Add newProduct</ProductAdminModal>
 
@@ -146,6 +154,13 @@ export default function ProductsTable() {
                   >
                     Rating {renderSortIcon('rating')}
                   </th>
+                  <th
+                    scope="col"
+                    className="px-4 py-3 w-24 text-center text-gray-100 cursor-pointer"
+                    onClick={() => handleSort('status')}
+                  >
+                    Status {renderSortIcon('status')}
+                  </th>
                   <th scope="col" className="px-4 py-3 w-48 text-left text-gray-100">
                     Actions
                   </th>
@@ -153,14 +168,16 @@ export default function ProductsTable() {
               </thead>
               <tbody>
                 {productsByCategory &&
-                  productsByCategory.map((product) => (
-                    <ProductRow
-                      key={product.id}
-                      product={product}
-                      onUpdate={onUpdate}
-                      onDelete={onDelete}
-                    />
-                  ))}
+                  productsByCategory
+                    .filter((product) => !product.isDeleted)
+                    .map((product) => (
+                      <ProductRow
+                        key={product.id}
+                        product={product}
+                        onUpdate={onUpdate}
+                        onDelete={onDelete}
+                      />
+                    ))}
               </tbody>
             </table>
           </div>

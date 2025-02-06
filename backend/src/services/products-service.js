@@ -3,7 +3,7 @@ import { fileURLToPath } from "url";
 import path from "path";
 import prisma from "../models/prismaClient.js";
 import HttpError from "../utils/HttpError.js";
-import { updateFile } from "./file.service.js";
+import { updateFile, uploadMoreFiles } from "./file.service.js";
 
 const getAllProducts = async (
   sorting,
@@ -15,7 +15,7 @@ const getAllProducts = async (
   maximumPrice,
   minAge,
   maxAge,
-  players
+  players,
 ) => {
   const where = {
     AND: [
@@ -84,12 +84,23 @@ const getAllProducts = async (
   const minPriceValue = minPrice.price || 0;
   const maxPriceValue = maxPrice.price || 1000;
 
+  const topProductsByRating = await prisma.product.findMany({
+    where: {
+      rating: { not: null },
+    },
+    orderBy: {
+      rating: "desc",
+    },
+    take: 4,
+  });
+
   return {
     products,
     totalProducts,
     totalPages,
     minPriceDb: minPriceValue,
     maxPriceDb: maxPriceValue,
+    topProductsByRating,
   };
 };
 
@@ -104,9 +115,8 @@ const getAllProductsByCategory = async (
   maximumPrice,
   minAge,
   maxAge,
-  players
+  players,
 ) => {
-  console.log("getAllProductsByCategory");
   const where = {
     categoryProduct: {
       some: { categoryId },
@@ -197,11 +207,11 @@ const getProductById = async (id) => {
   }
 
   const categoryIds = product.categoryProduct.map(
-    (category) => category.categoryId
+    (category) => category.categoryId,
   );
 
   const categoryNames = product.categoryProduct.map(
-    (categoryProduct) => categoryProduct.category.name
+    (categoryProduct) => categoryProduct.category.name,
   );
 
   const relatedProductsByCategory = await prisma.product.findMany({
@@ -213,21 +223,19 @@ const getProductById = async (id) => {
           },
         },
       },
-      rating: {
-        not: null,
-      },
-      NOT: {
-        id,
-      },
+      rating: { not: null },
+      NOT: { id },
     },
     include: { categoryProduct: true },
-    orderBy: {
-      rating: "desc",
-    },
+    orderBy: { rating: "desc" },
     take: 4,
   });
 
-  return { product, relatedProductsByCategory, categoryNames };
+  return {
+    product,
+    relatedProductsByCategory,
+    categoryNames,
+  };
 };
 
 const createProduct = async (productData) => {
@@ -240,26 +248,35 @@ const createProduct = async (productData) => {
   return newProduct;
 };
 
-const updateProduct = async (id, productData, file) => {
-  const product = prisma.product.findUnique({
+const updateProduct = async (id, productData, file, files) => {
+  const product = await prisma.product.findUnique({
     where: { id },
   });
   if (!product) throw new HttpError("Product not found", 404);
   const pictureUrl = await updateFile(product.pictureUrl, file);
+
+  const morePictureUrl = await uploadMoreFiles(files);
+  if (product?.morePictureUrl) morePictureUrl.push(...product.morePictureUrl);
   const updatedProduct = await prisma.product.update({
     where: { id },
-    data: { ...productData, pictureUrl },
+    data: {
+      ...productData,
+      pictureUrl,
+      morePictureUrl,
+    },
     include: {
       categoryProduct: { include: { category: { select: { name: true } } } },
     },
   });
+
   return updatedProduct;
 };
 
 const destroyProduct = async (id) => {
   await getProductById(id);
-  return prisma.product.delete({
+  return prisma.product.update({
     where: { id },
+    data: { isDeleted: true },
   });
 };
 

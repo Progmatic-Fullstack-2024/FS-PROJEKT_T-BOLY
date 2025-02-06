@@ -16,7 +16,7 @@ export default function PassChange() {
     }
   };
   return (
-    <div>
+    <div className="mx-auto w-full h-full bg-white rounded-2xl shadow-lg p-12">
       <div>
         <Formik
           initialValues={{

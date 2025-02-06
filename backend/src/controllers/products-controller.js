@@ -40,7 +40,7 @@ const getAllProducts = async (req, res, next) => {
       maxPriceNumber,
       minAgeNumber,
       maxAgeNumber,
-      players
+      players,
     );
     const {
       products,
@@ -48,6 +48,7 @@ const getAllProducts = async (req, res, next) => {
       totalProducts,
       minPriceDb: minPriceValue,
       maxPriceDb: maxPriceValue,
+      topProductsByRating,
     } = result;
     res.status(200).json({
       products,
@@ -56,6 +57,7 @@ const getAllProducts = async (req, res, next) => {
       totalProducts,
       minPriceDb: minPriceValue,
       maxPriceDb: maxPriceValue,
+      topProductsByRating,
     });
   } catch (error) {
     next(error);
@@ -64,6 +66,7 @@ const getAllProducts = async (req, res, next) => {
 
 const getAllProductsByCategory = async (req, res, next) => {
   const { categoryId } = req.params;
+
   const {
     sorting = "name",
     order = "asc",
@@ -82,7 +85,6 @@ const getAllProductsByCategory = async (req, res, next) => {
   const maxPriceNumber = Number(maximumPrice);
   const minAgeNumber = Number(minAge);
   const maxAgeNumber = Number(maxAge);
-  console.log(search);
 
   try {
     let result;
@@ -97,7 +99,7 @@ const getAllProductsByCategory = async (req, res, next) => {
         maxPriceNumber,
         minAgeNumber,
         maxAgeNumber,
-        players
+        players,
       );
     } else {
       result = await productService.getAllProductsByCategory(
@@ -111,7 +113,7 @@ const getAllProductsByCategory = async (req, res, next) => {
         maxPriceNumber,
         minAgeNumber,
         maxAgeNumber,
-        players
+        players,
       );
     }
 
@@ -140,7 +142,11 @@ const getProductById = async (req, res, next) => {
   try {
     const { product, relatedProductsByCategory, categoryNames } =
       await productService.getProductById(productId);
-    res.status(200).json({ product, relatedProductsByCategory, categoryNames });
+    res.status(200).json({
+      product,
+      relatedProductsByCategory,
+      categoryNames,
+    });
   } catch (error) {
     next(error);
   }
@@ -179,12 +185,16 @@ const createProduct = async (req, res, next) => {
 };
 
 const updateProduct = async (req, res, next) => {
+  const file = req.files.file ? req.files.file[0] : null;
+  const files = req.files.moreImages || null;
+
   const { id } = req.params;
   const {
     name,
     description,
     price,
     quantity,
+    isDeleted,
     ageRecommendationMin,
     ageRecommendationMax,
     playersNumberMin,
@@ -198,12 +208,14 @@ const updateProduct = async (req, res, next) => {
         description,
         price: Number(price),
         quantity: Number(quantity),
+        isDeleted: isDeleted !== "false",
         ageRecommendationMin: Number(ageRecommendationMin),
         ageRecommendationMax: Number(ageRecommendationMax),
         playersNumberMin: Number(playersNumberMin),
         playersNumberMax: Number(playersNumberMax),
       },
-      req?.file
+      file,
+      files,
     );
     res.status(200).json(updatedProduct);
   } catch (error) {

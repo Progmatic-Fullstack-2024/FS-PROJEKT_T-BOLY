@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import prisma from "../models/prismaClient.js";
 import HttpError from "../utils/HttpError.js";
 import { JWT_SECRET } from "../constants/constants.js";
-import imageService from "./image-service.js";
+import { deleteFile } from "./file.service.js";
 
 const listUsernames = async (id) => {
   const users = await prisma.user.findMany({
@@ -22,14 +22,13 @@ const updateProfilePicture = async (id, userData) => {
 
   if (!user) throw new HttpError("User not found", 404);
   if (user.profilePictureUrl && userData.profilePictureUrl) {
-    await imageService.deleteFile(user.profilePictureUrl);
+    await deleteFile(user.profilePictureUrl);
   }
 
   const updatedUser = await prisma.user.update({
     where: { id },
     data: userData,
   });
-  console.log("updated", updatedUser);
 
   const token = jwt.sign(
     {
@@ -44,7 +43,7 @@ const updateProfilePicture = async (id, userData) => {
       billingAdress: updatedUser.billingAdress,
       profilePictureUrl: updatedUser.profilePictureUrl,
     },
-    JWT_SECRET
+    JWT_SECRET,
   );
 
   return { token, updatedUser };
@@ -85,7 +84,6 @@ const createUser = async (userData) => {
   return newUser;
 };
 const updateUser = async (id, userData, currentUserId, currentUserRole) => {
-  console.log(userData);
   if (id !== currentUserId && currentUserRole !== "ADMIN") {
     throw new HttpError("Unauthorized", 403);
   }
@@ -120,7 +118,7 @@ const updateUser = async (id, userData, currentUserId, currentUserRole) => {
       billingAdress: updatedUser.billingAdress,
       profilePictureUrl: updatedUser.profilePictureUrl,
     },
-    JWT_SECRET
+    JWT_SECRET,
   );
 
   return { token, updatedUser };
@@ -156,7 +154,7 @@ const getAllUsers = async (
   limitNumber,
   search,
   filterByRole,
-  filterByIsActive
+  filterByIsActive,
 ) => {
   const where = {
     AND: [

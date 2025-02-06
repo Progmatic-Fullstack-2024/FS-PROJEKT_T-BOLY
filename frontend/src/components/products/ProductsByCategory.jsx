@@ -69,8 +69,6 @@ export default function ProductsByCategory() {
     }
     setMinAge(0);
     setMaxAge(100);
-    // searchParams.delete('players');
-    // setSearchParams(searchParams);
   }, [categoryId, priceRange.rangeMin, priceRange.rangeMax]);
 
   const handleGridView = () => {

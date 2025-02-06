@@ -1,7 +1,9 @@
+import emailjs from 'emailjs-com';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import Select from 'react-select';
 import { toast } from 'react-toastify';
 
+import { PUBLIC_KEY, TEMPLATE_ID, SERVICE_ID } from '../../constants/constants';
 import userService from '../../services/userService';
 import { nwUserValidationSchemaByAdmin } from '../../validations/newUserByAdmin.validation';
 
@@ -20,6 +22,21 @@ export default function AddNewUserModal({ setIsOpen }) {
     role: '',
   };
 
+  const sendEmail = async (formData) => {
+    try {
+      const response = await emailjs.send(
+        SERVICE_ID, // Az EmailJS-ben létrehozott Service ID
+        TEMPLATE_ID, // Az EmailJS-ben létrehozott Template ID
+        formData,
+        PUBLIC_KEY, // Az API kulcs (Public Key)
+      );
+      return response;
+    } catch (error) {
+      toast.error('Failed to send email:', error);
+      throw error;
+    }
+  };
+
   const handleCreate = async (values) => {
     try {
       const formattedValues = {
@@ -28,6 +45,11 @@ export default function AddNewUserModal({ setIsOpen }) {
       };
       const response = await userService.createUser(formattedValues);
       if (response) toast.success('User added successfully!');
+      sendEmail({
+        email: formattedValues.email, // A címzett e-mail címe
+        user_name: formattedValues.firstName,
+        message: `Hello ${formattedValues.firstName}, your account has been created successfully!`,
+      });
 
       setIsOpen(false);
     } catch (error) {

@@ -5,6 +5,7 @@ import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import AddNewUserModal from './AddNewUserModal.jsx';
+import RoleSelect from './RoleSelect';
 import UserRow from './UserRow.jsx';
 import userService from '../../services/userService.js';
 import DisplayedProductsNumber from '../products/DisplayedProductsNumber.jsx';
@@ -41,6 +42,8 @@ export default function UsersTable() {
       searchParams.set('sorting', column);
       searchParams.set('order', 'asc');
     }
+    searchParams.set('page', 1);
+    searchParams.set('limit', 9);
     setSearchParams(searchParams);
   };
 
@@ -76,6 +79,7 @@ export default function UsersTable() {
                 <span className="text-black">{totalUsers}</span>
               </h5>
             </div>
+            <RoleSelect />
             <button
               onClick={() => setIsOpen(true)}
               type="button"
@@ -104,15 +108,15 @@ export default function UsersTable() {
                     Email
                     {renderSortIcon('email')}
                   </th>
-                  <th className="px-4 py-3 w-36 text-left text-gray-100">Role</th>
+                  <th className="px-4 py-3 w-24 text-left text-gray-100">Role</th>
                   <th
                     onClick={() => handleSort('registrationDate')}
-                    className="px-4 py-3 w-36 text-left text-gray-100 cursor-pointer"
+                    className="px-4 py-3 w-24 text-left text-gray-100 cursor-pointer"
                   >
                     Registered
                     {renderSortIcon('registrationDate')}
                   </th>
-                  <th className="px-4 py-3 w-48 text-left text-gray-100">Actions</th>
+                  <th className="px-4 py-3 w-12 text-center text-gray-100">Actions</th>
                 </tr>
               </thead>
               <tbody>

@@ -1,18 +1,18 @@
 import { useState, useEffect } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import { useSearchParams } from 'react-router-dom';
-import {useDebounce} from 'use-debounce';
+import { useDebounce } from 'use-debounce';
 
 export default function SearchBar() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [query, setQuery] = useState(searchParams.get("search") || '');
-const [debouncedQuery] = useDebounce(query, 300);
-  
-useEffect(() => {
+  const [query, setQuery] = useState(searchParams.get('search') || '');
+  const [debouncedQuery] = useDebounce(query, 300);
+
+  useEffect(() => {
     if (debouncedQuery) {
-      searchParams.set("search", debouncedQuery);
+      searchParams.set('search', debouncedQuery);
     } else {
-      searchParams.delete("search");
+      searchParams.delete('search');
     }
     setSearchParams(searchParams);
   }, [debouncedQuery, searchParams]);
