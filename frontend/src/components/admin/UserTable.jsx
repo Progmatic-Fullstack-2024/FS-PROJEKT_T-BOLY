@@ -108,15 +108,15 @@ export default function UsersTable() {
                     Email
                     {renderSortIcon('email')}
                   </th>
-                  <th className="px-4 py-3 w-36 text-left text-gray-100">Role</th>
+                  <th className="px-4 py-3 w-24 text-left text-gray-100">Role</th>
                   <th
                     onClick={() => handleSort('registrationDate')}
-                    className="px-4 py-3 w-36 text-left text-gray-100 cursor-pointer"
+                    className="px-4 py-3 w-24 text-left text-gray-100 cursor-pointer"
                   >
                     Registered
                     {renderSortIcon('registrationDate')}
                   </th>
-                  <th className="px-4 py-3 w-48 text-left text-gray-100">Actions</th>
+                  <th className="px-4 py-3 w-12 text-center text-gray-100">Actions</th>
                 </tr>
               </thead>
               <tbody>

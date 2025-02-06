@@ -24,6 +24,7 @@ import AdminLayout from './pages/AdminLayout.jsx';
 import Contacts from './pages/Contact.jsx';
 import Homepage from './pages/Homepage';
 import ProfilePage from './pages/ProfilePage.jsx';
+import Overview from './components/admin/Overview.jsx';
 
 const router = createBrowserRouter([
   {
@@ -70,19 +71,9 @@ const router = createBrowserRouter([
     element: <AdminLayout />,
     children: [
       {
-        path: 'products',
-        element: <ProductsTable />,
+        path: '',
+        element: <Overview />,
       },
-      {
-        path: 'users',
-        element: <UserTable />,
-      },
-    ],
-  },
-  {
-    path: '/admin',
-    element: <AdminLayout />,
-    children: [
       {
         path: 'products',
         element: <ProductsTable />,
