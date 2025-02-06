@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { FiShoppingCart } from 'react-icons/fi';
 import { IoIosArrowDown } from 'react-icons/io';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Nav from './Nav';
 import Searchbar from './Searchbar';
@@ -19,6 +19,7 @@ export default function Header() {
   const [cartCount, setCartCount] = useState(0);
   const { user, logout } = useContext(AuthContext);
   const { cart } = useContext(CartContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const totalCount = cart.reduce((total, item) => total + item.quantity, 0);
@@ -123,7 +124,14 @@ export default function Header() {
           <h3 className="text-white px-3 text-sm">
             {user.role === 'ADMIN' && <Link to="/admin">Admin page</Link>}
           </h3>
-          <button type="button" className="text-white px-3 text-sm cursor-pointer" onClick={logout}>
+          <button
+            type="button"
+            className="text-white px-3 text-sm cursor-pointer"
+            onClick={() => {
+              logout();
+              navigate('/');
+            }}
+          >
             Logout
           </button>
         </div>
