@@ -8,7 +8,7 @@ export default function DescriptionReview({
   numberOfAllRating,
 }) {
   return (
-    <div className="flex flex-col border-2 rounded-xl p-10 gap-14 md:mt-20 mt-10">
+    <div className="flex flex-col border-2 rounded-xl p-2 md:p-10 gap-14 md:mt-20 mt-10">
       <div className="flex justify-center text-2xl gap-8">
         <button
           className={`pt-2 pb-2 border-b-4  hover:border-b-gray-900 ${reviews ? 'border-b-white' : ' border-b-primary'}`}

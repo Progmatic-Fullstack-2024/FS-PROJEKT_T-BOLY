@@ -10,9 +10,9 @@ export default function ShoppingCart() {
   const { cart } = useContext(CartContext);
 
   return (
-    <div className="ml-80 mr-80 mt-28 mb-28 flex flex-col">
+    <div className="md:ml-80 ml-2 mr-2 md:mr-80 mt-28 mb-28 flex flex-col">
       <h1 className="text-primary mb-28 text-3xl font-medium">Your shopping cart</h1>
-      <div className="flex justify-center">
+      <div className="md:flex md:justify-center">
         <table className="w-full border-collapse border-b border-gray-300 ">
           <thead>
             <tr className="bg-gray-200 ">
@@ -33,7 +33,7 @@ export default function ShoppingCart() {
             ) : (
               <tr className="border-t border-gray-300 ">
                 <td colSpan={6} className="p-20">
-                  <div className="flex justify-center items-center text-xl">
+                  <div className="flex md:justify-center items-center text-xl">
                     Your shopping cart is empty.
                   </div>
                 </td>
@@ -42,11 +42,11 @@ export default function ShoppingCart() {
           </tbody>
         </table>
       </div>
-      <div className={`mt-20 mb-20 flex ${cart.length > 0 ? 'justify-between' : 'justify-end'}`}>
+      <div className={`mt-20 md:mb-20 mb-10 flex md:flex-row flex-col items-center gap-10 ${cart.length > 0 ? 'justify-between' : 'justify-end'}`}>
         {cart.length > 0 && (
-          <div className="flex gap-5 ml-5">
+          <div className="flex gap-5 md:ml-5 items-end">
             <input
-              className="w-96 rounded-xl border-2 border-gray-300 p-2 hover:border-gray-900"
+              className="md:w-96 w-64 rounded-xl border-2 border-gray-300 p-2 hover:border-gray-900"
               type="text"
               placeholder="Coupon code"
             />
@@ -60,7 +60,7 @@ export default function ShoppingCart() {
         )}
         <Link
           to="/products/category/all"
-          className="mr-12 w-52 text-center rounded-xl border-2 border-primary bg-primary p-2 text-white  hover:text-black hover:border-gray-900"
+          className="md:mr-12 w-52 text-center rounded-xl border-2 border-primary bg-primary p-2 text-white  hover:text-black hover:border-gray-900"
         >
           Continue shopping
         </Link>

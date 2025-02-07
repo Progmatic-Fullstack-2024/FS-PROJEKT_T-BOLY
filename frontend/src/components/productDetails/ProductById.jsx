@@ -89,12 +89,12 @@ export default function ProductById() {
     <div>
       {product ? (
         <div className="mt-20 mb-32 md:mr-60 md:ml-60 mr-6 ml-6">
-          <div className="hidden md:flex gap-2 mb-28">
-            <h1 className=" text-3xl">Products /</h1>
-            <h1 className="text-primary text-3xl font-medium">{` ${product.name}`}</h1>
+          <div className="md:flex gap-2 md:mb-28 mb-10">
+            <h1 className="text-3xl">Products /</h1>
+            <h1 className="text-primary text-3xl font-medium">{product.name}</h1>
           </div>
-          <div className=" flex flex-col md:flex-row justify-between gap-32">
-            <div className="h-80 w-80 md:h-1/3 md:w-1/3 flex flex-col gap-7 md:gap-6 md:mb-5 mb-5">
+          <div className="flex flex-col md:flex-row justify-between md:gap-32 gap-6">
+            <div className="h-68 w-68 md:h-1/3 md:w-1/3 flex flex-col gap-6 md:mb-5">
               <button
                 type="button"
                 onClick={() => handlePictureClick(0)}
@@ -106,23 +106,27 @@ export default function ProductById() {
                   alt={product.name}
                 />
               </button>
-              <div className="flex h-40 gap-2 justify-between">
-                {product.morePictureUrl.slice(0, 3).map((picture, index) => (
-                  <button
-                    key={index}
-                    type="button"
-                    onClick={() => handlePictureClick(index + 1)}
-                    className="w-32 h-32 flex-shrink-0 p-3 border-2 rounded-xl"
-                    aria-label={`View picture ${index + 1}`}
-                  >
-                    <img src={picture} alt="" />
-                  </button>
-                ))}
-              </div>
+              {allPictures.length > 1 && (
+                <div className="flex h-40 gap-2 justify-between">
+                  {product.morePictureUrl.slice(0, 3).map((picture, index) => (
+                    <button
+                      key={index}
+                      type="button"
+                      onClick={() => handlePictureClick(index + 1)}
+                      className="md:w-32 md:h-32 w-28 h-28 flex-shrink-0 p-3 border-2 rounded-xl"
+                      aria-label={`View picture ${index + 1}`}
+                    >
+                      <img src={picture} alt="" />
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
-            <div className="flex flex-col md:gap-8 md:w-2/3 md:h-2/3">
-              <h1 className="md:text-3xl text-2xl md:font-normal font-semibold">{product.name}</h1>
-              <div className="mt-8 mb-8 font-medium text-2xl">€{product.price}</div>
+            <div className="flex flex-col gap-8 md:w-2/3 md:h-2/3 md:items-start items-center">
+              <h1 className="md:text-3xl text-2xl md:font-normal font-semibold text-center">
+                {product.name}
+              </h1>
+              <div className="mt-8 mb-8 font-medium text-2xl text-center">€{product.price}</div>
               <div className="flex gap-2 pb-2 items-center">
                 <RatingStars rating={product.rating} /> ({numberOfAllRating})
                 <button
@@ -134,7 +138,7 @@ export default function ProductById() {
                 </button>
               </div>
               {isReviewOpen && <ReviewModal setIsReviewOpen={setIsReviewOpen} />}
-              <div className="hidden md:block">{product.description}</div>
+              <div className="mt-6 mb-6">{product.description}</div>
               <SharingButtons />
               <div className="flex md:gap-12 gap-3 mt-10 mb-10">
                 {!cart.some((item) => item.productId === product.id) && (
