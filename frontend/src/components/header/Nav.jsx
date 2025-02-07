@@ -11,6 +11,12 @@ export default function Nav() {
     setActivePath(location.pathname);
   }, [location]);
 
+  const handleMenuCloser = (buttonStatus) => {
+    if (buttonStatus) {
+      setTimeout(() => setIsMenuOpen(false), 3000);
+    }
+  };
+
   return (
     <nav className="text-text-dark text-2xl">
       <div className="max-w-screen-xl flex items-center justify-between mx-auto p-4">
@@ -18,7 +24,11 @@ export default function Nav() {
           type="button"
           className="inline-flex items-center p-2 w-10 h-10 justify-center border-2 border-primary border-opacity-30 text-primary text-sm rounded-lg md:hidden focus:outline-none"
           aria-expanded={isMenuOpen}
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          onClick={() => {
+            setIsMenuOpen(!isMenuOpen);
+            handleMenuCloser(true);
+          }}
+
         >
           <span className="sr-only">Open main menu</span>
           {isMenuOpen ? (
