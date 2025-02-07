@@ -37,7 +37,8 @@ export default function TopProductsByRating() {
   return (
     <div className="md:mt-28 mt-12 md:m-52">
       <h2 className="text-3xl font-semibold text-center md:mb-28 mb-10">Top Products</h2>
-      <div className="flex flex-wrap md:flex-row flex-col justify-center md:justify-between gap-8 mt-8">
+      {/* <div className="flex flex-wrap md:flex-row flex-col justify-center md:justify-between gap-8 mt-8"> */}
+      <div className="flex flex-wrap justify-center gap-8 mt-8">
         {productsByRating.map((topProduct) => (
           <div key={topProduct.id} className="flex flex-col gap-2">
             <div className="relative">
