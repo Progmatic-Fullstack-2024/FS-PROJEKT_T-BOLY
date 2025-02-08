@@ -12,13 +12,21 @@ const login = async (req, res, next) => {
 };
 
 const register = async (req, res, next) => {
-  const { email, password, username, lastName, firstName } = req.body;
+  const {
+    email,
+    password,
+    username,
+    lastName,
+    firstName,
+    role = "USER",
+  } = req.body;
   try {
     await registerValidationSchema.validate({ email, password });
     const newUser = await authService.register({
       email,
       password,
       username,
+      role,
       lastName,
       firstName,
     });

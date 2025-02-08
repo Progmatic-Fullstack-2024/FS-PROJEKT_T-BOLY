@@ -31,7 +31,14 @@ const login = async ({ identifier, password }) => {
   return token;
 };
 
-const register = async ({ email, username, password, firstName, lastName }) => {
+const register = async ({
+  email,
+  username,
+  role,
+  password,
+  firstName,
+  lastName,
+}) => {
   const existingUser = await prisma.user.findFirst({
     where: {
       OR: [{ email }, { username }],
@@ -45,7 +52,7 @@ const register = async ({ email, username, password, firstName, lastName }) => {
     data: {
       email,
       username,
-      role: "USER",
+      role,
       passwordHash: hashedPassword,
       firstName,
       lastName,
