@@ -31,7 +31,7 @@ export const createFile = async (file) => {
 export const deleteFile = async (url) => {
   if (
     url &&
-    url?.incudes("https://res.cloudinary.com/dyiygv07o/image/upload/")
+    url?.includes("https://res.cloudinary.com/dyiygv07o/image/upload/")
   ) {
     const publicId = extractPublicId(url);
     const deletedImage = await cloudinary.uploader.destroy(publicId);
