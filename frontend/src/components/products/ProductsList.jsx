@@ -24,7 +24,7 @@ export default function ProductsList({ productsByCategory }) {
                     </div>
                   )}
                   <img
-                    className={`border-2 rounded-2xl w-80 h-80 p-7 pr-8 shrink-0 hover:border-gray-900 ${product.quantity === 0 && 'grayscale opacity-50'} `}
+                    className={`border-2 rounded-2xl w-80 h-80 p-7 pr-8 shrink-0 hover:border-gray-900 object-contain ${product.quantity === 0 && 'grayscale opacity-50'} `}
                     src={product.pictureUrl}
                     alt={product.name}
                   />

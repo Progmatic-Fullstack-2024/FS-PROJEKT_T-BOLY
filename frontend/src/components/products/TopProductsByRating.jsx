@@ -46,7 +46,7 @@ export default function TopProductsByRating() {
                   </div>
                 )}
                 <img
-                  className="border-2 rounded-2xl w-80 h-80 p-7 pr-8 shrink-0 hover:border-gray-900"
+                  className="border-2 rounded-2xl w-80 h-80 p-7 pr-8 shrink-0 object-contain hover:border-gray-900"
                   src={topProduct.pictureUrl}
                   alt={topProduct.name}
                 />

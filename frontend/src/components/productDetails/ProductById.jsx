@@ -113,7 +113,7 @@ export default function ProductById() {
                       key={index}
                       type="button"
                       onClick={() => handlePictureClick(index + 1)}
-                      className="md:w-32 md:h-32 w-28 h-28 flex-shrink-0 p-3 border-2 rounded-xl"
+                      className="md:w-32 md:h-32 w-28 h-28 flex-shrink-0 p-3 border-2 rounded-xl overflow-hidden object-cover"
                       aria-label={`View picture ${index + 1}`}
                     >
                       <img src={picture} alt="" />
