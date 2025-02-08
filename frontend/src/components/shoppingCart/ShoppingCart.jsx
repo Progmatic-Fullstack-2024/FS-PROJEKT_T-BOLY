@@ -10,12 +10,12 @@ export default function ShoppingCart() {
   const { cart } = useContext(CartContext);
 
   return (
-    <div className="md:ml-80 ml-2 mr-2 md:mr-80 mt-28 mb-28 flex flex-col">
-      <h1 className="text-primary mb-28 text-3xl font-medium">Your shopping cart</h1>
-      <div className="md:flex md:justify-center">
-        <table className="w-full border-collapse border-b border-gray-300 ">
+    <div className="md:ml-80 ml-2 mr-2 md:mr-80 md:mt-28 mt-10 mb-28 flex flex-col">
+      <h1 className="text-primary md:mb-28 mb-10 text-3xl font-medium">Your shopping cart</h1>
+      <div className="md:flex md:justify-center overflow-x-scroll md:overflow-x-visible">
+        <table className=" md:w-full border-collapse border-b border-gray-300">
           <thead>
-            <tr className="bg-gray-200 ">
+            <tr className="bg-gray-200">
               <th colSpan={2} className="text-left pl-12 p-6">
                 Product
               </th>
@@ -42,7 +42,9 @@ export default function ShoppingCart() {
           </tbody>
         </table>
       </div>
-      <div className={`mt-20 md:mb-20 mb-10 flex md:flex-row flex-col items-center gap-10 ${cart.length > 0 ? 'justify-between' : 'justify-end'}`}>
+      <div
+        className={`mt-20 md:mb-20 mb-10 flex md:flex-row flex-col items-center gap-10 ${cart.length > 0 ? 'justify-between' : 'justify-end'}`}
+      >
         {cart.length > 0 && (
           <div className="flex gap-5 md:ml-5 items-end">
             <input
