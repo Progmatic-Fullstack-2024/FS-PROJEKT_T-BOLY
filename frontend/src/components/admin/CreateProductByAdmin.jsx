@@ -306,13 +306,13 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
                                 const url = URL.createObjectURL(item);
 
                                 return (
-                                  <div className="relative content-center m-1 max-w-[80px] hover:scale-95 p-0.5 rounded ">
+                                  <div className="relative content-center m-1 max-w-[80px] hover:scale-95 p-0.5 rounded overflow-hidden">
                                     <ImageDeleteButton url={url} gallery={gallery} />
 
                                     <img
                                       key={index}
                                       src={url}
-                                      className={`object-fill cursor-pointer content-center justify-items-center ${
+                                      className={`object-contain cursor-pointer content-center justify-items-center ${
                                         gallery.length > 0 || productData?.playersNumberMax
                                           ? ''
                                           : 'grayscale blur-[2px] hover:blur-0'
