@@ -7,13 +7,19 @@ import AuthContext from '../../contexts/AuthContext.jsx';
 export default function LoginModal({ onClose }) {
   const { login } = useContext(AuthContext);
 
-  const handleLogin = async (values) => {
-    const result = await login(values);
-    if (result.ok) {
-      toast.success('Logged in successfully.');
-      onClose();
-    } else {
-      toast.error(`Login failed. ${result.message.response.data.error}`);
+  const handleLogin = async (values, { setSubmitting }) => {
+    try {
+      const result = await login(values);
+      if (result.ok) {
+        toast.success('Logged in successfully.');
+        onClose();
+      } else {
+        toast.error(`Login failed. ${result.message.response.data.error}`);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -34,23 +40,29 @@ export default function LoginModal({ onClose }) {
           }}
           onSubmit={handleLogin}
         >
-          <Form className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium">Email or Username</label>
-              <Field name="identifier" className="w-full p-2 border rounded-lg" />
-              <ErrorMessage name="identifier" component="div" className="text-red-500 text-sm" />
-            </div>
+          {({ isSubmitting }) => (
+            <Form className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium">Email or Username</label>
+                <Field name="identifier" className="w-full p-2 border rounded-lg" />
+                <ErrorMessage name="identifier" component="div" className="text-red-500 text-sm" />
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium">Password</label>
-              <Field name="password" type="password" className="w-full p-2 border rounded-lg" />
-              <ErrorMessage name="password" component="div" className="text-red-500 text-sm" />
-            </div>
+              <div>
+                <label className="block text-sm font-medium">Password</label>
+                <Field name="password" type="password" className="w-full p-2 border rounded-lg" />
+                <ErrorMessage name="password" component="div" className="text-red-500 text-sm" />
+              </div>
 
-            <button type="submit" className="bg-primary text-white w-full py-2 rounded-lg">
-              Login
-            </button>
-          </Form>
+              <button
+                disabled={isSubmitting}
+                type="submit"
+                className="bg-primary text-white w-full py-2 rounded-lg"
+              >
+                {isSubmitting ? 'Logging in' : 'Log in'}
+              </button>
+            </Form>
+          )}
         </Formik>
       </div>
     </div>
