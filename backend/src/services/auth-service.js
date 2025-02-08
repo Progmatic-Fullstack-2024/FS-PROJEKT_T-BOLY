@@ -45,6 +45,7 @@ const register = async ({ email, username, password, firstName, lastName }) => {
     data: {
       email,
       username,
+      role: "USER",
       passwordHash: hashedPassword,
       firstName,
       lastName,
