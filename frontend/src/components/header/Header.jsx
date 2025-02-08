@@ -129,14 +129,22 @@ export default function Header() {
                       Addresses
                     </Link>
                   </li>
+
+                  {user.role === 'ADMIN' && (
+                    <li>
+                      <Link
+                        className="block px-4 py-2 hover:bg-gray-100"
+                        to="/admin"
+                        onClick={toggleDropdown}
+                      >
+                        Admin page
+                      </Link>
+                    </li>
+                  )}
                 </ul>
               </div>
             )}
           </div>
-
-          <h3 className="text-white px-3 text-sm">
-            {user.role === 'ADMIN' && <Link to="/admin">Admin page</Link>}
-          </h3>
 
           <button
             type="button"
