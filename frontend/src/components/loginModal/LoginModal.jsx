@@ -3,9 +3,11 @@ import { useContext } from 'react';
 import { toast } from 'react-toastify';
 
 import AuthContext from '../../contexts/AuthContext.jsx';
+import LanguageContext from '../../contexts/LanguageContext.jsx';
 
 export default function LoginModal({ onClose }) {
   const { login } = useContext(AuthContext);
+  const { t } = useContext(LanguageContext);
 
   const handleLogin = async (values, { setSubmitting }) => {
     try {
@@ -43,13 +45,13 @@ export default function LoginModal({ onClose }) {
           {({ isSubmitting }) => (
             <Form className="space-y-4">
               <div>
-                <label className="block text-sm font-medium">Email or Username</label>
+                <label className="block text-sm font-medium">{t('email or username')}</label>
                 <Field name="identifier" className="w-full p-2 border rounded-lg" />
                 <ErrorMessage name="identifier" component="div" className="text-red-500 text-sm" />
               </div>
 
               <div>
-                <label className="block text-sm font-medium">Password</label>
+                <label className="block text-sm font-medium">{t('username')}</label>
                 <Field name="password" type="password" className="w-full p-2 border rounded-lg" />
                 <ErrorMessage name="password" component="div" className="text-red-500 text-sm" />
               </div>

@@ -12,7 +12,13 @@ import CartContext from '../../contexts/CartContext';
 import LoginModal from '../loginModal/LoginModal';
 import RegistrationModal from '../registrationModal/RegistrationModal';
 
+
+import LanguageDropdown from './LanguageDropdown';
+import LanguageContext from '../../contexts/LanguageContext';
+
 export default function Header() {
+  const { t } = useContext(LanguageContext);
+
   const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -54,14 +60,14 @@ export default function Header() {
             className="text-white px-3 text-m cursor-pointer"
             onClick={() => setLoginModalOpen(true)}
           >
-            Login
+            {t('login')}
           </button>
           <button
             type="button"
             className="text-white px-3 text-m cursor-pointer"
             onClick={() => setRegisterModalOpen(true)}
           >
-            Register
+            {t('register')}
           </button>
         </div>
       )}
@@ -90,7 +96,7 @@ export default function Header() {
                       to="profile_page/orders"
                       onClick={toggleDropdown}
                     >
-                      Orders
+                      {t('orders')}
                     </Link>
                   </li>
                   <li>
@@ -108,7 +114,7 @@ export default function Header() {
                       to="profile_page/personal_data"
                       onClick={toggleDropdown}
                     >
-                      Personal Data
+                      {t('personal data')}
                     </Link>
                   </li>
                   <li>
@@ -117,7 +123,7 @@ export default function Header() {
                       to="profile_page/change_password"
                       onClick={toggleDropdown}
                     >
-                      Change password
+                      {t('change password')}
                     </Link>
                   </li>
                   <li>
@@ -126,7 +132,7 @@ export default function Header() {
                       to="profile_page/adresses"
                       onClick={toggleDropdown}
                     >
-                      Addresses
+                      {t('adresses')}
                     </Link>
                   </li>
 
@@ -137,7 +143,7 @@ export default function Header() {
                         to="/admin"
                         onClick={toggleDropdown}
                       >
-                        Admin page
+                        {t('admin page')}
                       </Link>
                     </li>
                   )}
@@ -154,7 +160,7 @@ export default function Header() {
               navigate('/');
             }}
           >
-            <FiLogOut className="w-5 h-5 mr-1" /> Logout
+            <FiLogOut className="w-5 h-5 mr-1" /> {t('logout')}
           </button>
         </div>
       )}
@@ -168,8 +174,11 @@ export default function Header() {
             <img src={LogoText} alt="" className="w-18 h-4 hover:opacity-50" />
           </Link>
         </div>
-        <div className="order-2 md:order-1">
+        <div className="order-3 md:order-1">
           <Nav />
+        </div>
+        <div className="order-1 flex md:order-3">
+          <LanguageDropdown />
         </div>
         <div className="flex order-1 md:order-2">
           <Link to="/shoppingCart" className="relative">

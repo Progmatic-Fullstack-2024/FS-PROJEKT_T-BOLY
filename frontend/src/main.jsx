@@ -27,6 +27,8 @@ import AdminLayout from './pages/AdminLayout.jsx';
 import Contacts from './pages/Contact.jsx';
 import Homepage from './pages/Homepage';
 import ProfilePage from './pages/ProfilePage.jsx';
+import './i18n';
+import { LanguageProvider } from './contexts/LanguageContext.jsx';
 
 const router = createBrowserRouter([
   {
@@ -115,11 +117,13 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <AuthProvider>
-    <CartProvider>
-      <WishlistProvider>
-        <RouterProvider router={router} />
-      </WishlistProvider>
-    </CartProvider>
-  </AuthProvider>,
+  <LanguageProvider>
+    <AuthProvider>
+      <CartProvider>
+        <WishlistProvider>
+          <RouterProvider router={router} />
+        </WishlistProvider>
+      </CartProvider>
+    </AuthProvider>
+  </LanguageProvider>,
 );

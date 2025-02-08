@@ -1,10 +1,12 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import { AiOutlineCloseCircle, AiOutlineMenu } from 'react-icons/ai';
 import { Link, useLocation } from 'react-router-dom';
+import LanguageContext from '../../contexts/LanguageContext';
 
 export default function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activePath, setActivePath] = useState('/');
+  const { t } = useContext(LanguageContext);
   const location = useLocation();
   const dropdownRef = useRef(null);
 
@@ -57,7 +59,7 @@ export default function Nav() {
                 onClick={() => setIsMenuOpen(false)}
                 className={activePath === '/' ? 'text-orange-500 font-bold' : 'hover:text-primary'}
               >
-                Home
+                {t('home')}
               </Link>
             </li>
             <li>
@@ -68,7 +70,7 @@ export default function Nav() {
                   activePath === '/about' ? 'text-orange-500 font-bold' : 'hover:text-primary'
                 }
               >
-                About
+                {t('about')}
               </Link>
             </li>
             <li>
@@ -81,7 +83,7 @@ export default function Nav() {
                     : 'hover:text-primary'
                 }
               >
-                Shop
+                {t('shop')}
               </Link>
             </li>
             <li>
@@ -92,7 +94,7 @@ export default function Nav() {
                   activePath === '/contact' ? 'text-orange-500 font-bold' : 'hover:text-primary'
                 }
               >
-                Contact
+                {t('contact')}
               </Link>
             </li>
           </ul>

@@ -10,6 +10,7 @@ import QuantityChangeButtons from '../productDetails/QuantityChangeButtons';
 export default function CartItemRow({ cartProduct }) {
   const { removeFromCart, updateCartItem } = useContext(CartContext);
   const [maxQuantity, setMaxQuantity] = useState(cartProduct.quantity);
+  const [isSubmitting, setIsSubmittung] = useState(false);
 
   useEffect(() => {
     const fetchProductById = async () => {
@@ -59,7 +60,11 @@ export default function CartItemRow({ cartProduct }) {
         €{(cartProduct.price * cartProduct.quantity).toFixed(2)}
       </td>
       <td className="text-red-500 cursor-pointer text-xl">
-        <button type="button" onClick={() => removeFromCart(cartProduct.productId)}>
+        <button
+          type="button"
+          onClick={() => removeFromCart(cartProduct.productId, isSubmitting, setIsSubmittung )}
+          disabled={isSubmitting}
+        >
           <RiDeleteBin5Line />
         </button>
       </td>

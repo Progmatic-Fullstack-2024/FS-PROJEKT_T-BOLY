@@ -4,9 +4,11 @@ import { toast } from 'react-toastify';
 
 import AuthContext from '../../contexts/AuthContext.jsx';
 import { userValidationSchema } from '../../validations/user.validation.js';
+import LanguageContext from '../../contexts/LanguageContext.jsx';
 
 export default function RegistrationModal({ onClose }) {
   const { register } = useContext(AuthContext);
+  const {t} = useContext(LanguageContext)
 
   const handleRegister = async (values, { setSubmitting }) => {
     try {
@@ -28,7 +30,7 @@ export default function RegistrationModal({ onClose }) {
     <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-bold">Register</h2>
+          <h2 className="text-lg font-bold">{t('register')}</h2>
           <button type="button" className="text-gray-500 hover:text-black" onClick={onClose}>
             ✖
           </button>
@@ -48,31 +50,31 @@ export default function RegistrationModal({ onClose }) {
           {({ isSubmitting }) => (
             <Form className="space-y-4">
               <div>
-                <label className="block text-sm font-medium">First Name</label>
+                <label className="block text-sm font-medium">{t('first name')}</label>
                 <Field name="firstName" className="w-full p-2 border rounded-lg" />
                 <ErrorMessage name="firstName" component="div" className="text-red-500 text-sm" />
               </div>
 
               <div>
-                <label className="block text-sm font-medium">Last Name</label>
+                <label className="block text-sm font-medium">{t('last name')}</label>
                 <Field name="lastName" className="w-full p-2 border rounded-lg" />
                 <ErrorMessage name="lastName" component="div" className="text-red-500 text-sm" />
               </div>
 
               <div>
-                <label className="block text-sm font-medium">Email</label>
+                <label className="block text-sm font-medium">{t('email')}</label>
                 <Field name="email" type="email" className="w-full p-2 border rounded-lg" />
                 <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
               </div>
 
               <div>
-                <label className="block text-sm font-medium">Username</label>
+                <label className="block text-sm font-medium">{t('username')}</label>
                 <Field name="username" className="w-full p-2 border rounded-lg" />
                 <ErrorMessage name="username" component="div" className="text-red-500 text-sm" />
               </div>
 
               <div>
-                <label className="block text-sm font-medium">Password</label>
+                <label className="block text-sm font-medium">{t('password')}</label>
                 <Field name="password" type="password" className="w-full p-2 border rounded-lg" />
                 <ErrorMessage name="password" component="div" className="text-red-500 text-sm" />
               </div>

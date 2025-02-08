@@ -1,12 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import categoryService from '../../services/categoryService';
+import LanguageContext from '../../contexts/LanguageContext';
 
 export default function SelectCategoryInput({ setSelectedCategory }) {
   const [categories, setCategories] = useState([]);
   const { categoryId } = useParams();
+  const { t } = useContext(LanguageContext);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -32,7 +34,7 @@ export default function SelectCategoryInput({ setSelectedCategory }) {
         className="w-60 p-2 px-4 py-2 text-sm font-medium text-black rounded-lg bg-primary-700 bg-opacity-50 border border-gray-400 "
       >
         <option className={categoryId === 'all' ? 'text-primary' : ''} value="all">
-          All products
+          {t('all')} {t('product')}
         </option>
         {categories.map((category) => (
           <option

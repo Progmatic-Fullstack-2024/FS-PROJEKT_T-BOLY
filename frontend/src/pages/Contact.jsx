@@ -5,8 +5,11 @@ import { FiPhone, FiMail } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 
 import { VITE_PUBLIC_KEY, VITE_SERVICE_ID } from '../constants/constants';
+import { useContext } from 'react';
+import LanguageContext from '../contexts/LanguageContext';
 
 export default function Contacts() {
+  const {t} = useContext(LanguageContext)
   const sendEmail = async (formData) => {
     try {
       const response = await emailjs.send(
@@ -34,23 +37,23 @@ export default function Contacts() {
   };
   return (
     <div className="flex flex-col h-full">
-      <div className="font-agbalumo mt-5 text-6xl p-5 text-center">Contact</div>
+      <div className="font-agbalumo mt-5 text-6xl p-5 text-center">{t('contact')}</div>
       <div className="flex md:flex-row m-5 flex-col">
         <div className="md:w-1/3 border rounded-xl p-5 m-5 grid place-items-center">
           <FiPhone className="text-orange-500 w-12 h-12" />
-          <p className="font-bold">Phone Number</p>
+          <p className="font-bold">{t('phone number')}</p>
           <p>123-456-7868</p>
         </div>
 
         <div className="md:w-1/3 border rounded-xl p-5 m-5 grid place-items-center">
           <FiMail className="text-orange-500 w-12 h-12" />
-          <p className="font-bold">Email</p>
+          <p className="font-bold">{t('email')}</p>
           <p>info@tbolygames.example.com</p>
         </div>
 
         <div className="md:w-1/3 border rounded-xl p-5 m-5 grid place-items-center">
           <FaMapMarkerAlt className="text-orange-500 w-12 h-12" />
-          <p className="font-bold">Address</p>
+          <p className="font-bold">{t('adress')}</p>
           <p>Bécsi út 53-55</p>
           <p>1036, Budapest, Hungary</p>
         </div>
@@ -69,7 +72,7 @@ export default function Contacts() {
         </div>
 
         <div className="md:w-1/3 m-10">
-          <div className="font-agbalumo text-2xl pb-10">Contact Us</div>
+          <div className="font-agbalumo text-2xl pb-10">{t('contact us')}</div>
           <Formik
             initialValues={{
               email: '',
@@ -84,7 +87,7 @@ export default function Contacts() {
                 <Field
                   name="name"
                   type="text"
-                  placeholder="Your name"
+                  placeholder={t('your name')}
                   className="w-full p-2 border rounded-lg"
                 />
                 <ErrorMessage name="name" component="div" className="text-red-500 text-sm" />
@@ -93,7 +96,7 @@ export default function Contacts() {
                 <Field
                   name="phone"
                   type="tel"
-                  placeholder="Your phone number"
+                  placeholder={t('your phone number')}
                   className="w-full p-2 border rounded-lg"
                 />
                 <ErrorMessage name="phone" component="div" className="text-red-500 text-sm" />
@@ -102,7 +105,7 @@ export default function Contacts() {
                 <Field
                   name="email"
                   type="email"
-                  placeholder="Your email address"
+                  placeholder={t('your email adress')}
                   className="w-full p-2 border rounded-lg"
                 />
                 <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
@@ -111,14 +114,14 @@ export default function Contacts() {
                 <Field
                   name="message"
                   as="textarea"
-                  placeholder="Write your message"
+                  placeholder={t('write your message')}
                   className="w-full p-2 h-40 border rounded-lg"
                 />
                 <ErrorMessage name="message" component="div" className="text-red-500 text-sm" />
               </div>
 
               <button type="submit" className="bg-primary text-white w-full py-2 rounded-lg">
-                Send Message
+              {t('send message')}
               </button>
             </Form>
           </Formik>

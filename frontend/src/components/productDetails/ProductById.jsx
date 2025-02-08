@@ -15,6 +15,7 @@ import reviewService from '../../services/reviewService';
 import AddToWishlistHeart from '../products/AddToWishlistHeart';
 import RatingStars from '../products/RatingStars';
 import ReviewModal from '../reviews/ReviewModal';
+import LanguageContext from '../../contexts/LanguageContext';
 
 export default function ProductById() {
   const { productId } = useParams();
@@ -29,6 +30,8 @@ export default function ProductById() {
   const [numberOfAllRating, setNumberOfAllRating] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPictureIndex, setSelectedPictureIndex] = useState(0);
+  const { t } = useContext(LanguageContext);
+  
 
   useEffect(() => {
     const fetchProductById = async () => {
@@ -90,7 +93,7 @@ export default function ProductById() {
       {product ? (
         <div className="mt-20 mb-32 md:mr-60 md:ml-60 mr-6 ml-6">
           <div className="md:flex gap-2 md:mb-28 mb-10">
-            <h1 className="text-3xl">Products /</h1>
+            <h1 className="text-3xl">{t('products')} /</h1>
             <h1 className="text-primary text-3xl font-medium">{product.name}</h1>
           </div>
           <div className="flex flex-col md:flex-row justify-between md:gap-32 gap-6">
@@ -134,7 +137,7 @@ export default function ProductById() {
                   type="button"
                   onClick={handleNewReview}
                 >
-                  Rate this product
+                  {t('rate this product')}
                 </button>
               </div>
               {isReviewOpen && <ReviewModal setIsReviewOpen={setIsReviewOpen} />}
@@ -157,19 +160,20 @@ export default function ProductById() {
                       className="flex px-5 py-3 items-center justify-center gap-3 w-40 rounded-xl border-2 border-green-600 bg-green-600 text-white hover:border-gray-900 hover:text-black"
                     >
                       <FiShoppingCart />
-                      In cart
+                      {t('in cart')}
                     </Link>
                   ) : (
                     <button
                       type="button"
                       onClick={() =>
-                        addToCart(productId, productInCartCount) && setProductInCartCount(1)
+                        addToCart(productId, productInCartCount) &&
+                        setProductInCartCount(1)
                       }
                       className={`flex items-center justify-center gap-3 w-40 rounded-xl border-2 ${product.quantity >= 1 ? 'border-primary bg-primary p-2 text-white hover:border-gray-900 hover:text-black' : 'border-gray-200 bg-gray-200 text-gray-900 cursor-not-allowed'}`}
                       disabled={product.quantity < 1}
                     >
                       <FiShoppingCart />
-                      {product.quantity < 1 ? 'Out of Stock' : 'Add to Cart'}
+                      {product.quantity < 1 ? 'Out of Stock' : t('add to cart')}
                     </button>
                   )}
                 </div>
