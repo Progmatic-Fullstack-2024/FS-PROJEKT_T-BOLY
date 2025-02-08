@@ -18,6 +18,7 @@ const getAllProducts = async (
   players,
 ) => {
   const where = {
+    isDeleted: false,
     AND: [
       { price: { gte: minimumPrice } },
       { price: { lte: maximumPrice } },
@@ -121,6 +122,7 @@ const getAllProductsByCategory = async (
     categoryProduct: {
       some: { categoryId },
     },
+    isDeleted: false,
     AND: [
       { price: { gte: minimumPrice } },
       { price: { lte: maximumPrice } },
