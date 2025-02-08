@@ -17,7 +17,7 @@ export default function LoginModal({ onClose }) {
         toast.error(`Login failed. ${result.message.response.data.error}`);
       }
     } catch (error) {
-      console.error(error);
+      toast.error('An unexpected error occured. Please try again later');
     } finally {
       setSubmitting(false);
     }
@@ -59,7 +59,7 @@ export default function LoginModal({ onClose }) {
                 type="submit"
                 className="bg-primary text-white w-full py-2 rounded-lg"
               >
-                {isSubmitting ? 'Logging in' : 'Log in'}
+                {isSubmitting ? 'Logging in...' : 'Log in'}
               </button>
             </Form>
           )}
