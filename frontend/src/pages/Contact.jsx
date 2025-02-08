@@ -1,8 +1,37 @@
+import emailjs from 'emailjs-com';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { FiPhone, FiMail } from 'react-icons/fi';
+import { toast } from 'react-toastify';
+
+import { VITE_PUBLIC_KEY, VITE_SERVICE_ID } from '../constants/constants';
 
 export default function Contacts() {
+  const sendEmail = async (formData) => {
+    try {
+      const response = await emailjs.send(
+        VITE_SERVICE_ID,
+        'template_tfvk291',
+        formData,
+        VITE_PUBLIC_KEY,
+      );
+      toast.success('Email sent successfully');
+      return response;
+    } catch (error) {
+      toast.error('Failed to send email:', error);
+      throw error;
+    }
+  };
+
+  const handleSave = (values, resetForm) => {
+    sendEmail({
+      email: 'puskasreka72@gmail.com',
+      name: values.name,
+      message: values.message,
+      reply_to: values.email,
+    });
+    resetForm();
+  };
   return (
     <div className="flex flex-col h-full">
       <div className="font-agbalumo mt-5 text-6xl p-5 text-center">Contact</div>
@@ -44,10 +73,11 @@ export default function Contacts() {
           <Formik
             initialValues={{
               email: '',
-              username: '',
+              message: '',
               phone: '',
               text: '',
             }}
+            onSubmit={(values, { resetForm }) => handleSave(values, resetForm)}
           >
             <Form className="space-y-8">
               <div>
@@ -79,12 +109,12 @@ export default function Contacts() {
               </div>
               <div>
                 <Field
-                  name="text"
+                  name="message"
                   as="textarea"
                   placeholder="Write your message"
                   className="w-full p-2 h-40 border rounded-lg"
                 />
-                <ErrorMessage name="text" component="div" className="text-red-500 text-sm" />
+                <ErrorMessage name="message" component="div" className="text-red-500 text-sm" />
               </div>
 
               <button type="submit" className="bg-primary text-white w-full py-2 rounded-lg">
