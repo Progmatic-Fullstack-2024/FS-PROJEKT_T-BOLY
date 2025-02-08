@@ -28,7 +28,6 @@ export default function Nav() {
             setIsMenuOpen(!isMenuOpen);
             handleMenuCloser(true);
           }}
-
         >
           <span className="sr-only">Open main menu</span>
           {isMenuOpen ? (
