@@ -38,7 +38,7 @@ export default function CartItemRow({ cartProduct }) {
       <div className="w-48 h-48 mt-5 mb-5 ml-5">
         <Link to={`/products/${cartProduct.productId}`}>
           <img
-            className="border-2 rounded-2xl mt-6 mb-6 p-5 w-48 h-48 hover:border-gray-900"
+            className="border-2 object-contain rounded-2xl mt-6 mb-6 p-5 w-48 h-48 hover:border-gray-900"
             src={cartProduct.pictureUrl}
             alt=""
           />
