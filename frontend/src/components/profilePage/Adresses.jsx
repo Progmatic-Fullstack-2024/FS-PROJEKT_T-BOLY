@@ -28,7 +28,7 @@ export default function Adresses() {
 
   const handleCheckboxChange = () => setBillingAdressEqual(!billingAdressEqual);
 
-  const handleSaveClick = async (values, resetForm, setFieldValue) => {
+  const handleSaveClick = async (values, resetForm, setFieldValue, { setSubmitting }) => {
     try {
       const adress = `${values.country}, ${values.city}, ${values.postalCode}, ${values.street}, ${values.houseNumber}`;
       const billingAdress = billingAdressEqual
@@ -56,6 +56,8 @@ export default function Adresses() {
       resetForm();
     } catch (error) {
       toast.error('Failed to update user data.');
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -82,7 +84,7 @@ export default function Adresses() {
           handleSaveClick(values, resetForm, setFieldValue)
         }
       >
-        {({ resetForm }) => (
+        {({ resetForm, isSubmitting }) => (
           <Form className="space-y-5">
             <div>
               <h2 className="text-xl font-semibold text-gray-700 mb-4">Main Adress</h2>
@@ -269,9 +271,10 @@ export default function Adresses() {
                   </button>
                   <button
                     type="submit"
+                    disabled={isSubmitting}
                     className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-opacity-90"
                   >
-                    Save
+                    {isSubmitting ? 'Saving...' : 'Save'}
                   </button>
                 </>
               ) : (
