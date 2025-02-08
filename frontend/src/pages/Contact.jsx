@@ -7,7 +7,9 @@ import { toast } from 'react-toastify';
 import { VITE_PUBLIC_KEY, VITE_SERVICE_ID } from '../constants/constants';
 
 export default function Contacts() {
+ 
   const sendEmail = async (formData) => {
+    
     try {
       const response = await emailjs.send(
         VITE_SERVICE_ID,
