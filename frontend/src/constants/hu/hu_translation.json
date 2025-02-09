@@ -96,7 +96,31 @@
   "last name": "Vezetéknév",
   "your shopping cart is empty": "A kosarad üres",
   "total": "Összesen",
-  "send message": "Üzenet küldése"
+  "send message": "Üzenet küldése",
+  "remove": "Eltávolítás",
+  "your wishlist is empty": "A kívánságlistád üres.",
+  "start adding items to your wishlist by browsing our products": "Kezdj el termékekek hozzáadni a kívánságlistádhoz",
+  "birthday": "Születésnap",
+  "user profile": "Felhasználói profil",
+  "edit profile": "Profil szerkesztése",
+  "would you like to save this picture": "Szeretnéd elmenteni ezt a képet?",
+  "cancel": "Mégse",
+  "save": "Mentés",
+  "edit": "Szerkesztés",
+  "saving": "Mentés...",
+  "old password": "Régi jelszó",
+  "new password": "Új jelszó",
+  "changing password": "Jelszó megváltoztatása...",
+  "manage adresses": "Címek kezelése",
+  "main adress": "Szállítási cím",
+   "billing adress": "Számlázási cím",
+   "country": "Ország",
+   "city": "Város",
+   "street": "Utca",
+   "postal code": "Irányítószám",
+   "house number": "Házszám",
+   "same as main adress": "Megegyezik a számlázási címmel"
+
   
   
 }

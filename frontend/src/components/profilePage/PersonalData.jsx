@@ -7,8 +7,10 @@ import * as yup from 'yup';
 
 import AuthContext from '../../contexts/AuthContext';
 import userService from '../../services/userService';
+import LanguageContext from '../../contexts/LanguageContext';
 
 export default function PersonalData() {
+  const { t } = useContext(LanguageContext);
   const { user, setUser } = useContext(AuthContext);
   const [isEditing, setIsEditing] = useState(false);
   const [usernames, setUsernames] = useState([]);
@@ -130,7 +132,7 @@ export default function PersonalData() {
   return (
     <div className="mx-auto w-full bg-white rounded-lg shadow-md p-8">
       <h1 className="text-xl font-bold text-gray-700 mb-4">
-        {isEditing ? 'Edit Profile' : 'User Profile'}
+        {isEditing ? t('edit profile') : t('user profile')}
       </h1>
       <div className="flex flex-col lg:flex-row md:flex-row ">
         <button
@@ -175,21 +177,23 @@ export default function PersonalData() {
           <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
             <div className="bg-white p-6 rounded shadow-lg">
               <img alt="" src={previewImage} className="w-60 h-60 rounded" />
-              <p className="mb-4 text-lg font-semibold">Would you like to save this picture?</p>
+              <p className="mb-4 text-lg font-semibold">
+                {t('would you like to save this picture')}
+              </p>
               <div className="flex justify-end space-x-4">
                 <button
                   onClick={handleCancelPictureUpload}
                   className="px-4 py-2 bg-primary-light text-gray-700 rounded-lg hover:bg-gray-400"
                   type="button"
                 >
-                  Cancel
+                  {t('cancel')}
                 </button>
                 <button
                   onClick={handleSavePictureUpload}
                   className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-opacity-90"
                   type="button"
                 >
-                  Save
+                  {t('save')}
                 </button>
               </div>
             </div>
@@ -205,7 +209,7 @@ export default function PersonalData() {
               <Form className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-gray-500 text-sm mb-1">First Name</label>
+                    <label className="block text-gray-500 text-sm mb-1">{t('first name')}</label>
                     <Field
                       name="firstName"
                       type="text"
@@ -215,7 +219,7 @@ export default function PersonalData() {
                   </div>
 
                   <div>
-                    <label className="block text-gray-600 text-sm mb-1">Last Name</label>
+                    <label className="block text-gray-600 text-sm mb-1">{t('last name')}</label>
                     <Field
                       name="lastName"
                       type="text"
@@ -225,7 +229,7 @@ export default function PersonalData() {
                   </div>
 
                   <div>
-                    <label className="block text-gray-600 text-sm mb-1">Username</label>
+                    <label className="block text-gray-600 text-sm mb-1">{t('username')}</label>
                     <Field
                       name="username"
                       type="text"
@@ -237,7 +241,7 @@ export default function PersonalData() {
 
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-gray-600 text-sm mb-1">Email</label>
+                    <label className="block text-gray-600 text-sm mb-1">{t('email')}</label>
                     <Field
                       name="email"
                       type="email"
@@ -247,7 +251,7 @@ export default function PersonalData() {
                   </div>
 
                   <div>
-                    <label className="block text-gray-600 text-sm mb-1">Birthday</label>
+                    <label className="block text-gray-600 text-sm mb-1">{t('birthday')}</label>
                     <Field
                       name="birthDate"
                       type="date"
@@ -263,14 +267,14 @@ export default function PersonalData() {
                     onClick={handleCancelClick}
                     className="px-4 py-2 lg:w-1/3 bg-primary-light text-gray-700 rounded-lg hover:bg-gray-400"
                   >
-                    Cancel
+                   {t('cancel')}
                   </button>
                   <button
                     type="submit"
                     className="px-4 py-2 lg:w-1/2 bg-primary text-white rounded-lg hover:bg-opacity-90"
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? 'Saving...' : 'Save'}
+                    {isSubmitting ? (t('saving')) : (t('save'))}
                   </button>
                 </div>
               </Form>
@@ -279,19 +283,19 @@ export default function PersonalData() {
         ) : (
           <div className="space-y-4">
             <div>
-              <label className="block text-gray-600 text-sm mb-1">Name</label>
+              <label className="block text-gray-600 text-sm mb-1">{t('name')}</label>
               <p className="text-gray-800">{`${user?.firstName} ${user?.lastName}`}</p>
             </div>
             <div>
-              <label className="block text-gray-600 text-sm mb-1">Email</label>
+              <label className="block text-gray-600 text-sm mb-1">{t('email')}</label>
               <p className="text-gray-800">{user?.email}</p>
             </div>
             <div>
-              <label className="block text-gray-600 text-sm mb-1">Username</label>
+              <label className="block text-gray-600 text-sm mb-1">{t('username')}</label>
               <p className="text-gray-800">{user?.username}</p>
             </div>
             <div>
-              <label className="block text-gray-600 text-sm mb-1">Birthday</label>
+              <label className="block text-gray-600 text-sm mb-1">{t('birthday')}</label>
               <p className="text-gray-800">{new Date(user?.birthDate).toLocaleDateString()}</p>
             </div>
 
@@ -301,7 +305,7 @@ export default function PersonalData() {
                 onClick={handleEditClick}
                 className="px-4 py-2 mt-4 w-full bg-primary text-white rounded-lg hover:bg-opacity-90"
               >
-                Edit
+                {t('edit')}
               </button>
             </div>
           </div>
