@@ -3,9 +3,11 @@ import { useContext } from 'react';
 import { toast } from 'react-toastify';
 
 import AuthContext from '../../contexts/AuthContext.jsx';
+import LanguageContext from '../../contexts/LanguageContext.jsx';
 
 export default function PassChange() {
   const { passwordChange, user } = useContext(AuthContext);
+  const {t} = useContext(LanguageContext)
 
   const handleSave = async (values, actions, { setSubmitting }) => {
     actions.setSubmitting(true);
@@ -35,7 +37,7 @@ export default function PassChange() {
           {({ isSubmitting }) => (
             <Form className="space-y-4">
               <div>
-                <label className="block text-gray-600 text-sm mb-1">Old password</label>
+                <label className="block text-gray-600 text-sm mb-1">{t('old password')}</label>
                 <Field
                   name="oldPassword"
                   type="password"
@@ -45,7 +47,7 @@ export default function PassChange() {
               </div>
 
               <div>
-                <label className="block text-gray-600 text-sm mb-1">New password</label>
+                <label className="block text-gray-600 text-sm mb-1">{t('new password')}</label>
                 <Field
                   name="newPassword"
                   type="password"
@@ -59,7 +61,7 @@ export default function PassChange() {
                 disabled={isSubmitting}
                 className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-indigo-700"
               >
-                {isSubmitting ? 'Changing password...' : 'Change password'}
+                {isSubmitting ? t('changing password') : t('change password')}
               </button>
             </Form>
           )}
