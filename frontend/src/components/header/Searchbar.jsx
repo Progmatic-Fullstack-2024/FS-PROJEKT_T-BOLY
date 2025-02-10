@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+
 
 export default function SearchBar() {
   const [query, setQuery] = useState('');
@@ -15,8 +15,6 @@ export default function SearchBar() {
       }
 
       navigate(`/products/category/all?${params.toString()}`);
-    } else {
-      toast.error('Add a keyword for searching');
     }
   };
 

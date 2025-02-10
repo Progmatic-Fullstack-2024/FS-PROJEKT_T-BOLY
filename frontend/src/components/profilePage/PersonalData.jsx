@@ -69,7 +69,6 @@ export default function PersonalData() {
         });
 
         setIsEditing(false);
-        toast.success('User data updated successfully!');
       } else {
         toast.error(`Failed to update user data, ${response.message.response.data.error}`);
       }
@@ -91,7 +90,6 @@ export default function PersonalData() {
       const { updatedUser, token } = await userService.updateProfilePictureUrl(formData);
       setUser(updatedUser);
       localStorage.setItem('token', token);
-      toast.success('Image uploaded successfully!');
     } catch (error) {
       toast.error('Error uploading image');
     } finally {

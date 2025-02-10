@@ -49,7 +49,6 @@ export default function Adresses() {
         setUser({ ...user, ...response.updatedUser });
         localStorage.setItem('token', response.token);
         setIsEditing(false);
-        toast.success('User data updated successfully!');
       } else {
         toast.error('Failed to update user data.');
       }
