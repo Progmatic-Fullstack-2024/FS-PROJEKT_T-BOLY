@@ -51,7 +51,7 @@ export default function LoginModal({ onClose }) {
               </div>
 
               <div>
-                <label className="block text-sm font-medium">{t('username')}</label>
+                <label className="block text-sm font-medium">{t('password')}</label>
                 <Field name="password" type="password" className="w-full p-2 border rounded-lg" />
                 <ErrorMessage name="password" component="div" className="text-red-500 text-sm" />
               </div>
