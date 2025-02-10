@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
-
 export default function SearchBar() {
   const [query, setQuery] = useState('');
   const navigate = useNavigate();

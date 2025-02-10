@@ -6,12 +6,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import Nav from './Nav';
 import Searchbar from './Searchbar';
 import LogoOrange from '../../assets/ant-orange.png';
+import adressIcon from '../../assets/icons/address.png';
 import pesronalDataIcon from '../../assets/icons/data-breach.png';
 import heartIcon from '../../assets/icons/heart.png';
 import orderIcon from '../../assets/icons/order-delivery.png';
-import adressIcon from '../../assets/icons/address.png';
-import userIcon from '../../assets/icons/user.png'
 import resetPasswordIcon from '../../assets/icons/reset-password.png';
+import userIcon from '../../assets/icons/user.png';
 import LogoText from '../../assets/t-boly-orange.png';
 import AuthContext from '../../contexts/AuthContext';
 import CartContext from '../../contexts/CartContext';

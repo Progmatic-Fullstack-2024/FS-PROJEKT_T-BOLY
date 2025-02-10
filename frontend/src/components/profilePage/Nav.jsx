@@ -1,19 +1,13 @@
 import { useState, useContext } from 'react';
-import { BsBoxSeam } from 'react-icons/bs';
 import { HiMenu } from 'react-icons/hi';
-import { IoIosHeartEmpty } from 'react-icons/io';
-import { IoLockClosedOutline } from 'react-icons/io5';
-import { LuHouse } from 'react-icons/lu';
 import { MdKeyboardArrowRight } from 'react-icons/md';
-import { VscAccount } from 'react-icons/vsc';
 import { Link } from 'react-router-dom';
+
+import adressIcon from '../../assets/icons/address.png';
 import pesronalDataIcon from '../../assets/icons/data-breach.png';
 import heartIcon from '../../assets/icons/heart.png';
 import orderIcon from '../../assets/icons/order-delivery.png';
-import adressIcon from '../../assets/icons/address.png';
-import userIcon from '../../assets/icons/user.png'
 import resetPasswordIcon from '../../assets/icons/reset-password.png';
-
 import AuthContext from '../../contexts/AuthContext';
 
 export default function Nav() {
@@ -50,8 +44,12 @@ export default function Nav() {
               className="flex justify-between p-4 text-gray-900 rounded-lg hover:bg-gray-100 group"
               to="orders"
             >
-              <span className="flex "  >
-                <img src={orderIcon} alt="" className="mr-4 w-8 h-8 text-gray-500 transition duration-75 group-hover:text-gray-900 "/>
+              <span className="flex ">
+                <img
+                  src={orderIcon}
+                  alt=""
+                  className="mr-4 w-8 h-8 text-gray-500 transition duration-75 group-hover:text-gray-900 "
+                />
                 Orders
               </span>
               <MdKeyboardArrowRight className="w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 " />
@@ -64,7 +62,11 @@ export default function Nav() {
               to="wishlist"
             >
               <span className="flex  pb-0">
-                <img src={heartIcon} alt="" className=' pb-0 mr-4 flex-shrink-0 w-8 h-8 text-gray-500 transition duration-75  group-hover:text-gray-900 '/>
+                <img
+                  src={heartIcon}
+                  alt=""
+                  className=" pb-0 mr-4 flex-shrink-0 w-8 h-8 text-gray-500 transition duration-75  group-hover:text-gray-900 "
+                />
                 Wishlist
               </span>
               <MdKeyboardArrowRight className="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 " />
@@ -77,7 +79,11 @@ export default function Nav() {
               to="personal_data"
             >
               <span className="flex">
-                <img src={pesronalDataIcon} alt="" className="mr-4 flex-shrink-0 w-8 h-8 text-gray-500 transition duration-75  group-hover:text-gray-900 "/>
+                <img
+                  src={pesronalDataIcon}
+                  alt=""
+                  className="mr-4 flex-shrink-0 w-8 h-8 text-gray-500 transition duration-75  group-hover:text-gray-900 "
+                />
                 Personal data
               </span>
               <MdKeyboardArrowRight className="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 " />
@@ -90,7 +96,11 @@ export default function Nav() {
               to="change_password"
             >
               <span className="flex">
-                <img src={resetPasswordIcon} alt="" className="mr-4 flex-shrink-0 w-8 h-8 text-gray-500 transition duration-75  group-hover:text-gray-900 "/>
+                <img
+                  src={resetPasswordIcon}
+                  alt=""
+                  className="mr-4 flex-shrink-0 w-8 h-8 text-gray-500 transition duration-75  group-hover:text-gray-900 "
+                />
                 Change password
               </span>
               <MdKeyboardArrowRight className="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 " />
@@ -103,8 +113,11 @@ export default function Nav() {
               to="adresses"
             >
               <span className="flex">
-                <img src={adressIcon} alt="" className="mr-4 flex-shrink-0 w-8 h-8 text-gray-500 transition duration-75  group-hover:text-gray-900 "/>
-               
+                <img
+                  src={adressIcon}
+                  alt=""
+                  className="mr-4 flex-shrink-0 w-8 h-8 text-gray-500 transition duration-75  group-hover:text-gray-900 "
+                />
                 Adresses
               </span>
               <MdKeyboardArrowRight className="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 " />
