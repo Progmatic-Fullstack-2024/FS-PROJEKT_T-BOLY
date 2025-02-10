@@ -1,0 +1,58 @@
+import prisma from "../models/prismaClient.js";
+import HttpError from "../utils/HttpError.js";
+
+const getAllOrders = async () => {
+  const orders = await prisma.cart.findMany({});
+  return orders;
+};
+
+const getOrderById = async (id) => {
+  const order = prisma.order.findUnique({
+    where: { id },
+  });
+  return order;
+};
+
+const getOrdersByUserId = async (userId) => {
+  const orders = await prisma.order.findMany({
+    where: { userId },
+  });
+
+  return orders;
+};
+
+const createOrder = async (userId, orderData) => {
+  const newOrder = await prisma.order.create({
+    data: { userId, orderData },
+  });
+  return newOrder;
+};
+
+const updateOrder = async (id, status) => {
+  const order = await getOrderById(id);
+  if (!order) throw new HttpError("Order not found", 404);
+  const updatedOrder = await prisma.order.update({
+    where: { id },
+    data: status,
+  });
+  return updatedOrder;
+};
+
+const destroyOrder = async (id, status) => {
+  const order = await getOrderById(id);
+  if (!order) throw new HttpError("Order not found", 404);
+  const canceledOrder = prisma.order.update({
+    where: { id },
+    data: { status },
+  });
+  return canceledOrder;
+};
+
+export default {
+  getAllOrders,
+  getOrderById,
+  getOrdersByUserId,
+  createOrder,
+  updateOrder,
+  destroyOrder,
+};

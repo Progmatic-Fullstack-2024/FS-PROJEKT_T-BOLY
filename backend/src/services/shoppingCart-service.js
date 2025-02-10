@@ -3,7 +3,7 @@ import HttpError from "../utils/HttpError.js";
 
 const getAllShoppingCarts = async () => {
   const shoppingCarts = await prisma.cart.findMany({});
-  return { shoppingCarts };
+  return shoppingCarts;
 };
 
 const getShoppingCartByUserId = async (userId) => {
@@ -54,7 +54,7 @@ const addCartItem = async (userId, productId, quantity) => {
   const shoppingCart = await createShoppingCart(userId);
 
   const existingCartItem = shoppingCart?.products?.find(
-    (cartItem) => cartItem.productId === productId,
+    (cartItem) => cartItem.productId === productId
   );
 
   if (existingCartItem) {
