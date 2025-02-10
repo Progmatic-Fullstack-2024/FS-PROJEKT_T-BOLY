@@ -1,25 +1,10 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import CartContext from '../../contexts/CartContext';
 
 export default function SubtotalTable() {
-  const { cart } = useContext(CartContext);
-
-  const [subtotalPrice, setSubtotalPrice] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(0);
-
-  const shippingPrice = 10;
-
-  useEffect(() => {
-    const calculateSubtotalPrice = () => {
-      const total = cart.reduce((sum, product) => sum + product.price * product.quantity, 0);
-      setSubtotalPrice(total);
-      setTotalPrice(total + shippingPrice);
-    };
-
-    calculateSubtotalPrice();
-  }, [cart]);
+  const { subtotalPrice, totalPrice, shippingPrice } = useContext(CartContext);
 
   return (
     <div className="md:ml-auto border-2 rounded-xl md:w-1/2 w-full flex flex-col md:mr-12 p-10 gap-10 ">

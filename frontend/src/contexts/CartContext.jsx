@@ -10,6 +10,9 @@ export function CartProvider({ children }) {
   const { user } = useContext(AuthContext);
   const [cart, setCart] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [subtotalPrice, setSubtotalPrice] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [shippingPrice, setShippingPrice] = useState(10);
 
   useEffect(() => {
     const getCart = async () => {
@@ -27,6 +30,16 @@ export function CartProvider({ children }) {
     getCart();
     setIsLoading(false);
   }, [user?.username]);
+
+  useEffect(() => {
+    const calculateSubtotalPrice = () => {
+      const total = cart.reduce((sum, product) => sum + product.price * product.quantity, 0);
+      setSubtotalPrice(total);
+      setShippingPrice(total > 150 ? 0 : 10);
+      setTotalPrice(total > 150 ? total : total + shippingPrice);
+    };
+    calculateSubtotalPrice();
+  }, [cart]);
 
   const addToCart = async (productId, quantity) => {
     try {
@@ -80,7 +93,15 @@ export function CartProvider({ children }) {
     }
   };
 
-  const value = { cart, addToCart, removeFromCart, updateCartItem };
+  const value = {
+    cart,
+    addToCart,
+    removeFromCart,
+    updateCartItem,
+    subtotalPrice,
+    totalPrice,
+    shippingPrice,
+  };
 
   return <CartContext.Provider value={value}>{!isLoading && children}</CartContext.Provider>;
 }
