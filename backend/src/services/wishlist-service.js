@@ -1,11 +1,22 @@
 import prisma from "../models/prismaClient.js";
 import HttpError from "../utils/HttpError.js";
 
-const getWishlistByUserId = async (userId) =>
-  prisma.wishList.findFirst({
+const getWishlistByUserId = async (userId) => {
+  if (!userId) {
+    throw new Error("Invalid userId.");
+  }
+
+  const wishlist = await prisma.wishList.findFirst({
     where: { userId },
     include: { products: { include: { product: true } } },
   });
+
+  if (!wishlist) {
+    return [];
+  }
+
+  return wishlist;
+};
 
 const addToWishlist = async (userId, productId) => {
   const wishlist = await prisma.wishList.findFirst({

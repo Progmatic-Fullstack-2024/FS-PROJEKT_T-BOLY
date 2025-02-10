@@ -17,7 +17,6 @@ const addToWishlist = async (req, res, next) => {
     const newWishlist = await wishlistService.addToWishlist(userId, productId);
     res.status(201).json(newWishlist);
   } catch (error) {
-    console.log(error);
     next(error);
   }
 };

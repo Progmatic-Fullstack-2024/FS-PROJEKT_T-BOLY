@@ -7,7 +7,7 @@ import getPageNumbers from '../../utils/getPageNumbers';
 export default function Pagination({ totalPages }) {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const pageNumber = Number(searchParams.get('page'));
+  const pageNumber = Number(searchParams.get('page')) || 1;
 
   const setPageNumber = (value) => {
     if (value) {

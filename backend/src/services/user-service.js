@@ -29,7 +29,6 @@ const updateProfilePicture = async (id, userData) => {
     where: { id },
     data: userData,
   });
-  console.log("updated", updatedUser);
 
   const token = jwt.sign(
     {
@@ -85,7 +84,6 @@ const createUser = async (userData) => {
   return newUser;
 };
 const updateUser = async (id, userData, currentUserId, currentUserRole) => {
-  console.log(userData);
   if (id !== currentUserId && currentUserRole !== "ADMIN") {
     throw new HttpError("Unauthorized", 403);
   }
@@ -154,6 +152,7 @@ const getAllUsers = async (
   order,
   pageNumber,
   limitNumber,
+  search,
   filterByRole,
   filterByIsActive,
 ) => {
@@ -162,6 +161,18 @@ const getAllUsers = async (
       ...(filterByRole ? [{ role: filterByRole }] : []),
       ...(filterByIsActive !== undefined
         ? [{ isActive: filterByIsActive }]
+        : []),
+      ...(search
+        ? [
+            {
+              OR: [
+                { username: { contains: search } },
+                { firstName: { contains: search } },
+                { lastName: { contains: search } },
+                { email: { contains: search } },
+              ],
+            },
+          ]
         : []),
     ],
   };

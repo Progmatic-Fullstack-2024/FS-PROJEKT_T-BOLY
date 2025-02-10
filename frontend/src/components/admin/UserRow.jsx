@@ -12,10 +12,8 @@ export default function UserRow({ user, onDelete }) {
         <EditUserRole user={user} />
       </td>
       <td className="px-4 py-3">{new Date(user.registrationDate).toLocaleDateString()}</td>
-      <td className="px-4 py-3">
-        <div className="flex space-x-2">
-          <DeleteUserModal user={user} onDelete={onDelete} />
-        </div>
+      <td className="px-4 py-3 text-center">
+        <DeleteUserModal user={user} onDelete={onDelete} />
       </td>
     </tr>
   );

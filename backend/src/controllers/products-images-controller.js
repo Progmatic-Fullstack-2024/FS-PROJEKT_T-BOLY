@@ -16,12 +16,8 @@ const updateProductImages = async (req, res, next) => {
   const { id } = req.params;
   const { morePictureUrl, urlForDelete } = req.body;
 
-  // const existedPictures =
-  //   await productImagesService.getProductMoreImagesById(id);
-  // console.log("ExistedPictures", existedPictures.morePictureUrl);
-
   try {
-    await deleteFile(urlForDelete); // Cloudinary deleting
+    await deleteFile(urlForDelete);
     const updatedProductImages = await productImagesService.updateProductImages(
       id,
       morePictureUrl,

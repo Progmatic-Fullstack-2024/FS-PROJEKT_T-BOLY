@@ -57,6 +57,8 @@ const updateUser = async (req, res, next) => {
     role,
   } = req.body;
 
+  console.table({ adress, billingAdress });
+
   try {
     const { updatedUser, token } = await userService.updateUser(
       id,
@@ -108,6 +110,7 @@ const getAllUsers = async (req, res, next) => {
     order,
     page = 1,
     limit = 9,
+    search,
     filterByRole,
     filterByIsActive,
   } = req.query;
@@ -118,6 +121,7 @@ const getAllUsers = async (req, res, next) => {
       order,
       Number(page),
       Number(limit),
+      search,
       filterByRole,
       filterByIsActive !== "false",
     );

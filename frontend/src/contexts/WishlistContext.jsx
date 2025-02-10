@@ -1,19 +1,25 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect, useContext } from 'react';
 import { toast } from 'react-toastify';
 
+import AuthContext from './AuthContext.jsx';
 import wishlistService from '../services/wishlistService.js';
 
 const WishlistContext = createContext();
 
 export function WishlistProvider({ children }) {
+  const { user } = useContext(AuthContext);
   const [wishlist, setWishlist] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchWishlist = async () => {
       try {
-        const data = await wishlistService.getWishlist();
-        setWishlist(data.products || []);
+        if (user?.username) {
+          const data = await wishlistService.getWishlist();
+          setWishlist(data.products || []);
+        } else {
+          setWishlist([]);
+        }
       } catch (error) {
         toast.error('Error fetching wishlist');
       } finally {
@@ -21,7 +27,7 @@ export function WishlistProvider({ children }) {
       }
     };
     fetchWishlist();
-  }, []);
+  }, [user?.username]);
 
   const addProductToWishlist = async (productId) => {
     try {

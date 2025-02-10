@@ -22,7 +22,7 @@ export default function SubtotalTable() {
   }, [cart]);
 
   return (
-    <div className="ml-auto border-2 rounded-xl w-1/2 flex flex-col mr-12 p-10 gap-10 ">
+    <div className="md:ml-auto border-2 rounded-xl md:w-1/2 w-full flex flex-col md:mr-12 p-10 gap-10 ">
       <h1 className="text-xl font-medium">Shopping cart total</h1>
       <table>
         <tr>

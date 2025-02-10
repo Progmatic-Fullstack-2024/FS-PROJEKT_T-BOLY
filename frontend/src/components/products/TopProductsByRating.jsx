@@ -1,18 +1,16 @@
-import { useContext, useEffect, useState } from 'react';
-import { FiShoppingCart } from 'react-icons/fi';
-import { LuHeart } from 'react-icons/lu';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
+import AddToShoppingCart from './AddToShoppingCart';
+import AddToWishlistHeart from './AddToWishlistHeart';
 import RatingStars from './RatingStars';
 import OutOfStock from '../../assets/out_of_stock.png';
-import CartContext from '../../contexts/CartContext';
 import productService from '../../services/productService';
 
 export default function TopProductsByRating() {
   const [productsByRating, setProductsByRating] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { cart, addToCart } = useContext(CartContext);
 
   useEffect(() => {
     const fetchTopProductsByRating = async () => {
@@ -35,9 +33,9 @@ export default function TopProductsByRating() {
   }
 
   return (
-    <div className="md:mt-28 mt-12 md:m-52">
+    <div className="md:mt-28 mt-12 md:m-52 mb-10">
       <h2 className="text-3xl font-semibold text-center md:mb-28 mb-10">Top Products</h2>
-      <div className="flex flex-wrap md:flex-row flex-col justify-center md:justify-between gap-8 mt-8">
+      <div className="flex flex-wrap justify-center gap-8 mt-8">
         {productsByRating.map((topProduct) => (
           <div key={topProduct.id} className="flex flex-col gap-2">
             <div className="relative">
@@ -48,29 +46,15 @@ export default function TopProductsByRating() {
                   </div>
                 )}
                 <img
-                  className="border-2 rounded-2xl w-80 h-80 p-7 pr-8 shrink-0 hover:border-gray-900"
+                  className="border-2 rounded-2xl w-80 h-80 p-7 pr-8 shrink-0 object-contain hover:border-gray-900"
                   src={topProduct.pictureUrl}
                   alt={topProduct.name}
                 />
               </Link>
-              <button
-                type="submit"
-                className="absolute top-2 right-2 rounded-full flex items-center justify-center hover:text-primary"
-              >
-                <LuHeart className="m-2" />
-              </button>
-              <button
-                type="submit"
-                className={`absolute top-9 right-2 rounded-full flex items-center justify-center  ${topProduct.quantity < 1 ? 'text-gray-300 cursor-not-allowed' : 'hover:text-primary'} `}
-                onClick={() => addToCart(topProduct.id, 1)}
-                disabled={
-                  topProduct.quantity < 1 || cart.find((item) => item.productId === topProduct.id)
-                }
-              >
-                <FiShoppingCart
-                  className={`m-2 ${cart.some((item) => item.productId === topProduct.id) && 'fill-primary text-primary'}`}
-                />
-              </button>
+              <div className=" absolute text-xl top-2 right-1 ">
+                <AddToWishlistHeart product={topProduct} />
+              </div>
+              <AddToShoppingCart product={topProduct} />
             </div>
             <div className="w-60 font-medium">{topProduct.name}</div>
             <div className="font-medium text-lg">€{topProduct.price}</div>

@@ -1,45 +1,61 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react';
+import { AiOutlineCloseCircle, AiOutlineMenu } from 'react-icons/ai';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function Nav() {
-  const [isMenuOpen, setIsMenuOpen] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activePath, setActivePath] = useState('/');
+  const location = useLocation();
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
+    setActivePath(location.pathname);
+  }, [location]);
 
   return (
-    <nav className="relative text-text-dark text-2xl ">
+    <nav className="text-text-dark text-2xl">
       <div className="max-w-screen-xl flex items-center justify-between mx-auto p-4">
         <button
           type="button"
-          className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+          className="inline-flex items-center p-2 w-10 h-10 justify-center border-2 border-primary border-opacity-30 text-primary text-sm rounded-lg md:hidden focus:outline-none"
           aria-expanded={isMenuOpen}
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           <span className="sr-only">Open main menu</span>
-          <svg
-            className="w-5 h-5"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 17 14"
-          >
-            <path
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M1 1h15M1 7h15M1 13h15"
-            />
-          </svg>
+          {isMenuOpen ? (
+            <AiOutlineCloseCircle className="w-6 h-6" />
+          ) : (
+            <AiOutlineMenu className="w-6 h-6" />
+          )}
         </button>
 
         <div
-          className={`absolute top-16 left-1/2 transform -translate-x-1/2 w-64 bg-white border rounded-lg shadow-lg transition-all duration-300  ${
-            isMenuOpen ? 'opacity-100 scale-100 bg-white' : 'opacity-0 scale-95 pointer-events-none'
-          } md:static md:transform-none md:opacity-100 md:scale-100 md:w-auto md:flex md:border-none md:shadow-none md:bg-primary-light`}
+          ref={dropdownRef}
+          className={`absolute top-44 left-0 transform w-full text-center border rounded-lg shadow-lg transition-all duration-300 ${
+            isMenuOpen
+              ? 'opacity-95 scale-100 bg-primary-light text-primary'
+              : 'opacity-0 scale-95 pointer-events-none'
+          } md:pointer-events-auto md:static md:transform-none md:opacity-100 md:scale-100 md:w-auto md:flex md:border-none md:shadow-none md:bg-primary-light`}
         >
           <ul className="flex flex-col p-4 md:p-0 md:space-x-8 md:flex-row">
             <li>
               <Link
                 to="/"
-                className="block py-2 px-4 rounded hover:bg-gray-100 md:hover:bg-transparent hover:text-primary"
+                onClick={() => setIsMenuOpen(false)}
+                className={activePath === '/' ? 'text-orange-500 font-bold' : 'hover:text-primary'}
               >
                 Home
               </Link>
@@ -47,7 +63,10 @@ export default function Nav() {
             <li>
               <Link
                 to="/about"
-                className="block py-2 px-4 rounded hover:bg-gray-100 md:hover:bg-transparent hover:text-primary"
+                onClick={() => setIsMenuOpen(false)}
+                className={
+                  activePath === '/about' ? 'text-orange-500 font-bold' : 'hover:text-primary'
+                }
               >
                 About
               </Link>
@@ -55,7 +74,12 @@ export default function Nav() {
             <li>
               <Link
                 to="/products/category/all"
-                className="block py-2 px-4 rounded hover:bg-gray-100 md:hover:bg-transparent hover:text-primary"
+                onClick={() => setIsMenuOpen(false)}
+                className={
+                  activePath === '/products/category/all'
+                    ? 'text-orange-500 font-bold'
+                    : 'hover:text-primary'
+                }
               >
                 Shop
               </Link>
@@ -63,12 +87,15 @@ export default function Nav() {
             <li>
               <Link
                 to="/contact"
-                className="block py-2 px-4 rounded hover:bg-gray-100 md:hover:bg-transparent hover:text-primary"
+                onClick={() => setIsMenuOpen(false)}
+                className={
+                  activePath === '/contact' ? 'text-orange-500 font-bold' : 'hover:text-primary'
+                }
               >
                 Contact
               </Link>
             </li>
-          </ul>{' '}
+          </ul>
         </div>
       </div>
     </nav>

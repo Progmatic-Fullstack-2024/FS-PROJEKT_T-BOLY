@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { BsDice5, BsCreditCard } from 'react-icons/bs';
-import { FiMenu, FiSearch, FiUser, FiUsers, FiHome, FiLogOut } from 'react-icons/fi';
+import { FiMenu, FiUser, FiUsers, FiHome, FiLogOut } from 'react-icons/fi';
 import { Outlet, Link, useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
 import TbolyWhite from '../assets/t-boly-white.png';
+import SearchBar from '../components/searchBar/SearchBar';
+import AuthContext from '../contexts/AuthContext';
 
 export default function AdminLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
+  const { user, logout } = useContext(AuthContext);
 
   return (
     <div className="antialiased bg-gray-50 h-screen flex flex-col">
@@ -17,58 +20,35 @@ export default function AdminLayout() {
           <div className="flex justify-start items-center">
             <button
               type="button"
-              className="p-2 mr-2 text-gray-600 rounded-lg cursor-pointer md:hidden hover:text-gray-900 hover:bg-gray-100 focus:ring-2 focus:ring-gray-100"
+              className="p-2 mr-2 text-gray-50 rounded-lg cursor-pointer md:hidden hover:text-gray-300 focus:ring-2 focus:ring-gray-100"
               aria-expanded={isSidebarOpen}
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
             >
               <FiMenu className="w-6 h-6" />
               <span className="sr-only">Toggle sidebar</span>
             </button>
-            <button
-              type="button"
-              onClick={() => navigate('/')}
-              className="flex items-center mr-1 cursor-pointer"
-            >
-              <img src={TbolyWhite} className="mr-3 h-8" alt="Ant Logo" />
-              <span className="flex items-center self-center text-2xl font-semibold whitespace-nowrap text-white">
-                ADMIN
-              </span>
-            </button>
-            <form action="#" method="GET" className="hidden md:block md:pl-2">
-              <label htmlFor="topbar-search" className="sr-only">
-                Search
-              </label>
-              <div className="relative md:w-64 lg:w-96">
-                <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                  <FiSearch className="w-5 h-5 text-gray-50" />
-                </div>
-                <input
-                  type="text"
-                  name="search"
-                  id="topbar-search"
-                  className="bg-white bg-opacity-50 border border-gray-300 text-gray-50 text-sm rounded-lg md:block w-full pl-10 p-2.5 focus:outline-none placeholder:text-gray-50"
-                  placeholder="Search"
-                />
-              </div>
-            </form>
+            <Link to="/" className="flex items-center mr-1">
+              <img src={TbolyWhite} className="h-8 w-60 md:w-auto" alt="Ant Logo" />
+            </Link>
+            <span className="flex items-center self-center md:text-2xl font-semibold whitespace-nowrap text-white mr-6">
+              ADMIN
+            </span>
+            <SearchBar />
           </div>
-          <div className="flex items-center lg:order-2">
-            <button
-              type="button"
-              className="md:hidden p-2 mr-1 text-gray-50 rounded-lg hover:text-gray-900 hover:bg-gray-100 focus:ring-4 focus:ring-gray-300"
-            >
-              <FiSearch className="w-6 h-6" />
-              <span className="sr-only">Search</span>
-            </button>
-            <button
-              type="button"
-              className="p-2 mr-1 text-gray-50 rounded-lg hover:text-gray-900 hover:bg-gray-100 focus:ring-4 focus:ring-gray-300"
-              onClick={() => navigate('/profile_page/personal_data')}
-            >
-              <FiUser className="w-6 h-6" />
-              <span className="sr-only">User menu</span>
-            </button>
-          </div>
+          <Link
+            to="/profile_page/personal_data"
+            className="hidden md:flex items-center gap-3 p-2 bg-gray-100 bg-opacity-10 rounded-lg shadow-md hover:bg-opacity-20 focus:outline-none"
+          >
+            <FiUser className="w-7 h-7 text-gray-50" />
+            <div className="text-white">
+              {user && (
+                <p className="text-sm font-medium leading-none">
+                  Welcome, <span className="font-semibold">{user.username}</span>
+                </p>
+              )}
+              <p className="text-xs text-gray-200">Manage your profile and settings</p>
+            </div>
+          </Link>
         </div>
       </nav>
 
@@ -121,6 +101,10 @@ export default function AdminLayout() {
           </ul>
           <button
             type="button"
+            onClick={() => {
+              logout();
+              navigate('/');
+            }}
             className="mt-auto flex items-center p-2 text-base font-medium text-gray-50 rounded-lg  hover:bg-gray-100 hover:text-red-500"
           >
             <FiLogOut className="w-6 h-6" />

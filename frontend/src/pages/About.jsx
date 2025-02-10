@@ -5,7 +5,7 @@ export default function About() {
     <div>
       <div className="flex flex-col h-full">,</div>
       <div className="font-agbalumo text-6xl p-5 text-center">About Us</div>
-      <div className="px-36 py-10 text-justify">
+      <div className="px-8 md:px-36 py-10 text-justify">
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis asperiores vero natus,
           illo eveniet quam repellat eaque minima, provident, perferendis libero reiciendis sequi

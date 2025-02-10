@@ -4,9 +4,11 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import App from './App';
 import OrdersTable from './components/admin/OrdersTable.jsx';
+import Overview from './components/admin/Overview.jsx';
 import ProductsTable from './components/admin/ProductsTable.jsx';
 import UserTable from './components/admin/UserTable.jsx';
 import CheckOut from './components/checkOut/CheckOut.jsx';
+import MemberRoute from './components/MemberRoute.jsx';
 import ProductById from './components/productDetails/ProductById.jsx';
 import ProductsByCategory from './components/products/ProductsByCategory.jsx';
 import './index.css';
@@ -15,6 +17,7 @@ import Orders from './components/profilePage/Orders.jsx';
 import PassChange from './components/profilePage/PassChange.jsx';
 import PersonalData from './components/profilePage/PersonalData.jsx';
 import Wishlist from './components/profilePage/Wishlist.jsx';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
 import ShoppingCart from './components/shoppingCart/ShoppingCart.jsx';
 import { AuthProvider } from './contexts/AuthContext.jsx';
 import { CartProvider } from './contexts/CartContext.jsx';
@@ -50,11 +53,29 @@ const router = createBrowserRouter([
         path: '/products/:productId',
         element: <ProductById />,
       },
-      { path: '/shoppingCart', element: <ShoppingCart /> },
-      { path: '/checkOut', element: <CheckOut /> },
+      {
+        path: '/shoppingCart',
+        element: (
+          <MemberRoute>
+            <ShoppingCart />
+          </MemberRoute>
+        ),
+      },
+      {
+        path: '/checkOut',
+        element: (
+          <MemberRoute>
+            <CheckOut />
+          </MemberRoute>
+        ),
+      },
       {
         path: '/profile_page',
-        element: <ProfilePage />,
+        element: (
+          <MemberRoute>
+            <ProfilePage />
+          </MemberRoute>
+        ),
         children: [
           { path: 'adresses', element: <Adresses /> },
           { path: 'orders', element: <Orders /> },
@@ -67,22 +88,16 @@ const router = createBrowserRouter([
   },
   {
     path: '/admin',
-    element: <AdminLayout />,
+    element: (
+      <ProtectedRoute>
+        <AdminLayout />
+      </ProtectedRoute>
+    ),
     children: [
       {
-        path: 'products',
-        element: <ProductsTable />,
+        path: '',
+        element: <Overview />,
       },
-      {
-        path: 'users',
-        element: <UserTable />,
-      },
-    ],
-  },
-  {
-    path: '/admin',
-    element: <AdminLayout />,
-    children: [
       {
         path: 'products',
         element: <ProductsTable />,

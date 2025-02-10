@@ -1,15 +1,11 @@
-import { useContext } from 'react';
-import { FiShoppingCart } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
 import OutOfStock from '../../assets/out_of_stock.png';
-import CartContext from '../../contexts/CartContext';
+import AddToShoppingCart from '../products/AddToShoppingCart';
 import AddToWishlistHeart from '../products/AddToWishlistHeart';
 import RatingStars from '../products/RatingStars';
 
 export default function RelatedProducts({ relatedProductsByCategory }) {
-  const { cart, addToCart } = useContext(CartContext);
-
   return (
     <div className="md:mt-20 mt-12">
       <h2 className="text-2xl font-semibold text-center md:mb-16 mb-10">Related Products</h2>
@@ -24,7 +20,7 @@ export default function RelatedProducts({ relatedProductsByCategory }) {
                   </div>
                 )}
                 <img
-                  className="border-2 rounded-2xl w-80 h-80 p-7 pr-8 shrink-0 hover:border-gray-900"
+                  className="border-2 rounded-2xl w-80 h-80 p-7 pr-8 shrink-0 hover:border-gray-900 object-contain"
                   src={relatedProduct.pictureUrl}
                   alt={relatedProduct.name}
                 />
@@ -32,19 +28,7 @@ export default function RelatedProducts({ relatedProductsByCategory }) {
               <div className="absolute top-2 right-2">
                 <AddToWishlistHeart product={relatedProduct} />
               </div>
-              <button
-                type="submit"
-                className={`absolute top-9 right-2 rounded-full flex items-center justify-center  ${relatedProduct.quantity < 1 ? 'text-gray-300 cursor-not-allowed' : 'hover:text-primary'} `}
-                onClick={() => addToCart(relatedProduct.id, 1)}
-                disabled={
-                  relatedProduct.quantity < 1 ||
-                  cart.find((item) => item.productId === relatedProduct.id)
-                }
-              >
-                <FiShoppingCart
-                  className={`m-2 ${cart.some((item) => item.productId === relatedProduct.id) && 'fill-primary text-primary'}`}
-                />
-              </button>
+              <AddToShoppingCart product={relatedProduct} />
             </div>
             <div className="w-60 font-medium">{relatedProduct.name}</div>
             <div className="font-medium text-lg">€{relatedProduct.price}</div>

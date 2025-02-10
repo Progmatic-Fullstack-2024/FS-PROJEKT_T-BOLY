@@ -8,7 +8,7 @@ export default function DescriptionReview({
   numberOfAllRating,
 }) {
   return (
-    <div className="flex flex-col border-2 rounded-xl p-10 gap-14 md:mt-20 mt-10">
+    <div className="flex flex-col border-2 rounded-xl p-2 md:p-10 gap-14 md:mt-20 mt-10">
       <div className="flex justify-center text-2xl gap-8">
         <button
           className={`pt-2 pb-2 border-b-4  hover:border-b-gray-900 ${reviews ? 'border-b-white' : ' border-b-primary'}`}
@@ -29,7 +29,7 @@ export default function DescriptionReview({
       {reviews ? (
         <Reviews numberOfAllRating={numberOfAllRating} product={product} />
       ) : (
-        <div className="text-justify mr-12 ml-12">
+        <div className="text-justify md:mr-12 md:ml-12">
           Bag stretch chase imaginary bugs rub face on everything behind the couch give attitude
           swat at dog intently stare at the same spot claw drapes need to chase tail, hide when
           guests come over attack feet make muffins lick butt leave dead animals as gifts destroy

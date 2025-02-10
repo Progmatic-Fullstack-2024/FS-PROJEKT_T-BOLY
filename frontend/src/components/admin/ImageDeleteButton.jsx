@@ -10,10 +10,8 @@ export default function ImageDeleteButton({ url, productId, onUpdate }) {
   const handleImageDelete = async () => {
     const productData = await productService.getProductById(productId);
     const pictureUrlArray = await productData.product.morePictureUrl;
-    // console.log('URL: ', url);
 
     const newPicturArray = await pictureUrlArray.filter((urls) => urls !== url);
-    // console.log('Full: ', pictureUrlArray, 'New :', newPicturArray);
 
     try {
       const updatedProductImages = await productImagesService.updateProductImage(productId, {
@@ -21,7 +19,6 @@ export default function ImageDeleteButton({ url, productId, onUpdate }) {
         urlForDelete: url,
       });
       onUpdate(updatedProductImages);
-      // console.log(updatedProductImages);
     } catch (error) {
       toast.error('Faild to upload image.');
     }

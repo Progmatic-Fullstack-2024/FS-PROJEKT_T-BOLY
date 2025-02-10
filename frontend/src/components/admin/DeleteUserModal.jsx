@@ -6,7 +6,7 @@ export default function DeleteUserModal({ user, onDelete }) {
 
   return (
     <>
-      <button onClick={() => setIsOpen(true)} type="button" className="text-red-500">
+      <button onClick={() => setIsOpen(true)} type="button" className="h-full text-red-500">
         <FiTrash />
       </button>
       {isOpen && (

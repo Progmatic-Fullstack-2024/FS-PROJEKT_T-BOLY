@@ -29,7 +29,10 @@ export const createFile = async (file) => {
 };
 
 export const deleteFile = async (url) => {
-  if (url) {
+  if (
+    url &&
+    url?.includes("https://res.cloudinary.com/dyiygv07o/image/upload/")
+  ) {
     const publicId = extractPublicId(url);
     const deletedImage = await cloudinary.uploader.destroy(publicId);
     if (deletedImage.result !== "ok") {
@@ -50,7 +53,6 @@ export const updateFile = async (url, file) => {
 };
 
 export const uploadMoreFiles = async (files) => {
-  console.log(files);
   if (!files?.length) return [];
 
   const moreImages = await Promise.all(files.map((file) => createFile(file)));

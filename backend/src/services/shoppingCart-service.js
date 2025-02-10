@@ -19,7 +19,7 @@ const getShoppingCartByUserId = async (userId) => {
   });
 
   if (!shoppingCart) {
-    throw new HttpError("Shopping cart not found", 404);
+    return [];
   }
 
   const cartItems = shoppingCart?.products?.map((cartItem) => ({
@@ -45,7 +45,7 @@ const createShoppingCart = async (userId) => {
   }
 
   const newShoppingCart = await prisma.cart.create({
-    data: userId,
+    data: { userId },
   });
   return newShoppingCart;
 };

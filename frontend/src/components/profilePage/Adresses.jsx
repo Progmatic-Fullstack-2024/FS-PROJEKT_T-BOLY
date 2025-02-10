@@ -14,81 +14,44 @@ export default function Adresses() {
   const adressValidationSchema = yup.object({
     country: yup.string().required('Country is required'),
     city: yup.string().required('City is required'),
-    'postal code': yup.string().required('postal code is required'),
-    street: yup.string().required('Street is requires'),
-    'house number': yup.string().required('House number is requires'),
+    postalCode: yup.string().required('Postal code is required'),
+    street: yup.string().required('Street is required'),
+    houseNumber: yup.string().required('House number is required'),
   });
 
-  const handleEditClick = () => {
-    setIsEditing(true);
-  };
+  const handleEditClick = () => setIsEditing(true);
 
   const handleCancelClick = (resetForm) => {
     resetForm();
     setIsEditing(false);
   };
 
-  const handleCheckboxChange = (event) => {
-    setBillingAdressEqual(event.target.checked);
-  };
+  const handleCheckboxChange = () => setBillingAdressEqual(!billingAdressEqual);
 
   const handleSaveClick = async (values, resetForm, setFieldValue) => {
     try {
-      const adress = [
-        values.country,
-        values.city,
-        values['postal code'],
-        values.street,
-        values['house number'],
-      ].join(', ');
-      let billingAdress = [
-        values.billingCountry,
-        values.billingCity,
-        values.billingPostalCode,
-        values.billingStreet,
-        values.billingHouseNumber,
-      ].join(', ');
-
-      if (billingAdressEqual) {
-        billingAdress = [
-          values.country,
-          values.city,
-          values['postal code'],
-          values.street,
-          values['house number'],
-        ].join(', ');
-      }
+      const adress = `${values.country}, ${values.city}, ${values.postalCode}, ${values.street}, ${values.houseNumber}`;
+      const billingAdress = billingAdressEqual
+        ? adress
+        : `${values.billingCountry}, ${values.billingCity}, ${values.billingPostalCode}, ${values.billingStreet}, ${values.billingHouseNumber}`;
 
       if (billingAdressEqual) {
         setFieldValue('billingCountry', values.country);
         setFieldValue('billingCity', values.city);
-        setFieldValue('billingPostalCode', values['postal code']);
+        setFieldValue('billingPostalCode', values.postalCode);
         setFieldValue('billingStreet', values.street);
-        setFieldValue('billingHouseNumber', values['house number']);
+        setFieldValue('billingHouseNumber', values.houseNumber);
       }
 
-      if (billingAdressEqual) {
-        billingAdress = adress;
-      }
-      const response = await userService.updateUser(user.id, {
-        adress,
-        billingAdress,
-      });
+      const response = await userService.updateUser(user.id, { adress, billingAdress });
 
-      if (response && response.updatedUser && response.token) {
-        const { updatedUser, token } = response;
-
-        setUser({
-          ...user,
-          ...updatedUser,
-        });
-
-        localStorage.setItem('token', token);
-
+      if (response?.updatedUser && response.token) {
+        setUser({ ...user, ...response.updatedUser });
+        localStorage.setItem('token', response.token);
         setIsEditing(false);
         toast.success('User data updated successfully!');
       } else {
-        toast.error('Failed to update user data: Response is invalid.');
+        toast.error('Failed to update user data.');
       }
       resetForm();
     } catch (error) {
@@ -97,23 +60,21 @@ export default function Adresses() {
   };
 
   return (
-    <div className="mx-auto w-full bg-white rounded-lg shadow-md p-8">
-      <h1 className="text-xl font-bold text-gray-700 mb-4">
-        {isEditing ? 'Edit Addresses' : 'Addresses'}
-      </h1>
+    <div className="mx-auto w-full h-full bg-white rounded-2xl shadow-lg px-12 py-8">
+      <h1 className="text-2xl font-semibold text-gray-800 mb-8">Manage Adresses</h1>
 
       <Formik
         initialValues={{
           country: user.adress?.split(', ')[0] || '',
           city: user.adress?.split(', ')[1] || '',
-          'postal code': user.adress?.split(', ')[2] || '',
+          postalCode: user.adress?.split(', ')[2] || '',
           street: user.adress?.split(', ')[3] || '',
-          'house number': user?.adress?.split(', ')[4] || '',
-          billingCountry: user?.billingAdress?.split(', ')[0] || '',
-          billingCity: user?.billingAdress?.split(', ')[1] || '',
-          billingPostalCode: user?.billingAdress?.split(', ')[2] || '',
-          billingStreet: user?.billingAdress?.split(', ')[3] || '',
-          billingHouseNumber: user?.billingAdress?.split(', ')[4] || '',
+          houseNumber: user.adress?.split(', ')[4] || '',
+          billingCountry: user.billingAdress?.split(', ')[0] || '',
+          billingCity: user.billingAdress?.split(', ')[1] || '',
+          billingPostalCode: user.billingAdress?.split(', ')[2] || '',
+          billingStreet: user.billingAdress?.split(', ')[3] || '',
+          billingHouseNumber: user.billingAdress?.split(', ')[4] || '',
         }}
         validationSchema={adressValidationSchema}
         enableReinitialize
@@ -121,175 +82,182 @@ export default function Adresses() {
           handleSaveClick(values, resetForm, setFieldValue)
         }
       >
-        {({ resetForm, setFieldValue, values }) => (
-          <Form>
-            <div className="space-y-4">
-              <div>
-                <label className="text-xl font-bold text-gray-700 mb-4">Address</label>
-                {isEditing ? (
-                  <>
-                    <div>
-                      <label className="block text-gray-600 text-sm mb-1">Country</label>
-                      <Field
-                        name="country"
-                        type="text"
-                        className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-indigo-200"
-                      />
-                      <ErrorMessage name="country" component="div" className="text-red-500" />
-                    </div>
+        {({ resetForm }) => (
+          <Form className="space-y-5">
+            <div>
+              <h2 className="text-xl font-semibold text-gray-700 mb-4">Main Adress</h2>
+              {isEditing ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm text-gray-600 mb-1">Country</label>
+                    <Field
+                      name="country"
+                      type="text"
+                      className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-indigo-300"
+                    />
+                    <ErrorMessage name="country" component="div" className="text-red-500 text-sm" />
+                  </div>
 
-                    <div>
-                      <label className="block text-gray-600 text-sm mb-1">City</label>
-                      <Field
-                        type="text"
-                        name="city"
-                        className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-indigo-200"
-                      />
-                      <ErrorMessage name="city" component="div" className="text-red-500" />
-                    </div>
+                  <div>
+                    <label className="block text-sm text-gray-600 mb-1">City</label>
+                    <Field
+                      name="city"
+                      type="text"
+                      className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-indigo-300"
+                    />
+                    <ErrorMessage name="city" component="div" className="text-red-500 text-sm" />
+                  </div>
 
-                    <div>
-                      <label className="block text-gray-600 text-sm mb-1">Postal Code</label>
-                      <Field
-                        type="text"
-                        name="postal code"
-                        className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-indigo-200"
-                      />
-                      <ErrorMessage name="postal code" component="div" className="text-red-500" />
-                    </div>
+                  <div>
+                    <label className="block text-sm text-gray-600 mb-1">Postal Code</label>
+                    <Field
+                      name="postalCode"
+                      type="text"
+                      className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-indigo-300"
+                    />
+                    <ErrorMessage
+                      name="postalCode"
+                      component="div"
+                      className="text-red-500 text-sm"
+                    />
+                  </div>
 
-                    <div>
-                      <label className="block text-gray-600 text-sm mb-1">Street</label>
-                      <Field
-                        type="text"
-                        name="street"
-                        className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-indigo-200"
-                      />
-                      <ErrorMessage name="street" component="div" className="text-red-500" />
-                    </div>
+                  <div>
+                    <label className="block text-sm text-gray-600 mb-1">Street</label>
+                    <Field
+                      name="street"
+                      type="text"
+                      className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-indigo-300"
+                    />
+                    <ErrorMessage name="street" component="div" className="text-red-500 text-sm" />
+                  </div>
 
-                    <div>
-                      <label className="block text-gray-600 text-sm mb-1">House Number</label>
-                      <Field
-                        type="text"
-                        name="house number"
-                        className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-indigo-200"
-                      />
-                      <ErrorMessage name="house number" component="div" className="text-red-500" />
-                    </div>
-                  </>
-                ) : (
-                  <p className="text-gray-800">{user.adress}</p>
-                )}
-              </div>
-
-              <div>
-                <label className="text-xl font-bold text-gray-700 mb-4">Billing Address</label>
-                {isEditing ? (
-                  <>
-                    <div className="flex m-4">
-                      <div className="flex items-center h-5">
-                        <input
-                          id="billingAdressCheckbox"
-                          type="checkbox"
-                          checked={billingAdressEqual}
-                          onChange={(e) => handleCheckboxChange(e, setFieldValue, values)}
-                          className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                        />
-                      </div>
-                      <div className="ms-2 text-sm">
-                        <label htmlFor="helper-checkbox" className="text-gray-600 text-sm mb-1">
-                          My billing address is the same
-                        </label>
-                      </div>
-                    </div>
-                    {!billingAdressEqual && (
-                      <>
-                        <div>
-                          <label className="block text-gray-600 text-sm mb-1">
-                            Billing Country
-                          </label>
-                          <Field
-                            type="text"
-                            name="billingCountry"
-                            className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-indigo-200"
-                          />
-                          <ErrorMessage
-                            name="billingCountry"
-                            component="div"
-                            className="text-red-500"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="block text-gray-600 text-sm mb-1">Billing City</label>
-                          <Field
-                            type="text"
-                            name="billingCity"
-                            className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-indigo-200"
-                          />
-                          <ErrorMessage
-                            name="billingCity"
-                            component="div"
-                            className="text-red-500"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="block text-gray-600 text-sm mb-1">
-                            Billing Postal Code
-                          </label>
-                          <Field
-                            type="text"
-                            name="billingPostalCode"
-                            className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-indigo-200"
-                          />
-                          <ErrorMessage
-                            name="billingPostalCode"
-                            component="div"
-                            className="text-red-500"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="block text-gray-600 text-sm mb-1">Billing Street</label>
-                          <Field
-                            type="text"
-                            name="billingStreet"
-                            className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-indigo-200"
-                          />
-                          <ErrorMessage
-                            name="billingStreet"
-                            component="div"
-                            className="text-red-500"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="block text-gray-600 text-sm mb-1">
-                            Billing House Number
-                          </label>
-                          <Field
-                            type="text"
-                            name="billingHouseNumber"
-                            className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-indigo-200"
-                          />
-                          <ErrorMessage
-                            name="billingHouseNumber"
-                            component="div"
-                            className="text-red-500"
-                          />
-                        </div>
-                      </>
-                    )}
-                  </>
-                ) : (
-                  <p className="text-gray-800">{user.billingAdress}</p>
-                )}
-              </div>
+                  <div>
+                    <label className="block text-sm text-gray-600 mb-1">House Number</label>
+                    <Field
+                      name="houseNumber"
+                      type="text"
+                      className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-indigo-300"
+                    />
+                    <ErrorMessage
+                      name="houseNumber"
+                      component="div"
+                      className="text-red-500 text-sm"
+                    />
+                  </div>
+                </div>
+              ) : (
+                <p className="text-gray-800">
+                  {user.adress ? user.adress : 'No main adress has been added yet.'}
+                </p>
+              )}
             </div>
 
-            <div className="mt-6 flex justify-end space-x-4">
+            <div>
+              <h2 className="text-xl font-semibold text-gray-700 mb-4">Billing Adress</h2>
+              {isEditing ? (
+                <>
+                  <div className="flex items-center space-x-2 mb-4">
+                    <input
+                      type="checkbox"
+                      id="billingAdressCheckbox"
+                      checked={billingAdressEqual}
+                      onChange={handleCheckboxChange}
+                      className="w-5 h-5 text-primary border-gray-300 rounded focus:ring-primary"
+                    />
+                    <label htmlFor="billingAdressCheckbox" className="text-sm text-gray-600">
+                      Same as main adress
+                    </label>
+                  </div>
+
+                  {!billingAdressEqual && (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm text-gray-600 mb-1">Billing Country</label>
+                        <Field
+                          name="billingCountry"
+                          type="text"
+                          className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-indigo-300"
+                        />
+                        <ErrorMessage
+                          name="billingCountry"
+                          component="div"
+                          className="text-red-500 text-sm"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-sm text-gray-600 mb-1">Billing City</label>
+                        <Field
+                          name="billingCity"
+                          type="text"
+                          className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-indigo-300"
+                        />
+                        <ErrorMessage
+                          name="billingCity"
+                          component="div"
+                          className="text-red-500 text-sm"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-sm text-gray-600 mb-1">
+                          Billing Postal Code
+                        </label>
+                        <Field
+                          name="billingPostalCode"
+                          type="text"
+                          className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-indigo-300"
+                        />
+                        <ErrorMessage
+                          name="billingPostalCode"
+                          component="div"
+                          className="text-red-500 text-sm"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-sm text-gray-600 mb-1">Billing Street</label>
+                        <Field
+                          name="billingStreet"
+                          type="text"
+                          className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-indigo-300"
+                        />
+                        <ErrorMessage
+                          name="billingStreet"
+                          component="div"
+                          className="text-red-500 text-sm"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-sm text-gray-600 mb-1">
+                          Billing House Number
+                        </label>
+                        <Field
+                          name="billingHouseNumber"
+                          type="text"
+                          className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-indigo-300"
+                        />
+                        <ErrorMessage
+                          name="billingHouseNumber"
+                          component="div"
+                          className="text-red-500 text-sm"
+                        />
+                      </div>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <p className="text-gray-800">
+                  {user.billingAdress
+                    ? user.billingAdress
+                    : 'No billing adress has been added yet.'}
+                </p>
+              )}
+            </div>
+
+            <div className="mt-8 flex justify-end space-x-4">
               {isEditing ? (
                 <>
                   <button
@@ -301,7 +269,7 @@ export default function Adresses() {
                   </button>
                   <button
                     type="submit"
-                    className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-indigo-700"
+                    className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-opacity-90"
                   >
                     Save
                   </button>
@@ -310,7 +278,7 @@ export default function Adresses() {
                 <button
                   type="button"
                   onClick={handleEditClick}
-                  className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-indigo-700"
+                  className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-opacity-90"
                 >
                   Edit
                 </button>

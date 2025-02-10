@@ -154,7 +154,7 @@ export default function ProductsTable() {
                   </th>
                   <th
                     scope="col"
-                    className="px-4 py-3 w-24 text-center text-gray-100 cursor-pointer"
+                    className="px-4 py-3 w-24 text-left text-gray-100 cursor-pointer"
                     onClick={() => handleSort('quantity')}
                   >
                     Quantity {renderSortIcon('quantity')}
