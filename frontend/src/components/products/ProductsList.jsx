@@ -7,8 +7,12 @@ import RatingStars from './RatingStars';
 import OutOfStock from '../../assets/out_of_stock.png';
 import CartContext from '../../contexts/CartContext';
 
-export default function ProductsList({ productsByCategory }) {
+export default function ProductsList({ productsByCategory, isLoading }) {
   const { addToCart, cart } = useContext(CartContext);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="flex flex-col gap-12">

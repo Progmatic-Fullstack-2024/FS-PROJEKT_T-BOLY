@@ -2,10 +2,14 @@ import { Link } from 'react-router-dom';
 
 import AddToShoppingCart from './AddToShoppingCart';
 import AddToWishlistHeart from './AddToWishlistHeart';
+import ProductsGridSkeleton from './ProductsGridSkeleton';
 import RatingStars from './RatingStars';
 import OutOfStock from '../../assets/out_of_stock.png';
 
-export default function ProductsGrid({ productsByCategory }) {
+export default function ProductsGrid({ productsByCategory, isLoading }) {
+  if (isLoading) {
+    return <ProductsGridSkeleton />;
+  }
   return (
     <div className="flex flex-wrap gap-8 justify-between md:mr-44">
       {productsByCategory && productsByCategory.length > 0 ? (
