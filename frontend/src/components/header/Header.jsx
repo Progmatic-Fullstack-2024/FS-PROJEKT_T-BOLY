@@ -184,7 +184,12 @@ export default function Header() {
         </div>
       </div>
 
-      {isRegisterModalOpen && <RegistrationModal onClose={() => setRegisterModalOpen(false)} />}
+      {isRegisterModalOpen && (
+        <RegistrationModal
+          onClose={() => setRegisterModalOpen(false)}
+          setLoginModalOpen={() => setLoginModalOpen(true)}
+        />
+      )}
       {isLoginModalOpen && <LoginModal onClose={() => setLoginModalOpen(false)} />}
     </header>
   );

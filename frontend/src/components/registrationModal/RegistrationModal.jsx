@@ -5,17 +5,18 @@ import { toast } from 'react-toastify';
 import AuthContext from '../../contexts/AuthContext.jsx';
 import { userValidationSchema } from '../../validations/user.validation.js';
 
-export default function RegistrationModal({ onClose }) {
+export default function RegistrationModal({ onClose, setLoginModalOpen }) {
   const { register } = useContext(AuthContext);
 
   const handleRegister = async (values) => {
     const result = await register(values);
     if (result.ok) {
       toast.success('Registration successful!');
+      onClose();
+      setLoginModalOpen();
     } else {
       toast.error(`Registration failed, ${result.message.response.data.error}`);
     }
-    onClose();
   };
 
   return (
