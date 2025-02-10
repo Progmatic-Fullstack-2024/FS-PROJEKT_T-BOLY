@@ -6,6 +6,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import Nav from './Nav';
 import Searchbar from './Searchbar';
 import LogoOrange from '../../assets/ant-orange.png';
+import pesronalDataIcon from '../../assets/icons/data-breach.png';
+import heartIcon from '../../assets/icons/heart.png';
+import orderIcon from '../../assets/icons/order-delivery.png';
+import adressIcon from '../../assets/icons/address.png';
+import userIcon from '../../assets/icons/user.png'
+import resetPasswordIcon from '../../assets/icons/reset-password.png';
 import LogoText from '../../assets/t-boly-orange.png';
 import AuthContext from '../../contexts/AuthContext';
 import CartContext from '../../contexts/CartContext';
@@ -86,46 +92,51 @@ export default function Header() {
                 <ul className="py-2 text-sm text-gray-700">
                   <li>
                     <Link
-                      className="block px-4 py-2 hover:bg-gray-100"
+                      className="block px-4 py-2 hover:bg-gray-100 flex"
                       to="profile_page/orders"
                       onClick={toggleDropdown}
                     >
+                      <img src={orderIcon} alt="" className="h-6 w-6 mr-2" />
                       Orders
                     </Link>
                   </li>
                   <li>
                     <Link
-                      className="block px-4 py-2 hover:bg-gray-100"
+                      className="block px-4 py-2 hover:bg-gray-100 flex"
                       to="profile_page/wishlist"
                       onClick={toggleDropdown}
                     >
+                      <img src={heartIcon} alt="" className="h-6 w-6 mr-2 " />
                       Wishlist
                     </Link>
                   </li>
                   <li>
                     <Link
-                      className="block px-4 py-2 hover:bg-gray-100"
+                      className="block px-4 py-2 hover:bg-gray-100 flex"
                       to="profile_page/personal_data"
                       onClick={toggleDropdown}
                     >
+                      <img src={pesronalDataIcon} alt="" className="h-6 w-6 mr-2 " />
                       Personal Data
                     </Link>
                   </li>
                   <li>
                     <Link
-                      className="block px-4 py-2 hover:bg-gray-100"
+                      className="block px-4 py-2 hover:bg-gray-100 flex"
                       to="profile_page/change_password"
                       onClick={toggleDropdown}
                     >
+                      <img src={resetPasswordIcon} alt="" className="h-6 w-6 mr-2 " />
                       Change password
                     </Link>
                   </li>
                   <li>
                     <Link
-                      className="block px-4 py-2 hover:bg-gray-100"
+                      className="block px-4 py-2 hover:bg-gray-100 flex"
                       to="profile_page/adresses"
                       onClick={toggleDropdown}
                     >
+                      <img src={adressIcon} alt="" className="h-6 w-6 mr-2 " />
                       Addresses
                     </Link>
                   </li>
@@ -133,10 +144,11 @@ export default function Header() {
                   {user.role === 'ADMIN' && (
                     <li>
                       <Link
-                        className="block px-4 py-2 hover:bg-gray-100"
+                        className="block px-4 py-2 hover:bg-gray-100 flex"
                         to="/admin"
                         onClick={toggleDropdown}
                       >
+                        <img src={userIcon} alt="" className="h-6 w-6 mr-2 " />
                         Admin page
                       </Link>
                     </li>
