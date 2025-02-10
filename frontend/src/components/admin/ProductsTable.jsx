@@ -17,7 +17,6 @@ export default function ProductsTable() {
   const [totalPages, setTotalPages] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [isStatus, setIsStatus] = useState(false);
-  
 
   const sorting = searchParams.get('sorting');
   const order = searchParams.get('order');
@@ -29,16 +28,15 @@ export default function ProductsTable() {
           selectedCategory,
           searchParams.toString(),
         );
-        console.log(data)
+
         setProductsByCategory(data.products);
         setTotalProducts(data.totalProducts);
-        setTotalPages(data.totalPages);        
+        setTotalPages(data.totalPages);
       } catch (error) {
         toast.error('Failed to fetch products:', error);
       }
     };
     fetchProductsByCategory();
-  
   }, [searchParams, selectedCategory]);
 
   const onUpdate = (id, values) => {
@@ -79,6 +77,12 @@ export default function ProductsTable() {
   };
   const handleStatus = () => {
     setIsStatus(!isStatus);
+    if (searchParams.get('showDeleted')) {
+      searchParams.delete('showDeleted');
+    } else {
+      searchParams.set('showDeleted', true);
+    }
+    setSearchParams(searchParams);
   };
 
   return (
@@ -97,7 +101,7 @@ export default function ProductsTable() {
               type="button"
               className="flex items-center justify-center flex-shrink-0 px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-400 rounded-lg hover:bg-primary hover:text-primary-700 focus:ring-4 focus:ring-gray-200"
             >
-              {isStatus ? 'Show less' : 'Show All'}
+              {isStatus ? 'Hide Deleted' : 'Show Deleted'}
             </button>
             <CategorySelect setSelectedCategory={setSelectedCategory} />
             <div className="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
@@ -129,6 +133,7 @@ export default function ProductsTable() {
                       </label>
                     </div>
                   </th> */}
+                  <th className="w-20 text-center text-gray-100 cursor-pointer">Img</th>
                   <th
                     scope="col"
                     className="px-4 py-3 w-48 text-left text-gray-100 cursor-pointer"
@@ -138,7 +143,7 @@ export default function ProductsTable() {
                   </th>
                   <th
                     scope="col"
-                    className="px-4 py-3 w-48 text-left text-gray-100 hidden md:table-cell"
+                    className="px-4 py-3 max-w-48 text-left text-gray-100 hidden md:table-cell"
                   >
                     Description
                   </th>
@@ -154,7 +159,7 @@ export default function ProductsTable() {
                   </th>
                   <th
                     scope="col"
-                    className="px-4 py-3 w-24 text-left text-gray-100 cursor-pointer"
+                    className="px-4 py-3 max-w-14 text-left text-gray-100 cursor-pointer"
                     onClick={() => handleSort('quantity')}
                   >
                     Quantity {renderSortIcon('quantity')}
@@ -174,7 +179,7 @@ export default function ProductsTable() {
                     ''
                   )}
 
-                  <th scope="col" className="px-4 py-3 w-48 text-left text-gray-100">
+                  <th scope="col" className="px-4 py-3 text-left text-gray-100 max-w-6">
                     Actions
                   </th>
                 </tr>

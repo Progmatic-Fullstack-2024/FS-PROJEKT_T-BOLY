@@ -15,10 +15,11 @@ const getAllProducts = async (
   maximumPrice,
   minAge,
   maxAge,
+  showDeleted,
   players,
 ) => {
   const where = {
-    isDeleted: false,
+    isDeleted: showDeleted,
     AND: [
       { price: { gte: minimumPrice } },
       { price: { lte: maximumPrice } },
@@ -116,13 +117,14 @@ const getAllProductsByCategory = async (
   maximumPrice,
   minAge,
   maxAge,
+  showDeleted,
   players,
 ) => {
   const where = {
     categoryProduct: {
       some: { categoryId },
     },
-    isDeleted: false,
+    isDeleted: showDeleted,
     AND: [
       { price: { gte: minimumPrice } },
       { price: { lte: maximumPrice } },

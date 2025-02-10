@@ -32,13 +32,20 @@ export default function ProductRow({ product, onUpdate, onDelete, isStatus }) {
           </label>
         </div>
       </td> */}
-      <td className="px-4 py-3">{product.name}</td>
+      <td className="w-20 top-auto place-items-center">
+        <img
+          className="object-contain max-w-20 max-h-20 border rounded-lg bg-white p-2"
+          src={product.pictureUrl}
+          alt="Product"
+        />
+      </td>
+      <td className="px-4 py-3 max-w-6">{product.name}</td>
       <td className="px-4 py-3 hidden md:table-cell">{product.description}</td>
       <td className="px-4 py-3">
         {product?.categoryProduct?.map((c) => c.category.name).join(', ')}
       </td>
-      <td className="px-4 py-3 text-right">€ {product.price}</td>
-      <td className="px-4 py-3 text-right">{product.quantity}</td>
+      <td className="px-4 py-3 text-right max-w-5">€ {product.price}</td>
+      <td className="px-4 py-3 text-right w-3">{product.quantity}</td>
       <td className="px-4 py-3">
         <div className="flex justify-center space-x-1">{renderStars(4.5)}</div>
       </td>
