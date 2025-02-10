@@ -1,14 +1,14 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import OutOfStock from '../../assets/out_of_stock.png';
+import LanguageContext from '../../contexts/LanguageContext';
 import AddToShoppingCart from '../products/AddToShoppingCart';
 import AddToWishlistHeart from '../products/AddToWishlistHeart';
 import RatingStars from '../products/RatingStars';
-import { useContext } from 'react';
-import LanguageContext from '../../contexts/LanguageContext';
 
 export default function RelatedProducts({ relatedProductsByCategory }) {
-  const {t} = useContext(LanguageContext)
+  const { t } = useContext(LanguageContext);
   return (
     <div className="md:mt-20 mt-12">
       <h2 className="text-2xl font-semibold text-center md:mb-16 mb-10">{t('related products')}</h2>

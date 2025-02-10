@@ -39,7 +39,6 @@ export default function ShoppingCart() {
                 <td colSpan={6} className="p-20">
                   <div className="flex md:justify-center items-center text-xl">
                     {t('your shopping cart is empty')}.
-                    
                   </div>
                 </td>
               </tr>

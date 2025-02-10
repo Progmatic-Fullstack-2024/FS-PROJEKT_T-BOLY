@@ -3,18 +3,16 @@ import { FiShoppingCart, FiLogOut } from 'react-icons/fi';
 import { IoIosArrowDown } from 'react-icons/io';
 import { Link, useNavigate } from 'react-router-dom';
 
+import LanguageDropdown from './LanguageDropdown';
 import Nav from './Nav';
 import Searchbar from './Searchbar';
 import LogoOrange from '../../assets/ant-orange.png';
 import LogoText from '../../assets/t-boly-orange.png';
 import AuthContext from '../../contexts/AuthContext';
 import CartContext from '../../contexts/CartContext';
+import LanguageContext from '../../contexts/LanguageContext';
 import LoginModal from '../loginModal/LoginModal';
 import RegistrationModal from '../registrationModal/RegistrationModal';
-
-
-import LanguageDropdown from './LanguageDropdown';
-import LanguageContext from '../../contexts/LanguageContext';
 
 export default function Header() {
   const { t } = useContext(LanguageContext);

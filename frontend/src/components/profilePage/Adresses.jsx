@@ -4,8 +4,8 @@ import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
 import AuthContext from '../../contexts/AuthContext';
-import userService from '../../services/userService';
 import LanguageContext from '../../contexts/LanguageContext.jsx';
+import userService from '../../services/userService';
 
 export default function Adresses() {
   const { user, setUser } = useContext(AuthContext);

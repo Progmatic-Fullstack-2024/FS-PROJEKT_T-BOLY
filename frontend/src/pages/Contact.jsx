@@ -1,15 +1,15 @@
 import emailjs from 'emailjs-com';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { useContext } from 'react';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { FiPhone, FiMail } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 
 import { VITE_PUBLIC_KEY, VITE_SERVICE_ID } from '../constants/constants';
-import { useContext } from 'react';
 import LanguageContext from '../contexts/LanguageContext';
 
 export default function Contacts() {
-  const {t} = useContext(LanguageContext)
+  const { t } = useContext(LanguageContext);
   const sendEmail = async (formData) => {
     try {
       const response = await emailjs.send(
@@ -121,7 +121,7 @@ export default function Contacts() {
               </div>
 
               <button type="submit" className="bg-primary text-white w-full py-2 rounded-lg">
-              {t('send message')}
+                {t('send message')}
               </button>
             </Form>
           </Formik>

@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 
 const LanguageContext = createContext();
 
-// eslint-disable-next-line import/prefer-default-export
 export function LanguageProvider({ children }) {
   const { t } = useTranslation();
   const { i18n } = useTranslation();

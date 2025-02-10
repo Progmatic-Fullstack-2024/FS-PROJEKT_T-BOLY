@@ -7,9 +7,9 @@ import { LuHouse } from 'react-icons/lu';
 import { MdKeyboardArrowRight } from 'react-icons/md';
 import { VscAccount } from 'react-icons/vsc';
 import { Link } from 'react-router-dom';
-import LanguageContext from '../../contexts/LanguageContext';
 
 import AuthContext from '../../contexts/AuthContext';
+import LanguageContext from '../../contexts/LanguageContext';
 
 export default function Nav() {
   const [isSidebarOpen, setIsSideBarOpen] = useState(false);

@@ -62,7 +62,7 @@ export default function CartItemRow({ cartProduct }) {
       <td className="text-red-500 cursor-pointer text-xl">
         <button
           type="button"
-          onClick={() => removeFromCart(cartProduct.productId, isSubmitting, setIsSubmittung )}
+          onClick={() => removeFromCart(cartProduct.productId, isSubmitting, setIsSubmittung)}
           disabled={isSubmitting}
         >
           <RiDeleteBin5Line />

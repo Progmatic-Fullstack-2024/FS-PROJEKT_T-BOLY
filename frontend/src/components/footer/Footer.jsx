@@ -1,8 +1,8 @@
+import { useContext } from 'react';
 import { FaInstagram, FaTwitter, FaFacebook, FaPinterest } from 'react-icons/fa';
 
 import FooterBg from '../../assets/footer-bg.png';
 import TbolyOrange from '../../assets/t-boly-orange.png';
-import { useContext } from 'react';
 import LanguageContext from '../../contexts/LanguageContext';
 
 export default function Footer() {

@@ -1,9 +1,10 @@
+import { useContext } from 'react';
 import RangeSlider from 'react-range-slider-input';
 import 'react-range-slider-input/dist/style.css';
 import './slider.css';
 import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useContext } from 'react';
+
 import LanguageContext from '../../contexts/LanguageContext';
 
 export default function FilterByPrice({ minAge, maxAge, setMaxAge, setMinAge }) {

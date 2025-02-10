@@ -2,8 +2,8 @@ import { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import CategoryButton from './CategoryButton';
-import categoryService from '../../services/categoryService';
 import LanguageContext from '../../contexts/LanguageContext';
+import categoryService from '../../services/categoryService';
 
 export default function CategoryButtons() {
   const [categories, setCategories] = useState([]);

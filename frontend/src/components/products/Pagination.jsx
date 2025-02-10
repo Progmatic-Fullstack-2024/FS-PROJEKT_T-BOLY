@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from 'react-icons/md';
 import { useSearchParams } from 'react-router-dom';
-import LanguageContext from '../../contexts/LanguageContext';
 
+import LanguageContext from '../../contexts/LanguageContext';
 import getPageNumbers from '../../utils/getPageNumbers';
 
 export default function Pagination({ totalPages }) {

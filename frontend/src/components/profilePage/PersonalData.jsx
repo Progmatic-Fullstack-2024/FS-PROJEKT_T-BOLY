@@ -6,8 +6,8 @@ import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
 import AuthContext from '../../contexts/AuthContext';
-import userService from '../../services/userService';
 import LanguageContext from '../../contexts/LanguageContext';
+import userService from '../../services/userService';
 
 export default function PersonalData() {
   const { t } = useContext(LanguageContext);
@@ -267,14 +267,14 @@ export default function PersonalData() {
                     onClick={handleCancelClick}
                     className="px-4 py-2 lg:w-1/3 bg-primary-light text-gray-700 rounded-lg hover:bg-gray-400"
                   >
-                   {t('cancel')}
+                    {t('cancel')}
                   </button>
                   <button
                     type="submit"
                     className="px-4 py-2 lg:w-1/2 bg-primary text-white rounded-lg hover:bg-opacity-90"
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? (t('saving')) : (t('save'))}
+                    {isSubmitting ? t('saving') : t('save')}
                   </button>
                 </div>
               </Form>

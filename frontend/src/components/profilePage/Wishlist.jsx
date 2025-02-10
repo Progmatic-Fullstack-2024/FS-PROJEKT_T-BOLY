@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
+
 import LanguageContext from '../../contexts/LanguageContext';
 import WishlistContext from '../../contexts/WishlistContext';
 
@@ -12,10 +13,11 @@ export default function Wishlist() {
     return (
       <div className="mx-auto w-full h-full bg-white rounded-2xl shadow-lg p-12 flex flex-col items-center justify-center">
         <AiOutlineHeart className="text-primary text-6xl mb-6" />
-        <p className="text-center text-3xl font-semibold text-gray-700">{t('your wishlist is empty')}</p>
+        <p className="text-center text-3xl font-semibold text-gray-700">
+          {t('your wishlist is empty')}
+        </p>
         <p className="text-center text-gray-500 mt-4">
           {t('start adding items to your wishlist by browsing our products')}
-          
         </p>
       </div>
     );

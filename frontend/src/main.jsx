@@ -21,6 +21,7 @@ import ProtectedRoute from './components/ProtectedRoute.jsx';
 import ShoppingCart from './components/shoppingCart/ShoppingCart.jsx';
 import { AuthProvider } from './contexts/AuthContext.jsx';
 import { CartProvider } from './contexts/CartContext.jsx';
+import { LanguageProvider } from './contexts/LanguageContext.jsx';
 import { WishlistProvider } from './contexts/WishlistContext.jsx';
 import About from './pages/About.jsx';
 import AdminLayout from './pages/AdminLayout.jsx';
@@ -28,7 +29,6 @@ import Contacts from './pages/Contact.jsx';
 import Homepage from './pages/Homepage';
 import ProfilePage from './pages/ProfilePage.jsx';
 import './i18n';
-import { LanguageProvider } from './contexts/LanguageContext.jsx';
 
 const router = createBrowserRouter([
   {

@@ -3,12 +3,12 @@ import { useContext } from 'react';
 import { toast } from 'react-toastify';
 
 import AuthContext from '../../contexts/AuthContext.jsx';
-import { userValidationSchema } from '../../validations/user.validation.js';
 import LanguageContext from '../../contexts/LanguageContext.jsx';
+import { userValidationSchema } from '../../validations/user.validation.js';
 
 export default function RegistrationModal({ onClose }) {
   const { register } = useContext(AuthContext);
-  const {t} = useContext(LanguageContext)
+  const { t } = useContext(LanguageContext);
 
   const handleRegister = async (values, { setSubmitting }) => {
     try {

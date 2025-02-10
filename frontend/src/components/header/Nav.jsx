@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useContext } from 'react';
 import { AiOutlineCloseCircle, AiOutlineMenu } from 'react-icons/ai';
 import { Link, useLocation } from 'react-router-dom';
+
 import LanguageContext from '../../contexts/LanguageContext';
 
 export default function Nav() {

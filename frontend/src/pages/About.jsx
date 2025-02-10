@@ -1,9 +1,10 @@
 import { useContext } from 'react';
+
 import Logo from '../assets/ant-orange.png';
 import LanguageContext from '../contexts/LanguageContext';
 
 export default function About() {
-  const {t} = useContext(LanguageContext)
+  const { t } = useContext(LanguageContext);
   return (
     <div>
       <div className="flex flex-col h-full">,</div>

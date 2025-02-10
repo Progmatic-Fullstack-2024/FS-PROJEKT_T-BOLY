@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { useSearchParams } from 'react-router-dom';
+
 import LanguageContext from '../../contexts/LanguageContext';
 
 export default function Sorting() {
@@ -34,10 +35,18 @@ export default function Sorting() {
       <option value="name-asc">{t('default sorting')}</option>
       <option value="name-asc">{t('name')} (A-Z)</option>
       <option value="name-desc">{t('name')} (Z-A)</option>
-      <option value="price-asc">{t('price')} ({t('low to high')})</option>
-      <option value="price-desc">{t('price')}({t('high to low')})</option>
-      <option value="rating-asc">{t('rating')} ({t('low to high')})</option>
-      <option value="rating-desc">{t('rating')} ({t('high to low')})</option>
+      <option value="price-asc">
+        {t('price')} ({t('low to high')})
+      </option>
+      <option value="price-desc">
+        {t('price')}({t('high to low')})
+      </option>
+      <option value="rating-asc">
+        {t('rating')} ({t('low to high')})
+      </option>
+      <option value="rating-desc">
+        {t('rating')} ({t('high to low')})
+      </option>
     </select>
   );
 }

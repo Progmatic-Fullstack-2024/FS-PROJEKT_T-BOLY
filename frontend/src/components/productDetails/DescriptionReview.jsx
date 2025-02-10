@@ -1,6 +1,7 @@
 import { useContext } from 'react';
-import Reviews from '../reviews/Reviews';
+
 import LanguageContext from '../../contexts/LanguageContext';
+import Reviews from '../reviews/Reviews';
 
 export default function DescriptionReview({
   handleDescription,

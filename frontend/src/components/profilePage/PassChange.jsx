@@ -7,7 +7,7 @@ import LanguageContext from '../../contexts/LanguageContext.jsx';
 
 export default function PassChange() {
   const { passwordChange, user } = useContext(AuthContext);
-  const {t} = useContext(LanguageContext)
+  const { t } = useContext(LanguageContext);
 
   const handleSave = async (values, actions, { setSubmitting }) => {
     actions.setSubmitting(true);

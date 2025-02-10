@@ -10,7 +10,7 @@ import LanguageContext from '../../contexts/LanguageContext';
 
 export default function ProductsList({ productsByCategory }) {
   const { addToCart, cart } = useContext(CartContext);
-  const {t} = useContext(LanguageContext)
+  const { t } = useContext(LanguageContext);
 
   return (
     <div className="flex flex-col gap-12">

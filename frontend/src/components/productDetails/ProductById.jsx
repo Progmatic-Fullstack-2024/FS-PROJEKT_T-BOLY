@@ -10,12 +10,12 @@ import RelatedProducts from './RelatedProducts';
 import SharingButtons from './SharingButtons';
 import ShortDescription from './ShortDescription';
 import CartContext from '../../contexts/CartContext';
+import LanguageContext from '../../contexts/LanguageContext';
 import productService from '../../services/productService';
 import reviewService from '../../services/reviewService';
 import AddToWishlistHeart from '../products/AddToWishlistHeart';
 import RatingStars from '../products/RatingStars';
 import ReviewModal from '../reviews/ReviewModal';
-import LanguageContext from '../../contexts/LanguageContext';
 
 export default function ProductById() {
   const { productId } = useParams();
@@ -31,7 +31,6 @@ export default function ProductById() {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPictureIndex, setSelectedPictureIndex] = useState(0);
   const { t } = useContext(LanguageContext);
-  
 
   useEffect(() => {
     const fetchProductById = async () => {
@@ -166,8 +165,7 @@ export default function ProductById() {
                     <button
                       type="button"
                       onClick={() =>
-                        addToCart(productId, productInCartCount) &&
-                        setProductInCartCount(1)
+                        addToCart(productId, productInCartCount) && setProductInCartCount(1)
                       }
                       className={`flex items-center justify-center gap-3 w-40 rounded-xl border-2 ${product.quantity >= 1 ? 'border-primary bg-primary p-2 text-white hover:border-gray-900 hover:text-black' : 'border-gray-200 bg-gray-200 text-gray-900 cursor-not-allowed'}`}
                       disabled={product.quantity < 1}

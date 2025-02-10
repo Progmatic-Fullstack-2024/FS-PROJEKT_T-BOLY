@@ -1,6 +1,5 @@
-import React, { useContext} from 'react';
+import React, { useContext } from 'react';
 import { IoHeartOutline, IoHeartSharp } from 'react-icons/io5';
-
 
 import WishlistContext from '../../contexts/WishlistContext';
 

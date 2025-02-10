@@ -6,8 +6,8 @@ import AddToShoppingCart from './AddToShoppingCart';
 import AddToWishlistHeart from './AddToWishlistHeart';
 import RatingStars from './RatingStars';
 import OutOfStock from '../../assets/out_of_stock.png';
-import productService from '../../services/productService';
 import LanguageContext from '../../contexts/LanguageContext';
+import productService from '../../services/productService';
 
 export default function TopProductsByRating() {
   const [productsByRating, setProductsByRating] = useState([]);

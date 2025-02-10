@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { FaFacebook, FaInstagram, FaPinterest, FaTwitter } from 'react-icons/fa';
+
 import LanguageContext from '../../contexts/LanguageContext';
 
 export default function SharingButtons() {

@@ -2,8 +2,8 @@ import { useState, useEffect, useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import categoryService from '../../services/categoryService';
 import LanguageContext from '../../contexts/LanguageContext';
+import categoryService from '../../services/categoryService';
 
 export default function Nav() {
   const [categories, setCategories] = useState([]);

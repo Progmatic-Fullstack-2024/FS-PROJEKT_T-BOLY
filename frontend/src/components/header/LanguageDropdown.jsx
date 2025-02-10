@@ -1,13 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import LanguageContext from '../../contexts/LanguageContext';
 
 import HuFlag from '../../assets/hungary.png';
 import EnFlag from '../../assets/united-kingdom.png';
 
 export default function LanguageDropdown() {
   const [isOpen, setIsOpen] = useState(false);
-
 
   const languageImages = {
     en: EnFlag,
@@ -29,11 +27,7 @@ export default function LanguageDropdown() {
       className="text-white hover:bg-opacity-90 font-medium text-sm px-5 py-2.5 text-center inline-flex items-center  "
       onClick={handleClick}
     >
-      <img
-        src={languageImages[i18n.language] || EnFlag} 
-        alt="language flag"
-        className="w-8 h-8" 
-      />
+      <img src={languageImages[i18n.language] || EnFlag} alt="language flag" className="w-8 h-8" />
       {isOpen && (
         <ul className="absolute top-32 right-0 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 text-gray-500">
           <li>

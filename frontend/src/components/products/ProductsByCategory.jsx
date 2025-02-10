@@ -14,9 +14,9 @@ import ProductsGrid from './ProductsGrid.jsx';
 import ProductsList from './ProductsList.jsx';
 import SelectCategoryInput from './SelectCategoryInput.jsx';
 import Sorting from './Sorting.jsx';
+import LanguageContext from '../../contexts/LanguageContext.jsx';
 import categoryService from '../../services/categoryService.js';
 import productService from '../../services/productService.js';
-import LanguageContext from '../../contexts/LanguageContext.jsx';
 
 export default function ProductsByCategory() {
   const [productsByCategory, setProductsByCategory] = useState([]);

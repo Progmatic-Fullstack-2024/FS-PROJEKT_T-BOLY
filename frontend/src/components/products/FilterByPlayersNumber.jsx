@@ -1,6 +1,7 @@
-import { useSearchParams } from 'react-router-dom';
-import LanguageContext from '../../contexts/LanguageContext';
 import { useContext } from 'react';
+import { useSearchParams } from 'react-router-dom';
+
+import LanguageContext from '../../contexts/LanguageContext';
 
 export default function FilterByPlayersNumber() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -25,9 +26,15 @@ export default function FilterByPlayersNumber() {
       value={searchParams.get('players') || 'all'}
     >
       <option value="all">{t('number of players')}</option>
-      <option value="2-2">{t('pair')} (2 {t('players')})</option>
-      <option value="3-5">{t('small group')} (3-5 {t('players')})</option>
-      <option value="6-99">{t('large group')}(6+ {t('players')})</option>
+      <option value="2-2">
+        {t('pair')} (2 {t('players')})
+      </option>
+      <option value="3-5">
+        {t('small group')} (3-5 {t('players')})
+      </option>
+      <option value="6-99">
+        {t('large group')}(6+ {t('players')})
+      </option>
     </select>
   );
 }
