@@ -16,6 +16,8 @@ export default function ProductsTable() {
   const [totalProducts, setTotalProducts] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [isStatus, setIsStatus] = useState(false);
+  
 
   const sorting = searchParams.get('sorting');
   const order = searchParams.get('order');
@@ -27,16 +29,16 @@ export default function ProductsTable() {
           selectedCategory,
           searchParams.toString(),
         );
-
+        console.log(data)
         setProductsByCategory(data.products);
         setTotalProducts(data.totalProducts);
-        setTotalPages(data.totalPages);
+        setTotalPages(data.totalPages);        
       } catch (error) {
         toast.error('Failed to fetch products:', error);
       }
     };
-
     fetchProductsByCategory();
+  
   }, [searchParams, selectedCategory]);
 
   const onUpdate = (id, values) => {
@@ -75,6 +77,9 @@ export default function ProductsTable() {
       <BsSortDownAlt className="w-5 h-5 inline ml-1" />
     );
   };
+  const handleStatus = () => {
+    setIsStatus(!isStatus);
+  };
 
   return (
     <section className="py-3 sm:py-5">
@@ -87,6 +92,13 @@ export default function ProductsTable() {
                 <span className="text-black">{totalProducts}</span>
               </h5>
             </div>
+            <button
+              onClick={handleStatus}
+              type="button"
+              className="flex items-center justify-center flex-shrink-0 px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-400 rounded-lg hover:bg-primary hover:text-primary-700 focus:ring-4 focus:ring-gray-200"
+            >
+              {isStatus ? 'Show less' : 'Show All'}
+            </button>
             <CategorySelect setSelectedCategory={setSelectedCategory} />
             <div className="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
               <ProductAdminModal>Add newProduct</ProductAdminModal>
@@ -135,7 +147,7 @@ export default function ProductsTable() {
                   </th>
                   <th
                     scope="col"
-                    className="px-4 py-3 w-24 text-center text-gray-100 cursor-pointer"
+                    className="px-4 py-3 w-24 text-right text-gray-100 cursor-pointer"
                     onClick={() => handleSort('price')}
                   >
                     Price {renderSortIcon('price')}
@@ -154,13 +166,14 @@ export default function ProductsTable() {
                   >
                     Rating {renderSortIcon('rating')}
                   </th>
-                  <th
-                    scope="col"
-                    className="px-4 py-3 w-24 text-center text-gray-100 cursor-pointer"
-                    onClick={() => handleSort('status')}
-                  >
-                    Status {renderSortIcon('status')}
-                  </th>
+                  {isStatus ? (
+                    <th scope="col" className="px-4 py-3 w-24 text-center text-gray-100 ">
+                      Status
+                    </th>
+                  ) : (
+                    ''
+                  )}
+
                   <th scope="col" className="px-4 py-3 w-48 text-left text-gray-100">
                     Actions
                   </th>
@@ -169,13 +182,14 @@ export default function ProductsTable() {
               <tbody>
                 {productsByCategory &&
                   productsByCategory
-                    .filter((product) => !product.isDeleted)
+                    .filter((product) => (!isStatus ? !product.isDeleted : product))
                     .map((product) => (
                       <ProductRow
                         key={product.id}
                         product={product}
                         onUpdate={onUpdate}
                         onDelete={onDelete}
+                        isStatus={isStatus}
                       />
                     ))}
               </tbody>
