@@ -57,6 +57,8 @@ model Product {
   ageRecommendationMax Int?
   playersNumberMin     Int?
   playersNumberMax     Int?
+  longDescriptionHU    String?
+  longDescriptionEN    String @default("Bag stretch chase imaginary bugs rub face on everything behind the couch give attitude swat at dog intently stare at the same spot claw drapes need to chase tail, hide when guests come over attack feet make muffins lick butt leave dead animals as gifts destroy couch. Give attitude swat at dog flop over rub face on everything hide when guests come over intrigued by the shower chase imaginary bugs attack feet need to chase tail behind the couch make muffins intently sniff hand why must they do that, destroy couch bag stretch hopped up on goofballs leave dead animals as gifts intently stare at the same spot lick butt claw drapes hunt anything that moves hopped up on goofballs.S")
   createdAt            DateTime          @default(now())
   updatedAt            DateTime          @updatedAt
   categoryProduct      CategoryProduct[]
@@ -110,9 +112,9 @@ model Order {
   userId     String
   user       User        @relation(fields: [userId], references: [id])
   products   OrderItem[]
-  paymentId  String
+  paymentId  String?
   totalPrice Int
-  status     Status
+  status     Status @default(AWAITINGPAYMENT)
   createdAt  DateTime    @default(now())
 }
 
@@ -166,6 +168,7 @@ model Discount {
 model Coupon {
   id        String   @id @default(cuid())
   code      String
+  discount  Int
   validFrom DateTime
   validTo   DateTime
   isActive  Boolean  @default(true)
