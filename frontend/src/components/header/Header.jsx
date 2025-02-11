@@ -103,7 +103,7 @@ export default function Header() {
                       to="profile_page/wishlist"
                       onClick={toggleDropdown}
                     >
-                      Wishlist
+                      {t('wishlist')}
                     </Link>
                   </li>
                   <li>

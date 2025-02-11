@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -7,12 +7,14 @@ import RatingDetails from './RatingDetails';
 import Review from './Review';
 import reviewService from '../../services/reviewService';
 import Pagination from '../products/Pagination';
+import LanguageContext from '../../contexts/LanguageContext';
 
 export default function Reviews(product) {
   const [searchParams] = useSearchParams();
   const [reviews, setReviews] = useState([]);
   const [allReviews, setAllReviews] = useState([]);
   const [itemsPerPage] = useState(5);
+  const { t } = useContext(LanguageContext);
   const [totalPages, setTotalPages] = useState(1);
   const [ratings, setRatings] = useState([
     { label: 1, count: 0 },
@@ -68,7 +70,7 @@ export default function Reviews(product) {
   return (
     <div>
       <div className='p-4  mx-auto flex"'>
-        <h1 className="text-2x font-bold mb-4">Summary of ratings</h1>
+        <h1 className="text-2x font-bold mb-4">{t('summary of ratings')}</h1>
         <div>
           <RatingDetails ratings={ratings} product={product} numberOfRatings={allReviews.length} />
         </div>
@@ -77,7 +79,7 @@ export default function Reviews(product) {
           onClick={() => setIsReviewOpen(!isReviewOpen)}
           type="button"
         >
-          {isReviewOpen ? 'Hide reviews' : 'Show reviews'}
+          {isReviewOpen ? t('hide reviews') : t('show reviews')}
           {isReviewOpen ? (
             <IoIosArrowUp className="mt-[6px] ml-1" />
           ) : (

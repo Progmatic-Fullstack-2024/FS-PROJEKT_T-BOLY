@@ -33,7 +33,7 @@ export default function FilterByPlayersNumber() {
         {t('small group')} (3-5 {t('players')})
       </option>
       <option value="6-99">
-        {t('large group')}(6+ {t('players')})
+        {t('large group')} (6+ {t('players')})
       </option>
     </select>
   );

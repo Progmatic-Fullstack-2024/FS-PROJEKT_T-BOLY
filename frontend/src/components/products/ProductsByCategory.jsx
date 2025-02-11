@@ -109,7 +109,7 @@ export default function ProductsByCategory() {
           />
         </div>
         <div>
-          <h1 className=" hidden md:block mb-12 text-3xl">{categoryName}</h1>
+          <h1 className=" hidden md:block mb-12 text-3xl">{t(categoryName)}</h1>
           <div className="flex flex-col md:flex-row md:gap-80 gap-6 md:items-center md:mb-12">
             <div className="flex md:flex-row flex-col justify-between gap-6 md:mb-0 mb-8">
               <SelectCategoryInput />

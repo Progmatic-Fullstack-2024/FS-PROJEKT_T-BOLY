@@ -150,7 +150,7 @@ export default function Adresses() {
                 </div>
               ) : (
                 <p className="text-gray-800">
-                  {user.adress ? user.adress : 'No main adress has been added yet.'}
+                  {user.adress ? user.adress : t('no main adress has been added yet')}
                 </p>
               )}
             </div>
@@ -254,7 +254,7 @@ export default function Adresses() {
                 <p className="text-gray-800">
                   {user.billingAdress
                     ? user.billingAdress
-                    : 'No billing adress has been added yet.'}
+                    : t('no billing adress has been added yet')}
                 </p>
               )}
             </div>

@@ -197,7 +197,7 @@ export default function ProductById() {
           />
         </div>
       ) : (
-        <div>Product not found</div>
+        <div>{t('product not found')}</div>
       )}
     </div>
   );

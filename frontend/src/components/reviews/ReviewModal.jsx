@@ -2,12 +2,14 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useContext } from 'react';
 import { BsFillStarFill, BsStar, BsStarHalf } from 'react-icons/bs';
 import { useParams } from 'react-router-dom';
+import LanguageContext from '../../contexts/LanguageContext.jsx';
 
 import AuthContext from '../../contexts/AuthContext';
 import reviewService from '../../services/reviewService';
 import { reviewValidationSchema } from '../../validations/review.validations';
 
 export default function ReviewModal({ setIsReviewOpen }) {
+  const { t } = useContext(LanguageContext);
   const { user } = useContext(AuthContext);
   const { productId } = useParams();
   const handleClose = () => {
@@ -34,7 +36,7 @@ export default function ReviewModal({ setIsReviewOpen }) {
     <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-bold">Rate this product</h2>
+          <h2 className="text-lg font-bold">{t('rate this product')}</h2>
           <button type="button" className="text-gray-500 hover:text-black" onClick={handleClose}>
             ✖
           </button>
@@ -53,7 +55,9 @@ export default function ReviewModal({ setIsReviewOpen }) {
           {({ values, setFieldValue }) => (
             <Form className="space-y-4">
               <div>
-                <label className="block text-sm font-medium mb-2 text-gray-900">Rating</label>
+                <label className="block text-sm font-medium mb-2 text-gray-900">
+                  {t('rating')}
+                </label>
                 <div className="flex space-x-1">
                   {[1, 2, 3, 4, 5].map((starValue) => (
                     <button
@@ -75,18 +79,20 @@ export default function ReviewModal({ setIsReviewOpen }) {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2 text-gray-900">Review</label>
+                <label className="block text-sm font-medium mb-2 text-gray-900">
+                  {t('review')}
+                </label>
                 <Field
                   as="textarea"
                   name="review"
-                  placeholder="Write your thoughts here..."
+                  placeholder={t('write your thoughts here')}
                   className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 h-40"
                 />
                 <ErrorMessage name="review" component="div" className="text-red-500 text-sm" />
               </div>
 
               <button type="submit" className="bg-primary text-white w-full py-2 rounded-lg">
-                Add review
+                {t('add review')}
               </button>
             </Form>
           )}
