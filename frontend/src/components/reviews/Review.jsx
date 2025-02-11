@@ -1,8 +1,8 @@
 import { useContext, useState } from 'react';
 
+import LanguageContext from '../../contexts/LanguageContext';
 import userService from '../../services/userService';
 import RatingStars from '../products/RatingStars';
-import LanguageContext from '../../contexts/LanguageContext';
 
 export default function Review({ review }) {
   const [user, setUser] = useState('');

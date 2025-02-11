@@ -5,9 +5,9 @@ import { toast } from 'react-toastify';
 
 import RatingDetails from './RatingDetails';
 import Review from './Review';
+import LanguageContext from '../../contexts/LanguageContext';
 import reviewService from '../../services/reviewService';
 import Pagination from '../products/Pagination';
-import LanguageContext from '../../contexts/LanguageContext';
 
 export default function Reviews(product) {
   const [searchParams] = useSearchParams();

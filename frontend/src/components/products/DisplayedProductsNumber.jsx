@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { useSearchParams } from 'react-router-dom';
+
 import LanguageContext from '../../contexts/LanguageContext';
 
 export default function DisplayedProductsNumber({ totalProducts }) {
