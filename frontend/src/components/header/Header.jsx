@@ -11,11 +11,13 @@ import AuthContext from '../../contexts/AuthContext';
 import CartContext from '../../contexts/CartContext';
 import LoginModal from '../loginModal/LoginModal';
 import RegistrationModal from '../registrationModal/RegistrationModal';
+import ResetPassword from '../loginModal/ResetPassword';
 
 export default function Header() {
   const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [isResetPasswordModalOpen, setIsResetPasswordModalOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
   const { user, logout } = useContext(AuthContext);
   const { cart } = useContext(CartContext);
@@ -185,7 +187,10 @@ export default function Header() {
       </div>
 
       {isRegisterModalOpen && <RegistrationModal onClose={() => setRegisterModalOpen(false)} />}
-      {isLoginModalOpen && <LoginModal onClose={() => setLoginModalOpen(false)} />}
+      {isLoginModalOpen && <LoginModal onClose={() => setLoginModalOpen(false)} openResetPasswordModal={() => setIsResetPasswordModalOpen(true)} />}
+      {isResetPasswordModalOpen && (
+        <ResetPassword onClose={() => setIsResetPasswordModalOpen(false)} />
+      )}
     </header>
   );
 }
