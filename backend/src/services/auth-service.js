@@ -87,4 +87,36 @@ const passwordUpdate = async (id, oldPassword, newPassword) => {
   return updatedUser;
 };
 
-export default { register, login, passwordUpdate };
+const forgottenPasswordUpdate = async (username, email) => {
+  const user = await prisma.user.findFirst({
+    where: { AND: [{ email }, { username }] },
+  });
+  if (!user)
+    throw new HttpError(
+      "This email adress or username is not registered in our sysem",
+      403
+    );
+
+  const allChars =
+    "abcdefghijklmnopqrstuvwxyz" +
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+    "0123456789" +
+    "!@#$%^&*()_+~`|}{[]:;?><,./-=";
+
+  let randomPassword = "";
+  for (let i = 0; i < 12; i++) {
+    const randomIndex = Math.floor(Math.random() * allChars.length);
+    randomPassword += allChars[randomIndex];
+  }
+
+  const hashedNewPassword = await bycrypt.hash(randomPassword, 5);
+
+  await prisma.user.update({
+    where: { id: user.id },
+    data: { passwordHash: hashedNewPassword },
+  });
+
+  return randomPassword;
+};
+
+export default { register, login, passwordUpdate, forgottenPasswordUpdate };

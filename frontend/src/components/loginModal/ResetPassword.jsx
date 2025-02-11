@@ -1,7 +1,24 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import authService from '../../services/authService';
+import { toast } from 'react-toastify';
+import emailjs from 'emailjs-com';
+import { VITE_PUBLIC_KEY, VITE_SERVICE_ID } from '../../constants/constants';
 
 export default function ResetPassword({ onClose }) {
-  const handleResetPassword = async () => {};
+  const handleResetPassword = async (values) => {
+    try {
+      const result = await authService.forgottenPasswordUpdate(values);
+      if (result.statusText === 'OK') {
+        toast.success('Password changed successfully');
+        onClose();
+        const data = { email: values.email, message: result.data, username: values.username };
+        await emailjs.send(VITE_SERVICE_ID, 'template_qmtei8p', data, VITE_PUBLIC_KEY);
+      }
+    } catch (error) {
+      toast.error(`Password changed failed.`);
+    }
+  };
+
   return (
     <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
