@@ -94,7 +94,7 @@ const forgottenPasswordUpdate = async (username, email) => {
   if (!user)
     throw new HttpError(
       "This email adress or username is not registered in our sysem",
-      403
+      403,
     );
 
   const allChars =
@@ -104,7 +104,7 @@ const forgottenPasswordUpdate = async (username, email) => {
     "!@#$%^&*()_+~`|}{[]:;?><,./-=";
 
   let randomPassword = "";
-  for (let i = 0; i < 12; i++) {
+  for (let i = 0; i < 12; i += 1) {
     const randomIndex = Math.floor(Math.random() * allChars.length);
     randomPassword += allChars[randomIndex];
   }

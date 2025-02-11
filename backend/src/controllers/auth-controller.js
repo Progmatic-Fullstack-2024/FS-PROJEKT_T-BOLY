@@ -44,7 +44,7 @@ const passwordChange = async (req, res, next) => {
     const updatedUser = await authService.passwordUpdate(
       id,
       oldPassword,
-      newPassword
+      newPassword,
     );
     res.status(200).json(updatedUser);
   } catch (error) {
@@ -58,7 +58,7 @@ const forgottenPasswordUpdate = async (req, res, next) => {
   try {
     const updatedUser = await authService.forgottenPasswordUpdate(
       username,
-      email
+      email,
     );
     res.status(200).json(updatedUser);
   } catch (error) {

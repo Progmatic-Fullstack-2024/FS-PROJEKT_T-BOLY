@@ -1,8 +1,9 @@
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import authService from '../../services/authService';
-import { toast } from 'react-toastify';
 import emailjs from 'emailjs-com';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { toast } from 'react-toastify';
+
 import { VITE_PUBLIC_KEY, VITE_SERVICE_ID } from '../../constants/constants';
+import authService from '../../services/authService';
 
 export default function ResetPassword({ onClose }) {
   const handleResetPassword = async (values) => {

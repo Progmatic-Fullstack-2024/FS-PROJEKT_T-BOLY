@@ -10,8 +10,8 @@ import LogoText from '../../assets/t-boly-orange.png';
 import AuthContext from '../../contexts/AuthContext';
 import CartContext from '../../contexts/CartContext';
 import LoginModal from '../loginModal/LoginModal';
-import RegistrationModal from '../registrationModal/RegistrationModal';
 import ResetPassword from '../loginModal/ResetPassword';
+import RegistrationModal from '../registrationModal/RegistrationModal';
 
 export default function Header() {
   const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
