@@ -41,7 +41,7 @@ export function AuthProvider({ children }) {
       }
     }
     setIsLoading(false);
-  }, [user]);
+  }, []);
 
   const register = async (userData) => {
     try {
