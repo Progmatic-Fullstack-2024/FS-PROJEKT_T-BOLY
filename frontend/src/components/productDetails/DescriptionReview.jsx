@@ -1,3 +1,6 @@
+import { useContext } from 'react';
+
+import LanguageContext from '../../contexts/LanguageContext';
 import Reviews from '../reviews/Reviews';
 
 export default function DescriptionReview({
@@ -7,6 +10,7 @@ export default function DescriptionReview({
   product,
   numberOfAllRating,
 }) {
+  const { t } = useContext(LanguageContext);
   return (
     <div className="flex flex-col border-2 rounded-xl p-2 md:p-10 gap-14 md:mt-20 mt-10">
       <div className="flex justify-center text-2xl gap-8">
@@ -15,7 +19,7 @@ export default function DescriptionReview({
           type="button"
           onClick={handleDescription}
         >
-          Description
+          {t('description')}
         </button>
         <div className="pt-2 pb-2">/</div>
         <button
@@ -23,7 +27,7 @@ export default function DescriptionReview({
           type="button"
           onClick={handleReviews}
         >
-          Reviews
+          {t('reviews')}
         </button>
       </div>
       {reviews ? (

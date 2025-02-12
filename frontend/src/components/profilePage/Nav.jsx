@@ -9,10 +9,12 @@ import { VscAccount } from 'react-icons/vsc';
 import { Link } from 'react-router-dom';
 
 import AuthContext from '../../contexts/AuthContext';
+import LanguageContext from '../../contexts/LanguageContext';
 
 export default function Nav() {
   const [isSidebarOpen, setIsSideBarOpen] = useState(false);
   const { user } = useContext(AuthContext);
+  const { t } = useContext(LanguageContext);
 
   const toggleSidebar = () => {
     setIsSideBarOpen(!isSidebarOpen);
@@ -35,7 +37,9 @@ export default function Nav() {
       <nav
         className={`h-full  top-0 px-4 py-4 overflow-y-auto p-8 left-0 z-40 w-64 transition-transform -translate-x-full sm:translate-x-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full hidden md:block'}`}
       >
-        <h2 className="mt-4 ml-4">Welcome, {user?.username}</h2>
+        <h2 className="mt-4 ml-4">
+          {t('welcome')}, {user?.username}
+        </h2>
 
         <ul className="font-medium">
           <li className="mt-4">
@@ -46,7 +50,7 @@ export default function Nav() {
             >
               <span className="flex ">
                 <BsBoxSeam className="mr-4 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 " />
-                Orders
+                {t('orders')}
               </span>
               <MdKeyboardArrowRight className="w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 " />
             </Link>
@@ -59,7 +63,7 @@ export default function Nav() {
             >
               <span className="flex  pb-0">
                 <IoIosHeartEmpty className=" pb-0 mr-4 flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 " />{' '}
-                Wishlist
+                {t('wishlist')}
               </span>
               <MdKeyboardArrowRight className="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 " />
             </Link>
@@ -72,7 +76,7 @@ export default function Nav() {
             >
               <span className="flex">
                 <VscAccount className="mr-4 flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 " />{' '}
-                Personal data
+                {t('personal data')}
               </span>
               <MdKeyboardArrowRight className="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 " />
             </Link>
@@ -85,7 +89,7 @@ export default function Nav() {
             >
               <span className="flex">
                 <IoLockClosedOutline className="mr-4 flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 " />{' '}
-                Change password
+                {t('change password')}
               </span>
               <MdKeyboardArrowRight className="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 " />
             </Link>
@@ -98,7 +102,7 @@ export default function Nav() {
             >
               <span className="flex">
                 <LuHouse className="mr-4 flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 " />{' '}
-                Adresses
+                {t('adresses')}
               </span>
               <MdKeyboardArrowRight className="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 " />
             </Link>
