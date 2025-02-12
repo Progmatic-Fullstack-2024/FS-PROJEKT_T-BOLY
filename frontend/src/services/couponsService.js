@@ -5,8 +5,8 @@ const createCoupon = async (couponData) => {
   return response.data;
 };
 
-const getAllCoupons = async () => {
-  const response = await axiosInstance.get('/api/coupons');
+const getAllCoupons = async (searchParams) => {
+  const response = await axiosInstance.get(`/api/coupons?${searchParams}`);
   return response.data;
 };
 

@@ -1,9 +1,12 @@
 import couponsService from "../services/coupons-service.js";
 
 const getAllCoupons = async (req, res, next) => {
+  const { page = 1, limit = 10, search } = req.query;
   try {
-    const coupons = await couponsService.getAllCoupons();
-    res.status(200).json(coupons);
+    const { coupons, totalCoupons, totalPages } =
+      await couponsService.getAllCoupons(Number(page), Number(limit), search);
+
+    res.status(200).json({ coupons, totalCoupons, totalPages });
   } catch (error) {
     next(error);
   }
