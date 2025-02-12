@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import couponService from '../../services/couponsService';
 import { couponValidationSchema } from '../../validations/coupon.validation';
 
-export default function AddNewCouponModal({ setIsOpen }) {
+export default function AddNewCouponModal({ setIsOpen, onCreate }) {
   const initialValues = {
     code: '',
     discount: '',
@@ -20,6 +20,7 @@ export default function AddNewCouponModal({ setIsOpen }) {
         discount: Number(values.discount),
       };
       const response = await couponService.createCoupon(formattedValues);
+      onCreate(response);
       if (response) toast.success('Coupon added successfully!');
       setIsOpen(false);
     } catch (error) {
