@@ -1,4 +1,5 @@
 import categoriesService from "../services/categories-service.js";
+import { createFile, updateFile } from "../services/file.service.js";
 
 const getAllCategories = async (req, res, next) => {
   const { order = "asc" } = req.params;
@@ -21,8 +22,10 @@ const getCategoryById = async (req, res, next) => {
 };
 
 const createCategory = async (req, res, next) => {
-  const { name, description, pictureUrl } = req.body;
+  const { name, description } = req.body;
+  const file = req.file || null;
   try {
+    const pictureUrl = await createFile(file);
     const newCategory = await categoriesService.createCategory({
       name,
       description,
@@ -36,8 +39,13 @@ const createCategory = async (req, res, next) => {
 
 const updateCategory = async (req, res, next) => {
   const { id } = req.params;
-  const { name, description, pictureUrl } = req.body;
+  const { name, description } = req.body;
+  const file = req.file || null;
   try {
+    const category = await categoriesService.getCategoryById(id);
+    const pictureUrl = file
+      ? await updateFile(category.pictureUrl, file)
+      : category.pictureUrl;
     const updatedCategory = await categoriesService.updateCategory(id, {
       name,
       description,
