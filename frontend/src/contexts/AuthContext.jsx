@@ -9,6 +9,7 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isUserAdult, setIsUserAdult] = useState(false);
 
   const logout = () => {
     localStorage.removeItem('token');
@@ -22,13 +23,25 @@ export function AuthProvider({ children }) {
       try {
         const decodedToken = jwtDecode(token);
         setUser(decodedToken);
+
+        const birthDate = new Date(decodedToken.birthDate);
+        const today = new Date();
+        const age = today.getFullYear() - birthDate.getFullYear();
+        const monthDifference = today.getMonth() - birthDate.getMonth();
+
+        const isAdult =
+          monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())
+            ? age - 1 >= 18
+            : age >= 18;
+
+        setIsUserAdult(isAdult);
       } catch (error) {
         toast.error('Invalid token', error);
         logout();
       }
     }
     setIsLoading(false);
-  }, []);
+  }, [user]);
 
   const register = async (userData) => {
     try {
@@ -64,7 +77,7 @@ export function AuthProvider({ children }) {
     }
   };
 
-  const value = { user, setUser, login, register, logout, passwordChange };
+  const value = { user, setUser, login, register, logout, passwordChange, isUserAdult };
 
   return <AuthContext.Provider value={value}>{!isLoading && children}</AuthContext.Provider>;
 }
