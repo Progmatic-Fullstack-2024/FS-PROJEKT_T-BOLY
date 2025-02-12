@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { BsDice5, BsCreditCard } from 'react-icons/bs';
 import { FiMenu, FiUser, FiUsers, FiHome, FiLogOut } from 'react-icons/fi';
-import { IoFileTrayStackedSharp } from "react-icons/io5";
+import { IoFileTrayStackedSharp } from 'react-icons/io5';
 import { LuTickets } from 'react-icons/lu';
 import { Outlet, Link, useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
