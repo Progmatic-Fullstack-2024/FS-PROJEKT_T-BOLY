@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
+import LanguageContext from '../../contexts/LanguageContext';
 import userService from '../../services/userService';
 import RatingStars from '../products/RatingStars';
 
 export default function Review({ review }) {
   const [user, setUser] = useState('');
+  const { t } = useContext(LanguageContext);
   const reviewTimestamp = () => {
     const createdAt = new Date(review.createdAt);
     const now = new Date();
@@ -16,12 +18,12 @@ export default function Review({ review }) {
     const days = Math.floor(hours / 24);
 
     if (days > 0) {
-      return `${days} day(s) ago`;
+      return `${days} ${t('day(s) ago')}`;
     }
     if (hours > 0) {
-      return `${hours} hour(s) ago`;
+      return `${hours} ${t('hour(s) ago')}`;
     }
-    return `now`;
+    return t('now');
   };
 
   const timeDiff = reviewTimestamp();

@@ -20,7 +20,7 @@ export default function ImageDeleteButton({ url, productId, onUpdate }) {
       });
       onUpdate(updatedProductImages);
     } catch (error) {
-      toast.error('Faild to upload image.');
+      toast.error('Failed to upload image.');
     }
   };
 

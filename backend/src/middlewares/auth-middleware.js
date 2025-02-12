@@ -5,7 +5,7 @@ import HttpError from "../utils/HttpError.js";
 const authenticate = (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
   if (!token || token === "undefined") {
-    next(new HttpError("Token is missing", 401));
+    next(new HttpError("You have to login to use this feature", 401));
   }
   try {
     const userDecoded = jwt.verify(token, JWT_SECRET);

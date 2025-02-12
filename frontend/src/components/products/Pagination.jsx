@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from 'react-icons/md';
 import { useSearchParams } from 'react-router-dom';
 
+import LanguageContext from '../../contexts/LanguageContext';
 import getPageNumbers from '../../utils/getPageNumbers';
 
 export default function Pagination({ totalPages }) {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { t } = useContext(LanguageContext);
 
   const pageNumber = Number(searchParams.get('page')) || 1;
 
@@ -29,7 +31,7 @@ export default function Pagination({ totalPages }) {
           <div
             className={`flex items-center justify-center px-2 h-10 ms-0 leading-tight text-2xl border border-1 rounded-full ${pageNumber <= 1 ? 'cursor-not-allowed text-gray-300 border-gray-200' : 'text-gray-900 bg-white  border-gray-400 hover:text-primary hover:border-primary'}`}
           >
-            <div className="sr-only">Previous</div>
+            <div className="sr-only">{t('previous')}</div>
             <MdKeyboardArrowLeft />
           </div>
         </button>
@@ -52,7 +54,7 @@ export default function Pagination({ totalPages }) {
           <div
             className={`flex items-center justify-center px-2 h-10 ms-0 leading-tight text-2xl border border-1  rounded-full ${pageNumber >= totalPages || pageNumber <= 0 ? 'cursor-not-allowed text-gray-300 border-gray-200' : 'text-gray-900 bg-white  border-gray-400 hover:text-primary hover:border-primary'}`}
           >
-            <div className="sr-only">Next</div>
+            <div className="sr-only">{t('next')}</div>
             <MdKeyboardArrowRight />
           </div>
         </button>

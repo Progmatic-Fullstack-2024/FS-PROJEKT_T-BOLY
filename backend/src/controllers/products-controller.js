@@ -21,6 +21,7 @@ const getAllProducts = async (req, res, next) => {
     maximumPrice = 1000,
     minAge = 0,
     maxAge = 100,
+    showDeleted,
     players = "all",
   } = req.query;
   const pageNumber = Number(page);
@@ -40,6 +41,7 @@ const getAllProducts = async (req, res, next) => {
       maxPriceNumber,
       minAgeNumber,
       maxAgeNumber,
+      showDeleted === "true",
       players,
     );
     const {
@@ -77,6 +79,7 @@ const getAllProductsByCategory = async (req, res, next) => {
     maximumPrice = 1000,
     minAge = 0,
     maxAge = 100,
+    showDeleted,
     players = "all",
   } = req.query;
   const pageNumber = Number(page);
@@ -99,6 +102,7 @@ const getAllProductsByCategory = async (req, res, next) => {
         maxPriceNumber,
         minAgeNumber,
         maxAgeNumber,
+        showDeleted === "true",
         players,
       );
     } else {
