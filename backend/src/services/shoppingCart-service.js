@@ -112,6 +112,20 @@ const removeCartItem = async (userId, productId) => {
   return removedCartItem;
 };
 
+const clearShoppingCart = async (userId) => {
+  const shoppingCart = await getShoppingCartByUserId(userId);
+
+  if (!shoppingCart || shoppingCart.length === 0) {
+    throw new HttpError("Cart is empty", 404);
+  }
+
+  const emptyCart = await prisma.cartItem.deleteMany({
+    where: { id: shoppingCart.id },
+  });
+
+  return emptyCart;
+};
+
 export default {
   getAllShoppingCarts,
   getShoppingCartByUserId,
@@ -119,4 +133,5 @@ export default {
   addCartItem,
   updateCartItem,
   removeCartItem,
+  clearShoppingCart,
 };

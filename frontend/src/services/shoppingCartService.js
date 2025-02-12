@@ -28,10 +28,16 @@ const removeCartItem = async (productId) => {
   return response.data;
 };
 
+const clearShoppingCart = async () => {
+  const response = await api.delete(`/api/shoppingCart/clear`);
+  return response.data;
+};
+
 export default {
   getAllShoppingCarts,
   getShoppingCartByUserId,
   addCartItem,
   updateCartItem,
   removeCartItem,
+  clearShoppingCart
 };

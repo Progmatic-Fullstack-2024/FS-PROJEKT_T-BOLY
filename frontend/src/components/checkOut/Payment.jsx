@@ -1,38 +1,31 @@
 import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import CartContext from '../../contexts/CartContext.jsx';
-import orderItemService from '../../services/orderItemService.js';
 import orderService from '../../services/orderService.js';
+
 
 export default function Payment() {
   const [order, setOrder] = useState();
   const [orderItems, setOrderItems] = useState([]);
-  const { cart, totalPrice } = useContext(CartContext);
+  const { cart, clearCart, totalPrice } = useContext(CartContext);
+  const navigate = useNavigate();
 
   const handleOrder = async () => {
     try {
-      const orderData = await orderService.createOrder(totalPrice);
-      setOrder(orderData);
-
-      const orderItemsData = await Promise.all(
-        cart.map(async (item) => {
-          const orderItem = await orderItemService.createOrderItem(
-            item.productId,
-            item.quantity,
-            item.price,
-          );
-          return orderItem;
-        }),
-      );
+      const { newOrder, orderItemsData } = await orderService.createOrder({
+        totalPrice,
+        orderItems: cart,
+      });
+      setOrder(newOrder);
       setOrderItems(orderItemsData);
+      clearCart()
+      navigate('/profile_page/orders')
     } catch (error) {
-      toast.error('Error fetching order');
+      toast.error('Error creating order');
     }
   };
-
-  console.log('order', order);
-  console.log('orderitems', orderItems);
 
   return (
     <div className=" border-2 rounded-xl p-12">

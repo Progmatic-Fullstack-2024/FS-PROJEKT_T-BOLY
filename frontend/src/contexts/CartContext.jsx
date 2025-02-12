@@ -93,11 +93,24 @@ export function CartProvider({ children }) {
     }
   };
 
+  const clearCart = async () => {
+    try {
+      await shoppingCartService.clearShoppingCart(); 
+      setCart([]);
+      setSubtotalPrice(0);
+      setTotalPrice(0);
+      setShippingPrice(10); 
+    } catch (error) {
+      toast.error('Could not clear the cart.');
+    }
+  };
+
   const value = {
     cart,
     addToCart,
     removeFromCart,
     updateCartItem,
+    clearCart,
     subtotalPrice,
     totalPrice,
     shippingPrice,
