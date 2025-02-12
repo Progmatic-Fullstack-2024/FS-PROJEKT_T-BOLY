@@ -35,7 +35,6 @@ export function AuthProvider({ children }) {
             : age >= 18;
 
         setIsUserAdult(isAdult);
-
       } catch (error) {
         toast.error('Invalid token', error);
         logout();
