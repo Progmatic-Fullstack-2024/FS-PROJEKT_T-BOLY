@@ -12,12 +12,7 @@ router.get(
   orderItemController.getAllOrderItemsByOrderId
 );
 router.get("/:id", orderController.getOrderById);
-router.post(
-  "/",
-  authenticate,
-  orderController.createOrder,
-  orderItemController.createOrderItem
-);
+router.post("/", authenticate, orderController.createOrder);
 router.put("/", orderController.updateOrder);
 router.put("/cancel", orderController.destroyOrder);
 

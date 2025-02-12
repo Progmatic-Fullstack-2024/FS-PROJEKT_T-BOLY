@@ -5,9 +5,9 @@ const getAllOrderItemsByOrderId = async (orderId) => {
   return orderItems;
 };
 
-const createOrderItem = async (orderItemData) => {
+const createOrderItem = async (orderId, productId, quantity, price) => {
   const orderItem = prisma.orderItem.create({
-    data: { orderItemData },
+    data: { orderId, productId, quantity, price },
   });
   return orderItem;
 };

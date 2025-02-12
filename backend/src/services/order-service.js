@@ -21,9 +21,10 @@ const getOrdersByUserId = async (userId) => {
   return orders;
 };
 
-const createOrder = async (userId, orderData) => {
+const createOrder = async (userId, totalPrice) => {
+  console.log("totalprice", totalPrice)
   const newOrder = await prisma.order.create({
-    data: { userId, orderData },
+    data: { userId, totalPrice },
   });
   return newOrder;
 };
