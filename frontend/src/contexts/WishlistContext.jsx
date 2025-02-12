@@ -36,6 +36,8 @@ export function WishlistProvider({ children }) {
     try {
       const updatedWishlist = await wishlistService.addProduct(productId);
       setWishlist(updatedWishlist.products);
+      setIsSubmitting(false);
+      toast.success('Product added to wishlist');
     } catch (error) {
       toast.error(error.response.data.error);
     } finally {
@@ -49,6 +51,8 @@ export function WishlistProvider({ children }) {
     try {
       await wishlistService.removeProduct(productId);
       setWishlist((prevWishlist) => prevWishlist.filter((item) => item.productId !== productId));
+      setIsSubmitting(false);
+      toast.success('Product removed from wishlist');
     } catch (error) {
       toast.error(error.response.data.error);
     } finally {

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { ImList } from 'react-icons/im';
 import { MdGridView } from 'react-icons/md';
 import { useParams, useSearchParams } from 'react-router-dom';
@@ -14,6 +14,7 @@ import ProductsGrid from './ProductsGrid.jsx';
 import ProductsList from './ProductsList.jsx';
 import SelectCategoryInput from './SelectCategoryInput.jsx';
 import Sorting from './Sorting.jsx';
+import LanguageContext from '../../contexts/LanguageContext.jsx';
 import categoryService from '../../services/categoryService.js';
 import productService from '../../services/productService.js';
 
@@ -30,13 +31,14 @@ export default function ProductsByCategory() {
   const [maxAge, setMaxAge] = useState(100);
   const [gridView, setGridView] = useState(true);
   const [priceRange, setPriceRange] = useState({});
+  const { t } = useContext(LanguageContext);
 
   useEffect(() => {
     const fetchCategoryAndProducts = async () => {
       try {
         setCategoryName(
           categoryId === 'all'
-            ? 'All products'
+            ? `${t('all')} ${t('product')}`
             : (await categoryService.getCategoryById(categoryId)).name,
         );
 
@@ -86,7 +88,7 @@ export default function ProductsByCategory() {
 
   return (
     <div className="md:m-20">
-      <h1 className="text-primary m-8 text-3xl font-medium">Products</h1>
+      <h1 className="text-primary m-8 text-3xl font-medium">{t('products')}</h1>
       <div className="flex gap-32 m-8">
         <div className="shrink-0 md:w-80 hidden md:block">
           <Nav />
@@ -107,7 +109,7 @@ export default function ProductsByCategory() {
           />
         </div>
         <div>
-          <h1 className=" hidden md:block mb-12 text-3xl">{categoryName}</h1>
+          <h1 className=" hidden md:block mb-12 text-3xl">{t(categoryName)}</h1>
           <div className="flex flex-col md:flex-row md:gap-80 gap-6 md:items-center md:mb-12">
             <div className="flex md:flex-row flex-col justify-between gap-6 md:mb-0 mb-8">
               <SelectCategoryInput />
