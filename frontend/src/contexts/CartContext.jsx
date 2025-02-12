@@ -97,9 +97,6 @@ export function CartProvider({ children }) {
     try {
       await shoppingCartService.clearShoppingCart(); 
       setCart([]);
-      setSubtotalPrice(0);
-      setTotalPrice(0);
-      setShippingPrice(10); 
     } catch (error) {
       toast.error('Could not clear the cart.');
     }
