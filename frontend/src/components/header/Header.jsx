@@ -7,6 +7,12 @@ import LanguageDropdown from './LanguageDropdown';
 import Nav from './Nav';
 import Searchbar from './Searchbar';
 import LogoOrange from '../../assets/ant-orange.png';
+import adressIcon from '../../assets/icons/address.png';
+import pesronalDataIcon from '../../assets/icons/data-breach.png';
+import heartIcon from '../../assets/icons/heart.png';
+import orderIcon from '../../assets/icons/order-delivery.png';
+import resetPasswordIcon from '../../assets/icons/reset-password.png';
+import userIcon from '../../assets/icons/user.png';
 import LogoText from '../../assets/t-boly-orange.png';
 import AuthContext from '../../contexts/AuthContext';
 import CartContext from '../../contexts/CartContext';
@@ -90,46 +96,51 @@ export default function Header() {
                 <ul className="py-2 text-sm text-gray-700">
                   <li>
                     <Link
-                      className="block px-4 py-2 hover:bg-gray-100"
+                      className="px-4 py-2 hover:bg-gray-100 flex"
                       to="profile_page/orders"
                       onClick={toggleDropdown}
                     >
+                      <img src={orderIcon} alt="" className="h-6 w-6 mr-2" />
                       {t('orders')}
                     </Link>
                   </li>
                   <li>
                     <Link
-                      className="block px-4 py-2 hover:bg-gray-100"
+                      className="px-4 py-2 hover:bg-gray-100 flex"
                       to="profile_page/wishlist"
                       onClick={toggleDropdown}
                     >
+                      <img src={heartIcon} alt="" className="h-6 w-6 mr-2 " />
                       {t('wishlist')}
                     </Link>
                   </li>
                   <li>
                     <Link
-                      className="block px-4 py-2 hover:bg-gray-100"
+                      className="px-4 py-2 hover:bg-gray-100 flex"
                       to="profile_page/personal_data"
                       onClick={toggleDropdown}
                     >
+                      <img src={pesronalDataIcon} alt="" className="h-6 w-6 mr-2 " />
                       {t('personal data')}
                     </Link>
                   </li>
                   <li>
                     <Link
-                      className="block px-4 py-2 hover:bg-gray-100"
+                      className="px-4 py-2 hover:bg-gray-100 flex"
                       to="profile_page/change_password"
                       onClick={toggleDropdown}
                     >
+                      <img src={resetPasswordIcon} alt="" className="h-6 w-6 mr-2 " />
                       {t('change password')}
                     </Link>
                   </li>
                   <li>
                     <Link
-                      className="block px-4 py-2 hover:bg-gray-100"
+                      className="px-4 py-2 hover:bg-gray-100 flex"
                       to="profile_page/adresses"
                       onClick={toggleDropdown}
                     >
+                      <img src={adressIcon} alt="" className="h-6 w-6 mr-2 " />
                       {t('adresses')}
                     </Link>
                   </li>
@@ -137,10 +148,11 @@ export default function Header() {
                   {user.role === 'ADMIN' && (
                     <li>
                       <Link
-                        className="block px-4 py-2 hover:bg-gray-100"
+                        className="px-4 py-2 hover:bg-gray-100 flex"
                         to="/admin"
                         onClick={toggleDropdown}
                       >
+                        <img src={userIcon} alt="" className="h-6 w-6 mr-2 " />
                         {t('admin page')}
                       </Link>
                     </li>
@@ -175,23 +187,26 @@ export default function Header() {
         <div className="order-3 md:order-1">
           <Nav />
         </div>
-        <div className="order-1 flex md:order-3">
-          <LanguageDropdown />
-        </div>
-        <div className="flex order-1 md:order-2">
+        <div className="flex items-center justify-center gap-8 order-1 md:order-2">
           <Link to="/shoppingCart" className="relative">
-            <FiShoppingCart className="w-6 h-6 m-7" />
+            <FiShoppingCart className="w-6 h-6" />
             {cartCount > 0 && (
-              <span className="absolute top-5 right-3 bg-red-600 text-white rounded-full text-xs px-1">
+              <span className="absolute -top-3 -right-3 bg-red-600 text-white rounded-full text-xs px-1">
                 {cartCount}
               </span>
             )}
           </Link>
           <Searchbar />
+          <LanguageDropdown />
         </div>
       </div>
 
-      {isRegisterModalOpen && <RegistrationModal onClose={() => setRegisterModalOpen(false)} />}
+      {isRegisterModalOpen && (
+        <RegistrationModal
+          onClose={() => setRegisterModalOpen(false)}
+          setLoginModalOpen={() => setLoginModalOpen(true)}
+        />
+      )}
       {isLoginModalOpen && <LoginModal onClose={() => setLoginModalOpen(false)} />}
     </header>
   );

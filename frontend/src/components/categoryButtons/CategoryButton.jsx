@@ -15,7 +15,7 @@ export default function CategoryButton({ category, idx }) {
     <Link className="w-40 flex flex-col items-center" to={`/products/category/${category.id}`}>
       <div>
         <img
-          className="w-32 h-32 object-contain"
+          className="w-48 h-48 object-contain"
           src={category.imageUrl || cloudImages[idx % cloudImages.length]}
           alt={category.name}
         />

@@ -24,16 +24,16 @@ export default function LanguageDropdown() {
   return (
     <button
       type="button"
-      className="text-white hover:bg-opacity-90 font-medium text-sm px-5 py-2.5 text-center inline-flex items-center  "
+      className="text-white hover:bg-opacity-90 font-medium text-sm py-2.5 text-center inline-flex items-center"
       onClick={handleClick}
     >
       <img src={languageImages[i18n.language] || EnFlag} alt="language flag" className="w-8 h-8" />
       {isOpen && (
-        <ul className="absolute top-32 right-0 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 text-gray-500">
+        <ul className="absolute top-32 right-0 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 text-gray-500 overflow-hidden">
           <li>
             <button
               onClick={() => handleLanguageChange('en')}
-              className="block px-4 py-2 hover:bg-gray-100 flex"
+              className="px-4 py-2 w-full hover:bg-gray-100 flex"
               to="profile_page/orders"
               type="button"
             >
@@ -44,7 +44,7 @@ export default function LanguageDropdown() {
           <li>
             <button
               onClick={() => handleLanguageChange('hu')}
-              className="block px-4 py-2 hover:bg-gray-100 flex "
+              className="px-4 py-2 w-full hover:bg-gray-100 flex"
               to="profile_page/orders"
               type="button"
             >
