@@ -1,13 +1,12 @@
-
-import axiosInstance from "./axiosInstance";
+import axiosInstance from './axiosInstance';
 
 const createCoupon = async (couponData) => {
-  const response = await axiosInstance.post("/api/coupons", couponData);
+  const response = await axiosInstance.post('/api/coupons', couponData);
   return response.data;
 };
 
 const getAllCoupons = async () => {
-  const response = await axiosInstance.get("/api/coupons");
+  const response = await axiosInstance.get('/api/coupons');
   return response.data;
 };
 
