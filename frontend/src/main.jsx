@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import App from './App';
+import CategoriesTable from './components/admin/CategoriesTable.jsx';
+import CouponsTable from './components/admin/CouponsTable.jsx';
 import OrdersTable from './components/admin/OrdersTable.jsx';
 import Overview from './components/admin/Overview.jsx';
 import ProductsTable from './components/admin/ProductsTable.jsx';
@@ -111,6 +113,14 @@ const router = createBrowserRouter([
       {
         path: 'orders',
         element: <OrdersTable />,
+      },
+      {
+        path: '/admin/categories',
+        element: <CategoriesTable />,
+      },
+      {
+        path: '/admin/coupons',
+        element: <CouponsTable />,
       },
     ],
   },

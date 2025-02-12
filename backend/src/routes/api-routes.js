@@ -7,9 +7,11 @@ import productCategoryConnection from "./product-category.routes.js";
 import shoppingCartRoutes from "./shoppingCart-routes.js";
 import wishlistRoutes from "./wishlist-routes.js";
 import reviewRoutes from "./review-routes.js";
+import couponsRoutes from "./coupons-routes.js";
 
 const router = express.Router();
 
+router.use("/coupons", couponsRoutes);
 router.use("/categories", categoriesRoutes);
 router.use("/products", productsRoutes);
 router.use("/images", productImagesRoutes);
