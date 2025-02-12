@@ -3,6 +3,7 @@ import { IoMdAddCircle } from 'react-icons/io';
 import { toast } from 'react-toastify';
 
 import AddNewCouponModal from './AddNewCouponModal.jsx';
+import DeleteCouponModal from './DeleteCouponModal.jsx';
 import couponService from '../../services/couponsService.js';
 
 export default function CouponsTable() {
@@ -15,13 +16,20 @@ export default function CouponsTable() {
         const data = await couponService.getAllCoupons();
         setCoupons(data);
       } catch (error) {
-        console.error(error);
         toast.error('Failed to fetch coupons');
       }
     };
 
     fetchCoupons();
   }, []);
+
+  const handleDelete = async (deletedId) => {
+    setCoupons((prevCoupons) => prevCoupons.filter((coupon) => coupon.id !== deletedId));
+  };
+
+  const handleCreate = async (newCoupon) => {
+    setCoupons((prevCoupons) => [...prevCoupons, newCoupon]);
+  };
 
   return (
     <section className="py-3 sm:py-5">
@@ -42,7 +50,9 @@ export default function CouponsTable() {
               <tr className="text-gray-700 uppercase bg-primary">
                 <th className="px-4 py-3">Code</th>
                 <th className="px-4 py-3">Discount</th>
-                <th className="px-4 py-3">Expiry Date</th>
+                <th className="px-4 py-3">Valid From</th>
+                <th className="px-4 py-3">Valid To</th>
+                <th className="px-4 py-3 text-center">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -50,12 +60,16 @@ export default function CouponsTable() {
                 <tr key={coupon.id} className="border-b">
                   <td className="px-4 py-3">{coupon.code}</td>
                   <td className="px-4 py-3">{coupon.discount}%</td>
-                  <td className="px-4 py-3">{new Date(coupon.expiryDate).toLocaleDateString()}</td>
+                  <td className="px-4 py-3">{new Date(coupon.validFrom).toLocaleDateString()}</td>
+                  <td className="px-4 py-3">{new Date(coupon.validTo).toLocaleDateString()}</td>
+                  <td className="px-4 py-3 text-center">
+                    <DeleteCouponModal coupon={coupon} onDelete={handleDelete} />
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          {isOpen && <AddNewCouponModal setIsOpen={setIsOpen} />}
+          {isOpen && <AddNewCouponModal setIsOpen={setIsOpen} onCreate={handleCreate} />}
         </div>
       </div>
     </section>
