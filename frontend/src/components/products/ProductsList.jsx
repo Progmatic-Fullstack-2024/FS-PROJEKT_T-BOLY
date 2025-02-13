@@ -3,6 +3,7 @@ import { FiShoppingCart } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
 import AddToWishlistHeart from './AddToWishlistHeart';
+import ProductsGridSkeleton from './ProductsGridSkeleton';
 import RatingStars from './RatingStars';
 import OutOfStock from '../../assets/out_of_stock.png';
 import CartContext from '../../contexts/CartContext';
@@ -11,8 +12,8 @@ export default function ProductsList({ productsByCategory, isLoading }) {
   const { addToCart, cart } = useContext(CartContext);
 
   if (isLoading) {
-    return <div>Loading...</div>;
-  }
+     return <ProductsGridSkeleton />;
+   }
 
   return (
     <div className="flex flex-col gap-12">
