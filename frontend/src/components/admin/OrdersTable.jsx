@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-
-import orderService from '../../services/orderService';
+import { BsSortUp, BsSortDownAlt } from 'react-icons/bs';
 import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { BsSortUp, BsSortDownAlt } from 'react-icons/bs';
+
 import OrderRow from './OrderRow';
+import orderService from '../../services/orderService';
 
 export default function OrdersTable() {
   const [orders, setOrders] = useState([]);
@@ -55,7 +55,7 @@ export default function OrdersTable() {
             <div className="flex items-center flex-1 space-x-4">
               <h5>
                 <span className="text-black">All Orders: </span>
-                <span className="text-black"></span>
+                <span className="text-black">valahány</span>
               </h5>
             </div>
           </div>
