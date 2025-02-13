@@ -41,7 +41,6 @@ const addToWishlist = async (userId, productId) => {
 };
 
 const removeFromWishlist = async (userId, productId) => {
-  console.table({ userId, productId });
   const wishlist = await prisma.wishList.findFirst({
     where: { userId },
   });

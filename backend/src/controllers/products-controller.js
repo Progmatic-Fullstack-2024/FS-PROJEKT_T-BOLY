@@ -117,6 +117,7 @@ const getAllProductsByCategory = async (req, res, next) => {
         maxPriceNumber,
         minAgeNumber,
         maxAgeNumber,
+        showDeleted === "true",
         players,
       );
     }
