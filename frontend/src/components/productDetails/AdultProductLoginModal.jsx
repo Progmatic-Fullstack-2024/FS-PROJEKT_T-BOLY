@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { RxCross } from 'react-icons/rx';
+import { RxCross2 } from 'react-icons/rx';
 import { useNavigate } from 'react-router-dom';
 
 import AuthContext from '../../contexts/AuthContext';
@@ -24,7 +24,7 @@ export default function AdultProductLoginModal() {
             className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
             data-modal-hide="default-modal"
           >
-            <RxCross className="w-3 h-3 text-current" />
+            <RxCross2 className="w-3 h-3 text-current" />
             <span className="sr-only">Close modal</span>
           </button>
         </div>

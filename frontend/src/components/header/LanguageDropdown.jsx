@@ -33,7 +33,7 @@ export default function LanguageDropdown() {
           <li>
             <button
               onClick={() => handleLanguageChange('en')}
-              className="px-4 py-2 w-full hover:bg-gray-100 flex"
+              className="px-4 py-2 w-full hover:bg-gray-100 flex items-center"
               to="profile_page/orders"
               type="button"
             >
@@ -44,7 +44,7 @@ export default function LanguageDropdown() {
           <li>
             <button
               onClick={() => handleLanguageChange('hu')}
-              className="px-4 py-2 w-full hover:bg-gray-100 flex"
+              className="px-4 py-2 w-full hover:bg-gray-100 flex items-center"
               to="profile_page/orders"
               type="button"
             >

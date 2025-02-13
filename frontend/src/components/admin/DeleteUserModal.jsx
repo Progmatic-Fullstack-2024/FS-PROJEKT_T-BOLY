@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { BiInfoCircle } from 'react-icons/bi';
 import { FiTrash } from 'react-icons/fi';
-import { RxCross } from 'react-icons/rx';
+import { RxCross2 } from 'react-icons/rx';
 
 export default function DeleteUserModal({ user, onDelete }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,7 +24,7 @@ export default function DeleteUserModal({ user, onDelete }) {
                 className="absolute top-3 end-2.5 text-gray-40 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
                 onClick={() => setIsOpen(false)}
               >
-                <RxCross className="w-3 h-3 text-current" />
+                <RxCross2 className="w-3 h-3 text-current" />
                 <span className="sr-only">Close modal</span>
               </button>
               <div className="p-4 md:p-5 text-center">
