@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { IoIosArrowDropdown } from 'react-icons/io';
+
 import EditOrderStatus from './EditOrderStatus';
 import OrderedProduct from './OrderedProduct';
-import { IoIosArrowDropdown } from 'react-icons/io';
+
 export default function OrderRow({ order }) {
   const [isOpen, setIsOpen] = useState(false);
 

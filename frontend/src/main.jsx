@@ -119,7 +119,7 @@ const router = createBrowserRouter([
       {
         path: '/admin/coupons',
         element: <CouponsTable />,
-      }
+      },
     ],
   },
 ]);

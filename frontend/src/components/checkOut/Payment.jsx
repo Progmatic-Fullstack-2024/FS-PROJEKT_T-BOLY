@@ -5,7 +5,6 @@ import { toast } from 'react-toastify';
 import CartContext from '../../contexts/CartContext.jsx';
 import orderService from '../../services/orderService.js';
 
-
 export default function Payment() {
   const [order, setOrder] = useState();
   const [orderItems, setOrderItems] = useState([]);
@@ -20,8 +19,8 @@ export default function Payment() {
       });
       setOrder(newOrder);
       setOrderItems(orderItemsData);
-      clearCart()
-      navigate('/profile_page/orders')
+      clearCart();
+      navigate('/profile_page/orders');
     } catch (error) {
       toast.error('Error creating order');
     }
