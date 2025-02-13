@@ -54,7 +54,7 @@ const addCartItem = async (userId, productId, quantity) => {
   const shoppingCart = await createShoppingCart(userId);
 
   const existingCartItem = shoppingCart?.products?.find(
-    (cartItem) => cartItem.productId === productId
+    (cartItem) => cartItem.productId === productId,
   );
 
   if (existingCartItem) {

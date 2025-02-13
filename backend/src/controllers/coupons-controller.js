@@ -31,7 +31,7 @@ const updateCoupon = async (req, res, next) => {
   try {
     const updatedCoupon = await couponsService.updateCoupon(
       req.params.id,
-      req.body
+      req.body,
     );
     res.status(200).json(updatedCoupon);
   } catch (error) {

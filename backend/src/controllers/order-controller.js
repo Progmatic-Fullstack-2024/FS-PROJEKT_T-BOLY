@@ -43,13 +43,13 @@ const createOrder = async (req, res, next) => {
             newOrder.id,
             item.productId,
             item.quantity,
-            item.price
+            item.price,
           );
           return orderItem;
         } catch (error) {
           return null;
         }
-      })
+      }),
     );
     res.status(201).json({ newOrder, orderItemsData });
   } catch (error) {
