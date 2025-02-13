@@ -13,7 +13,7 @@ router.get(
 );
 router.get("/:id", orderController.getOrderById);
 router.post("/", authenticate, orderController.createOrder);
-router.put("/", orderController.updateOrder);
+router.put("/:id", orderController.updateOrder);
 router.put("/cancel", orderController.destroyOrder);
 
 export default router;

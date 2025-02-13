@@ -3,7 +3,7 @@ import orderItemService from "../services/orderItem-service.js";
 
 const getAllOrders = async (req, res, next) => {
   try {
-    const orders = await orderService.getAllShoppingCarts();
+    const orders = await orderService.getAllOrders();
     res.status(200).json(orders);
   } catch (error) {
     next(error);
@@ -11,6 +11,7 @@ const getAllOrders = async (req, res, next) => {
 };
 
 const getOrderById = async (req, res, next) => {
+  const { id } = req.params;
   try {
     const order = await orderService.getOrderById(id);
     res.status(200).json(order);
