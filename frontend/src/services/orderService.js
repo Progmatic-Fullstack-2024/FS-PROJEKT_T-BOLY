@@ -1,9 +1,8 @@
 import api from './axiosInstance';
 
-const getAllOrders = async () => {
-  const response = await api.get('/api/order');
-  const orders = response.data;
-  return orders;
+const getAllOrders = async (searchParams) => {
+  const response = await api.get(`/api/order?${searchParams}`);
+  return response.data;
 };
 
 const getOrderById = async (id) => {
