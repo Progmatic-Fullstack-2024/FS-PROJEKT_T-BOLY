@@ -5,8 +5,10 @@ import { toast } from 'react-toastify';
 import CartContext from '../../contexts/CartContext.jsx';
 import orderService from '../../services/orderService.js';
 
+
 export default function Payment({ formData }) {
   const [showModal, setShowModal] = useState(false);
+
   const { cart, clearCart, totalPrice } = useContext(CartContext);
   const navigate = useNavigate();
 

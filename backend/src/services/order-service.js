@@ -2,14 +2,33 @@ import prisma from "../models/prismaClient.js";
 import HttpError from "../utils/HttpError.js";
 
 const getAllOrders = async () => {
-  const orders = await prisma.cart.findMany({});
+  const orders = await prisma.order.findMany({
+    include: {
+      user: {
+        select: { firstName: true, lastName: true, email: true, adress: true },
+      },
+      products: {
+        include: { product: { select: { name: true, pictureUrl: true } } },
+      },
+    },
+  });
   return orders;
 };
 
 const getOrderById = async (id) => {
-  const order = prisma.order.findUnique({
+  const order = await prisma.order.findUnique({
     where: { id },
+    include: {
+      user: {
+        select: { firstName: true, lastName: true, email: true, adress: true },
+      },
+      products: {
+        include: { product: { select: { name: true, pictureUrl: true } } },
+      },
+    },
   });
+
+  if (!order) throw new HttpError("This order does not exist", 403);
   return order;
 };
 
@@ -22,7 +41,7 @@ const getOrdersByUserId = async (userId) => {
 };
 
 const createOrder = async (userId, totalPrice) => {
-  console.log("totalprice", totalPrice)
+  console.log("totalprice", totalPrice);
   const newOrder = await prisma.order.create({
     data: { userId, totalPrice },
   });
@@ -31,10 +50,11 @@ const createOrder = async (userId, totalPrice) => {
 
 const updateOrder = async (id, status) => {
   const order = await getOrderById(id);
+  console.log(status);
   if (!order) throw new HttpError("Order not found", 404);
   const updatedOrder = await prisma.order.update({
     where: { id },
-    data: status,
+    data: { status },
   });
   return updatedOrder;
 };

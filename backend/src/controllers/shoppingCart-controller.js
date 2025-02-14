@@ -39,7 +39,7 @@ const addCartItem = async (req, res, next) => {
     const addedCartItem = await shoppingCartService.addCartItem(
       userId,
       productId,
-      quantity
+      quantity,
     );
     res.status(201).json(addedCartItem);
   } catch (error) {
@@ -54,7 +54,7 @@ const updateCartItem = async (req, res, next) => {
     const updatedCartItem = await shoppingCartService.updateCartItem(
       userId,
       productId,
-      quantity
+      quantity,
     );
     res.status(200).json(updatedCartItem);
   } catch (error) {
@@ -68,7 +68,7 @@ const removeCartItem = async (req, res, next) => {
   try {
     const removedCartItem = await shoppingCartService.removeCartItem(
       userId,
-      productId
+      productId,
     );
     res.status(200).json(removedCartItem);
   } catch (error) {

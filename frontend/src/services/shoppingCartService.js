@@ -39,5 +39,5 @@ export default {
   addCartItem,
   updateCartItem,
   removeCartItem,
-  clearShoppingCart
+  clearShoppingCart,
 };

@@ -95,7 +95,7 @@ export function CartProvider({ children }) {
 
   const clearCart = async () => {
     try {
-      await shoppingCartService.clearShoppingCart(); 
+      await shoppingCartService.clearShoppingCart();
       setCart([]);
     } catch (error) {
       toast.error('Could not clear the cart.');

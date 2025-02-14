@@ -9,11 +9,11 @@ router.get("/", orderController.getAllOrders);
 router.get("/ordersByUser", authenticate, orderController.getOrdersByUserId);
 router.get(
   "/ordersByUser/orderItems",
-  orderItemController.getAllOrderItemsByOrderId
+  orderItemController.getAllOrderItemsByOrderId,
 );
 router.get("/:id", orderController.getOrderById);
 router.post("/", authenticate, orderController.createOrder);
-router.put("/", orderController.updateOrder);
+router.put("/:id", orderController.updateOrder);
 router.put("/cancel", orderController.destroyOrder);
 
 export default router;

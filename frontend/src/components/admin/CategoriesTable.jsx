@@ -38,7 +38,9 @@ export default function CategoriesTable() {
           </div>
           <ul className="p-4 bg-white rounded-lg shadow">
             {categories.map((category) => (
-              <li key={category.id} className="text-lg py-2">{category.name}</li>
+              <li key={category.id} className="text-lg py-2">
+                {category.name}
+              </li>
             ))}
           </ul>
           {isOpen && <AddNewCategoryModal setIsOpen={setIsOpen} />}
