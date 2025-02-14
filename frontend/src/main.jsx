@@ -29,6 +29,7 @@ import Contacts from './pages/Contact.jsx';
 import Homepage from './pages/Homepage';
 import ProfilePage from './pages/ProfilePage.jsx';
 import './i18n';
+import Payment from './components/checkOut/Payment.jsx';
 
 const router = createBrowserRouter([
   {
@@ -67,7 +68,7 @@ const router = createBrowserRouter([
         path: '/checkOut',
         element: (
           <MemberRoute>
-            <CheckOut />
+            <Payment />
           </MemberRoute>
         ),
       },
