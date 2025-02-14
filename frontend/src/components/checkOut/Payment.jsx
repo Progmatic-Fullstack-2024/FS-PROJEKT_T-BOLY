@@ -5,16 +5,21 @@ import { toast } from 'react-toastify';
 import CartContext from '../../contexts/CartContext.jsx';
 import orderService from '../../services/orderService.js';
 
-export default function Payment() {
-  const [showModal, setShowModal] = useState(false); 
+export default function Payment({ formData }) {
+  const [showModal, setShowModal] = useState(false);
   const { cart, clearCart, totalPrice } = useContext(CartContext);
   const navigate = useNavigate();
+
+  console.log("formData", formData)
 
   const handleOrder = async () => {
     try {
       await orderService.createOrder({
         totalPrice,
         orderItems: cart,
+        adress: formData.address,
+        billingAdress: formData.billingAdress,
+        phoneNumber: formData.phoneNumber,
       });
       clearCart();
       setShowModal(true);
@@ -31,7 +36,7 @@ export default function Payment() {
   return (
     <div className=" border-2 rounded-xl p-12">
       <h1 className="text-2xl font-medium mb-8">Payment</h1>
-      <button type="button" onClick={handleOrder}>
+      <button type="submit" onClick={handleOrder}>
         order
       </button>
       {showModal && (
