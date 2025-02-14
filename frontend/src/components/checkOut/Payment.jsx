@@ -1,6 +1,7 @@
 import { Elements } from '@stripe/react-stripe-js';
-import { stripePromise } from '../../utils/stripe';
+
 import CheckoutForm from './CheckOut';
+import { stripePromise } from '../../utils/stripe';
 
 
 export default function Payment() {

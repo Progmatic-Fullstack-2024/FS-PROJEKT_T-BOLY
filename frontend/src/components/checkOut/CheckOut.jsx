@@ -6,14 +6,15 @@ import {
   CardNumberElement,
 } from '@stripe/react-stripe-js';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
-import visaLogo from '../../assets/card icons/visa.png';
-import masterCardLogo from '../../assets/card icons/card.png';
-import amexLogo from "../../assets/card icons/amex.png"
 
+import amexLogo from '../../assets/card icons/amex.png';
+import masterCardLogo from '../../assets/card icons/card.png';
+import visaLogo from '../../assets/card icons/visa.png';
 import paymentService from '../../services/paymentService';
+import LanguageContext from '../../contexts/LanguageContext';
 
 const PaymentSchema = Yup.object().shape({
   name: Yup.string().required('Name is required').min(2, 'Too short').max(50, 'Too long'),
@@ -35,6 +36,7 @@ export default function CheckoutForm() {
   const elements = useElements();
   const [loading, setLoading] = useState(false);
   const [cardType, setCardType] = useState(null);
+  const { t } = useContext(LanguageContext);
 
   const handleSubmit = async (values, { resetForm }) => {
     if (!stripe || !elements) return;
@@ -86,20 +88,17 @@ export default function CheckoutForm() {
       case 'mastercard':
         return masterCardLogo;
       case 'amex':
-        return amexLogo
-      case 'discover':
-        return '/images/discover-logo.png';
-      case 'jcb':
-        return '/images/jcb-logo.png';
+        return amexLogo;
+
       default:
-        return '/images/default-logo.png'; // Alapértelmezett logó, ha nem ismert
+        return '/images/default-logo.png';
     }
   };
 
   return (
     <div className="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
       <div className="flex items-center">
-        <h5 className='text-sm font-medium text-gray-700'>We accept: </h5>
+        <h5 className="text-sm font-medium text-gray-700">{t('we accept')} </h5>
         <img src={masterCardLogo} alt="" className="h-5 w-9 m-2" />
         <img src={visaLogo} alt="" className="h-9 w-9 m-2" />
         <img src={amexLogo} alt="" className="h-9 w-9" />
@@ -110,7 +109,7 @@ export default function CheckoutForm() {
           <Form>
             <div className="mb-4">
               <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                Name on card
+                {t('name on card')}
               </label>
               <Field
                 name="name"
@@ -121,7 +120,7 @@ export default function CheckoutForm() {
             </div>
 
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">Card Number</label>
+              <label className="block text-sm font-medium text-gray-700">{t('card number')}</label>
               <div className="flex">
                 {cardType && (
                   <div className="mt-2 text-sm text-gray-600 mr-2">
@@ -138,7 +137,9 @@ export default function CheckoutForm() {
 
             <div className="mb-4 grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700">Expiration date</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  {t('expiration date')}
+                </label>
                 <CardExpiryElement
                   options={cardElementOptions}
                   className="imt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
@@ -158,7 +159,7 @@ export default function CheckoutForm() {
               disabled={!stripe || loading}
               className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 disabled:bg-gray-400"
             >
-              {loading ? 'Processing...' : 'Pay'}
+              {loading ? t('processing') : t('pay')}
             </button>
           </Form>
         )}

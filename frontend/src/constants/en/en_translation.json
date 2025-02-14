@@ -137,5 +137,11 @@
   "player(s)": "player(s)",
   "available": "available",
   "out of stock": "Out of stock",
-  "product not found": "Product not found"
+  "product not found": "Product not found",
+  "pay": "Pay",
+  "processing": "Processing...",
+  "card number": "Card number",
+  "name on card": "Name on card",
+  "we accept": "We accept: ",
+  "expiration date": "Expiration date"
 }

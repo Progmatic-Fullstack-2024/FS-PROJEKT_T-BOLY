@@ -138,5 +138,11 @@
   "player(s)": "játékos",
   "available": "elérhető",
   "out of stock": "Nincs készleten",
-  "product not found": "A termék nem található"
+  "product not found": "A termék nem található",
+  "pay": "Fizetés",
+  "processing": "Feldolgozás...",
+  "card number": "Kártyaszám",
+  "name on card": "Kártyán szereplő név",
+  "we accept": "Elfogadunk: ",
+  "expiration date": "Lejárati dátum"
 }

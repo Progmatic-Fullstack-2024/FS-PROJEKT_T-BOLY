@@ -7,7 +7,7 @@ import OrdersTable from './components/admin/OrdersTable.jsx';
 import Overview from './components/admin/Overview.jsx';
 import ProductsTable from './components/admin/ProductsTable.jsx';
 import UserTable from './components/admin/UserTable.jsx';
-import CheckOut from './components/checkOut/CheckOut.jsx';
+import Payment from './components/checkOut/Payment.jsx';
 import MemberRoute from './components/MemberRoute.jsx';
 import ProductById from './components/productDetails/ProductById.jsx';
 import ProductsByCategory from './components/products/ProductsByCategory.jsx';
@@ -29,7 +29,6 @@ import Contacts from './pages/Contact.jsx';
 import Homepage from './pages/Homepage';
 import ProfilePage from './pages/ProfilePage.jsx';
 import './i18n';
-import Payment from './components/checkOut/Payment.jsx';
 
 const router = createBrowserRouter([
   {
