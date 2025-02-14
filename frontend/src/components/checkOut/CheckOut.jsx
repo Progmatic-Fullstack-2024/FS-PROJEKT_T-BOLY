@@ -9,6 +9,9 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
+import visaLogo from '../../assets/card icons/visa.png';
+import masterCardLogo from '../../assets/card icons/card.png';
+import amexLogo from "../../assets/card icons/amex.png"
 
 import paymentService from '../../services/paymentService';
 
@@ -76,8 +79,32 @@ export default function CheckoutForm() {
     }
   };
 
+  const getCardLogo = (brand) => {
+    switch (brand) {
+      case 'visa':
+        return visaLogo;
+      case 'mastercard':
+        return masterCardLogo;
+      case 'amex':
+        return amexLogo
+      case 'discover':
+        return '/images/discover-logo.png';
+      case 'jcb':
+        return '/images/jcb-logo.png';
+      default:
+        return '/images/default-logo.png'; // Alapértelmezett logó, ha nem ismert
+    }
+  };
+
   return (
     <div className="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
+      <div className="flex items-center">
+        <h5 className='text-sm font-medium text-gray-700'>We accept: </h5>
+        <img src={masterCardLogo} alt="" className="h-5 w-9 m-2" />
+        <img src={visaLogo} alt="" className="h-9 w-9 m-2" />
+        <img src={amexLogo} alt="" className="h-9 w-9" />
+      </div>
+
       <Formik initialValues={{ name: '' }} validationSchema={PaymentSchema} onSubmit={handleSubmit}>
         {() => (
           <Form>
@@ -95,12 +122,18 @@ export default function CheckoutForm() {
 
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700">Card Number</label>
-              <CardNumberElement
-                onChange={handleCardChange}
-                options={cardElementOptions}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              />
-             
+              <div className="flex">
+                {cardType && (
+                  <div className="mt-2 text-sm text-gray-600 mr-2">
+                    <img src={getCardLogo(cardType)} alt={cardType} className="inline-block h-8 " />
+                  </div>
+                )}
+                <CardNumberElement
+                  onChange={handleCardChange}
+                  options={cardElementOptions}
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
             </div>
 
             <div className="mb-4 grid grid-cols-2 gap-4">
