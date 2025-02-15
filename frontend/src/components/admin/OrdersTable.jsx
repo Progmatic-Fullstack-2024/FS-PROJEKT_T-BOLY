@@ -5,9 +5,13 @@ import { toast } from 'react-toastify';
 
 import OrderRow from './OrderRow';
 import orderService from '../../services/orderService';
+import DisplayedProductsNumber from '../products/DisplayedProductsNumber.jsx';
+import Pagination from '../products/Pagination.jsx';
 
 export default function OrdersTable() {
   const [orders, setOrders] = useState([]);
+  const [totalOrders, setTotalOrders] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
   const sorting = searchParams.get('sorting');
   const order = searchParams.get('order');
@@ -16,7 +20,9 @@ export default function OrdersTable() {
     const fetchOrders = async () => {
       try {
         const data = await orderService.getAllOrders(searchParams.toString());
-        setOrders(data);
+        setOrders(data.orders);
+        setTotalOrders(data.totalOrders);
+        setTotalPages(data.totalPages);
       } catch (error) {
         toast.error('Failed to fetch orders');
       }
@@ -26,14 +32,40 @@ export default function OrdersTable() {
   }, [searchParams]);
 
   const handleSort = (column) => {
-    if (sorting === column) {
+    if (column === 'userLastName') {
+      searchParams.set('sorting', 'lastName');
+      searchParams.set('table', 'user');
+      searchParams.set('order', order === 'asc' ? 'desc' : 'asc');
+    }
+    if (column === 'userEmail') {
+      searchParams.set('sorting', 'email');
+      searchParams.set('table', 'user');
+      searchParams.set('order', order === 'asc' ? 'desc' : 'asc');
+    }
+    if (column === 'userAddress') {
+      searchParams.set('sorting', 'adress');
+      searchParams.set('table', 'user');
+      searchParams.set('order', order === 'asc' ? 'desc' : 'asc');
+    }
+    if (column === 'totalPrice') {
+      searchParams.set('sorting', 'totalPrice');
+      searchParams.set('table', 'order');
+      searchParams.set('order', order === 'asc' ? 'desc' : 'asc');
+    }
+    if (column === 'createdAt') {
+      searchParams.set('sorting', 'createdAt');
+      searchParams.set('table', 'order');
+      searchParams.set('order', order === 'asc' ? 'desc' : 'asc');
+    }
+    if (column === 'status') {
+      searchParams.set('sorting', 'status');
+      searchParams.set('table', 'order');
       searchParams.set('order', order === 'asc' ? 'desc' : 'asc');
     } else {
-      searchParams.set('sorting', column);
-      searchParams.set('order', 'asc');
+      searchParams.set('page', 1);
+      searchParams.set('limit', 9);
+      setSearchParams(searchParams);
     }
-    searchParams.set('page', 1);
-    searchParams.set('limit', 9);
     setSearchParams(searchParams);
   };
 
@@ -47,6 +79,7 @@ export default function OrdersTable() {
     }
     return null;
   };
+
   return (
     <section className="py-3 sm:py-5">
       <div className="px-4 mx-auto max-w-screen-2xl lg:px-12">
@@ -55,7 +88,7 @@ export default function OrdersTable() {
             <div className="flex items-center flex-1 space-x-4">
               <h5>
                 <span className="text-black">All Orders: </span>
-                <span className="text-black">valahány</span>
+                <span className="text-black">{totalOrders}</span>
               </h5>
             </div>
           </div>
@@ -64,47 +97,60 @@ export default function OrdersTable() {
               <thead className="text-xs text-gray-700 uppercase bg-primary">
                 <tr>
                   <th
-                    onClick={() => handleSort('firstName')}
+                    onClick={() => handleSort('userLastName')}
                     className="px-4 py-3 w-48 text-left text-gray-100 cursor-pointer"
                   >
                     Costumer Name
-                    {renderSortIcon('firstName')}
+                    {renderSortIcon('lastName')}
                   </th>
                   <th
-                    onClick={() => handleSort('email')}
+                    onClick={() => handleSort('userEmail')}
                     className="px-4 py-3 w-48 text-left text-gray-100 cursor-pointer"
                   >
-                    Costumer Email {renderSortIcon('email')}
+                    Email {renderSortIcon('email')}
                   </th>
-                  <th className="px-4 py-3 w-48 text-left text-gray-100 ">Costumer Adress</th>
+
+                  <th
+                    onClick={() => handleSort('userAddress')}
+                    className="px-4 py-3 w-48 text-left text-gray-100 "
+                  >
+                    Adress {renderSortIcon('adress')}
+                  </th>
+
                   <th
                     onClick={() => handleSort('totalPrice')}
                     className="px-4 py-3 text-left text-gray-100 cursor-pointer hidden md:table-cell"
                   >
-                    Payed
+                    Paid
                     {renderSortIcon('totalPrice')}
                   </th>
-                  <th className="px-4 py-3  text-left text-gray-100">Status</th>
                   <th
                     onClick={() => handleSort('status')}
+                    className="px-4 py-3  text-left text-gray-100"
+                  >
+                    Status
+                    {renderSortIcon('status')}
+                  </th>
+                  <th
+                    onClick={() => handleSort('createdAt')}
                     className="px-4 py-3  text-left text-gray-100 cursor-pointer"
                   >
                     Created
-                    {renderSortIcon('status')}
+                    {renderSortIcon('createdAt')}
                   </th>
                   <th className="px-4 py-3  text-center text-gray-100  w-10">Ordered products</th>
                 </tr>
               </thead>
               <tbody>
-                {orders.map((torder) => (
+                {orders?.map((torder) => (
                   <OrderRow key={torder.id} order={torder} />
                 ))}
               </tbody>
             </table>
           </div>
           <div className="bg-primary bg-opacity-20 flex items-center justify-between p-8">
-            {/* <DisplayedProductsNumber totalProducts={totalUsers} />
-            <Pagination totalPages={totalPages} /> */}
+            <DisplayedProductsNumber totalProducts={totalOrders} />
+            <Pagination totalPages={totalPages} />
           </div>
         </div>
       </div>

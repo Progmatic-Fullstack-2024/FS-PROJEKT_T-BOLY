@@ -26,10 +26,10 @@ export default function EditOrderStatus({ order }) {
       <option value="AWAITING PAYMENT">AWAITING PAYMENT</option>
       <option value="PROCESSING">PROCESSING</option>
       <option value="PACKED">PACKED</option>
-      <option value=" OUTFORDELIVERY"> OUTFORDELIVERY</option>
-      <option value="  DELIVERED"> DELIVERED</option>
-      <option value="  COMPLETED"> COMPLETED</option>
-      <option value=" CANCELED"> CANCELED</option>
+      <option value="OUTFORDELIVERY">OUTFORDELIVERY</option>
+      <option value="DELIVERED">DELIVERED</option>
+      <option value="COMPLETED">COMPLETED</option>
+      <option value="CANCELED">CANCELED</option>
     </select>
   );
 }

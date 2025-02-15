@@ -2,8 +2,25 @@ import orderService from "../services/order-service.js";
 import orderItemService from "../services/orderItem-service.js";
 
 const getAllOrders = async (req, res, next) => {
+  const {
+    sorting = "lastName", // ezt át kell majd írni a createdAt -re
+    order = "asc",
+    table = "user",
+    page = 1,
+    limit = 9,
+    search,
+  } = req.query;
+  const pageNumber = Number(page);
+  const limitNumber = Number(limit);
   try {
-    const orders = await orderService.getAllOrders();
+    const orders = await orderService.getAllOrders(
+      sorting,
+      order,
+      table,
+      pageNumber,
+      limitNumber,
+      search,
+    );
     res.status(200).json(orders);
   } catch (error) {
     next(error);

@@ -7,6 +7,7 @@ import OrderedProduct from './OrderedProduct';
 export default function OrderRow({ order }) {
   const [isOpen, setIsOpen] = useState(false);
 
+  
   return (
     <>
       <tr className="border-b dark:border-gray-600 hover:bg-orange-200">
@@ -14,8 +15,9 @@ export default function OrderRow({ order }) {
           {order.user.lastName} {order.user.firstName}
         </td>
         <td className="px-4 py-3 hidden md:table-cell">{order.user.email}</td>
+        {/* <td className="px-4 py-3 hidden md:table-cell">{order.user.phoneNumber || "No number"}</td> */}
         <td className="px-4 py-3 hidden md:table-cell">{order.user.adress}</td>
-        <td className="px-4 py-3 hidden md:table-cell">{order.totalPrice}$</td>
+        <td className="px-4 py-3 hidden md:table-cell">€{order.totalPrice}</td>
         <td className="px-4 py-3">
           <EditOrderStatus order={order} />
         </td>
