@@ -1,6 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { BsDice5, BsCreditCard } from 'react-icons/bs';
 import { FiMenu, FiUser, FiUsers, FiHome, FiLogOut } from 'react-icons/fi';
+import { IoFileTrayStackedSharp } from 'react-icons/io5';
+import { LuTickets } from 'react-icons/lu';
 import { Outlet, Link, useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
@@ -96,6 +98,26 @@ export default function AdminLayout() {
               >
                 <FiUsers className="w-6 h-6" />
                 <span className="ml-3">Users</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/admin/categories"
+                onClick={() => setIsSidebarOpen(false)}
+                className="flex items-center p-2 text-base font-medium text-gray-50 hover:text-primary rounded-lg hover:bg-gray-100"
+              >
+                <IoFileTrayStackedSharp className="w-6 h-6" />
+                <span className="ml-3">Categories</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/admin/coupons"
+                onClick={() => setIsSidebarOpen(false)}
+                className="flex items-center p-2 text-base font-medium text-gray-50 hover:text-primary rounded-lg hover:bg-gray-100"
+              >
+                <LuTickets className="w-6 h-6" />
+                <span className="ml-3">Coupons</span>
               </Link>
             </li>
           </ul>

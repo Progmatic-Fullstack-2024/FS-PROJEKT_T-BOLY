@@ -3,9 +3,11 @@ import { AiOutlineHeart } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 
 import WishlistSkeleton from './WishlistSkeleton';
+import LanguageContext from '../../contexts/LanguageContext';
 import WishlistContext from '../../contexts/WishlistContext';
 
 export default function Wishlist() {
+  const { t } = useContext(LanguageContext);
   const { wishlist, removeProductFromWishlist } = useContext(WishlistContext);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -23,16 +25,18 @@ export default function Wishlist() {
     return (
       <div className="mx-auto w-full h-full bg-white rounded-2xl shadow-lg p-12 flex flex-col items-center justify-center">
         <AiOutlineHeart className="text-primary text-6xl mb-6" />
-        <p className="text-center text-3xl font-semibold text-gray-700">Your wishlist is empty</p>
+        <p className="text-center text-3xl font-semibold text-gray-700">
+          {t('your wishlist is empty')}
+        </p>
         <p className="text-center text-gray-500 mt-4">
-          Start adding items to your wishlist by browsing our products.
+          {t('start adding items to your wishlist by browsing our products')}
         </p>
       </div>
     );
   }
   return (
     <div className="mx-auto w-full h-full bg-white rounded-lg shadow-md p-8">
-      <h1 className="text-2xl font-bold mb-4">Wishlist</h1>
+      <h1 className="text-2xl font-bold mb-4">{t('wishlist')}</h1>
       <ul className="space-y-4">
         {wishlist.map((item) => (
           <li
@@ -55,7 +59,7 @@ export default function Wishlist() {
               onClick={() => removeProductFromWishlist(item.product.id)}
               className="text-red-500 hover:text-red-700 font-semibold"
             >
-              Remove
+              {t('remove')}
             </button>
           </li>
         ))}

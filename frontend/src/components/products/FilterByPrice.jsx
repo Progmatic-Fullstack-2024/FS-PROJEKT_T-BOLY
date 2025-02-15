@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import RangeSlider from 'react-range-slider-input';
 import 'react-range-slider-input/dist/style.css';
 import './slider.css';
 import { useSearchParams } from 'react-router-dom';
 
 import FilterByPriceSkeleton from './FilterByPriceSkeleton';
+import LanguageContext from '../../contexts/LanguageContext';
 
 export default function FilterByPrice({
   minPrice,
@@ -14,6 +15,7 @@ export default function FilterByPrice({
   priceRange,
 }) {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { t } = useContext(LanguageContext);
   const [isLoading, setIsLoading] = useState(true);
 
   const min = priceRange.rangeMin;
@@ -60,7 +62,7 @@ export default function FilterByPrice({
   }
   return (
     <div className="flex flex-col gap-2 p-6 border-2 rounded-lg mb-10">
-      <h3 className="text-xl mb-6">Filter by price</h3>
+      <h3 className="text-xl mb-6">{t('filter by price')}</h3>
       <RangeSlider
         min={min}
         max={max}
@@ -101,14 +103,14 @@ export default function FilterByPrice({
           type="button"
           onClick={handleClearFilterByPrice}
         >
-          Clear
+          {t('clear')}
         </button>
         <button
           className="w-28 rounded-xl border-2 border-primary bg-primary p-2 text-white  hover:text-black hover:border-gray-900"
           type="button"
           onClick={handleFilterByPrice}
         >
-          Apply
+          {t('apply')}
         </button>
       </div>
     </div>

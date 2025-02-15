@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import RangeSlider from 'react-range-slider-input';
 import 'react-range-slider-input/dist/style.css';
 import './slider.css';
@@ -6,9 +6,11 @@ import { useSearchParams, } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import FilterByAgeSkeleton from './FilterByAgeSkeleton';
+import LanguageContext from '../../contexts/LanguageContext';
 
 export default function FilterByPrice({ minAge, maxAge, setMaxAge, setMinAge }) {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { t } = useContext(LanguageContext);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -50,7 +52,7 @@ export default function FilterByPrice({ minAge, maxAge, setMaxAge, setMinAge }) 
 
   return (
     <div className="flex flex-col gap-2 p-6 border-2 rounded-lg mb-10">
-      <h3 className="text-xl mb-6">Filter by Age</h3>
+      <h3 className="text-xl mb-6">{t('filter by age')}</h3>
       <RangeSlider
         min={0}
         max={100}
@@ -89,14 +91,14 @@ export default function FilterByPrice({ minAge, maxAge, setMaxAge, setMinAge }) 
           type="button"
           onClick={handleClearFilterByAge}
         >
-          Clear
+          {t('clear')}
         </button>
         <button
           className="w-28 rounded-xl border-2 border-primary bg-primary p-2 text-white  hover:text-black hover:border-gray-900"
           type="button"
           onClick={handleFilterByAge}
         >
-          Apply
+          {t('apply')}
         </button>
       </div>
     </div>

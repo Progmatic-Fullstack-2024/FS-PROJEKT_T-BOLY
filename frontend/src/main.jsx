@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import App from './App';
+import CategoriesTable from './components/admin/CategoriesTable.jsx';
+import CouponsTable from './components/admin/CouponsTable.jsx';
 import OrdersTable from './components/admin/OrdersTable.jsx';
 import Overview from './components/admin/Overview.jsx';
 import ProductsTable from './components/admin/ProductsTable.jsx';
@@ -21,12 +23,14 @@ import ProtectedRoute from './components/ProtectedRoute.jsx';
 import ShoppingCart from './components/shoppingCart/ShoppingCart.jsx';
 import { AuthProvider } from './contexts/AuthContext.jsx';
 import { CartProvider } from './contexts/CartContext.jsx';
+import { LanguageProvider } from './contexts/LanguageContext.jsx';
 import { WishlistProvider } from './contexts/WishlistContext.jsx';
 import About from './pages/About.jsx';
 import AdminLayout from './pages/AdminLayout.jsx';
 import Contacts from './pages/Contact.jsx';
 import Homepage from './pages/Homepage';
 import ProfilePage from './pages/ProfilePage.jsx';
+import './i18n';
 
 const router = createBrowserRouter([
   {
@@ -110,16 +114,26 @@ const router = createBrowserRouter([
         path: 'orders',
         element: <OrdersTable />,
       },
+      {
+        path: '/admin/categories',
+        element: <CategoriesTable />,
+      },
+      {
+        path: '/admin/coupons',
+        element: <CouponsTable />,
+      },
     ],
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <AuthProvider>
-    <CartProvider>
-      <WishlistProvider>
-        <RouterProvider router={router} />
-      </WishlistProvider>
-    </CartProvider>
-  </AuthProvider>,
+  <LanguageProvider>
+    <AuthProvider>
+      <CartProvider>
+        <WishlistProvider>
+          <RouterProvider router={router} />
+        </WishlistProvider>
+      </CartProvider>
+    </AuthProvider>
+  </LanguageProvider>,
 );

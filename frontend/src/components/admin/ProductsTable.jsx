@@ -17,6 +17,7 @@ export default function ProductsTable() {
   const [totalProducts, setTotalProducts] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [isStatus, setIsStatus] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   const sorting = searchParams.get('sorting');
@@ -40,7 +41,6 @@ export default function ProductsTable() {
         setIsLoading(false);
       }
     };
-
     fetchProductsByCategory();
   }, [searchParams, selectedCategory]);
 
@@ -80,6 +80,15 @@ export default function ProductsTable() {
       <BsSortDownAlt className="w-5 h-5 inline ml-1" />
     );
   };
+  const handleStatus = () => {
+    setIsStatus(!isStatus);
+    if (searchParams.get('showDeleted')) {
+      searchParams.delete('showDeleted');
+    } else {
+      searchParams.set('showDeleted', true);
+    }
+    setSearchParams(searchParams);
+  };
  if (isLoading) {
      return <ProductsTableSkeleton />;
    }
@@ -95,6 +104,13 @@ export default function ProductsTable() {
                 <span className="text-black">{totalProducts}</span>
               </h5>
             </div>
+            <button
+              onClick={handleStatus}
+              type="button"
+              className="flex items-center justify-center flex-shrink-0 px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-400 rounded-lg hover:bg-primary hover:text-primary-700 focus:ring-4 focus:ring-gray-200"
+            >
+              {isStatus ? 'Hide Deleted' : 'Show Deleted'}
+            </button>
             <CategorySelect setSelectedCategory={setSelectedCategory} />
             <div className="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
               <ProductAdminModal>Add newProduct</ProductAdminModal>
@@ -125,6 +141,7 @@ export default function ProductsTable() {
                       </label>
                     </div>
                   </th> */}
+                  <th className="w-20 text-center text-gray-100 cursor-pointer">Img</th>
                   <th
                     scope="col"
                     className="px-4 py-3 w-48 text-left text-gray-100 cursor-pointer"
@@ -134,7 +151,7 @@ export default function ProductsTable() {
                   </th>
                   <th
                     scope="col"
-                    className="px-4 py-3 w-48 text-left text-gray-100 hidden md:table-cell"
+                    className="px-4 py-3 max-w-48 text-left text-gray-100 hidden md:table-cell"
                   >
                     Description
                   </th>
@@ -143,14 +160,14 @@ export default function ProductsTable() {
                   </th>
                   <th
                     scope="col"
-                    className="px-4 py-3 w-24 text-left text-gray-100 cursor-pointer"
+                    className="px-4 py-3 w-24 text-right text-gray-100 cursor-pointer"
                     onClick={() => handleSort('price')}
                   >
                     Price {renderSortIcon('price')}
                   </th>
                   <th
                     scope="col"
-                    className="px-4 py-3 w-24 text-left text-gray-100 cursor-pointer"
+                    className="px-4 py-3 max-w-14 text-left text-gray-100 cursor-pointer"
                     onClick={() => handleSort('quantity')}
                   >
                     Quantity {renderSortIcon('quantity')}
@@ -162,14 +179,15 @@ export default function ProductsTable() {
                   >
                     Rating {renderSortIcon('rating')}
                   </th>
-                  <th
-                    scope="col"
-                    className="px-4 py-3 w-24 text-left text-gray-100 cursor-pointer"
-                    onClick={() => handleSort('status')}
-                  >
-                    Status {renderSortIcon('status')}
-                  </th>
-                  <th scope="col" className="px-4 py-3 w-48 text-left text-gray-100">
+                  {isStatus ? (
+                    <th scope="col" className="px-4 py-3 w-24 text-center text-gray-100 ">
+                      Status
+                    </th>
+                  ) : (
+                    ''
+                  )}
+
+                  <th scope="col" className="px-4 py-3 text-left text-gray-100 max-w-6">
                     Actions
                   </th>
                 </tr>
@@ -177,13 +195,14 @@ export default function ProductsTable() {
               <tbody>
                 {productsByCategory &&
                   productsByCategory
-                    .filter((product) => !product.isDeleted)
+                    .filter((product) => (!isStatus ? !product.isDeleted : product))
                     .map((product) => (
                       <ProductRow
                         key={product.id}
                         product={product}
                         onUpdate={onUpdate}
                         onDelete={onDelete}
+                        isStatus={isStatus}
                       />
                     ))}
               </tbody>

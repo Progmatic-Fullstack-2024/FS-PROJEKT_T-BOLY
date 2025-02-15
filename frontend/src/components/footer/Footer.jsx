@@ -1,9 +1,12 @@
+import { useContext } from 'react';
 import { FaInstagram, FaTwitter, FaFacebook, FaPinterest } from 'react-icons/fa';
 
 import FooterBg from '../../assets/footer-bg.png';
 import TbolyOrange from '../../assets/t-boly-orange.png';
+import LanguageContext from '../../contexts/LanguageContext';
 
 export default function Footer() {
+  const { t } = useContext(LanguageContext);
   return (
     <footer className="w-full h-[32rem] relative font-orienta">
       {/* Background Image */}
@@ -39,37 +42,37 @@ export default function Footer() {
 
           {/* My Account Section */}
           <div>
-            <h2 className="text-xl font-semibold">My Account</h2>
+            <h2 className="text-xl font-semibold">{t('my account')}</h2>
             <ul className="mt-4 space-y-2">
               <li>
-                <div className="hover:underline">Track my order</div>
+                <div className="hover:underline">{t('track my order')}</div>
               </li>
               <li>
-                <div className="hover:underline">Terms of use</div>
+                <div className="hover:underline">{t('terms of use')}</div>
               </li>
               <li>
-                <div className="hover:underline">Wishlist</div>
+                <div className="hover:underline">{t('wishlist')}</div>
               </li>
               <li>
-                <div className="hover:underline">Submit Your Feedback</div>
+                <div className="hover:underline">{t('submit your feedback')}</div>
               </li>
             </ul>
           </div>
 
           {/* Customer Service Section */}
           <div className="hidden md:block">
-            <h2 className="text-xl font-semibold">Customer Service</h2>
+            <h2 className="text-xl font-semibold">{t('costumer service')}</h2>
             <ul className="mt-4 space-y-2">
-              <li>Monday to Friday</li>
+              <li>{t('monday to friday')}</li>
               <li>10am - 6pm (New York time)</li>
               <li>
-                Call us:{' '}
+                {t('call us')}:{' '}
                 <a className="text-primary" href="tel:1234567868">
                   123-456-7868
                 </a>
               </li>
               <li>
-                Email us:{' '}
+                {t('email us')}:{' '}
                 <a className="text-primary" href="mailto:info@example.com">
                   info@example.com
                 </a>

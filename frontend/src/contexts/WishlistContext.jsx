@@ -10,6 +10,7 @@ export function WishlistProvider({ children }) {
   const { user } = useContext(AuthContext);
   const [wishlist, setWishlist] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const fetchWishlist = async () => {
@@ -30,22 +31,32 @@ export function WishlistProvider({ children }) {
   }, [user?.username]);
 
   const addProductToWishlist = async (productId) => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
     try {
       const updatedWishlist = await wishlistService.addProduct(productId);
       setWishlist(updatedWishlist.products);
+      setIsSubmitting(false);
       toast.success('Product added to wishlist');
     } catch (error) {
-      toast.error('Error adding product to wishlist');
+      toast.error(error.response.data.error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   const removeProductFromWishlist = async (productId) => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
     try {
       await wishlistService.removeProduct(productId);
       setWishlist((prevWishlist) => prevWishlist.filter((item) => item.productId !== productId));
+      setIsSubmitting(false);
       toast.success('Product removed from wishlist');
     } catch (error) {
-      toast.error('Error removing product from wishlist');
+      toast.error(error.response.data.error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 

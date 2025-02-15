@@ -25,10 +25,10 @@ export default function AddNewUserModal({ setIsOpen }) {
   const sendEmail = async (formData) => {
     try {
       const response = await emailjs.send(
-        VITE_SERVICE_ID, // Az EmailJS-ben létrehozott Service ID
-        VITE_TEMPLATE_ID, // Az EmailJS-ben létrehozott Template ID
+        VITE_SERVICE_ID,
+        VITE_TEMPLATE_ID,
         formData,
-        VITE_PUBLIC_KEY, // Az API kulcs (Public Key)
+        VITE_PUBLIC_KEY,
       );
       return response;
     } catch (error) {
@@ -46,7 +46,7 @@ export default function AddNewUserModal({ setIsOpen }) {
       const response = await userService.createUser(formattedValues);
       if (response) toast.success('User added successfully!');
       sendEmail({
-        email: formattedValues.email, // A címzett e-mail címe
+        email: formattedValues.email,
         user_name: formattedValues.firstName,
         message: `Hello ${formattedValues.firstName}, your account has been created successfully!`,
       });

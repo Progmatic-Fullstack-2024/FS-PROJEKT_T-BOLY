@@ -7,11 +7,11 @@ export default function AddToWishlistHeart({ product }) {
   const { wishlist, addProductToWishlist, removeProductFromWishlist } = useContext(WishlistContext);
   const isInWishlist = wishlist.some((item) => item.productId === product.id);
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (isInWishlist) {
-      removeProductFromWishlist(product.id);
+      await removeProductFromWishlist(product.id);
     } else {
-      addProductToWishlist(product.id);
+      await addProductToWishlist(product.id);
     }
   };
   return (

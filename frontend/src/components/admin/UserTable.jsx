@@ -67,7 +67,6 @@ export default function UsersTable() {
   const handleDelete = async (userId) => {
     try {
       await userService.deleteUser(userId);
-      toast.success('User deleted successfully');
       setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId));
     } catch (error) {
       toast.error('Failed to delete user');
