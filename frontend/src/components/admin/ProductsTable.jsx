@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import CategorySelect from './CategorySelect.jsx';
 import ProductAdminModal from './CreateProductByAdmin.jsx';
 import ProductRow from './ProductRow.jsx';
+import ProductsTableSkeleton from './ProductsTableSkeleton.jsx';
 import productService from '../../services/productService.js';
 import DisplayedProductsNumber from '../products/DisplayedProductsNumber.jsx';
 import Pagination from '../products/Pagination.jsx';
@@ -16,12 +17,14 @@ export default function ProductsTable() {
   const [totalProducts, setTotalProducts] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [isLoading, setIsLoading] = useState(true);
 
   const sorting = searchParams.get('sorting');
   const order = searchParams.get('order');
 
   useEffect(() => {
     const fetchProductsByCategory = async () => {
+      setIsLoading(true);
       try {
         const data = await productService.getAllProductsByCategory(
           selectedCategory,
@@ -33,6 +36,8 @@ export default function ProductsTable() {
         setTotalPages(data.totalPages);
       } catch (error) {
         toast.error('Failed to fetch products:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -75,6 +80,9 @@ export default function ProductsTable() {
       <BsSortDownAlt className="w-5 h-5 inline ml-1" />
     );
   };
+ if (isLoading) {
+     return <ProductsTableSkeleton />;
+   }
 
   return (
     <section className="py-3 sm:py-5">
