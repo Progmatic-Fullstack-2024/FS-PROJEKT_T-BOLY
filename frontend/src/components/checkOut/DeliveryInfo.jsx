@@ -1,55 +1,53 @@
-import { ErrorMessage, Field, Formik } from 'formik';
-import { Form } from 'react-router-dom';
-import * as yup from 'yup';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import React, { useContext, useState } from 'react';
+import AuthContext from '../../contexts/AuthContext';
+import CartContext from '../../contexts/CartContext';
 
-export default function DeliveryInfo({
-  sameAddresses,
-  setSameAddresses,
-  formData,
-  setFormData,
-}) {
-  const userDataValidationSchema = yup.object({
-    firstName: yup.string().required('FirstName is required'),
-    lastName: yup.string().required('LastName is required'),
-    street: yup.string().required('Street is required'),
-    houseNumber: yup.string().required('House number is required'),
-    country: yup.string().required('Country is required'),
-    city: yup.string().required('City is required'),
-    postalCode: yup.string().required('ZIP code is required'),
-    phoneNumber: yup.string().required('Phone number is required'),
-    email: yup.string().email('Invalid email format').required('Email is required'),
-    orderNotes: yup.string(),
-  });
+export default function DeliveryInfo() {
+  const { user } = useContext(AuthContext);
+  const { cart, clearCart, totalPrice } = useContext(CartContext);
 
-  const handleSetBillingAddress = () => {
-    setSameAddresses((prev) => !prev);
-    if (sameAddresses) {
-      setFormData((values) => ({
-        ...values,
-        billingStreet: values.billingStreet,
-        billingHouseNumber: values.billingHouseNumber,
-        billingCountry: values.billingCountry,
-        billingCity: values.billingCity,
-        billingPostalCode: values.billingPostalCode,
-      }));
-    }
+  const initialValues = {
+    firstName: user.firstName || '',
+    lastName: user.lastName || '',
+    street: user.adress?.split(', ')[3] || '',
+    houseNumber: user.adress?.split(', ')[4] || '',
+    country: user.adress?.split(', ')[0] || '',
+    city: user.adress?.split(', ')[1] || '',
+    postalCode: user.adress?.split(', ')[2] || '',
+    phoneNumber: 'soon',
+    email: user.email,
+    orderNotes: '',
+    billingStreet: user.billingAdress?.split(', ')[3] || '',
+    billingHouseNumber: user.billingAdress?.split(', ')[4] || '',
+    billingCountry: user.billingAdress?.split(', ')[0] || '',
+    billingCity: user.billingAdress?.split(', ')[1] || '',
+    billingPostalCode: user.billingAdress?.split(', ')[2] || '',
+    isSameAdress: true,
+  };
+
+  const handleSubmit = (values) => {
+    console.table({
+      totalPrice,
+      orderItems: cart,
+      adress: `${values.country}, ${values.city}, ${values.postalCode}, ${values.street}, ${values.houseNumber}`,
+      billingAdress: values.isSameAdress
+        ? `${values.country}, ${values.city}, ${values.postalCode}, ${values.street}, ${values.houseNumber}`
+        : `${values.billingCountry}, ${values.billingCity}, ${values.billingPostalCode}, ${values.billingStreet}, ${values.billingHouseNumber}`,
+      phoneNumber: values.phoneNumber,
+    });
   };
 
   return (
     <div className=" border-2 rounded-xl p-12">
       <h1 className="text-2xl font-medium mb-12">Delivery info</h1>
-      <div>
-        <Formik
-          initialValues={formData}
-          validationSchema={userDataValidationSchema}
-          onSubmit={(values) => {
-            setFormData((prevData) => ({
-              ...prevData,
-              ...values, 
-            }));
-            console.log('Updated form data: ', formData); 
-          }}
-        >
+      <Formik
+        initialValues={initialValues}
+        onSubmit={(values) => {
+          handleSubmit(values);
+        }}
+      >
+        {({ values }) => (
           <Form className="flex flex-col gap-6">
             <div className=" flex justify-between gap-10">
               <div className="w-1/2">
@@ -175,14 +173,12 @@ export default function DeliveryInfo({
                 <Field
                   className="w-5 h-5 border-2 border-gray-300 rounded-md checked:bg-primary checked:border-transparent "
                   type="checkbox"
-                  name="sameAddresses"
-                  checked={sameAddresses}
-                  onChange={handleSetBillingAddress}
+                  name="isSameAdress"
                 />
                 <span>Use shipping address as billing address</span>
               </label>
             </div>
-            {!sameAddresses && (
+            {!values.isSameAdress && (
               <div className="flex flex-col gap-6">
                 <h1 className="text-2xl font-medium mt-8 mb-12">Billing Address</h1>
                 <div className="flex justify-between gap-10">
@@ -256,9 +252,10 @@ export default function DeliveryInfo({
                 </div>
               </div>
             )}
+            <button type="submit">Order</button>
           </Form>
-        </Formik>
-      </div>
+        )}
+      </Formik>
     </div>
   );
 }
