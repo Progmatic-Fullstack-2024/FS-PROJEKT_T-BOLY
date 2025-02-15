@@ -4,12 +4,14 @@ import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
 import AuthContext from '../../contexts/AuthContext';
+import LanguageContext from '../../contexts/LanguageContext.jsx';
 import userService from '../../services/userService';
 
 export default function Adresses() {
   const { user, setUser } = useContext(AuthContext);
   const [isEditing, setIsEditing] = useState(false);
   const [billingAdressEqual, setBillingAdressEqual] = useState(true);
+  const { t } = useContext(LanguageContext);
 
   const adressValidationSchema = yup.object({
     country: yup.string().required('Country is required'),
@@ -61,7 +63,7 @@ export default function Adresses() {
 
   return (
     <div className="mx-auto w-full h-full bg-white rounded-2xl shadow-lg px-12 py-8">
-      <h1 className="text-2xl font-semibold text-gray-800 mb-8">Manage Adresses</h1>
+      <h1 className="text-2xl font-semibold text-gray-800 mb-8">{t('manage adresses')}</h1>
 
       <Formik
         initialValues={{
@@ -82,14 +84,14 @@ export default function Adresses() {
           handleSaveClick(values, resetForm, setFieldValue)
         }
       >
-        {({ resetForm }) => (
+        {({ resetForm, isSubmitting }) => (
           <Form className="space-y-5">
             <div>
-              <h2 className="text-xl font-semibold text-gray-700 mb-4">Main Adress</h2>
+              <h2 className="text-xl font-semibold text-gray-700 mb-4">{t('main adress')}</h2>
               {isEditing ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm text-gray-600 mb-1">Country</label>
+                    <label className="block text-sm text-gray-600 mb-1">{t('country')}</label>
                     <Field
                       name="country"
                       type="text"
@@ -99,7 +101,7 @@ export default function Adresses() {
                   </div>
 
                   <div>
-                    <label className="block text-sm text-gray-600 mb-1">City</label>
+                    <label className="block text-sm text-gray-600 mb-1">{t('city')}</label>
                     <Field
                       name="city"
                       type="text"
@@ -109,7 +111,7 @@ export default function Adresses() {
                   </div>
 
                   <div>
-                    <label className="block text-sm text-gray-600 mb-1">Postal Code</label>
+                    <label className="block text-sm text-gray-600 mb-1">{t('postal code')}</label>
                     <Field
                       name="postalCode"
                       type="text"
@@ -123,7 +125,7 @@ export default function Adresses() {
                   </div>
 
                   <div>
-                    <label className="block text-sm text-gray-600 mb-1">Street</label>
+                    <label className="block text-sm text-gray-600 mb-1">{t('street')}</label>
                     <Field
                       name="street"
                       type="text"
@@ -133,7 +135,7 @@ export default function Adresses() {
                   </div>
 
                   <div>
-                    <label className="block text-sm text-gray-600 mb-1">House Number</label>
+                    <label className="block text-sm text-gray-600 mb-1">{t('house number')}</label>
                     <Field
                       name="houseNumber"
                       type="text"
@@ -148,13 +150,13 @@ export default function Adresses() {
                 </div>
               ) : (
                 <p className="text-gray-800">
-                  {user.adress ? user.adress : 'No main adress has been added yet.'}
+                  {user.adress ? user.adress : t('no main adress has been added yet')}
                 </p>
               )}
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold text-gray-700 mb-4">Billing Adress</h2>
+              <h2 className="text-xl font-semibold text-gray-700 mb-4">{t('billing adress')}</h2>
               {isEditing ? (
                 <>
                   <div className="flex items-center space-x-2 mb-4">
@@ -166,14 +168,14 @@ export default function Adresses() {
                       className="w-5 h-5 text-primary border-gray-300 rounded focus:ring-primary"
                     />
                     <label htmlFor="billingAdressCheckbox" className="text-sm text-gray-600">
-                      Same as main adress
+                      {t('same as main adress')}
                     </label>
                   </div>
 
                   {!billingAdressEqual && (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm text-gray-600 mb-1">Billing Country</label>
+                        <label className="block text-sm text-gray-600 mb-1">{t('country')}</label>
                         <Field
                           name="billingCountry"
                           type="text"
@@ -187,7 +189,7 @@ export default function Adresses() {
                       </div>
 
                       <div>
-                        <label className="block text-sm text-gray-600 mb-1">Billing City</label>
+                        <label className="block text-sm text-gray-600 mb-1">{t('city')}</label>
                         <Field
                           name="billingCity"
                           type="text"
@@ -202,7 +204,7 @@ export default function Adresses() {
 
                       <div>
                         <label className="block text-sm text-gray-600 mb-1">
-                          Billing Postal Code
+                          {t('postal code')}
                         </label>
                         <Field
                           name="billingPostalCode"
@@ -217,7 +219,7 @@ export default function Adresses() {
                       </div>
 
                       <div>
-                        <label className="block text-sm text-gray-600 mb-1">Billing Street</label>
+                        <label className="block text-sm text-gray-600 mb-1">{t('street')}</label>
                         <Field
                           name="billingStreet"
                           type="text"
@@ -232,7 +234,7 @@ export default function Adresses() {
 
                       <div>
                         <label className="block text-sm text-gray-600 mb-1">
-                          Billing House Number
+                          {t('house number')}
                         </label>
                         <Field
                           name="billingHouseNumber"
@@ -252,7 +254,7 @@ export default function Adresses() {
                 <p className="text-gray-800">
                   {user.billingAdress
                     ? user.billingAdress
-                    : 'No billing adress has been added yet.'}
+                    : t('no billing adress has been added yet')}
                 </p>
               )}
             </div>
@@ -265,13 +267,14 @@ export default function Adresses() {
                     onClick={() => handleCancelClick(resetForm)}
                     className="px-4 py-2 bg-primary-light text-gray-700 rounded-lg hover:bg-gray-400"
                   >
-                    Cancel
+                    {t('cancel')}
                   </button>
                   <button
                     type="submit"
+                    disabled={isSubmitting}
                     className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-opacity-90"
                   >
-                    Save
+                    {isSubmitting ? t('saving') : t('save')}
                   </button>
                 </>
               ) : (
@@ -280,7 +283,7 @@ export default function Adresses() {
                   onClick={handleEditClick}
                   className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-opacity-90"
                 >
-                  Edit
+                  {t('edit')}
                 </button>
               )}
             </div>

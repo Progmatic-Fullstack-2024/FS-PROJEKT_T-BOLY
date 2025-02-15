@@ -81,7 +81,6 @@ const getOrdersByUserId = async (userId) => {
 };
 
 const createOrder = async (userId, totalPrice) => {
-  console.log("totalprice", totalPrice);
   const newOrder = await prisma.order.create({
     data: { userId, totalPrice },
   });

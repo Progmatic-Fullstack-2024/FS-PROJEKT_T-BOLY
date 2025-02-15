@@ -1,31 +1,53 @@
-import { ErrorMessage, Field, Formik } from 'formik';
-import { useContext } from 'react';
-import { Form } from 'react-router-dom';
-import * as yup from 'yup';
-
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import React, { useContext, useState } from 'react';
 import AuthContext from '../../contexts/AuthContext';
+import CartContext from '../../contexts/CartContext';
 
 export default function DeliveryInfo() {
   const { user } = useContext(AuthContext);
-  console.log(user);
+  const { cart, clearCart, totalPrice } = useContext(CartContext);
 
   const initialValues = {
     firstName: user.firstName || '',
     lastName: user.lastName || '',
+    street: user.adress?.split(', ')[3] || '',
+    houseNumber: user.adress?.split(', ')[4] || '',
+    country: user.adress?.split(', ')[0] || '',
+    city: user.adress?.split(', ')[1] || '',
+    postalCode: user.adress?.split(', ')[2] || '',
+    phoneNumber: 'soon',
     email: user.email,
+    orderNotes: '',
+    billingStreet: user.billingAdress?.split(', ')[3] || '',
+    billingHouseNumber: user.billingAdress?.split(', ')[4] || '',
+    billingCountry: user.billingAdress?.split(', ')[0] || '',
+    billingCity: user.billingAdress?.split(', ')[1] || '',
+    billingPostalCode: user.billingAdress?.split(', ')[2] || '',
+    isSameAdress: true,
   };
 
-  const userDataValidationSchema = yup.object({
-    firstName: yup.string().required('FirstName is required'),
-    lastName: yup.string().required('LastName is required'),
-    email: yup.string().email('Invalid email format').required('Email is required'),
-  });
+  const handleSubmit = (values) => {
+    console.table({
+      totalPrice,
+      orderItems: cart,
+      adress: `${values.country}, ${values.city}, ${values.postalCode}, ${values.street}, ${values.houseNumber}`,
+      billingAdress: values.isSameAdress
+        ? `${values.country}, ${values.city}, ${values.postalCode}, ${values.street}, ${values.houseNumber}`
+        : `${values.billingCountry}, ${values.billingCity}, ${values.billingPostalCode}, ${values.billingStreet}, ${values.billingHouseNumber}`,
+      phoneNumber: values.phoneNumber,
+    });
+  };
 
   return (
     <div className=" border-2 rounded-xl p-12">
       <h1 className="text-2xl font-medium mb-12">Delivery info</h1>
-      <div>
-        <Formik initialValues={initialValues} validationSchema={userDataValidationSchema}>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={(values) => {
+          handleSubmit(values);
+        }}
+      >
+        {({ values }) => (
           <Form className="flex flex-col gap-6">
             <div className=" flex justify-between gap-10">
               <div className="w-1/2">
@@ -51,6 +73,78 @@ export default function DeliveryInfo() {
                 <ErrorMessage name="lastName" component="div" className="text-red-500" />
               </div>
             </div>
+            <div className=" flex justify-between gap-10">
+              <div className="w-3/4">
+                <label className="block mb-2 font-medium">
+                  Street <span className="text-red-500 font-bold">*</span>
+                </label>
+                <Field
+                  name="street"
+                  type="text"
+                  className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                />
+                <ErrorMessage name="street" component="div" className="text-red-500" />
+              </div>
+              <div className="w-1/4">
+                <label className="block mb-2 font-medium">
+                  House number <span className="text-red-500 font-bold">*</span>
+                </label>
+                <Field
+                  name="houseNumber"
+                  type="text"
+                  className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                />
+                <ErrorMessage name="houseNumber" component="div" className="text-red-500" />
+              </div>
+            </div>
+            <div className=" flex justify-between gap-10">
+              <div className="w-1/2">
+                <label className="block mb-2 font-medium">
+                  Country <span className="text-red-500 font-bold">*</span>
+                </label>
+                <Field
+                  name="country"
+                  type="text"
+                  className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                />
+                <ErrorMessage name="country" component="div" className="text-red-500" />
+              </div>
+              <div className="w-1/2">
+                <label className="block mb-2 font-medium">
+                  City <span className="text-red-500 font-bold">*</span>
+                </label>
+                <Field
+                  name="city"
+                  type="text"
+                  className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                />
+                <ErrorMessage name="city" component="div" className="text-red-500" />
+              </div>
+            </div>
+            <div className=" flex justify-between gap-10">
+              <div className="w-1/2">
+                <label className="block mb-2 font-medium">
+                  ZIP code <span className="text-red-500 font-bold">*</span>
+                </label>
+                <Field
+                  name="postalCode"
+                  type="text"
+                  className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                />
+                <ErrorMessage name="postalCode" component="div" className="text-red-500" />
+              </div>
+              <div className="w-1/2">
+                <label className="block mb-2 font-medium">
+                  Phone number <span className="text-red-500 font-bold">*</span>
+                </label>
+                <Field
+                  name="phoneNumber"
+                  type="text"
+                  className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                />
+                <ErrorMessage name="phoneNumber" component="div" className="text-red-500" />
+              </div>
+            </div>
             <div className="space-y-4">
               <div>
                 <label className="block mb-2 font-medium">
@@ -64,9 +158,104 @@ export default function DeliveryInfo() {
                 />
               </div>
             </div>
+            <div className="space-y-1">
+              <label className="block mb-2 font-medium">Order notes (optional):</label>
+              <Field
+                name="orderNotes"
+                as="textarea"
+                className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                rows="4"
+              />
+              <ErrorMessage name="orderNotes" component="div" className="text-red-500" />
+            </div>
+            <div className="mt-3">
+              <label className="flex items-center gap-3">
+                <Field
+                  className="w-5 h-5 border-2 border-gray-300 rounded-md checked:bg-primary checked:border-transparent "
+                  type="checkbox"
+                  name="isSameAdress"
+                />
+                <span>Use shipping address as billing address</span>
+              </label>
+            </div>
+            {!values.isSameAdress && (
+              <div className="flex flex-col gap-6">
+                <h1 className="text-2xl font-medium mt-8 mb-12">Billing Address</h1>
+                <div className="flex justify-between gap-10">
+                  <div className="w-3/4">
+                    <label className="block mb-2 font-medium">
+                      Billing Street <span className="text-red-500 font-bold">*</span>
+                    </label>
+                    <Field
+                      name="billingStreet"
+                      type="text"
+                      className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                    />
+                    <ErrorMessage name="billingStreet" component="div" className="text-red-500" />
+                  </div>
+                  <div className="w-1/4">
+                    <label className="block mb-2 font-medium">
+                      Billing house number <span className="text-red-500 font-bold">*</span>
+                    </label>
+                    <Field
+                      name="billingHouseNumber"
+                      type="text"
+                      className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                    />
+                    <ErrorMessage
+                      name="billingHouseNumber"
+                      component="div"
+                      className="text-red-500"
+                    />
+                  </div>
+                </div>
+                <div className="flex justify-between gap-10">
+                  <div className="w-1/2">
+                    <label className="block mb-2 font-medium">
+                      Billing Country <span className="text-red-500 font-bold">*</span>
+                    </label>
+                    <Field
+                      name="billingCountry"
+                      type="text"
+                      className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                    />
+                    <ErrorMessage name="billingCountry" component="div" className="text-red-500" />
+                  </div>
+                  <div className="w-1/2">
+                    <label className="block mb-2 font-medium">
+                      Billing City <span className="text-red-500 font-bold">*</span>
+                    </label>
+                    <Field
+                      name="billingCity"
+                      type="text"
+                      className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                    />
+                    <ErrorMessage name="billingCity" component="div" className="text-red-500" />
+                  </div>
+                </div>
+                <div className="mr-10">
+                  <div className="w-1/2">
+                    <label className="block mb-2 font-medium">
+                      Billing ZIP code <span className="text-red-500 font-bold">*</span>
+                    </label>
+                    <Field
+                      name="billingPostalCode"
+                      type="text"
+                      className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                    />
+                    <ErrorMessage
+                      name="billingPostalCode"
+                      component="div"
+                      className="text-red-500"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+            <button type="submit">Order</button>
           </Form>
-        </Formik>
-      </div>
+        )}
+      </Formik>
     </div>
   );
 }
