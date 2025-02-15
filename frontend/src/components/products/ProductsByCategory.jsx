@@ -45,9 +45,9 @@ export default function ProductsByCategory() {
         const categoryData =
           categoryId === 'all'
             ? `${t('all')} ${t('product')}`
-            : (await categoryService.getCategoryById(categoryId));
-          setCategoryName(categoryData.name);
-          
+            : await categoryService.getCategoryById(categoryId);
+        setCategoryName(categoryData.name);
+
         const productData = await productService.getAllProductsByCategory(
           categoryId,
           searchParams.toString(),

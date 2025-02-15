@@ -14,8 +14,8 @@ export default function ProductsList({ productsByCategory, isLoading }) {
   const { t } = useContext(LanguageContext);
 
   if (isLoading) {
-     return <ProductsGridSkeleton />;
-   }
+    return <ProductsGridSkeleton />;
+  }
 
   return (
     <div className="flex flex-col gap-12">

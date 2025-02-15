@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from 'react';
 import RangeSlider from 'react-range-slider-input';
 import 'react-range-slider-input/dist/style.css';
 import './slider.css';
-import { useSearchParams, } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import FilterByAgeSkeleton from './FilterByAgeSkeleton';
@@ -47,8 +47,8 @@ export default function FilterByPrice({ minAge, maxAge, setMaxAge, setMinAge }) 
   };
 
   if (isLoading) {
-      return <FilterByAgeSkeleton />;
-    }
+    return <FilterByAgeSkeleton />;
+  }
 
   return (
     <div className="flex flex-col gap-2 p-6 border-2 rounded-lg mb-10">

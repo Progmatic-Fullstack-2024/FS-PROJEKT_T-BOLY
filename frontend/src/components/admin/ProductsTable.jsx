@@ -89,9 +89,9 @@ export default function ProductsTable() {
     }
     setSearchParams(searchParams);
   };
- if (isLoading) {
-     return <ProductsTableSkeleton />;
-   }
+  if (isLoading) {
+    return <ProductsTableSkeleton />;
+  }
 
   return (
     <section className="py-3 sm:py-5">

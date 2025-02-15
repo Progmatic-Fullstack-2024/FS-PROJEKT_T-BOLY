@@ -57,7 +57,7 @@ export default function FilterByPrice({
       }
     }
   };
- if (isLoading) {
+  if (isLoading) {
     return <FilterByPriceSkeleton />;
   }
   return (
