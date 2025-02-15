@@ -1,11 +1,23 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 
+import WishlistSkeleton from './WishlistSkeleton';
 import WishlistContext from '../../contexts/WishlistContext';
 
 export default function Wishlist() {
   const { wishlist, removeProductFromWishlist } = useContext(WishlistContext);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
+
+  if (isLoading) {
+    return <WishlistSkeleton />;
+  }
 
   if (wishlist.length === 0) {
     return (

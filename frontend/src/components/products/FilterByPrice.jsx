@@ -1,8 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import RangeSlider from 'react-range-slider-input';
 import 'react-range-slider-input/dist/style.css';
 import './slider.css';
 import { useSearchParams } from 'react-router-dom';
+
+import FilterByPriceSkeleton from './FilterByPriceSkeleton';
 
 export default function FilterByPrice({
   minPrice,
@@ -12,6 +14,7 @@ export default function FilterByPrice({
   priceRange,
 }) {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [isLoading, setIsLoading] = useState(true);
 
   const min = priceRange.rangeMin;
   const max = priceRange.rangeMax;
@@ -19,6 +22,7 @@ export default function FilterByPrice({
   useEffect(() => {
     setMinPrice(min);
     setMaxPrice(max);
+    setIsLoading(false);
   }, [min, max]);
 
   const handleFilterByPrice = () => {
@@ -51,7 +55,9 @@ export default function FilterByPrice({
       }
     }
   };
-
+ if (isLoading) {
+    return <FilterByPriceSkeleton />;
+  }
   return (
     <div className="flex flex-col gap-2 p-6 border-2 rounded-lg mb-10">
       <h3 className="text-xl mb-6">Filter by price</h3>

@@ -1,11 +1,19 @@
+import { useEffect, useState } from 'react';
 import RangeSlider from 'react-range-slider-input';
 import 'react-range-slider-input/dist/style.css';
 import './slider.css';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, } from 'react-router-dom';
 import { toast } from 'react-toastify';
+
+import FilterByAgeSkeleton from './FilterByAgeSkeleton';
 
 export default function FilterByPrice({ minAge, maxAge, setMaxAge, setMinAge }) {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
 
   const handleFilterByAge = () => {
     searchParams.set('minAge', minAge);
@@ -35,6 +43,10 @@ export default function FilterByPrice({ minAge, maxAge, setMaxAge, setMinAge }) 
       toast.error('You need to give a number.');
     }
   };
+
+  if (isLoading) {
+      return <FilterByAgeSkeleton />;
+    }
 
   return (
     <div className="flex flex-col gap-2 p-6 border-2 rounded-lg mb-10">

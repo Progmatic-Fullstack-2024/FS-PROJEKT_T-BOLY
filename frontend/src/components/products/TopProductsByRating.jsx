@@ -5,12 +5,13 @@ import { toast } from 'react-toastify';
 import AddToShoppingCart from './AddToShoppingCart';
 import AddToWishlistHeart from './AddToWishlistHeart';
 import RatingStars from './RatingStars';
+import TopProductsByRatingSkeleton from './TopProductsByRatingSkeleton';
 import OutOfStock from '../../assets/out_of_stock.png';
 import productService from '../../services/productService';
 
 export default function TopProductsByRating() {
   const [productsByRating, setProductsByRating] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchTopProductsByRating = async () => {
@@ -28,8 +29,8 @@ export default function TopProductsByRating() {
     fetchTopProductsByRating();
   }, []);
 
-  if (loading) {
-    return <div className="text-center p-32 text-3xl">Loading...</div>;
+  if (isLoading) {
+    return <TopProductsByRatingSkeleton />;
   }
 
   return (
