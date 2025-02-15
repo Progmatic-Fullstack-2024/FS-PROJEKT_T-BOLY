@@ -6,7 +6,7 @@ import App from './App';
 import CategoriesTable from './components/admin/CategoriesTable.jsx';
 import CouponsTable from './components/admin/CouponsTable.jsx';
 import OrdersTable from './components/admin/OrdersTable.jsx';
-import Overview from './components/admin/Overview.jsx';
+import Overview from './components/admin/overview/Overview.jsx';
 import ProductsTable from './components/admin/ProductsTable.jsx';
 import UserTable from './components/admin/UserTable.jsx';
 import CheckOut from './components/checkOut/CheckOut.jsx';
