@@ -10,13 +10,13 @@ import React, { useContext, useState } from 'react';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
+import DeliveryInfo from './DeliveryInfo';
+import OrderTable from './OrderTable';
 import amexLogo from '../../assets/card icons/amex.png';
 import masterCardLogo from '../../assets/card icons/card.png';
 import visaLogo from '../../assets/card icons/visa.png';
-import paymentService from '../../services/paymentService';
 import LanguageContext from '../../contexts/LanguageContext';
-import DeliveryInfo from './DeliveryInfo';
-import OrderTable from './OrderTable';
+import paymentService from '../../services/paymentService';
 
 const PaymentSchema = Yup.object().shape({
   name: Yup.string().required('Name is required').min(2, 'Too short').max(50, 'Too long'),
@@ -106,75 +106,85 @@ export default function CheckoutForm() {
         </div>
         <OrderTable />
       </div>
-    </div>
-    <div className="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
-      <div className="flex items-center">
-        <h5 className="text-sm font-medium text-gray-700">{t('we accept')} </h5>
-        <img src={masterCardLogo} alt="" className="h-5 w-9 m-2" />
-        <img src={visaLogo} alt="" className="h-9 w-9 m-2" />
-        <img src={amexLogo} alt="" className="h-9 w-9" />
-      </div>
+      <div className="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
+        <div className="flex items-center">
+          <h5 className="text-sm font-medium text-gray-700">{t('we accept')} </h5>
+          <img src={masterCardLogo} alt="" className="h-5 w-9 m-2" />
+          <img src={visaLogo} alt="" className="h-9 w-9 m-2" />
+          <img src={amexLogo} alt="" className="h-9 w-9" />
+        </div>
 
-      <Formik initialValues={{ name: '' }} validationSchema={PaymentSchema} onSubmit={handleSubmit}>
-        {() => (
-          <Form>
-            <div className="mb-4">
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                {t('name on card')}
-              </label>
-              <Field
-                name="name"
-                type="text"
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              />
-              <ErrorMessage name="name" component="div" className="text-red-500 text-sm mt-1" />
-            </div>
-
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">{t('card number')}</label>
-              <div className="flex">
-                {cardType && (
-                  <div className="mt-2 text-sm text-gray-600 mr-2">
-                    <img src={getCardLogo(cardType)} alt={cardType} className="inline-block h-8 " />
-                  </div>
-                )}
-                <CardNumberElement
-                  onChange={handleCardChange}
-                  options={cardElementOptions}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                />
-              </div>
-            </div>
-
-            <div className="mb-4 grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  {t('expiration date')}
+        <Formik
+          initialValues={{ name: '' }}
+          validationSchema={PaymentSchema}
+          onSubmit={handleSubmit}
+        >
+          {() => (
+            <Form>
+              <div className="mb-4">
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                  {t('name on card')}
                 </label>
-                <CardExpiryElement
-                  options={cardElementOptions}
-                  className="imt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">CVC</label>
-                <CardCvcElement
-                  options={cardElementOptions}
+                <Field
+                  name="name"
+                  type="text"
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 />
+                <ErrorMessage name="name" component="div" className="text-red-500 text-sm mt-1" />
               </div>
-            </div>
 
-            <button
-              type="submit"
-              disabled={!stripe || loading}
-              className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 disabled:bg-gray-400"
-            >
-              {loading ? t('processing') : t('pay')}
-            </button>
-          </Form>
-        )}
-      </Formik>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700">
+                  {t('card number')}
+                </label>
+                <div className="flex">
+                  {cardType && (
+                    <div className="mt-2 text-sm text-gray-600 mr-2">
+                      <img
+                        src={getCardLogo(cardType)}
+                        alt={cardType}
+                        className="inline-block h-8 "
+                      />
+                    </div>
+                  )}
+                  <CardNumberElement
+                    onChange={handleCardChange}
+                    options={cardElementOptions}
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  />
+                </div>
+              </div>
+
+              <div className="mb-4 grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    {t('expiration date')}
+                  </label>
+                  <CardExpiryElement
+                    options={cardElementOptions}
+                    className="imt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">CVC</label>
+                  <CardCvcElement
+                    options={cardElementOptions}
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={!stripe || loading}
+                className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 disabled:bg-gray-400"
+              >
+                {loading ? t('processing') : t('pay')}
+              </button>
+            </Form>
+          )}
+        </Formik>
+      </div>
     </div>
   );
 }
