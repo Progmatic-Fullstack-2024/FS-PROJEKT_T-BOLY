@@ -125,7 +125,6 @@ const updateUser = async (id, userData, currentUserId, currentUserRole) => {
 };
 
 const deleteUser = async (id, currentUserId, currentUserRole) => {
-  console.table({ id, currentUserId, currentUserRole });
   if (id !== currentUserId && currentUserRole !== "ADMIN") {
     throw new HttpError("Unauthorized", 403);
   }

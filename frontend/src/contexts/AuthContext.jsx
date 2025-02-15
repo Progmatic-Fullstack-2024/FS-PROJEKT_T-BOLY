@@ -3,6 +3,7 @@ import { createContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import authService from '../services/authService.js';
+import hasUserTurned18 from '../utils/hasUserTurned18.js';
 
 const AuthContext = createContext();
 
@@ -23,18 +24,7 @@ export function AuthProvider({ children }) {
       try {
         const decodedToken = jwtDecode(token);
         setUser(decodedToken);
-
-        const birthDate = new Date(decodedToken.birthDate);
-        const today = new Date();
-        const age = today.getFullYear() - birthDate.getFullYear();
-        const monthDifference = today.getMonth() - birthDate.getMonth();
-
-        const isAdult =
-          monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())
-            ? age - 1 >= 18
-            : age >= 18;
-
-        setIsUserAdult(isAdult);
+        setIsUserAdult(hasUserTurned18(decodedToken.birthDate));
       } catch (error) {
         toast.error('Invalid token', error);
         logout();
@@ -77,7 +67,7 @@ export function AuthProvider({ children }) {
     }
   };
 
-  const value = { user, setUser, login, register, logout, passwordChange, isUserAdult };
+  const value = { user, isUserAdult, setUser, login, register, logout, passwordChange };
 
   return <AuthContext.Provider value={value}>{!isLoading && children}</AuthContext.Provider>;
 }
