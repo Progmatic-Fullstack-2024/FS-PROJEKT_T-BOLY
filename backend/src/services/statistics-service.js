@@ -134,7 +134,7 @@ const getAdminStatistics = async () => {
 
   const dailyRevenueFormatted = last7Days.map((day) => {
     const found = dailyRevenue.find(
-      (d) => format(d.createdAt, "yyyy-MM-dd") === day.date
+      (d) => format(d.createdAt, "yyyy-MM-dd") === day.date,
     );
     return {
       date: day.date,
@@ -183,7 +183,7 @@ const getAdminStatistics = async () => {
           data.reduce((acc, curr) => {
             acc[curr.rating] = curr._count.id;
             return acc;
-          }, {})
+          }, {}),
         ),
       mostReviewed: mostReviewedProductsWithNames,
     },

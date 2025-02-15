@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 const getChartData = (stats, activeCategory) => {
   switch (activeCategory) {
     case 'users':

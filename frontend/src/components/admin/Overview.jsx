@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
-import OverviewCards from "./OverviewCards.jsx";
-import OverviewCharts from "./OverviewCharts.jsx";
-import statisticsService from "../../services/statisticsService.js";
+import OverviewCards from './OverviewCards.jsx';
+import OverviewCharts from './OverviewCharts.jsx';
+import statisticsService from '../../services/statisticsService.js';
 
 export default function Overview() {
   const [stats, setStats] = useState(null);
@@ -14,7 +14,7 @@ export default function Overview() {
         const data = await statisticsService.getStatistics();
         setStats(data);
       } catch (error) {
-        toast.error("Failed to fetch statistics");
+        toast.error('Failed to fetch statistics');
       }
     };
 
