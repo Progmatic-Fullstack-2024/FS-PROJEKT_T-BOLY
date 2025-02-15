@@ -2,7 +2,12 @@ import { ErrorMessage, Field, Formik } from 'formik';
 import { Form } from 'react-router-dom';
 import * as yup from 'yup';
 
-export default function DeliveryInfo({ sameAddresses, setSameAddresses, formData, setFormData }) {
+export default function DeliveryInfo({
+  sameAddresses,
+  setSameAddresses,
+  formData,
+  setFormData,
+}) {
   const userDataValidationSchema = yup.object({
     firstName: yup.string().required('FirstName is required'),
     lastName: yup.string().required('LastName is required'),
@@ -30,7 +35,6 @@ export default function DeliveryInfo({ sameAddresses, setSameAddresses, formData
     }
   };
 
-  
   return (
     <div className=" border-2 rounded-xl p-12">
       <h1 className="text-2xl font-medium mb-12">Delivery info</h1>
@@ -39,8 +43,11 @@ export default function DeliveryInfo({ sameAddresses, setSameAddresses, formData
           initialValues={formData}
           validationSchema={userDataValidationSchema}
           onSubmit={(values) => {
-            setFormData(values);
-            console.log("deliver", formData)
+            setFormData((prevData) => ({
+              ...prevData,
+              ...values, 
+            }));
+            console.log('Updated form data: ', formData); 
           }}
         >
           <Form className="flex flex-col gap-6">

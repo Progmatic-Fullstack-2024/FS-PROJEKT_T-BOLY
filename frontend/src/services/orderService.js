@@ -12,7 +12,7 @@ const getOrderById = async (id) => {
 };
 
 const getOrdersByUserId = async () => {
-  const response = await api.get(`/api/ordersByUser`);
+  const response = await api.get(`/api/order/ordersByUser`);
   return response.data;
 };
 

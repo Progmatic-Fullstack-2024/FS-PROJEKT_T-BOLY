@@ -1,7 +1,7 @@
 import api from './axiosInstance';
 
 const getAllOrderItemsByOrderId = async (orderId) => {
-  const response = await api.get(`/ordersByUser/orderItems`, { orderId });
+  const response = await api.get(`/api/order/orderItemsByOrder/${orderId}`);
   return response.data;
 };
 

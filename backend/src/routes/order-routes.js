@@ -8,8 +8,8 @@ const router = express.Router();
 router.get("/", orderController.getAllOrders);
 router.get("/ordersByUser", authenticate, orderController.getOrdersByUserId);
 router.get(
-  "/ordersByUser/orderItems",
-  orderItemController.getAllOrderItemsByOrderId,
+  "/orderItemsByOrder/:orderId",
+  orderItemController.getAllOrderItemsByOrderId
 );
 router.get("/:id", orderController.getOrderById);
 router.post("/", authenticate, orderController.createOrder);
