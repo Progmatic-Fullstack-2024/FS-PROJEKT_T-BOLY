@@ -80,16 +80,22 @@ const getOrdersByUserId = async (userId) => {
   return orders;
 };
 
-const createOrder = async (userId, totalPrice) => {
+const createOrder = async (
+  userId,
+  totalPrice,
+  adress,
+  billingAdress,
+  phoneNumber,
+  status
+) => {
   const newOrder = await prisma.order.create({
-    data: { userId, totalPrice },
+    data: { userId, totalPrice, adress, billingAdress, phoneNumber, status },
   });
   return newOrder;
 };
 
 const updateOrder = async (id, status) => {
-  const order = await getOrderById(id);
-  if (!order) throw new HttpError("Order not found", 404);
+  await getOrderById(id);
   const updatedOrder = await prisma.order.update({
     where: { id },
     data: { status: status.status },
@@ -98,8 +104,7 @@ const updateOrder = async (id, status) => {
 };
 
 const destroyOrder = async (id, status) => {
-  const order = await getOrderById(id);
-  if (!order) throw new HttpError("Order not found", 404);
+  await getOrderById(id);
   const canceledOrder = prisma.order.update({
     where: { id },
     data: { status },

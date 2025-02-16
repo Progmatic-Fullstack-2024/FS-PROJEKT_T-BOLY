@@ -1,5 +1,6 @@
 import orderService from "../services/order-service.js";
 import orderItemService from "../services/orderItem-service.js";
+import productService from "../services/products-service.js";
 
 const getAllOrders = async (req, res, next) => {
   const {
@@ -19,7 +20,7 @@ const getAllOrders = async (req, res, next) => {
       table,
       pageNumber,
       limitNumber,
-      search,
+      search
     );
     res.status(200).json(orders);
   } catch (error) {
@@ -49,10 +50,18 @@ const getOrdersByUserId = async (req, res, next) => {
 
 const createOrder = async (req, res, next) => {
   const userId = req.user.id;
-  const { totalPrice, orderItems } = req.body;
+  const { totalPrice, orderItems, adress, billingAdress, phoneNumber, status } =
+    req.body;
 
   try {
-    const newOrder = await orderService.createOrder(userId, totalPrice);
+    const newOrder = await orderService.createOrder(
+      userId,
+      totalPrice,
+      adress,
+      billingAdress,
+      phoneNumber,
+      status
+    );
     const orderItemsData = await Promise.all(
       orderItems.map(async (item) => {
         try {
@@ -60,13 +69,14 @@ const createOrder = async (req, res, next) => {
             newOrder.id,
             item.productId,
             item.quantity,
-            item.price,
+            item.price
           );
+          await productService.updateStock(item.productId, item.quantity);
           return orderItem;
         } catch (error) {
           return null;
         }
-      }),
+      })
     );
     res.status(201).json({ newOrder, orderItemsData });
   } catch (error) {

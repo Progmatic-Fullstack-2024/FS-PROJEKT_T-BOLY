@@ -48,7 +48,6 @@ export default function Orders() {
 
   const handleViewDetails = async (order) => {
     setSelectedOrder(order);
-    console.log('order', order);
     try {
       const data = await orderItemsService.getAllOrderItemsByOrderId(order.id);
       setOrderItems(data);
@@ -63,8 +62,8 @@ export default function Orders() {
   };
 
   return (
-    <div className="overflow-x-auto m-20">
-      <h1 className="text-2xl font-semibold mb-16">Your orders</h1>
+    <div className="overflow-x-auto mr-32 ml-32 mt-20 mb-20">
+      <h1 className="text-2xl font-semibold mb-20">Your orders</h1>
       <table className="md:w-full border-collapse border-b border-gray-300">
         <thead>
           <tr className="bg-primary">
