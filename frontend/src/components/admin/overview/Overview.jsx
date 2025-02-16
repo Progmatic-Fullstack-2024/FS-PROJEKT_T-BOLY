@@ -45,7 +45,7 @@ export default function Overview() {
   if (!stats || isLoading) return <OverviewSkeleton />;
 
   return (
-    <div className="min-h-screen  p-5">
+    <div className="p-5">
       <h1 className="text-3xl font-bold mb-6">📊 Admin Dashboard</h1>
 
       {/* Clickable Overview Cards */}
