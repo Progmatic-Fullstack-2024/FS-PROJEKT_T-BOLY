@@ -120,6 +120,7 @@ model Order {
   adress        String?
   billingAdress String?
   phoneNumber   String?
+  orderNotes    String?
 }
 
 model OrderItem {
