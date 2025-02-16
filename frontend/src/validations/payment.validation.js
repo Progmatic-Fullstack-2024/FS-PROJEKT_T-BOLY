@@ -1,8 +1,14 @@
 import * as yup from 'yup';
 
 export const paymentValidationSchema = yup.object({
-//   creditcard: yup.string().required('Card type is required'), //Checkbox
-  cardNumber: yup.string().label("Card number").min(16).max(16).typeError('Input must be a number!').required(),
+  //   creditcard: yup.string().required('Card type is required'), //Checkbox
+  cardNumber: yup
+    .string()
+    .label('Card number')
+    .min(16)
+    .max(16)
+    .typeError('Input must be a number!')
+    .required(),
 
   nameOnCard: yup.string().required('Owner name is required'),
 

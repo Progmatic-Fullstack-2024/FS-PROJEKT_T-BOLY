@@ -9,7 +9,7 @@ router.get("/", orderController.getAllOrders);
 router.get("/ordersByUser", authenticate, orderController.getOrdersByUserId);
 router.get(
   "/orderItemsByOrder/:orderId",
-  orderItemController.getAllOrderItemsByOrderId
+  orderItemController.getAllOrderItemsByOrderId,
 );
 router.get("/:id", orderController.getOrderById);
 router.post("/", authenticate, orderController.createOrder);

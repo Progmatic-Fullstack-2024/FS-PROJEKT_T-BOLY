@@ -14,7 +14,7 @@ export default function ShoppingCart() {
   const { t } = useContext(LanguageContext);
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
-  
+
   const applyCoupon = async () => {
     try {
       const data = await couponsService.getCouponByCode(code);
@@ -26,6 +26,7 @@ export default function ShoppingCart() {
       }
       setError('');
       setCoupon(data);
+      return true;
     } catch (err) {
       return setError('Invalid coupon');
     }
@@ -33,9 +34,7 @@ export default function ShoppingCart() {
 
   return (
     <div className="md:ml-80 ml-2 mr-2 md:mr-80 md:mt-28 mt-10 mb-28 flex flex-col">
-      <h1 className="md:mb-28 mb-10 text-3xl font-medium">
-        {t('your shopping cart')}
-      </h1>
+      <h1 className="md:mb-28 mb-10 text-3xl font-medium">{t('your shopping cart')}</h1>
       <div className="md:flex md:justify-center overflow-x-scroll md:overflow-x-visible">
         <table className=" md:w-full border-collapse border-b border-gray-300">
           <thead>
@@ -71,7 +70,7 @@ export default function ShoppingCart() {
       >
         {cart.length > 0 && (
           <div className="flex gap-6">
-            <div className='flex flex-col gap-3'>
+            <div className="flex flex-col gap-3">
               <input
                 value={code}
                 onChange={(e) => setCode(e.target.value)}

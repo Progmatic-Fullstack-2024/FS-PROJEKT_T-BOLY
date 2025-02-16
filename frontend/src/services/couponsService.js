@@ -24,5 +24,5 @@ export default {
   createCoupon,
   getAllCoupons,
   deleteCoupon,
-  getCouponByCode
+  getCouponByCode,
 };

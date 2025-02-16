@@ -40,7 +40,9 @@ export default function ProductRow({ product, onUpdate, onDelete }) {
       <td className="px-4 py-3 text-right">€ {product.price}</td>
       <td className="px-4 py-3 text-right">{product.quantity}</td>
       <td className="px-4 py-3">
-        <div className="flex justify-center space-x-1">{Math.round(product.rating*100)/100}</div>
+        <div className="flex justify-center space-x-1">
+          {Math.round(product.rating * 100) / 100}
+        </div>
       </td>
       <td className="px-4 py-3">
         <div className="flex justify-center space-x-1">{product.isDeleted ? 'Deleted' : ''}</div>

@@ -5,7 +5,7 @@ const handleCreatePaymentIntent = async (req, res, next) => {
   try {
     const paymentIntent = await paymentService.createPaymentIntent(
       amount,
-      currency
+      currency,
     );
     res.status(200).json({ clientSecret: paymentIntent.client_secret });
   } catch (error) {

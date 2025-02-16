@@ -5,4 +5,4 @@ const isDateValid = (validFrom, validTo) => {
   return today >= from && today <= to;
 };
 
-export default isDateValid
+export default isDateValid;

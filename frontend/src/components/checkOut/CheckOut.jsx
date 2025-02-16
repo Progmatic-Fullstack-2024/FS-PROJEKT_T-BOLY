@@ -251,7 +251,9 @@ export default function CheckoutForm() {
             <div className="text-2xl font-medium mb-10 text-center text-primary">
               Successful payment!
             </div>
-            <div className="text-xl font-medium mb-10 text-center">Thank you for your purchase!</div>
+            <div className="text-xl font-medium mb-10 text-center">
+              Thank you for your purchase!
+            </div>
             <div className="flex justify-center">
               <button
                 type="button"

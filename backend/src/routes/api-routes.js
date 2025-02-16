@@ -21,8 +21,8 @@ router.use("/user", userRoutes);
 router.use("/productCategoryConnection", productCategoryConnection);
 router.use("/shoppingCart", shoppingCartRoutes);
 router.use("/wishlist", wishlistRoutes);
-router.use("/productReview", reviewRoutes)
-router.use("/payment", paymentRoutes)
+router.use("/productReview", reviewRoutes);
+router.use("/payment", paymentRoutes);
 router.use("/order", orderRoutes);
 
 export default router;

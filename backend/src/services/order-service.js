@@ -87,7 +87,7 @@ const createOrder = async (
   billingAdress,
   phoneNumber,
   status,
-  orderNotes
+  orderNotes,
 ) => {
   const newOrder = await prisma.order.create({
     data: {

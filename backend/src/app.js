@@ -1,9 +1,9 @@
 import express from "express";
 import cors from "cors";
+import bodyParser from "body-parser";
 import apiRoutes from "./routes/api-routes.js";
 import authRoutes from "./routes/auth-routes.js";
 import errorHandler from "./middlewares/error-handler.middleware.js";
-import bodyParser from "body-parser";
 
 const app = express();
 

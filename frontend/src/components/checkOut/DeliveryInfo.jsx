@@ -178,8 +178,8 @@ export default function DeliveryInfo({ formData, setFormData }) {
                   type="checkbox"
                   name="isSameAdress"
                   onChange={(e) => {
-                    setFieldValue('isSameAdress', e.target.checked);  
-                    setFormData((prev) => ({ ...prev, isSameAdress: e.target.checked }));  
+                    setFieldValue('isSameAdress', e.target.checked);
+                    setFormData((prev) => ({ ...prev, isSameAdress: e.target.checked }));
                   }}
                 />
                 <span>Use shipping address as billing address</span>

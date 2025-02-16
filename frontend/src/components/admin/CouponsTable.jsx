@@ -15,7 +15,6 @@ export default function CouponsTable() {
         const data = await couponService.getAllCoupons();
         setCoupons(data);
       } catch (error) {
-        console.error(error);
         toast.error('Failed to fetch coupons');
       }
     };

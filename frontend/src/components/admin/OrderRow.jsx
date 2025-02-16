@@ -7,7 +7,6 @@ import OrderedProduct from './OrderedProduct';
 export default function OrderRow({ order }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  
   return (
     <>
       <tr className="border-b dark:border-gray-600 hover:bg-orange-200">

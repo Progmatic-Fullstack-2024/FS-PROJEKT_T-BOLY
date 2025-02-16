@@ -20,7 +20,7 @@ const getAllOrders = async (req, res, next) => {
       table,
       pageNumber,
       limitNumber,
-      search
+      search,
     );
     res.status(200).json(orders);
   } catch (error) {
@@ -68,7 +68,7 @@ const createOrder = async (req, res, next) => {
       billingAdress,
       phoneNumber,
       status,
-      orderNotes
+      orderNotes,
     );
     const orderItemsData = await Promise.all(
       orderItems.map(async (item) => {
@@ -77,14 +77,14 @@ const createOrder = async (req, res, next) => {
             newOrder.id,
             item.productId,
             item.quantity,
-            item.price
+            item.price,
           );
           await productService.updateStock(item.productId, item.quantity);
           return orderItem;
         } catch (error) {
           return null;
         }
-      })
+      }),
     );
     res.status(201).json({ newOrder, orderItemsData });
   } catch (error) {
