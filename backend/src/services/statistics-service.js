@@ -2,28 +2,7 @@
 import { subDays, format } from "date-fns";
 import prisma from "../models/prismaClient.js";
 
-const getStatistics = async () => {
-  const totalUsers = await prisma.user.count();
-  const totalOrders = await prisma.order.count();
-  const totalCoupons = await prisma.coupon.count({ where: { isActive: true } });
-  const totalCategories = await prisma.category.count();
-  const totalProducts = await prisma.product.count();
-  const totalRevenue = await prisma.order.aggregate({
-    _sum: { totalPrice: true },
-  });
-
-  return {
-    totalUsers,
-    totalOrders,
-    totalCoupons,
-    totalCategories,
-    totalProducts,
-    totalRevenue: totalRevenue._sum.totalPrice || 0,
-  };
-};
-
 const getAdminStatistics = async () => {
-  // Users Stats
   const totalUsers = await prisma.user.count();
   const activeUsers = await prisma.user.count({ where: { isActive: true } });
   const usersByRole = await prisma.user.groupBy({
@@ -31,7 +10,6 @@ const getAdminStatistics = async () => {
     _count: { id: true },
   });
 
-  // Orders Stats
   const totalOrders = await prisma.order.count();
   const ordersByStatus = await prisma.order.groupBy({
     by: ["status"],
@@ -45,20 +23,17 @@ const getAdminStatistics = async () => {
     _avg: { totalPrice: true },
   });
 
-  // Get Highest Value Orders
   const highestValueOrders = await prisma.order.findMany({
     orderBy: { totalPrice: "desc" },
     take: 5,
     select: { id: true, totalPrice: true, userId: true },
   });
 
-  // Product Stats
   const totalProducts = await prisma.product.count();
   const outOfStockProducts = await prisma.product.count({
     where: { quantity: 0 },
   });
 
-  // Top Selling Products (by Total Quantity Sold)
   const topSellingProducts = await prisma.orderItem.groupBy({
     by: ["productId"],
     _sum: { quantity: true },
@@ -79,7 +54,6 @@ const getAdminStatistics = async () => {
       "Unknown Product",
   }));
 
-  // Most Ordered Products (appears in most unique orders)
   const mostOrderedProducts = await prisma.orderItem.groupBy({
     by: ["productId"],
     _count: { orderId: true },
@@ -99,7 +73,6 @@ const getAdminStatistics = async () => {
       "Unknown Product",
   }));
 
-  // Most Reviewed Products
   const mostReviewedProducts = await prisma.review.groupBy({
     by: ["productId"],
     _count: { id: true },
@@ -120,7 +93,6 @@ const getAdminStatistics = async () => {
       "Unknown Product",
   }));
 
-  // ✅ Daily Revenue for Last 7 Days
   const last7Days = [...Array(7)].map((_, i) => {
     const date = subDays(new Date(), i);
     return { date: format(date, "yyyy-MM-dd") };
@@ -129,7 +101,7 @@ const getAdminStatistics = async () => {
   const dailyRevenue = await prisma.order.groupBy({
     by: ["createdAt"],
     _sum: { totalPrice: true },
-    where: { createdAt: { gte: subDays(new Date(), 7) } }, // Filter last 7 days
+    where: { createdAt: { gte: subDays(new Date(), 7) } },
   });
 
   const dailyRevenueFormatted = last7Days.map((day) => {
@@ -142,7 +114,6 @@ const getAdminStatistics = async () => {
     };
   });
 
-  // ✅ Revenue Breakdown by Order Status
   const revenueByStatus = await prisma.order.groupBy({
     by: ["status"],
     _sum: { totalPrice: true },
@@ -190,4 +161,4 @@ const getAdminStatistics = async () => {
   };
 };
 
-export default { getStatistics, getAdminStatistics };
+export default { getAdminStatistics };
