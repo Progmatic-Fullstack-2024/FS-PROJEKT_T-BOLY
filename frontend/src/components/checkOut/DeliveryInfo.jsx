@@ -22,7 +22,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
                   }}
                   name="firstName"
                   type="text"
-                  className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 bg-gray-100 focus:outline-none"
+                  className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 bg-gray-100 focus:outline-none"
                 />
                 <ErrorMessage name="firstName" component="div" className="text-red-500" />
               </div>
@@ -38,7 +38,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
                   }}
                   name="lastName"
                   type="text"
-                  className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 bg-gray-100 focus:outline-none"
+                  className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 bg-gray-100 focus:outline-none"
                 />
                 <ErrorMessage name="lastName" component="div" className="text-red-500" />
               </div>
@@ -55,7 +55,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
                   }}
                   name="street"
                   type="text"
-                  className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                  className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
                 />
                 <ErrorMessage name="street" component="div" className="text-red-500" />
               </div>
@@ -70,7 +70,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
                   }}
                   name="houseNumber"
                   type="text"
-                  className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                  className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
                 />
                 <ErrorMessage name="houseNumber" component="div" className="text-red-500" />
               </div>
@@ -87,7 +87,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
                   }}
                   name="country"
                   type="text"
-                  className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                  className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
                 />
                 <ErrorMessage name="country" component="div" className="text-red-500" />
               </div>
@@ -102,7 +102,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
                   }}
                   name="city"
                   type="text"
-                  className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                  className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
                 />
                 <ErrorMessage name="city" component="div" className="text-red-500" />
               </div>
@@ -119,7 +119,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
                   }}
                   name="postalCode"
                   type="text"
-                  className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                  className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
                 />
                 <ErrorMessage name="postalCode" component="div" className="text-red-500" />
               </div>
@@ -134,7 +134,8 @@ export default function DeliveryInfo({ formData, setFormData }) {
                   }}
                   name="phoneNumber"
                   type="text"
-                  className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                  placeholder="+36-11-1111111"
+                  className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 focus:outline-none focus:border-2 focus:border-primary placeholder:text-gray-400 placeholder:font-normal"
                 />
                 <ErrorMessage name="phoneNumber" component="div" className="text-red-500" />
               </div>
@@ -151,7 +152,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
                   }}
                   name="email"
                   type="email"
-                  className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 bg-gray-100 focus:outline-none"
+                  className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 bg-gray-100 focus:outline-none"
                   readOnly
                 />
               </div>
@@ -165,7 +166,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
                 }}
                 name="orderNotes"
                 as="textarea"
-                className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
                 rows="4"
               />
               <ErrorMessage name="orderNotes" component="div" className="text-red-500" />
@@ -199,7 +200,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
                       }}
                       name="billingStreet"
                       type="text"
-                      className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                      className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
                     />
                     <ErrorMessage name="billingStreet" component="div" className="text-red-500" />
                   </div>
@@ -214,7 +215,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
                       }}
                       name="billingHouseNumber"
                       type="text"
-                      className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                      className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
                     />
                     <ErrorMessage
                       name="billingHouseNumber"
@@ -235,7 +236,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
                       }}
                       name="billingCountry"
                       type="text"
-                      className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                      className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
                     />
                     <ErrorMessage name="billingCountry" component="div" className="text-red-500" />
                   </div>
@@ -250,7 +251,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
                       }}
                       name="billingCity"
                       type="text"
-                      className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                      className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
                     />
                     <ErrorMessage name="billingCity" component="div" className="text-red-500" />
                   </div>
@@ -267,7 +268,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
                       }}
                       name="billingPostalCode"
                       type="text"
-                      className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                      className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
                     />
                     <ErrorMessage
                       name="billingPostalCode"

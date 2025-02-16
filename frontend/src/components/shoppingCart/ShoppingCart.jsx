@@ -14,7 +14,7 @@ export default function ShoppingCart() {
   const { t } = useContext(LanguageContext);
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
-
+  
   const applyCoupon = async () => {
     try {
       const data = await couponsService.getCouponByCode(code);
@@ -33,13 +33,13 @@ export default function ShoppingCart() {
 
   return (
     <div className="md:ml-80 ml-2 mr-2 md:mr-80 md:mt-28 mt-10 mb-28 flex flex-col">
-      <h1 className="text-primary md:mb-28 mb-10 text-3xl font-medium">
+      <h1 className="md:mb-28 mb-10 text-3xl font-medium">
         {t('your shopping cart')}
       </h1>
       <div className="md:flex md:justify-center overflow-x-scroll md:overflow-x-visible">
         <table className=" md:w-full border-collapse border-b border-gray-300">
           <thead>
-            <tr className="bg-gray-200">
+            <tr className="bg-primary text-white rounded-xl border-gray-30">
               <th colSpan={2} className="text-left pl-12 p-6">
                 {t('product')}
               </th>
