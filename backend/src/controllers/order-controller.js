@@ -50,8 +50,15 @@ const getOrdersByUserId = async (req, res, next) => {
 
 const createOrder = async (req, res, next) => {
   const userId = req.user.id;
-  const { totalPrice, orderItems, adress, billingAdress, phoneNumber, status } =
-    req.body;
+  const {
+    totalPrice,
+    orderItems,
+    adress,
+    billingAdress,
+    phoneNumber,
+    status,
+    orderNotes,
+  } = req.body;
 
   try {
     const newOrder = await orderService.createOrder(
@@ -60,7 +67,8 @@ const createOrder = async (req, res, next) => {
       adress,
       billingAdress,
       phoneNumber,
-      status
+      status,
+      orderNotes
     );
     const orderItemsData = await Promise.all(
       orderItems.map(async (item) => {

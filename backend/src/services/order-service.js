@@ -86,10 +86,19 @@ const createOrder = async (
   adress,
   billingAdress,
   phoneNumber,
-  status
+  status,
+  orderNotes
 ) => {
   const newOrder = await prisma.order.create({
-    data: { userId, totalPrice, adress, billingAdress, phoneNumber, status },
+    data: {
+      userId,
+      totalPrice,
+      adress,
+      billingAdress,
+      phoneNumber,
+      status,
+      orderNotes,
+    },
   });
   return newOrder;
 };
