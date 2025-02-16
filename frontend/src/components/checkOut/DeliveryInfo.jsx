@@ -1,53 +1,13 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import React, { useContext, useState } from 'react';
-import AuthContext from '../../contexts/AuthContext';
-import CartContext from '../../contexts/CartContext';
 
-export default function DeliveryInfo() {
-  const { user } = useContext(AuthContext);
-  const { cart, clearCart, totalPrice } = useContext(CartContext);
+import { deliveryInfoValidationSchema } from '../../validations/deliveryInfo.validation';
 
-  const initialValues = {
-    firstName: user.firstName || '',
-    lastName: user.lastName || '',
-    street: user.adress?.split(', ')[3] || '',
-    houseNumber: user.adress?.split(', ')[4] || '',
-    country: user.adress?.split(', ')[0] || '',
-    city: user.adress?.split(', ')[1] || '',
-    postalCode: user.adress?.split(', ')[2] || '',
-    phoneNumber: 'soon',
-    email: user.email,
-    orderNotes: '',
-    billingStreet: user.billingAdress?.split(', ')[3] || '',
-    billingHouseNumber: user.billingAdress?.split(', ')[4] || '',
-    billingCountry: user.billingAdress?.split(', ')[0] || '',
-    billingCity: user.billingAdress?.split(', ')[1] || '',
-    billingPostalCode: user.billingAdress?.split(', ')[2] || '',
-    isSameAdress: true,
-  };
-
-  const handleSubmit = (values) => {
-    console.table({
-      totalPrice,
-      orderItems: cart,
-      adress: `${values.country}, ${values.city}, ${values.postalCode}, ${values.street}, ${values.houseNumber}`,
-      billingAdress: values.isSameAdress
-        ? `${values.country}, ${values.city}, ${values.postalCode}, ${values.street}, ${values.houseNumber}`
-        : `${values.billingCountry}, ${values.billingCity}, ${values.billingPostalCode}, ${values.billingStreet}, ${values.billingHouseNumber}`,
-      phoneNumber: values.phoneNumber,
-    });
-  };
-
+export default function DeliveryInfo({ formData, setFormData }) {
   return (
     <div className=" border-2 rounded-xl p-12">
       <h1 className="text-2xl font-medium mb-12">Delivery info</h1>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={(values) => {
-          handleSubmit(values);
-        }}
-      >
-        {({ values }) => (
+      <Formik validationSchema={deliveryInfoValidationSchema} initialValues={formData}>
+        {({ values, setFieldValue }) => (
           <Form className="flex flex-col gap-6">
             <div className=" flex justify-between gap-10">
               <div className="w-1/2">
@@ -55,9 +15,14 @@ export default function DeliveryInfo() {
                   First name <span className="text-red-500 font-bold">*</span>
                 </label>
                 <Field
+                  readOnly
+                  onChange={(e) => {
+                    setFieldValue('firstName', e.target.value);
+                    setFormData((prev) => ({ ...prev, firstName: e.target.value }));
+                  }}
                   name="firstName"
                   type="text"
-                  className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                  className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 bg-gray-100 focus:outline-none"
                 />
                 <ErrorMessage name="firstName" component="div" className="text-red-500" />
               </div>
@@ -66,30 +31,43 @@ export default function DeliveryInfo() {
                   Last name <span className="text-red-500 font-bold">*</span>
                 </label>
                 <Field
+                  readOnly
+                  onChange={(e) => {
+                    setFieldValue('lastName', e.target.value);
+                    setFormData((prev) => ({ ...prev, lastName: e.target.value }));
+                  }}
                   name="lastName"
                   type="text"
-                  className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                  className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 bg-gray-100 focus:outline-none"
                 />
                 <ErrorMessage name="lastName" component="div" className="text-red-500" />
               </div>
             </div>
             <div className=" flex justify-between gap-10">
-              <div className="w-3/4">
+              <div className="w-2/3">
                 <label className="block mb-2 font-medium">
                   Street <span className="text-red-500 font-bold">*</span>
                 </label>
                 <Field
+                  onChange={(e) => {
+                    setFieldValue('street', e.target.value);
+                    setFormData((prev) => ({ ...prev, street: e.target.value }));
+                  }}
                   name="street"
                   type="text"
                   className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
                 />
                 <ErrorMessage name="street" component="div" className="text-red-500" />
               </div>
-              <div className="w-1/4">
+              <div className="w-1/3">
                 <label className="block mb-2 font-medium">
                   House number <span className="text-red-500 font-bold">*</span>
                 </label>
                 <Field
+                  onChange={(e) => {
+                    setFieldValue('houseNumber', e.target.value);
+                    setFormData((prev) => ({ ...prev, houseNumber: e.target.value }));
+                  }}
                   name="houseNumber"
                   type="text"
                   className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
@@ -103,6 +81,10 @@ export default function DeliveryInfo() {
                   Country <span className="text-red-500 font-bold">*</span>
                 </label>
                 <Field
+                  onChange={(e) => {
+                    setFieldValue('country', e.target.value);
+                    setFormData((prev) => ({ ...prev, country: e.target.value }));
+                  }}
                   name="country"
                   type="text"
                   className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
@@ -114,6 +96,10 @@ export default function DeliveryInfo() {
                   City <span className="text-red-500 font-bold">*</span>
                 </label>
                 <Field
+                  onChange={(e) => {
+                    setFieldValue('city', e.target.value);
+                    setFormData((prev) => ({ ...prev, city: e.target.value }));
+                  }}
                   name="city"
                   type="text"
                   className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
@@ -127,6 +113,10 @@ export default function DeliveryInfo() {
                   ZIP code <span className="text-red-500 font-bold">*</span>
                 </label>
                 <Field
+                  onChange={(e) => {
+                    setFieldValue('postalCode', e.target.value);
+                    setFormData((prev) => ({ ...prev, postalCode: e.target.value }));
+                  }}
                   name="postalCode"
                   type="text"
                   className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
@@ -138,6 +128,10 @@ export default function DeliveryInfo() {
                   Phone number <span className="text-red-500 font-bold">*</span>
                 </label>
                 <Field
+                  onChange={(e) => {
+                    setFieldValue('phoneNumber', e.target.value);
+                    setFormData((prev) => ({ ...prev, phoneNumber: e.target.value }));
+                  }}
                   name="phoneNumber"
                   type="text"
                   className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
@@ -151,6 +145,10 @@ export default function DeliveryInfo() {
                   Email address <span className="text-red-500 font-bold">*</span>
                 </label>
                 <Field
+                  onChange={(e) => {
+                    setFieldValue('email', e.target.value);
+                    setFormData((prev) => ({ ...prev, email: e.target.value }));
+                  }}
                   name="email"
                   type="email"
                   className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 bg-gray-100 focus:outline-none"
@@ -161,6 +159,10 @@ export default function DeliveryInfo() {
             <div className="space-y-1">
               <label className="block mb-2 font-medium">Order notes (optional):</label>
               <Field
+                onChange={(e) => {
+                  setFieldValue('orderNotes', e.target.value);
+                  setFormData((prev) => ({ ...prev, orderNotes: e.target.value }));
+                }}
                 name="orderNotes"
                 as="textarea"
                 className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
@@ -174,6 +176,10 @@ export default function DeliveryInfo() {
                   className="w-5 h-5 border-2 border-gray-300 rounded-md checked:bg-primary checked:border-transparent "
                   type="checkbox"
                   name="isSameAdress"
+                  onChange={(e) => {
+                    setFieldValue('isSameAdress', e.target.checked);  
+                    setFormData((prev) => ({ ...prev, isSameAdress: e.target.checked }));  
+                  }}
                 />
                 <span>Use shipping address as billing address</span>
               </label>
@@ -182,22 +188,30 @@ export default function DeliveryInfo() {
               <div className="flex flex-col gap-6">
                 <h1 className="text-2xl font-medium mt-8 mb-12">Billing Address</h1>
                 <div className="flex justify-between gap-10">
-                  <div className="w-3/4">
+                  <div className="w-2/3">
                     <label className="block mb-2 font-medium">
                       Billing Street <span className="text-red-500 font-bold">*</span>
                     </label>
                     <Field
+                      onChange={(e) => {
+                        setFieldValue('billingStreet', e.target.value);
+                        setFormData((prev) => ({ ...prev, billingStreet: e.target.value }));
+                      }}
                       name="billingStreet"
                       type="text"
                       className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
                     />
                     <ErrorMessage name="billingStreet" component="div" className="text-red-500" />
                   </div>
-                  <div className="w-1/4">
+                  <div className="w-1/3">
                     <label className="block mb-2 font-medium">
                       Billing house number <span className="text-red-500 font-bold">*</span>
                     </label>
                     <Field
+                      onChange={(e) => {
+                        setFieldValue('billingHouseNumber', e.target.value);
+                        setFormData((prev) => ({ ...prev, billingHouseNumber: e.target.value }));
+                      }}
                       name="billingHouseNumber"
                       type="text"
                       className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
@@ -215,6 +229,10 @@ export default function DeliveryInfo() {
                       Billing Country <span className="text-red-500 font-bold">*</span>
                     </label>
                     <Field
+                      onChange={(e) => {
+                        setFieldValue('billingCountry', e.target.value);
+                        setFormData((prev) => ({ ...prev, billingCountry: e.target.value }));
+                      }}
                       name="billingCountry"
                       type="text"
                       className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
@@ -226,6 +244,10 @@ export default function DeliveryInfo() {
                       Billing City <span className="text-red-500 font-bold">*</span>
                     </label>
                     <Field
+                      onChange={(e) => {
+                        setFieldValue('billingCity', e.target.value);
+                        setFormData((prev) => ({ ...prev, billingCity: e.target.value }));
+                      }}
                       name="billingCity"
                       type="text"
                       className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
@@ -239,6 +261,10 @@ export default function DeliveryInfo() {
                       Billing ZIP code <span className="text-red-500 font-bold">*</span>
                     </label>
                     <Field
+                      onChange={(e) => {
+                        setFieldValue('billingPostalCode', e.target.value);
+                        setFormData((prev) => ({ ...prev, billingPostalCode: e.target.value }));
+                      }}
                       name="billingPostalCode"
                       type="text"
                       className="w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
@@ -252,7 +278,6 @@ export default function DeliveryInfo() {
                 </div>
               </div>
             )}
-            <button type="submit">Order</button>
           </Form>
         )}
       </Formik>
