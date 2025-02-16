@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import AddNewUserModal from './AddNewUserModal.jsx';
 import RoleSelect from './RoleSelect.jsx';
 import UserRow from './UserRow.jsx';
+import UsersTableSkeleton from './UsersTableSkeleton';
 import userService from '../../../services/userService.js';
 import DisplayedProductsNumber from '../../products/DisplayedProductsNumber.jsx';
 import Pagination from '../../products/Pagination.jsx';
@@ -17,11 +18,14 @@ export default function UsersTable() {
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
   const sorting = searchParams.get('sorting');
   const order = searchParams.get('order');
 
   useEffect(() => {
     const fetchUsers = async () => {
+      setIsLoading(true);
       try {
         const data = await userService.getAllUsers(searchParams.toString());
         setUsers(data.users);
@@ -29,6 +33,8 @@ export default function UsersTable() {
         setTotalPages(data.totalPages);
       } catch (error) {
         toast.error('Failed to fetch users');
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -66,6 +72,10 @@ export default function UsersTable() {
       toast.error('Failed to delete user');
     }
   };
+
+  if (isLoading) {
+    return <UsersTableSkeleton />;
+  }
 
   return (
     <section className="py-3 sm:py-5">

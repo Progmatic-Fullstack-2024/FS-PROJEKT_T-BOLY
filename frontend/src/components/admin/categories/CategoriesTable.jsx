@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import AddNewCategoryModal from './AddNewCategoryModal.jsx';
+import CategoriesTableSkeleton from './CategoriesTableSkeleton.jsx';
 import DeleteCategoryModal from './DeleteCategoryModal.jsx';
 import noImage from '../../../assets/noImage.png';
 import categoryService from '../../../services/categoryService.js';
@@ -13,17 +14,21 @@ export default function CategoriesTable() {
   const [categories, setCategories] = useState([]);
   const [totalCategories, setTotalCategories] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
+        setIsLoading(true);
         const data = await categoryService.getAllCategories(searchParams.toString());
         setCategories(data.categories);
         setTotalCategories(data.totalCategories);
         setTotalPages(data.totalPages);
       } catch (error) {
         toast.error('Failed to fetch categories');
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -45,6 +50,10 @@ export default function CategoriesTable() {
       ),
     );
   };
+
+  if (isLoading) {
+    return <CategoriesTableSkeleton />;
+  }
 
   return (
     <section className="py-3 sm:py-5">

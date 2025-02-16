@@ -16,6 +16,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
+import OverviewSkeleton from './OverviewSkeleton';
 import StatCard from './StatCard';
 import statisticsService from '../../../services/statisticsService';
 import getChartData from '../../../utils/getChartData';
@@ -41,7 +42,7 @@ export default function Overview() {
     fetchStatistics();
   }, []);
 
-  if (!stats || isLoading) return <p className="text-center text-gray-500">Loading...</p>;
+  if (!stats || isLoading) return <OverviewSkeleton />;
 
   return (
     <div className="min-h-screen  p-5">

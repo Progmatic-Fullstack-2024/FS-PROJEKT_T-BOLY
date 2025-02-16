@@ -4,6 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import AddNewCouponModal from './AddNewCouponModal.jsx';
+import CopuonsTableSkeleton from './CouponsTableSkeleton.jsx';
 import DeleteCouponModal from './DeleteCouponModal.jsx';
 import couponService from '../../../services/couponsService.js';
 import DisplayedProductsNumber from '../../products/DisplayedProductsNumber.jsx';
@@ -14,17 +15,21 @@ export default function CouponsTable() {
   const [totalCoupons, setTotalCoupons] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
     const fetchCoupons = async () => {
       try {
+        setIsLoading(true);
         const data = await couponService.getAllCoupons(searchParams.toString());
         setCoupons(data.coupons);
         setTotalCoupons(data.totalCoupons);
         setTotalPages(data.totalPages);
       } catch (error) {
         toast.error('Failed to fetch coupons');
+      } finally {
+        setIsLoading(true);
       }
     };
 
@@ -38,6 +43,10 @@ export default function CouponsTable() {
   const handleCreate = async (newCoupon) => {
     setCoupons((prevCoupons) => [...prevCoupons, newCoupon]);
   };
+
+  if (isLoading) {
+    return <CopuonsTableSkeleton />;
+  }
 
   return (
     <section className="py-3 sm:py-5">
