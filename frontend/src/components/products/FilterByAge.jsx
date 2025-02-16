@@ -1,21 +1,16 @@
-import { useEffect, useState, useContext } from 'react';
+import { useContext } from 'react';
 import RangeSlider from 'react-range-slider-input';
 import 'react-range-slider-input/dist/style.css';
 import './slider.css';
 import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import FilterByAgeSkeleton from './FilterByAgeSkeleton';
+import FilterBySkeleton from './FilterBySkeleton';
 import LanguageContext from '../../contexts/LanguageContext';
 
-export default function FilterByPrice({ minAge, maxAge, setMaxAge, setMinAge }) {
+export default function FilterByPrice({ minAge, maxAge, setMaxAge, setMinAge, isLoading }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const { t } = useContext(LanguageContext);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    setIsLoading(false);
-  }, []);
 
   const handleFilterByAge = () => {
     searchParams.set('minAge', minAge);
@@ -47,7 +42,7 @@ export default function FilterByPrice({ minAge, maxAge, setMaxAge, setMinAge }) 
   };
 
   if (isLoading) {
-    return <FilterByAgeSkeleton />;
+    return <FilterBySkeleton />;
   }
 
   return (

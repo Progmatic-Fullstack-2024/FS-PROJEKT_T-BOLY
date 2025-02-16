@@ -1,8 +1,11 @@
+import { t } from 'i18next';
+
 export default function WishlistSkeleton() {
   return (
     <div className="mx-auto w-full h-full bg-white rounded-lg shadow-md p-8 animate-pulse">
+      <h1 className="text-2xl font-bold mb-4">{t('wishlist')}</h1>
       <ul className="space-y-4">
-        {Array.from({ length: 6 }).map((_, index) => (
+        {Array.from({ length: 3 }).map((_, index) => (
           <li
             key={index}
             className="flex items-center justify-between p-4 border rounded-lg shadow-sm"

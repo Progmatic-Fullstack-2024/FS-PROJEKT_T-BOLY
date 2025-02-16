@@ -116,6 +116,7 @@ export default function ProductsByCategory() {
                 setMaxPrice={setMaxPrice}
                 setMinPrice={setMinPrice}
                 priceRange={priceRange}
+                isLoading={isLoading}
               />
             )}
             <FilterByAge
@@ -123,6 +124,7 @@ export default function ProductsByCategory() {
               maxAge={maxAge}
               setMaxAge={setMaxAge}
               setMinAge={setMinAge}
+              isLoading={isLoading}
             />
           </div>
           <div>
@@ -147,7 +149,7 @@ export default function ProductsByCategory() {
                 <Sorting />
                 <FilterByPlayersNumber />
               </div>
-              <DisplayedProductsNumber totalProducts={totalProducts} />
+              <DisplayedProductsNumber totalProducts={totalProducts} isLoading={isLoading} />
             </div>
             <div>
               {gridView ? (

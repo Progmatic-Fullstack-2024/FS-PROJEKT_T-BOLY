@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 
-import userService from '../../services/userService.js';
+import userService from '../../../services/userService.js';
 
 export default function EditUserRole({ user }) {
   const [role, setRole] = useState(user.role);

@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import AdultProductLoginModal from './AdultProductLoginModal';
 import DescriptionReview from './DescriptionReview';
 import PictureModal from './PicturesModal';
+import ProductByIdSkeleton from './ProductByIdSkeleton';
 import QuantityChangeButtons from './QuantityChangeButtons';
 import RelatedProducts from './RelatedProducts';
 import SharingButtons from './SharingButtons';
@@ -56,7 +57,7 @@ export default function ProductById() {
   }, [productId]);
 
   if (loading) {
-    return <div className="text-center p-32 text-3xl">Loading...</div>;
+    return <ProductByIdSkeleton />;
   }
 
   const handleIncrement = () => {
