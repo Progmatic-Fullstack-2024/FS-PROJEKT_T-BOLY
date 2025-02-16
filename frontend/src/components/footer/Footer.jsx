@@ -1,82 +1,130 @@
+import { useContext } from 'react';
 import { FaInstagram, FaTwitter, FaFacebook, FaPinterest } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 import FooterBg from '../../assets/footer-bg.png';
+import addressIcon from '../../assets/icons/address.png';
+import personalDataIcon from '../../assets/icons/data-breach.png';
+import heartIcon from '../../assets/icons/heart.png';
+import orderIcon from '../../assets/icons/order-delivery.png';
 import TbolyOrange from '../../assets/t-boly-orange.png';
+import LanguageContext from '../../contexts/LanguageContext';
 
 export default function Footer() {
+  const { t } = useContext(LanguageContext);
+
   return (
-    <footer className="w-full h-[32rem] relative font-orienta">
-      {/* Background Image */}
+    <footer className="w-full text-gray-700 pt-16 relative font-orienta">
       <img
         src={FooterBg}
         alt="Background"
-        className="absolute inset-0 w-full h-full object-cover opacity-50"
+        className="absolute w-full h-full object-cover object-center opacity-30 md:opacity-50 -z-10"
       />
-
-      {/* Content */}
-      <div className="relative w-full max-w-8xl px-10 py-16 bg-opacity-80 mx-auto flex justify-center items-center h-full">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
-          {/* Logo Section */}
-          <div className="flex mt-10 flex-col items-center md:items-start">
-            <img src={TbolyOrange} alt="T-BOLY Logo" className="h-16 w-auto object-contain -ml-5" />
-            <p className="text-sm mt-2">Nunc consequat interdum varius sit amet mattis.</p>
-            <div className="flex space-x-4 mt-4">
-              {/* Social Icons */}
-              <div className="text-primary hover:text-opacity-70">
-                <FaInstagram size={24} />
-              </div>
-              <div className="text-primary hover:text-opacity-70">
-                <FaTwitter size={24} />
-              </div>
-              <div className="text-primary hover:text-opacity-70">
-                <FaFacebook size={24} />
-              </div>
-              <div className="text-primary hover:text-opacity-70">
-                <FaPinterest size={24} />
-              </div>
-            </div>
-          </div>
-
-          {/* My Account Section */}
-          <div>
-            <h2 className="text-xl font-semibold">My Account</h2>
-            <ul className="mt-4 space-y-2">
-              <li>
-                <div className="hover:underline">Track my order</div>
-              </li>
-              <li>
-                <div className="hover:underline">Terms of use</div>
-              </li>
-              <li>
-                <div className="hover:underline">Wishlist</div>
-              </li>
-              <li>
-                <div className="hover:underline">Submit Your Feedback</div>
-              </li>
-            </ul>
-          </div>
-
-          {/* Customer Service Section */}
-          <div className="hidden md:block">
-            <h2 className="text-xl font-semibold">Customer Service</h2>
-            <ul className="mt-4 space-y-2">
-              <li>Monday to Friday</li>
-              <li>10am - 6pm (New York time)</li>
-              <li>
-                Call us:{' '}
-                <a className="text-primary" href="tel:1234567868">
-                  123-456-7868
-                </a>
-              </li>
-              <li>
-                Email us:{' '}
-                <a className="text-primary" href="mailto:info@example.com">
-                  info@example.com
-                </a>
-              </li>
-            </ul>
+      <div className="max-w-7xl mx-auto mt-20 px-6 grid grid-cols-2 md:grid-cols-4 gap-12">
+        {/* Logo & Social Media */}
+        <div className="col-span-2 md:col-span-1">
+          <img src={TbolyOrange} alt="T-BOLY Logo" className="h-16 w-auto mb-4 -ml-5" />
+          <p className="text-gray-700 text-sm md:text-lg">
+            {t('Crafting smiles with every toy, made for learning, fun, and growth')}
+          </p>
+          <div className="flex space-x-4 mt-4">
+            <a href="/" className="text-primary hover:text-primary-light transition duration-300">
+              <FaInstagram size={24} />
+            </a>
+            <a href="/" className="text-primary hover:text-primary-light transition duration-300">
+              <FaTwitter size={24} />
+            </a>
+            <a href="/" className="text-primary hover:text-primary-light transition duration-300">
+              <FaFacebook size={24} />
+            </a>
+            <a href="/" className="text-primary hover:text-primary-light transition duration-300">
+              <FaPinterest size={24} />
+            </a>
           </div>
         </div>
+
+        {/* My Account */}
+        <div>
+          <h2 className="text-2xl font-semibold mb-4">{t('my account')}</h2>
+          <ul className="space-y-3 text-gray-700 text-sm md:text-lg">
+            <li>
+              <Link className="flex items-center hover:text-primary" to="profile_page/orders">
+                <img src={orderIcon} alt="" className="h-5 w-5 mr-2" />
+                {t('orders')}
+              </Link>
+            </li>
+            <li>
+              <Link className="flex items-center hover:text-primary" to="profile_page/wishlist">
+                <img src={heartIcon} alt="" className="h-5 w-5 mr-2" />
+                {t('wishlist')}
+              </Link>
+            </li>
+            <li>
+              <Link
+                className="flex items-center hover:text-primary"
+                to="profile_page/personal_data"
+              >
+                <img src={personalDataIcon} alt="" className="h-5 w-5 mr-2" />
+                {t('personal data')}
+              </Link>
+            </li>
+            <li>
+              <Link className="flex items-center hover:text-primary" to="profile_page/adresses">
+                <img src={addressIcon} alt="" className="h-5 w-5 mr-2" />
+                {t('adresses')}
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        {/* Customer Service */}
+        <div>
+          <h2 className="text-2xl font-semibold mb-4">{t('customer service')}</h2>
+          <ul className="space-y-2 text-gray-700 text-sm md:text-lg">
+            <li>{t('monday to friday')}</li>
+            <li>{t('10 AM - 6 PM')}</li>
+            <li>
+              {t('call us')}:{' '}
+              <a href="tel:1234567868" className="text-primary hover:underline">
+                123-456-7868
+              </a>
+            </li>
+            <li>
+              {t('email us')}:{' '}
+              <a href="mailto:info@example.com" className="text-primary hover:underline">
+                info@example.com
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        {/* Newsletter */}
+        <div className="col-span-2 md:col-span-1">
+          <h2 className="text-2xl font-semibold mb-4">{t('stay connected')}</h2>
+          <p className="text-gray-700 text-sm md:text-lg mb-4">
+            {t('subscribe to our newsletter')}
+          </p>
+          <div className="flex bg-primary rounded-lg overflow-hidden">
+            <input
+              type="email"
+              placeholder={t('enter your email')}
+              className="w-full px-3 py-2 text-gray-800 outline-none"
+            />
+            <button
+              type="button"
+              className="bg-primary px-4 py-2 text-white text-sm md:text-lg font-semibold hover:bg-opacity-70"
+            >
+              {t('subscribe')}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom Bar */}
+      <div className="mt-10 pt-6 text-center text-gray-700 text-sm md:text-lg">
+        <p>
+          &copy; {new Date().getFullYear()} T-BOLY. {t('all rights reserved.')}
+        </p>
       </div>
     </footer>
   );

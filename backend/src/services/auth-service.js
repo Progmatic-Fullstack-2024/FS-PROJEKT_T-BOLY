@@ -4,17 +4,26 @@ import prisma from "../models/prismaClient.js";
 import HttpError from "../utils/HttpError.js";
 import { JWT_SECRET } from "../constants/constants.js";
 
-const login = async ({ email, password }) => {
-  const user = await prisma.user.findUnique({ where: { email } });
-  if (!user) throw new HttpError("Invalid email or password", 403);
+const login = async ({ identifier, password }) => {
+  const user = await prisma.user.findFirst({
+    where: { OR: [{ email: identifier }, { username: identifier }] },
+  });
+  if (!user) throw new HttpError("Invalid username or email", 403);
 
   const isPasswordValid = await bycrypt.compare(password, user.passwordHash);
-  if (!isPasswordValid) throw new HttpError("Invalid email or password", 403);
+  if (!isPasswordValid) throw new HttpError("Invalid password", 403);
 
   const payload = {
     id: user.id,
     email: user.email,
     role: user.role,
+    username: user.username,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    birthDate: user.birthDate,
+    adress: user.adress,
+    billingAdress: user.billingAdress,
+    profilePictureUrl: user.profilePictureUrl,
   };
 
   const token = jwt.sign(payload, JWT_SECRET);
@@ -22,7 +31,14 @@ const login = async ({ email, password }) => {
   return token;
 };
 
-const register = async ({ email, username, password, firstName, lastName }) => {
+const register = async ({
+  email,
+  username,
+  role,
+  password,
+  firstName,
+  lastName,
+}) => {
   const existingUser = await prisma.user.findFirst({
     where: {
       OR: [{ email }, { username }],
@@ -36,12 +52,39 @@ const register = async ({ email, username, password, firstName, lastName }) => {
     data: {
       email,
       username,
+      role,
       passwordHash: hashedPassword,
       firstName,
       lastName,
     },
   });
+
   return newUser;
 };
 
-export default { register, login };
+const passwordUpdate = async (id, oldPassword, newPassword) => {
+  const user = await prisma.user.findUnique({
+    where: { id },
+  });
+
+  if (!user) {
+    throw new HttpError("User not found", 404);
+  }
+
+  const isPasswordValid = await bycrypt.compare(oldPassword, user.passwordHash);
+
+  if (!isPasswordValid) {
+    throw new HttpError("Invalid password", 403);
+  }
+
+  const hashedNewPassword = await bycrypt.hash(newPassword, 5);
+
+  const updatedUser = await prisma.user.update({
+    where: { id },
+    data: { passwordHash: hashedNewPassword },
+  });
+
+  return updatedUser;
+};
+
+export default { register, login, passwordUpdate };
