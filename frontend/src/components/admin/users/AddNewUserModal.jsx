@@ -3,9 +3,9 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import Select from 'react-select';
 import { toast } from 'react-toastify';
 
-import { VITE_PUBLIC_KEY, VITE_SERVICE_ID, VITE_TEMPLATE_ID } from '../../constants/constants';
-import userService from '../../services/userService';
-import { nwUserValidationSchemaByAdmin } from '../../validations/newUserByAdmin.validation';
+import { VITE_PUBLIC_KEY, VITE_SERVICE_ID, VITE_TEMPLATE_ID } from '../../../constants/constants';
+import userService from '../../../services/userService';
+import { nwUserValidationSchemaByAdmin } from '../../../validations/newUserByAdmin.validation';
 
 export default function AddNewUserModal({ setIsOpen }) {
   const roleOptions = [

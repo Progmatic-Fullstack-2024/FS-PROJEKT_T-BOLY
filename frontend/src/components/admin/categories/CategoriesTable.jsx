@@ -4,10 +4,10 @@ import { toast } from 'react-toastify';
 
 import AddNewCategoryModal from './AddNewCategoryModal.jsx';
 import DeleteCategoryModal from './DeleteCategoryModal.jsx';
-import noImage from '../../assets/noImage.png';
-import categoryService from '../../services/categoryService.js';
-import DisplayedProductsNumber from '../products/DisplayedProductsNumber.jsx';
-import Pagination from '../products/Pagination.jsx';
+import noImage from '../../../assets/noImage.png';
+import categoryService from '../../../services/categoryService.js';
+import DisplayedProductsNumber from '../../products/DisplayedProductsNumber.jsx';
+import Pagination from '../../products/Pagination.jsx';
 
 export default function CategoriesTable() {
   const [categories, setCategories] = useState([]);

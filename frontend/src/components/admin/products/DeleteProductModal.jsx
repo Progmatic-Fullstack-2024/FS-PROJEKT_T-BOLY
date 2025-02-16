@@ -4,7 +4,7 @@ import { FiTrash } from 'react-icons/fi';
 import { RxCross2 } from 'react-icons/rx';
 import { toast } from 'react-toastify';
 
-import productService from '../../services/productService.js';
+import productService from '../../../services/productService.js';
 
 export default function DeleteProductModal({ product, onDelete }) {
   const [isOpen, setIsOpen] = useState(false);

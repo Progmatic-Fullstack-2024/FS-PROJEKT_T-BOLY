@@ -1,8 +1,8 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { toast } from 'react-toastify';
 
-import couponService from '../../services/couponsService';
-import { couponValidationSchema } from '../../validations/coupon.validation';
+import couponService from '../../../services/couponsService';
+import { couponValidationSchema } from '../../../validations/coupon.validation';
 
 export default function AddNewCouponModal({ setIsOpen, onCreate }) {
   const initialValues = {

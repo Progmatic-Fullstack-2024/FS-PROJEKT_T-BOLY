@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 
-import productImagesService from '../../services/productImagesService';
-import productService from '../../services/productService';
+import productImagesService from '../../../services/productImagesService';
+import productService from '../../../services/productService';
 
 export default function ImageDeleteButton({ url, productId, onUpdate }) {
   const [openConfirm, setOpenConfirm] = useState(false);

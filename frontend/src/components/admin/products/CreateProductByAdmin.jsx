@@ -7,11 +7,11 @@ import Select from 'react-select';
 import { toast } from 'react-toastify';
 
 import ImageDeleteButton from './ImageDeleteButton.jsx';
-import noImage from '../../assets/noImage.png';
-import categoryService from '../../services/categoryService.js';
-import productCategoryConnectionService from '../../services/productCategoryConnectionService.js';
-import productService from '../../services/productService.js';
-import { productValidationSchema } from '../../validations/product.validation.js';
+import noImage from '../../../assets/noImage.png';
+import categoryService from '../../../services/categoryService.js';
+import productCategoryConnectionService from '../../../services/productCategoryConnectionService.js';
+import productService from '../../../services/productService.js';
+import { productValidationSchema } from '../../../validations/product.validation.js';
 
 export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate }) {
   const fileInputRef = useRef(null);

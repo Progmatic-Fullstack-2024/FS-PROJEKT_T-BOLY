@@ -5,9 +5,9 @@ import { toast } from 'react-toastify';
 
 import AddNewCouponModal from './AddNewCouponModal.jsx';
 import DeleteCouponModal from './DeleteCouponModal.jsx';
-import couponService from '../../services/couponsService.js';
-import DisplayedProductsNumber from '../products/DisplayedProductsNumber.jsx';
-import Pagination from '../products/Pagination.jsx';
+import couponService from '../../../services/couponsService.js';
+import DisplayedProductsNumber from '../../products/DisplayedProductsNumber.jsx';
+import Pagination from '../../products/Pagination.jsx';
 
 export default function CouponsTable() {
   const [coupons, setCoupons] = useState([]);
