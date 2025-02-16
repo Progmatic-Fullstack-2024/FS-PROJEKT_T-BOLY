@@ -10,8 +10,9 @@ import reviewService from '../../services/reviewService';
 import Pagination from '../products/Pagination';
 
 export default function Reviews(product) {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [reviews, setReviews] = useState([]);
+  const [sortedReviews, setSortedReviews] = useState();
   const [allReviews, setAllReviews] = useState([]);
   const [itemsPerPage] = useState(5);
   const { t } = useContext(LanguageContext);
@@ -25,9 +26,11 @@ export default function Reviews(product) {
   ]);
 
   const pageNumber = searchParams.get('page') || 1;
+  const rating = searchParams.get('rating');
 
   const [isReviewOpen, setIsReviewOpen] = useState(false);
   const { productId } = useParams();
+
   useEffect(() => {
     const fetchReviewsByProduct = async () => {
       try {
@@ -35,16 +38,18 @@ export default function Reviews(product) {
           productId,
           pageNumber,
           itemsPerPage,
+          rating,
         );
         setAllReviews(response.allReviews);
         setReviews(response.reviews);
+        setSortedReviews(response.totalReviews);
         setTotalPages(response.totalPages);
       } catch (error) {
         toast.error(`Failed to fetch product: ${error.message}. Please try again later.`);
       }
     };
     fetchReviewsByProduct();
-  }, [productId, pageNumber, itemsPerPage]);
+  }, [productId, pageNumber, itemsPerPage, searchParams, isReviewOpen]);
 
   useEffect(() => {
     if (reviews.length === 0) return;
@@ -67,12 +72,17 @@ export default function Reviews(product) {
     setRatings(countOccurrences(rates));
   }, [reviews]);
 
+  const handleShowAll = () => {
+    searchParams.delete('rating');
+    setSearchParams(searchParams);
+  };
+
   return (
     <div>
-      <div className='p-4  mx-auto flex"'>
+      <div className='p-4 mx-auto flex" '>
         <h1 className="text-2x font-bold mb-4">{t('summary of ratings')}</h1>
         <div>
-          <RatingDetails ratings={ratings} product={product} numberOfRatings={allReviews.length} />
+          <RatingDetails ratings={ratings} product={product} numberOfRatings={sortedReviews} />
         </div>
         <button
           className="text-primary flex justify-center m-2"
@@ -89,6 +99,20 @@ export default function Reviews(product) {
       </div>
       {isReviewOpen && (
         <div className="p-4 ">
+          <div className="flex ">
+            {rating ? (
+              <div className="flex">
+                <div className="text-orange-500">
+                  Now only {rating} rating-star reviews are visible
+                </div>{' '}
+                <button type="button" className="px-5 text-orange-500" onClick={handleShowAll}>
+                  Show All
+                </button>
+              </div>
+            ) : (
+              ''
+            )}
+          </div>
           {reviews.map((review) => (
             <Review key={review.id} review={review} />
           ))}
