@@ -6,9 +6,9 @@ import { toast } from 'react-toastify';
 import CategorySelect from './CategorySelect.jsx';
 import ProductAdminModal from './CreateProductByAdmin.jsx';
 import ProductRow from './ProductRow.jsx';
-import productService from '../../services/productService.js';
-import DisplayedProductsNumber from '../products/DisplayedProductsNumber.jsx';
-import Pagination from '../products/Pagination.jsx';
+import productService from '../../../services/productService.js';
+import DisplayedProductsNumber from '../../products/DisplayedProductsNumber.jsx';
+import Pagination from '../../products/Pagination.jsx';
 
 export default function ProductsTable() {
   const [searchParams, setSearchParams] = useSearchParams();

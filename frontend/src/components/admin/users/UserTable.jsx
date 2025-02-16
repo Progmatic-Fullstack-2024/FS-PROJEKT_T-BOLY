@@ -5,11 +5,11 @@ import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import AddNewUserModal from './AddNewUserModal.jsx';
-import RoleSelect from './RoleSelect';
+import RoleSelect from './RoleSelect.jsx';
 import UserRow from './UserRow.jsx';
-import userService from '../../services/userService.js';
-import DisplayedProductsNumber from '../products/DisplayedProductsNumber.jsx';
-import Pagination from '../products/Pagination.jsx';
+import userService from '../../../services/userService.js';
+import DisplayedProductsNumber from '../../products/DisplayedProductsNumber.jsx';
+import Pagination from '../../products/Pagination.jsx';
 
 export default function UsersTable() {
   const [searchParams, setSearchParams] = useSearchParams();
