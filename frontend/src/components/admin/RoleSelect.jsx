@@ -17,14 +17,14 @@ export default function SelectRoleInput() {
       <select
         value={selectedRole}
         onChange={handleRoleChange}
-        className="w-60 p-2 px-4 py-2 text-sm font-medium text-black rounded-lg bg-primary-700 bg-opacity-50 border border-gray-400 "
+        className="w-60 p-2 px-4 py-2 text-sm font-medium text-black rounded-lg bg-primary-700 bg-opacity-50 border border-gray-400 dark:text-primary dark:bg-gray-800 dark:border-primary dark:hover:bg-gray-600"
       >
-        <option className={selectedRole === '' ? 'text-primary' : ''} value="">
+        <option className={selectedRole === '' ? 'text-primary dark:text-white' : ''} value="">
           All Roles
         </option>
         {['GUEST', 'USER', 'ADMIN'].map((role) => (
           <option
-            className={selectedRole === role ? 'text-primary' : 'text-gray-600'}
+            className={selectedRole === role ? 'text-primary' : 'text-gray-600 dark:text-primary'}
             key={role}
             value={role}
           >

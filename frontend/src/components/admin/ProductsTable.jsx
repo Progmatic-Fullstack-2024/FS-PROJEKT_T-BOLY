@@ -88,18 +88,18 @@ export default function ProductsTable() {
   return (
     <section className="py-3 sm:py-5">
       <div className="px-4 mx-auto max-w-screen-2xl lg:px-12">
-        <div className="relative overflow-hidden bg-gray-50 bg-opacity-80 shadow-md sm:rounded-lg">
+        <div className="relative overflow-hidden bg-gray-50 bg-opacity-80 shadow-md sm:rounded-lg dark:bg-gray-700">
           <div className="flex flex-col px-4 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4">
             <div className="flex items-center flex-1 space-x-4">
               <h5>
-                <span className="text-black">All Products: </span>
-                <span className="text-black">{totalProducts}</span>
+                <span className="text-black dark:text-primary">All Products: </span>
+                <span className="text-black dark:text-primary">{totalProducts}</span>
               </h5>
             </div>
             <button
               onClick={handleStatus}
               type="button"
-              className="flex items-center justify-center flex-shrink-0 px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-400 rounded-lg hover:bg-primary hover:text-primary-700 focus:ring-4 focus:ring-gray-200"
+              className="flex items-center justify-center flex-shrink-0 px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-400 rounded-lg hover:bg-primary hover:text-primary-700 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-primary dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:border-primary"
             >
               {isStatus ? 'Hide Deleted' : 'Show Deleted'}
             </button>

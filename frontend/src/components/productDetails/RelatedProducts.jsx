@@ -23,7 +23,7 @@ export default function RelatedProducts({ relatedProductsByCategory }) {
                   </div>
                 )}
                 <img
-                  className="border-2 rounded-2xl w-80 h-80 p-7 pr-8 shrink-0 hover:border-gray-900 object-contain"
+                  className="border-2 rounded-2xl w-80 h-80 p-7 pr-8 shrink-0 hover:border-gray-900 object-contain dark:border-primary dark:bg-gray-700"
                   src={relatedProduct.pictureUrl}
                   alt={relatedProduct.name}
                 />

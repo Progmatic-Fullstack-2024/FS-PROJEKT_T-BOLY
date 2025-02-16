@@ -8,7 +8,7 @@ import LanguageContext from '../../contexts/LanguageContext';
 export default function Footer() {
   const { t } = useContext(LanguageContext);
   return (
-    <footer className="w-full h-[32rem] relative font-orienta">
+    <footer className="w-full h-[32rem] relative font-orienta dark:bg-gray-900">
       {/* Background Image */}
       <img
         src={FooterBg}

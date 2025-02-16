@@ -6,9 +6,9 @@ import Header from './components/header/Header';
 
 export default function App() {
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen dark:bg-gray-800 dark:text-primary">
       <Header />
-      <div className="grow">
+      <div className="grow dark:bg-gray-800">
         <Outlet />
       </div>
       <ToastContainer

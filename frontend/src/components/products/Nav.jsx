@@ -23,20 +23,20 @@ export default function Nav() {
   }, []);
 
   return (
-    <div className="border-2 rounded-lg p-3 pl-6 mb-10">
+    <div className="border-2 rounded-lg p-3 pl-6 mb-10 dark:border-primary dark:bg-gray-700">
       <h1 className="pb-8 pt-4 text-xl font-medium">
         {t('product')} {t('categories')}
       </h1>
       <nav>
         <ul>
-          <li className={`pb-3 ${categoryId === 'all' && 'text-primary font-semibold'}`}>
+          <li className={`pb-3 ${categoryId === 'all' && 'text-primary font-semibold dark:text-white'}`}>
             <Link to="/products/category/all">
               + {t('all')} {t('products')}
             </Link>
           </li>
 
           {categories.map((category) => (
-            <li className={`pb-3 ${categoryId === category.id && 'text-primary font-semibold'}`}>
+            <li className={`pb-3 ${categoryId === category.id && 'text-primary font-semibold dark:text-white'}`}>
               <Link key={category.id} to={`/products/category/${category.id}`}>
                 + {t(category.name)}
               </Link>

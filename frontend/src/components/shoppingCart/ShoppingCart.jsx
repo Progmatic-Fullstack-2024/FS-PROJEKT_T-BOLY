@@ -12,18 +12,18 @@ export default function ShoppingCart() {
   const { t } = useContext(LanguageContext);
 
   return (
-    <div className="md:ml-80 ml-2 mr-2 md:mr-80 md:mt-28 mt-10 mb-28 flex flex-col">
-      <h1 className="text-primary md:mb-28 mb-10 text-3xl font-medium">
+    <div className="md:pl-80 pl-2 pr-2 md:pr-80 md:pt-28 pt-10 pb-28 flex flex-col dark:text-primary dark:bg-gray-800">
+      <h1 className="text-primary md:pb-28 pb-10 text-3xl font-medium text-center dark:text-primary">
         {t('your shopping cart')}
       </h1>
-      <div className="md:flex md:justify-center overflow-x-scroll md:overflow-x-visible">
-        <table className=" md:w-full border-collapse border-b border-gray-300">
+      <div className="md:flex md:justify-center overflow-x-scroll md:overflow-x-visible dark:text-primary">
+        <table className=" md:w-full border-collapse border-b border-gray-300 dark:text-primary">
           <thead>
-            <tr className="bg-gray-200">
-              <th colSpan={2} className="text-left pl-12 p-6">
+            <tr className="bg-gray-200 dark:bg-gray-600 ">
+              <th colSpan={2} className="text-left pl-12 p-6 ">
                 {t('product')}
               </th>
-              <th className="text-left pr-20">{t('price')}</th>
+              <th className="text-left pr-20 ">{t('price')}</th>
               <th className="text-left pl-12 pr-20">{t('quantity')}</th>
               <th className="text-left pl-12 pr-20">{t('subtotal')}</th>
               <th className="text-left pr-12 text-xl">
@@ -35,9 +35,9 @@ export default function ShoppingCart() {
             {cart.length > 0 ? (
               cart.map((product) => <CartItemRow cartProduct={product} key={product.id} />)
             ) : (
-              <tr className="border-t border-gray-300 ">
+              <tr className="border-t border-gray-300 dark:text-primary">
                 <td colSpan={6} className="p-20">
-                  <div className="flex md:justify-center items-center text-xl">
+                  <div className="flex md:justify-center items-center text-xl dark:text-primary">
                     {t('your shopping cart is empty')}.
                   </div>
                 </td>
@@ -47,12 +47,12 @@ export default function ShoppingCart() {
         </table>
       </div>
       <div
-        className={`mt-20 md:mb-20 mb-10 flex md:flex-row flex-col items-center gap-10 ${cart.length > 0 ? 'justify-between' : 'justify-end'}`}
+        className={`mt-20 md:mb-20 mb-10 flex md:flex-row flex-col items-center gap-10 dark:text-primary ${cart.length > 0 ? 'justify-between' : 'justify-end'}`}
       >
         {cart.length > 0 && (
-          <div className="flex gap-5 md:ml-5 items-end">
+          <div className="flex gap-5 md:ml-5 items-end dark:text-primary">
             <input
-              className="md:w-96 w-64 rounded-xl border-2 border-gray-300 p-2 hover:border-gray-900"
+              className="md:w-96 w-64 rounded-xl border-2 border-gray-300 p-2 hover:border-gray-900 dark:text-primary dark:bg-gray-700 dark:border-primary"
               type="text"
               placeholder={t('coupon code')}
             />

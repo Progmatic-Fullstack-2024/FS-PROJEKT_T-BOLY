@@ -27,7 +27,7 @@ export default function LoginModal({ onClose }) {
 
   return (
     <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
-      <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+      <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md dark:bg-gray-700">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-bold">Login</h2>
           <button type="button" className="text-gray-500 hover:text-black" onClick={onClose}>

@@ -93,7 +93,7 @@ export default function ProductById() {
   return (
     <div>
       {(product && product.ageRecommendationMin < 18) || (product && user && isUserAdult) ? (
-        <div className="mt-20 mb-32 md:mr-60 md:ml-60 mr-6 ml-6  ">
+        <div className="mt-20 mb-32 md:mr-60 md:ml-60 mr-6 ml-6">
           <div className="md:flex gap-2 md:mb-28 mb-10">
             <h1 className="text-3xl">{t('products')} /</h1>
             <h1 className="text-primary text-3xl font-medium">{product.name}</h1>
@@ -103,7 +103,7 @@ export default function ProductById() {
               <button
                 type="button"
                 onClick={() => handlePictureClick(0)}
-                className="flex border-2 rounded-2xl min-h-96 w-full items-center"
+                className="flex border-2 rounded-2xl min-h-96 w-full items-center dark:border-primary"
               >
                 <img
                   className="h-full w-full p-7 pr-8 shrink-0 cursor-pointer"
@@ -118,7 +118,7 @@ export default function ProductById() {
                       key={index}
                       type="button"
                       onClick={() => handlePictureClick(index + 1)}
-                      className="md:w-32 md:h-32 w-28 h-28 flex-shrink-0 p-3 border-2 rounded-xl overflow-hidden object-cover"
+                      className="md:w-32 md:h-32 w-28 h-28 flex-shrink-0 p-3 border-2 rounded-xl overflow-hidden object-cover dark:border-primary"
                       aria-label={`View picture ${index + 1}`}
                     >
                       <img src={picture} alt="" />

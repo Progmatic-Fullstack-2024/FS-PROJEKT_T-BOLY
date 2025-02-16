@@ -36,30 +36,30 @@ export default function Contacts() {
     resetForm();
   };
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full dark:bg-gray-800 dark:text-primary ">
       <div className="font-agbalumo mt-5 text-6xl p-5 text-center">{t('contact')}</div>
       <div className="flex md:flex-row m-5 flex-col">
-        <div className="md:w-1/3 border rounded-xl p-5 m-5 grid place-items-center">
-          <FiPhone className="text-orange-500 w-12 h-12" />
+        <div className="md:w-1/3 border rounded-xl p-5 m-5 grid place-items-center dark:bg-gray-700 dark:border-primary">
+          <FiPhone className="text-orange-500 w-12 h-12 dark:text-orange-600" />
           <p className="font-bold">{t('phone number')}</p>
           <p>123-456-7868</p>
         </div>
 
-        <div className="md:w-1/3 border rounded-xl p-5 m-5 grid place-items-center">
-          <FiMail className="text-orange-500 w-12 h-12" />
+        <div className="md:w-1/3 border rounded-xl p-5 m-5 grid place-items-center dark:bg-gray-700 dark:border-primary">
+          <FiMail className="text-orange-500 w-12 h-12 dark:text-orange-600" />
           <p className="font-bold">{t('email')}</p>
           <p>info@tbolygames.example.com</p>
         </div>
 
-        <div className="md:w-1/3 border rounded-xl p-5 m-5 grid place-items-center">
-          <FaMapMarkerAlt className="text-orange-500 w-12 h-12" />
+        <div className="md:w-1/3 border rounded-xl p-5 m-5 grid place-items-center dark:bg-gray-700 dark:border-primary">
+          <FaMapMarkerAlt className="text-orange-500 w-12 h-12 dark:text-orange-600" />
           <p className="font-bold">{t('adress')}</p>
           <p>Bécsi út 53-55</p>
           <p>1036, Budapest, Hungary</p>
         </div>
       </div>
 
-      <div className="flex md:flex-row flex-col">
+      <div className="flex md:flex-row flex-col dark:bg-gray-800">
         <div className="md:w-2/3 m-5 text-center items-center h-80 md:h-auto">
           <iframe
             title="map"
@@ -82,13 +82,13 @@ export default function Contacts() {
             }}
             onSubmit={(values, { resetForm }) => handleSave(values, resetForm)}
           >
-            <Form className="space-y-8">
+            <Form className="space-y-8 dark:text-primary dark:shadow-none">
               <div>
                 <Field
                   name="name"
                   type="text"
                   placeholder={t('your name')}
-                  className="w-full p-2 border rounded-lg"
+                  className="w-full p-2 border rounded-lg  dark:text-primary dark:bg-gray-700"
                 />
                 <ErrorMessage name="name" component="div" className="text-red-500 text-sm" />
               </div>
@@ -97,7 +97,7 @@ export default function Contacts() {
                   name="phone"
                   type="tel"
                   placeholder={t('your phone number')}
-                  className="w-full p-2 border rounded-lg"
+                  className="w-full p-2 border rounded-lg dark:text-primary dark:bg-gray-700"
                 />
                 <ErrorMessage name="phone" component="div" className="text-red-500 text-sm" />
               </div>
@@ -106,7 +106,7 @@ export default function Contacts() {
                   name="email"
                   type="email"
                   placeholder={t('your email adress')}
-                  className="w-full p-2 border rounded-lg"
+                  className="w-full p-2 border rounded-lg  dark:text-primary dark:bg-gray-700"
                 />
                 <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
               </div>
@@ -115,7 +115,7 @@ export default function Contacts() {
                   name="message"
                   as="textarea"
                   placeholder={t('write your message')}
-                  className="w-full p-2 h-40 border rounded-lg"
+                  className="w-full p-2 h-40 border rounded-lg  dark:text-primary dark:bg-gray-700"
                 />
                 <ErrorMessage name="message" component="div" className="text-red-500 text-sm" />
               </div>
