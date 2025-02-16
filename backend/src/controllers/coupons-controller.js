@@ -31,7 +31,7 @@ const updateCoupon = async (req, res, next) => {
   try {
     const updatedCoupon = await couponsService.updateCoupon(
       req.params.id,
-      req.body,
+      req.body
     );
     res.status(200).json(updatedCoupon);
   } catch (error) {
@@ -48,10 +48,21 @@ const deleteCoupon = async (req, res, next) => {
   }
 };
 
+const getCouponByCode = async (req, res, next) => {
+  const { code } = req.params;
+  try {
+    const coupon = await couponsService.getCouponByCode(code);
+    res.status(200).json(coupon);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getAllCoupons,
   getCouponById,
   createCoupon,
   updateCoupon,
   deleteCoupon,
+  getCouponByCode
 };

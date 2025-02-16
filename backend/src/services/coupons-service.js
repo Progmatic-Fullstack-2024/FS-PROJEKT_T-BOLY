@@ -20,10 +20,14 @@ const updateCoupon = async (id, couponData) =>
 
 const deleteCoupon = async (id) => prisma.coupon.delete({ where: { id } });
 
+const getCouponByCode = async (code) =>
+  prisma.coupon.findFirst({ where: { code } });
+
 export default {
   getAllCoupons,
   getCouponById,
   createCoupon,
   updateCoupon,
   deleteCoupon,
+  getCouponByCode
 };

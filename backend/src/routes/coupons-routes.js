@@ -9,5 +9,6 @@ router.get("/:id", couponsController.getCouponById);
 router.post("/", authenticate, couponsController.createCoupon);
 router.put("/:id", authenticate, couponsController.updateCoupon);
 router.delete("/:id", authenticate, couponsController.deleteCoupon);
+router.get("/code/:code", couponsController.getCouponByCode);
 
 export default router;

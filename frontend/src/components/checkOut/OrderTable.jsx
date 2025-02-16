@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 import CartContext from '../../contexts/CartContext';
 
 export default function OrderTable() {
-  const { cart, subtotalPrice, totalPrice, shippingPrice } = useContext(CartContext);
+  const { cart, subtotalPrice, totalPrice, shippingPrice, coupon } = useContext(CartContext);
 
   return (
-    <div className="w-2/5 border-2 rounded-xl p-12">
+    <div className="w-2/5 border-2 rounded-xl p-12 h-fit ">
       <h1 className="text-2xl font-medium mb-8">Your order</h1>
       <table className="w-full">
         {cart.map((product) => (
@@ -34,12 +34,18 @@ export default function OrderTable() {
           </tr>
         ))}
         <tr className="border-b border-gray-300 flex justify-between">
-          <td className="flex items-start justify-center mt-12 mb-12 flex-col gap-6">
+          <td className="flex items-start justify-center mt-12 mb-12 flex-col gap-5">
             <div className="font-medium">Subtotal</div>
+            {coupon && <div className="font-medium">{coupon.discount}% Discount</div>}
             <div className="font-medium">Shipping</div>
           </td>
-          <td className="flex items-start justify-center mt-12 mb-12 flex-col gap-6">
+          <td className="flex items-start justify-center mt-12 mb-12 flex-col gap-5">
             <div className="font-medium text-right">€{subtotalPrice.toFixed(2)}</div>
+            {coupon && (
+              <div className="font-medium text-right text-red-500">
+                - €{((subtotalPrice / 100) * coupon.discount).toFixed(2)}
+              </div>
+            )}
             <div className="font-medium text-right">€{shippingPrice.toFixed(2)}</div>
           </td>
         </tr>

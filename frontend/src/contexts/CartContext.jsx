@@ -14,6 +14,7 @@ export function CartProvider({ children }) {
   const [subtotalPrice, setSubtotalPrice] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [shippingPrice, setShippingPrice] = useState(10);
+  const [coupon, setCoupon] = useState('');
 
   useEffect(() => {
     const getCart = async () => {
@@ -37,10 +38,12 @@ export function CartProvider({ children }) {
       const total = cart.reduce((sum, product) => sum + product.price * product.quantity, 0);
       setSubtotalPrice(total);
       setShippingPrice(total > 150 ? 0 : 10);
-      setTotalPrice(total > 150 ? total : total + shippingPrice);
+      setTotalPrice(
+        coupon ? (total / 100) * (100 - coupon.discount) + shippingPrice : total + shippingPrice,
+      );
     };
     calculateSubtotalPrice();
-  }, [cart]);
+  }, [cart, coupon]);
 
   const addToCart = async (productId, quantity) => {
     if (isSubmitting) return;
@@ -117,6 +120,8 @@ export function CartProvider({ children }) {
     subtotalPrice,
     totalPrice,
     shippingPrice,
+    coupon,
+    setCoupon,
   };
 
   return <CartContext.Provider value={value}>{!isLoading && children}</CartContext.Provider>;

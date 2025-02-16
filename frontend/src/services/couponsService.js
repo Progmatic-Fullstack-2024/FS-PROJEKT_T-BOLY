@@ -15,8 +15,14 @@ const deleteCoupon = async (id) => {
   return response.data;
 };
 
+const getCouponByCode = async (code) => {
+  const response = await axiosInstance.get(`/api/coupons/code/${code}`);
+  return response.data;
+};
+
 export default {
   createCoupon,
   getAllCoupons,
   deleteCoupon,
+  getCouponByCode
 };
