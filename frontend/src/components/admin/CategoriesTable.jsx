@@ -94,7 +94,7 @@ export default function CategoriesTable() {
               </table>
             </div>
           </div>
-          <div className="bg-primary bg-opacity-20 flex items-center justify-between p-8">
+          <div className="bg-primary bg-opacity-20 flex items-center justify-between p-8 dark:bg-gray-800">
             <DisplayedProductsNumber totalProducts={totalCategories} />
             <Pagination totalPages={totalPages} />
           </div>

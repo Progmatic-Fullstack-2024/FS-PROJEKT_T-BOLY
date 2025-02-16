@@ -17,9 +17,9 @@ import LogoText from '../../assets/t-boly-orange.png';
 import AuthContext from '../../contexts/AuthContext';
 import CartContext from '../../contexts/CartContext';
 import LanguageContext from '../../contexts/LanguageContext';
+import DarkModeToggle from '../DarkModeToggle';
 import LoginModal from '../loginModal/LoginModal';
 import RegistrationModal from '../registrationModal/RegistrationModal';
-import DarkModeToggle from '../DarkModeToggle';
 
 export default function Header() {
   const { t } = useContext(LanguageContext);
@@ -59,17 +59,18 @@ export default function Header() {
   return (
     <header className="flex flex-col">
       {!user?.username && (
-        <div className="flex bg-primary justify-end h-8 items-center">
+        <div className="flex bg-primary justify-end h-8 items-center dark:text-primary dark:bg-gray-800">
+          <DarkModeToggle />
           <button
             type="button"
-            className="text-white px-3 text-m cursor-pointer"
+            className="text-white px-3 text-m cursor-pointer dark:text-primary"
             onClick={() => setLoginModalOpen(true)}
           >
             {t('login')}
           </button>
           <button
             type="button"
-            className="text-white px-3 text-m cursor-pointer"
+            className="text-white px-3 text-m cursor-pointer dark:text-primary"
             onClick={() => setRegisterModalOpen(true)}
           >
             {t('register')}

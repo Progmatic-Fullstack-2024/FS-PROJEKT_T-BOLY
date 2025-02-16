@@ -211,7 +211,7 @@ export default function PersonalData() {
                     <Field
                       name="firstName"
                       type="text"
-                      className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-primary-light"
+                      className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-primary-light dark:bg-gray-800 dark:border-primary dark:border dark:text-primary"
                     />
                     <ErrorMessage name="firstName" component="div" className="text-red-500" />
                   </div>
@@ -221,7 +221,7 @@ export default function PersonalData() {
                     <Field
                       name="lastName"
                       type="text"
-                      className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-primary-light"
+                      className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-primary-light dark:bg-gray-800 dark:border-primary dark:border dark:text-primary"
                     />
                     <ErrorMessage name="lastName" component="div" className="text-red-500" />
                   </div>
@@ -231,7 +231,7 @@ export default function PersonalData() {
                     <Field
                       name="username"
                       type="text"
-                      className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-primary-light"
+                      className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-primary-light dark:bg-gray-800 dark:border-primary dark:border dark:text-primary"
                     />
                     <ErrorMessage name="username" component="div" className="text-red-500" />
                   </div>
@@ -243,7 +243,7 @@ export default function PersonalData() {
                     <Field
                       name="email"
                       type="email"
-                      className="w-full px-4 py-2 border rounded-lg text-gray-700 bg-gray-100 focus:outline-none"
+                      className="w-full px-4 py-2 border rounded-lg text-gray-700 bg-gray-100 focus:outline-none dark:bg-gray-800 dark:border-primary dark:border dark:text-primary"
                       readOnly
                     />
                   </div>
@@ -253,7 +253,7 @@ export default function PersonalData() {
                     <Field
                       name="birthDate"
                       type="date"
-                      className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-primary-light"
+                      className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-primary-light dark:bg-gray-800 dark:border-primary dark:border dark:text-primary"
                     />
                     <ErrorMessage name="birthDate" component="div" className="text-red-500" />
                   </div>
@@ -263,13 +263,13 @@ export default function PersonalData() {
                   <button
                     type="button"
                     onClick={handleCancelClick}
-                    className="px-4 py-2 lg:w-1/3 bg-primary-light text-gray-700 rounded-lg hover:bg-gray-400"
+                    className="px-4 py-2 lg:w-1/3 bg-primary-light text-gray-700 rounded-lg hover:bg-gray-400 dark:text-primary dark:bg-gray-800 dark:border-primary dark:border dark:hover:bg-primary dark:hover:text-white"
                   >
                     {t('cancel')}
                   </button>
                   <button
                     type="submit"
-                    className="px-4 py-2 lg:w-1/2 bg-primary text-white rounded-lg hover:bg-opacity-90"
+                    className="px-4 py-2 lg:w-1/2 bg-primary text-white rounded-lg hover:bg-opacity-90 dark:hover:bg-gray-600 dark:border-primary dark:border"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? t('saving') : t('save')}

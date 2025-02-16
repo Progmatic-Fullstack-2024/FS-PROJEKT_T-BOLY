@@ -149,7 +149,7 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
   };
 
   const addImage = (
-    <div className="flex flex-row content-center justify-center!isHoveredGalleryw-1/4 max-h-[120px]">
+    <div className="flex flex-row content-center justify-center!isHoveredGalleryw-1/4 max-h-[120px] dark:hover:bg-gray-600">
       <button onClick={() => moreFileInputRef.current.click()} type="button">
         <input
           ref={moreFileInputRef}
@@ -169,7 +169,7 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
         <button
           onClick={() => setIsOpen(true)}
           type="button"
-          className="flex items-center justify-center px-4 py-2 text-sm font-medium text-black rounded-lg bg-primary-700 border border-gray-400 hover:bg-primary focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
+          className="flex items-center justify-center px-4 py-2 text-sm font-medium text-black rounded-lg bg-primary-700 border border-gray-400 hover:bg-primary focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-primary dark:border-primary dark:hover:text-white"
         >
           <BsFillFileEarmarkPlusFill className="h-4 w-4 mr-2 " />
           Add new product
@@ -182,10 +182,10 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
 
       {isOpen && (
         <div className="fixed w-full m-0 inset-0 bg-gray-800 bg-opacity-50 flex justify-center md:items-center z-50">
-          <div className="bg-white rounded-lg shadow-lg p-6 w-full sm:max-w-screen-lg h-max">
+          <div className="bg-white rounded-lg shadow-lg p-6 w-full sm:max-w-screen-lg h-max dark:bg-gray-800 dark:border-primary dark:border">
             <div className="flex justify-between items-center mb-4">
               {!productIdFromProductRow ? (
-                <h2 className="text-lg font-bold text-orange-500">Create new GAME</h2>
+                <h2 className="text-lg font-bold text-orange-600">Create new GAME</h2>
               ) : (
                 <h2 className="text-lg font-bold text-green-500">Update GAME</h2>
               )}
@@ -212,10 +212,10 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
                   <div className="flex md:h-60 md:flex-row flex-col justify-between items-center mb-4">
                     <div className="flex flex-col w-full md:w-2/3">
                       <div>
-                        <label className="block text-left text-sm font-medium">
+                        <label className="block text-left text-sm font-medium dark:text-primary">
                           The name of the GAME
                         </label>
-                        <Field name="name" className="w-full p-2 border rounded-lg" />
+                        <Field name="name" className="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-primary dark:text-primary" />
                         <ErrorMessage
                           name="name"
                           component="div"
@@ -224,14 +224,14 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
                       </div>
 
                       <div>
-                        <label className="block text-left text-sm font-medium">
+                        <label className="block text-left text-sm font-medium dark:text-primary">
                           Description of the GAME
                         </label>
                         <Field
                           name="description"
                           as="textarea"
                           rows="5"
-                          className="w-full p-2 border rounded-lg h-40"
+                          className="w-full p-2 border rounded-lg h-40 dark:bg-gray-700 dark:border-primary dark:text-primary"
                         />
                         <ErrorMessage
                           name="description"
@@ -250,7 +250,7 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
                           <button
                             onClick={() => fileInputRef.current.click()}
                             type="button"
-                            className="relative flex h-[170px] w-full border align-middle justify-center rounded-lg"
+                            className="relative flex h-[170px] w-full border align-middle justify-center rounded-lg dark:bg-gray-700 dark:border-primary dark:text-primary"
                           >
                             <input
                               ref={fileInputRef}
@@ -297,7 +297,7 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
                         )}
                       </div>
 
-                      <div className="flex flex-row h-[100%] w-[100%] border rounded-lg ">
+                      <div className="flex flex-row h-[100%] w-[100%] border rounded-lg dark:bg-gray-700 dark:border-primary">
                         <div
                           className={`w-[280px] h-[90px] flex flex-row ${productData?.morePictureUrl?.length >= 3 ? 'overflow-x-scroll' : ''} rounded-lg`}
                         >
@@ -356,7 +356,7 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
                           name="colors"
                           options={categoryOptions}
                           className="basic-multi-select"
-                          classNamePrefix="select"
+                          classNamePrefix="select dark:bg-gray-700 dark:border-primary dark:border dark:text-primary dark:hover:bg-gray-600"
                           onChange={(selectedOptions) => setFieldValue('category', selectedOptions)}
                         />
                       )}
@@ -372,13 +372,13 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
                       <div className="flex">
                         <label className="inline-flex items-center cursor-pointer ">
                           <Field type="checkbox" name="isDeleted" className="sr-only peer" />
-                          <span className="ms-3 text-xl font-medium text-gray-900 dark:text-gray-300 mr-4">
+                          <span className="ms-3 text-xl font-medium text-gray-900 mr-4 dark:text-primary">
                             Active
                           </span>
                           <div className="relative sm:w-28 w-20 h-7 bg-green-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[6px] after:bg-white after:border-gray-300 after:border after:rounded after:h-6 sm:after:w-12 after:w-8 after:transition-all dark:border-gray-600 peer-checked:bg-red-400 dark:peer-checked:bg-red-400">
                             &nbsp;
                           </div>
-                          <span className="ms-3 text-xl font-medium text-gray-900 dark:text-gray-300 ml-4">
+                          <span className="ms-3 text-xl font-medium text-gray-900 dark:text-primary ml-4">
                             Inactive
                           </span>
                         </label>
@@ -387,15 +387,15 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
                   </div>
 
                   <div className="flex md:flex-row sm:flex-row flex-col gap-4">
-                    <div className="flex flex-col justify-between items-center border rounded-lg p-2 md:w-1/3">
+                    <div className="flex flex-col justify-between items-center border rounded-lg p-2 md:w-1/3 dark:bg-gray-700 dark:border-primary">
                       <p className="text-xs text-orange-500">Price / Quantity</p>
                       <div>
                         <div className="px-1">
-                          <label className="text-sm font-medium">Price</label>
+                          <label className="text-sm font-medium dark:text-primary">Price</label>
                           <Field
                             name="price"
                             type="number"
-                            className="w-full p-2 border rounded-lg"
+                            className="w-full p-2 border rounded-lg dark:bg-gray-800 dark:border-primary dark:text-primary"
                           />
                           <ErrorMessage
                             name="price"
@@ -404,11 +404,11 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
                           />
                         </div>
                         <div className="px-1">
-                          <label className="text-sm font-medium">Quantity</label>
+                          <label className="text-sm font-medium dark:text-primary">Quantity</label>
                           <Field
                             name="quantity"
                             type="number"
-                            className="w-full p-2 border rounded-lg"
+                            className="w-full p-2 border rounded-lg dark:bg-gray-800 dark:border-primary dark:text-primary"
                           />
                           <ErrorMessage
                             name="quantity"
@@ -419,15 +419,15 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
                       </div>
                     </div>
 
-                    <div className="flex flex-col justify-between items-center border rounded-lg p-2 md:w-1/3">
+                    <div className="flex flex-col justify-between items-center border rounded-lg p-2 md:w-1/3 dark:bg-gray-700 dark:border-primary">
                       <p className="text-xs text-orange-500">Recommended min - max ages</p>
                       <div>
                         <div className="px-1">
-                          <label className="text-sm font-medium">min Age</label>
+                          <label className="text-sm font-medium dark:text-primary">min Age</label>
                           <Field
                             name="ageRecommendationMin"
                             type="number"
-                            className="w-full p-2 border rounded-lg"
+                            className="w-full p-2 border rounded-lg dark:bg-gray-800 dark:border-primary dark:text-primary"
                           />
                           <ErrorMessage
                             name="ageRecommendationMin"
@@ -436,11 +436,11 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
                           />
                         </div>
                         <div className="px-1">
-                          <label className="text-sm font-medium">max Age</label>
+                          <label className="text-sm font-medium dark:text-primary">max Age</label>
                           <Field
                             name="ageRecommendationMax"
                             type="number"
-                            className="w-full p-2 border rounded-lg"
+                            className="w-full p-2 border rounded-lg dark:bg-gray-800 dark:border-primary dark:text-primary"
                           />
                           <ErrorMessage
                             name="ageRecommendationMax"
@@ -451,17 +451,17 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
                       </div>
                     </div>
 
-                    <div className="flex flex-col justify-between items-center border rounded-lg p-2 md:w-1/3">
+                    <div className="flex flex-col justify-between items-center border rounded-lg p-2 md:w-1/3 dark:bg-gray-700 dark:border-primary">
                       <p className="text-xs text-orange-500">
                         Recommended min - max Players number
                       </p>
                       <div>
                         <div className="px-1">
-                          <label className="text-sm font-medium">min Players</label>
+                          <label className="text-sm font-medium dark:text-primary">min Players</label>
                           <Field
                             name="playersNumberMin"
                             type="number"
-                            className="w-full p-2 border rounded-lg"
+                            className="w-full p-2 border rounded-lg dark:bg-gray-800 dark:border-primary dark:text-primary"
                           />
                           <ErrorMessage
                             name="playersNumberMin"
@@ -470,11 +470,11 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
                           />
                         </div>
                         <div className="px-1">
-                          <label className="block text-sm font-medium">max Players</label>
+                          <label className="block text-sm font-medium dark:text-primary">max Players</label>
                           <Field
                             name="playersNumberMax"
                             type="number"
-                            className="w-full p-2 border rounded-lg "
+                            className="w-full p-2 border rounded-lg dark:bg-gray-800 dark:border-primary dark:text-primary"
                           />
                           <ErrorMessage
                             name="playersNumberMin"

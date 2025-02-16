@@ -19,7 +19,7 @@ function renderStars(rating) {
 
 export default function ProductRow({ product, onUpdate, onDelete, isStatus }) {
   return (
-    <tr className="border-b dark:border-gray-600 hover:bg-orange-200">
+    <tr className="border-b dark:border-primary hover:bg-orange-200 dark:hover:bg-gray-600">
       {/* <td className="w-4 px-4 py-3">
         <div className="flex items-center">
           <input
@@ -34,7 +34,7 @@ export default function ProductRow({ product, onUpdate, onDelete, isStatus }) {
       </td> */}
       <td className="w-20 top-auto place-items-center">
         <img
-          className="object-contain max-w-20 max-h-20 border rounded-lg bg-white p-2"
+          className="object-contain max-w-20 max-h-20 border rounded-lg bg-white p-2 dark:bg-gray-800 dark:border-primary"
           src={product.pictureUrl}
           alt="Product"
         />

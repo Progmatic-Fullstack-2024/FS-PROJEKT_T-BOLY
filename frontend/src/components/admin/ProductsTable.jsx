@@ -110,7 +110,7 @@ export default function ProductsTable() {
               <button
                 onClick={handleDownload}
                 type="button"
-                className="flex items-center justify-center flex-shrink-0 px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-400 rounded-lg hover:bg-primary hover:text-primary-700 focus:ring-4 focus:ring-gray-200"
+                className="flex items-center justify-center flex-shrink-0 px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-400 rounded-lg hover:bg-primary hover:text-primary-700 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-primary dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:border-primary"
               >
                 <BsDownload className="w-4 h-4 mr-2" />
                 Export products
@@ -118,8 +118,8 @@ export default function ProductsTable() {
             </div>
           </div>
           <div className="overflow-x-auto">
-            <table className="w-full text-sm text-left text-gray-500 overflow-x-scroll">
-              <thead className="text-xs text-gray-700 uppercase bg-primary">
+            <table className="w-full text-sm text-left text-gray-500 overflow-x-scroll dark:text-primary">
+              <thead className="text-xs text-gray-700 uppercase bg-primary dark:bg-gray-800 dark:border-primary dark:border">
                 <tr>
                   {/* <th scope="col" className="p-4 w-12 text-center">
                     <div className="flex items-center">
@@ -133,53 +133,53 @@ export default function ProductsTable() {
                       </label>
                     </div>
                   </th> */}
-                  <th className="w-20 text-center text-gray-100 cursor-pointer">Img</th>
+                  <th className="w-20 text-center text-gray-100 cursor-pointer dark:text-primary">Img</th>
                   <th
                     scope="col"
-                    className="px-4 py-3 w-48 text-left text-gray-100 cursor-pointer"
+                    className="px-4 py-3 w-48 text-left text-gray-100 cursor-pointer dark:text-primary"
                     onClick={() => handleSort('name')}
                   >
                     Product {renderSortIcon('name')}
                   </th>
                   <th
                     scope="col"
-                    className="px-4 py-3 max-w-48 text-left text-gray-100 hidden md:table-cell"
+                    className="px-4 py-3 max-w-48 text-left text-gray-100 hidden md:table-cell dark:text-primary"
                   >
                     Description
                   </th>
-                  <th scope="col" className="px-4 py-3 w-36 text-left text-gray-100">
+                  <th scope="col" className="px-4 py-3 w-36 text-left text-gray-100 dark:text-primary">
                     Category
                   </th>
                   <th
                     scope="col"
-                    className="px-4 py-3 w-24 text-right text-gray-100 cursor-pointer"
+                    className="px-4 py-3 w-24 text-right text-gray-100 cursor-pointer dark:text-primary"
                     onClick={() => handleSort('price')}
                   >
                     Price {renderSortIcon('price')}
                   </th>
                   <th
                     scope="col"
-                    className="px-4 py-3 max-w-14 text-left text-gray-100 cursor-pointer"
+                    className="px-4 py-3 max-w-14 text-left text-gray-100 cursor-pointer dark:text-primary"
                     onClick={() => handleSort('quantity')}
                   >
                     Quantity {renderSortIcon('quantity')}
                   </th>
                   <th
                     scope="col"
-                    className="px-4 py-3 w-24 text-center text-gray-100 cursor-pointer"
+                    className="px-4 py-3 w-24 text-center text-gray-100 cursor-pointer dark:text-primary"
                     onClick={() => handleSort('rating')}
                   >
                     Rating {renderSortIcon('rating')}
                   </th>
                   {isStatus ? (
-                    <th scope="col" className="px-4 py-3 w-24 text-center text-gray-100 ">
+                    <th scope="col" className="px-4 py-3 w-24 text-center text-gray-100 dark:text-primary">
                       Status
                     </th>
                   ) : (
                     ''
                   )}
 
-                  <th scope="col" className="px-4 py-3 text-left text-gray-100 max-w-6">
+                  <th scope="col" className="px-4 py-3 text-left text-gray-100 max-w-6 dark:text-primary">
                     Actions
                   </th>
                 </tr>
@@ -200,7 +200,7 @@ export default function ProductsTable() {
               </tbody>
             </table>
           </div>
-          <div className="bg-primary bg-opacity-20 flex items-center justify-between p-8">
+          <div className="bg-primary bg-opacity-20 flex items-center justify-between p-8 dark:bg-gray-800 dark:border-primary dark:border">
             <DisplayedProductsNumber totalProducts={totalProducts} />
             <Pagination totalPages={totalPages} />
           </div>

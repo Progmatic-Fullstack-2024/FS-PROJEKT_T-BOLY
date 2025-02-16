@@ -56,7 +56,7 @@ export default function AddNewCategoryModal({ onCreate, categoryToUpdate }) {
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className="flex items-center justify-center px-4 py-2 text-sm font-medium text-black rounded-lg bg-primary-700 border border-gray-400 hover:bg-primary focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
+          className="flex items-center justify-center px-4 py-2 text-sm font-medium text-black rounded-lg bg-primary-700 border border-gray-400 hover:bg-primary focus:ring-4 focus:ring-primary-300 dark:bg-gray-800 dark:hover:bg-gray-600 dark:border-primary dark:text-primary focus:outline-none dark:focus:ring-primary-800"
         >
           <IoMdAddCircle className="h-5 w-5 mr-2" /> Add New Category
         </button>

@@ -22,7 +22,7 @@ export default function EditUserRole({ user }) {
     <select
       value={role}
       onChange={handleChange}
-      className="border border-gray-300 rounded p-1 bg-white"
+      className="border border-gray-300 rounded p-1 bg-white dark:bg-gray-800 dark:border-primary"
     >
       <option value="GUEST">Guest</option>
       <option value="USER">User</option>
