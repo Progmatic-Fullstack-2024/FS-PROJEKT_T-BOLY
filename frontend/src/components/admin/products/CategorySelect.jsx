@@ -2,8 +2,8 @@ import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import LanguageContext from '../../contexts/LanguageContext';
-import categoryService from '../../services/categoryService';
+import LanguageContext from '../../../contexts/LanguageContext';
+import categoryService from '../../../services/categoryService';
 
 export default function SelectCategoryInput({ setSelectedCategory }) {
   const [categories, setCategories] = useState([]);

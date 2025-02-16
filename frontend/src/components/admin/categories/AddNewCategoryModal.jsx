@@ -4,10 +4,10 @@ import { FiEdit } from 'react-icons/fi';
 import { IoMdAddCircle } from 'react-icons/io';
 import { toast } from 'react-toastify';
 
-import Spinner from './Spinner';
-import noImage from '../../assets/noImage.png';
-import categoryService from '../../services/categoryService';
-import { categoryValidationSchema } from '../../validations/category.validation';
+import noImage from '../../../assets/noImage.png';
+import categoryService from '../../../services/categoryService';
+import { categoryValidationSchema } from '../../../validations/category.validation';
+import Spinner from '../Spinner';
 
 export default function AddNewCategoryModal({ onCreate, categoryToUpdate }) {
   const fileInputRef = useRef(null);
