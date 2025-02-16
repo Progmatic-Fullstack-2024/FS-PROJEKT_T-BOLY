@@ -41,6 +41,7 @@ export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
   const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [cardType, setCardType] = useState(null);
   const { t } = useContext(LanguageContext);
   const { cart, totalPrice, clearCart, setCoupon } = useContext(CartContext);
@@ -53,7 +54,7 @@ export default function CheckoutForm() {
     country: user.adress?.split(', ')[0] || '',
     city: user.adress?.split(', ')[1] || '',
     postalCode: user.adress?.split(', ')[2] || '',
-    phoneNumber: 'soon',
+    phoneNumber: '',
     email: user.email,
     orderNotes: '',
     billingStreet: user.billingAdress?.split(', ')[3] || '',
@@ -77,7 +78,7 @@ export default function CheckoutForm() {
         currency: 'usd',
       });
 
-      const { error: stripeError, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+      const { error: stripeError } = await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
           card: elements.getElement(CardNumberElement),
           billing_details: { name: values.name },
@@ -88,12 +89,11 @@ export default function CheckoutForm() {
         toast.error(`Error: ${stripeError.message}`);
       } else {
         resetForm();
-        toast.success(`Payment Successful! ID: ${paymentIntent.id}`);
 
         elements.getElement(CardNumberElement).clear();
         elements.getElement(CardExpiryElement).clear();
         elements.getElement(CardCvcElement).clear();
-        
+
         await orderService.createOrder({
           totalPrice,
           orderItems: cart,
@@ -103,10 +103,11 @@ export default function CheckoutForm() {
             : `${formData.billingCountry}, ${formData.billingCity}, ${formData.billingPostalCode}, ${formData.billingStreet}, ${formData.billingHouseNumber}`,
           phoneNumber: formData.phoneNumber,
           status: 'PROCESSING',
+          orderNotes: formData.orderNotes,
         });
 
-        clearCart();
         setCoupon('');
+        setShowModal(true);
       }
     } catch (error) {
       toast.error('Payment failed');
@@ -135,6 +136,12 @@ export default function CheckoutForm() {
       default:
         return '/images/default-logo.png';
     }
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    navigate('/profile_page/orders');
+    clearCart();
   };
 
   if (!cart.length) {
@@ -238,6 +245,25 @@ export default function CheckoutForm() {
         </div>
         <OrderTable />
       </div>
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-12 rounded-xl max-w-lg mx-auto transform -translate-y-40 w-1/4">
+            <div className="text-2xl font-medium mb-10 text-center text-primary">
+              Successful payment!
+            </div>
+            <div className="text-xl font-medium mb-10 text-center">Thank you for your purchase!</div>
+            <div className="flex justify-center">
+              <button
+                type="button"
+                onClick={closeModal}
+                className="w-28 rounded-xl border-2 border-primary bg-primary p-2 text-white  hover:text-black hover:border-gray-900"
+              >
+                OK
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
