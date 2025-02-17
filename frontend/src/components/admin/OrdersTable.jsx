@@ -43,7 +43,7 @@ export default function OrdersTable() {
       searchParams.set('order', order === 'asc' ? 'desc' : 'asc');
     }
     if (column === 'userAddress') {
-      searchParams.set('sorting', 'adress');
+      searchParams.set('sorting', 'address');
       searchParams.set('table', 'user');
       searchParams.set('order', order === 'asc' ? 'desc' : 'asc');
     }
@@ -114,7 +114,7 @@ export default function OrdersTable() {
                     onClick={() => handleSort('userAddress')}
                     className="px-4 py-3 w-48 text-left text-gray-100 "
                   >
-                    Adress {renderSortIcon('adress')}
+                    Address {renderSortIcon('address')}
                   </th>
 
                   <th

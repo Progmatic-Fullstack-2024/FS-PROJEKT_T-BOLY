@@ -55,7 +55,7 @@ export default function Contacts() {
 
         <div className="md:w-1/3 border rounded-xl p-5 m-5 grid place-items-center dark:bg-gray-700 dark:border-primary">
           <FaMapMarkerAlt className="text-orange-500 w-12 h-12 dark:text-orange-600" />
-          <p className="font-bold">{t('adress')}</p>
+          <p className="font-bold">{t('address')}</p>
           <p>Bécsi út 53-55</p>
           <p>1036, Budapest, Hungary</p>
         </div>
@@ -108,7 +108,7 @@ export default function Contacts() {
                 <Field
                   name="email"
                   type="email"
-                  placeholder={t('your email adress')}
+                  placeholder={t('your email address')}
                   className="w-full p-2 border rounded-lg  dark:text-primary dark:bg-gray-700"
                 />
                 <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />

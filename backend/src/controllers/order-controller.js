@@ -53,8 +53,8 @@ const createOrder = async (req, res, next) => {
   const {
     totalPrice,
     orderItems,
-    adress,
-    billingAdress,
+    address,
+    billingAddress,
     phoneNumber,
     status,
     orderNotes,
@@ -64,8 +64,8 @@ const createOrder = async (req, res, next) => {
     const newOrder = await orderService.createOrder(
       userId,
       totalPrice,
-      adress,
-      billingAdress,
+      address,
+      billingAddress,
       phoneNumber,
       status,
       orderNotes,

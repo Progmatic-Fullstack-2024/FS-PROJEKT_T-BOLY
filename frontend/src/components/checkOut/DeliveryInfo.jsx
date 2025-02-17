@@ -176,16 +176,16 @@ export default function DeliveryInfo({ formData, setFormData }) {
                 <Field
                   className="w-5 h-5 border-2 border-gray-300 rounded-md checked:bg-primary checked:border-transparent "
                   type="checkbox"
-                  name="isSameAdress"
+                  name="isSameAddress"
                   onChange={(e) => {
-                    setFieldValue('isSameAdress', e.target.checked);
-                    setFormData((prev) => ({ ...prev, isSameAdress: e.target.checked }));
+                    setFieldValue('isSameAddress', e.target.checked);
+                    setFormData((prev) => ({ ...prev, isSameAddress: e.target.checked }));
                   }}
                 />
                 <span>Use shipping address as billing address</span>
               </label>
             </div>
-            {!values.isSameAdress && (
+            {!values.isSameAddress && (
               <div className="flex flex-col gap-6">
                 <h1 className="text-2xl font-medium mt-8 mb-12">Billing Address</h1>
                 <div className="flex justify-between gap-10">

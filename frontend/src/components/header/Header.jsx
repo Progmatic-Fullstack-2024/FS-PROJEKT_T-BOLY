@@ -7,7 +7,7 @@ import LanguageDropdown from './LanguageDropdown';
 import Nav from './Nav';
 import Searchbar from './Searchbar';
 import LogoOrange from '../../assets/ant-orange.png';
-import adressIcon from '../../assets/icons/address.png';
+import addressIcon from '../../assets/icons/address.png';
 import pesronalDataIcon from '../../assets/icons/data-breach.png';
 import heartIcon from '../../assets/icons/heart.png';
 import orderIcon from '../../assets/icons/order-delivery.png';
@@ -140,11 +140,11 @@ export default function Header() {
                   <li>
                     <Link
                       className="px-4 py-2 hover:bg-gray-100 flex dark:hover:bg-gray-600"
-                      to="profile_page/adresses"
+                      to="profile_page/addresses"
                       onClick={toggleDropdown}
                     >
-                      <img src={adressIcon} alt="" className="h-6 w-6 mr-2 " />
-                      {t('adresses')}
+                      <img src={addressIcon} alt="" className="h-6 w-6 mr-2 " />
+                      {t('addresses')}
                     </Link>
                   </li>
 

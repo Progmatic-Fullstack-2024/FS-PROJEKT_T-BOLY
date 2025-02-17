@@ -18,7 +18,7 @@ const getAllOrders = async (sorting, order, table, page, limit, search) => {
               { firstName: { contains: search, mode: "insensitive" } },
               { lastName: { contains: search, mode: "insensitive" } },
               { email: { contains: search, mode: "insensitive" } },
-              { adress: { contains: search, mode: "insensitive" } },
+              { address: { contains: search, mode: "insensitive" } },
             ],
           },
         },
@@ -34,7 +34,7 @@ const getAllOrders = async (sorting, order, table, page, limit, search) => {
           firstName: true,
           lastName: true,
           email: true,
-          adress: true,
+          address: true,
         },
       },
       products: {
@@ -60,7 +60,7 @@ const getOrderById = async (id) => {
     where: { id },
     include: {
       user: {
-        select: { firstName: true, lastName: true, email: true, adress: true },
+        select: { firstName: true, lastName: true, email: true, address: true },
       },
       products: {
         include: { product: { select: { name: true, pictureUrl: true } } },
@@ -83,8 +83,8 @@ const getOrdersByUserId = async (userId) => {
 const createOrder = async (
   userId,
   totalPrice,
-  adress,
-  billingAdress,
+  address,
+  billingAddress,
   phoneNumber,
   status,
   orderNotes,
@@ -93,8 +93,8 @@ const createOrder = async (
     data: {
       userId,
       totalPrice,
-      adress,
-      billingAdress,
+      address,
+      billingAddress,
       phoneNumber,
       status,
       orderNotes,

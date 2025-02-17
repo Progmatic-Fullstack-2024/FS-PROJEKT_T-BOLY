@@ -153,11 +153,11 @@ export default function Orders() {
                 </div>
                 <div>
                   <h2 className="font-medium">Delivery Address:</h2>
-                  <div> {selectedOrder.adress}</div>
+                  <div> {selectedOrder.address}</div>
                 </div>
                 <div>
                   <h2 className="font-medium">Billing Address:</h2>
-                  <div> {selectedOrder.billingAdress}</div>
+                  <div> {selectedOrder.billingAddress}</div>
                 </div>
               </div>
             </div>

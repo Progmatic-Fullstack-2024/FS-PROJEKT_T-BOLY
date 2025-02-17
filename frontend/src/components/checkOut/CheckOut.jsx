@@ -49,20 +49,20 @@ export default function CheckoutForm() {
   const [formData, setFormData] = useState({
     firstName: user.firstName || '',
     lastName: user.lastName || '',
-    street: user.adress?.split(', ')[3] || '',
-    houseNumber: user.adress?.split(', ')[4] || '',
-    country: user.adress?.split(', ')[0] || '',
-    city: user.adress?.split(', ')[1] || '',
-    postalCode: user.adress?.split(', ')[2] || '',
+    street: user.address?.split(', ')[3] || '',
+    houseNumber: user.address?.split(', ')[4] || '',
+    country: user.address?.split(', ')[0] || '',
+    city: user.address?.split(', ')[1] || '',
+    postalCode: user.address?.split(', ')[2] || '',
     phoneNumber: '',
     email: user.email,
     orderNotes: '',
-    billingStreet: user.billingAdress?.split(', ')[3] || '',
-    billingHouseNumber: user.billingAdress?.split(', ')[4] || '',
-    billingCountry: user.billingAdress?.split(', ')[0] || '',
-    billingCity: user.billingAdress?.split(', ')[1] || '',
-    billingPostalCode: user.billingAdress?.split(', ')[2] || '',
-    isSameAdress: true,
+    billingStreet: user.billingAddress?.split(', ')[3] || '',
+    billingHouseNumber: user.billingAddress?.split(', ')[4] || '',
+    billingCountry: user.billingAddress?.split(', ')[0] || '',
+    billingCity: user.billingAddress?.split(', ')[1] || '',
+    billingPostalCode: user.billingAddress?.split(', ')[2] || '',
+    isSameAddress: true,
   });
 
   const navigate = useNavigate();
@@ -97,8 +97,8 @@ export default function CheckoutForm() {
         await orderService.createOrder({
           totalPrice,
           orderItems: cart,
-          adress: `${formData.country}, ${formData.city}, ${formData.postalCode}, ${formData.street}, ${formData.houseNumber}`,
-          billingAdress: formData.isSameAdress
+          address: `${formData.country}, ${formData.city}, ${formData.postalCode}, ${formData.street}, ${formData.houseNumber}`,
+          billingAddress: formData.isSameAddress
             ? `${formData.country}, ${formData.city}, ${formData.postalCode}, ${formData.street}, ${formData.houseNumber}`
             : `${formData.billingCountry}, ${formData.billingCity}, ${formData.billingPostalCode}, ${formData.billingStreet}, ${formData.billingHouseNumber}`,
           phoneNumber: formData.phoneNumber,
