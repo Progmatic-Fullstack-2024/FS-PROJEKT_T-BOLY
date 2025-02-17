@@ -14,23 +14,23 @@ export default function SubtotalTable({ coupon }) {
       <table>
         <tr>
           <td className="pb-2 pr-16 font-medium">{t('subtotal')}</td>
-          <td className="pb-2 font-medium">€{subtotalPrice.toFixed(2)}</td>
+          <td className="pb-2 font-medium text-right">€{subtotalPrice.toFixed(2)}</td>
         </tr>
         {coupon && (
           <tr>
             <td className="pb-2 pr-16 font-medium">{coupon.discount}% Discount</td>
-            <td className="pb-2 text-red-500 font-medium">
+            <td className="pb-2 text-red-500 font-medium text-right">
               - €{((subtotalPrice / 100) * coupon.discount).toFixed(2)}
             </td>
           </tr>
         )}
         <tr>
           <td className="pb-2 pr-16 font-medium">{t('shipping')}</td>
-          <td className="pb-2 font-medium">€{shippingPrice.toFixed(2)}</td>
+          <td className="pb-2 font-medium text-right">€{shippingPrice.toFixed(2)}</td>
         </tr>
         <tr>
           <td className="text-xl pt-7 pr-10 font-medium">{t('total')}</td>
-          <td className="text-xl pt-7 font-medium">€{totalPrice.toFixed(2)}</td>
+          <td className="text-xl pt-7 font-medium text-right">€{totalPrice.toFixed(2)}</td>
         </tr>
       </table>
       <Link

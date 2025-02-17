@@ -10,6 +10,7 @@ import reviewRoutes from "./review-routes.js";
 import paymentRoutes from "./payment-routes.js";
 import couponsRoutes from "./coupons-routes.js";
 import orderRoutes from "./order-routes.js";
+import statisticsRoutes from "./statistics-routes.js";
 
 const router = express.Router();
 
@@ -24,5 +25,6 @@ router.use("/wishlist", wishlistRoutes);
 router.use("/productReview", reviewRoutes);
 router.use("/payment", paymentRoutes);
 router.use("/order", orderRoutes);
+router.use("/statistics", statisticsRoutes);
 
 export default router;

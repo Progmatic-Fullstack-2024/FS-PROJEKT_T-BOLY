@@ -6,7 +6,7 @@ export default function UserProfile() {
   return (
     <div className="flex">
       <Nav />
-      <div className="grow p-8">
+      <div className="grow py-8 px-4">
         <Outlet />
       </div>
     </div>

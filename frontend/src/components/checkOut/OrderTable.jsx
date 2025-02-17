@@ -33,13 +33,13 @@ export default function OrderTable() {
             </td>
           </tr>
         ))}
-        <tr className="border-b border-gray-300 flex justify-between">
-          <td className="flex items-start justify-center mt-12 mb-12 flex-col gap-5">
+        <tr className="border-b border-gray-300 flex justify-between ">
+          <td className="flex justify-center mt-12 mb-12 flex-col gap-5">
             <div className="font-medium">Subtotal</div>
             {coupon && <div className="font-medium">{coupon.discount}% Discount</div>}
             <div className="font-medium">Shipping</div>
           </td>
-          <td className="flex items-start justify-center mt-12 mb-12 flex-col gap-5">
+          <td className="flex justify-center mt-12 mb-12 flex-col gap-5">
             <div className="font-medium text-right">€{subtotalPrice.toFixed(2)}</div>
             {coupon && (
               <div className="font-medium text-right text-red-500">
@@ -51,10 +51,10 @@ export default function OrderTable() {
         </tr>
         <tr className=" flex items-center justify-between">
           <td className="mt-12 ">
-            <div className="text-primary font-medium text-xl">Total</div>
+            <div className="text-primary font-bold text-xl">Total</div>
           </td>
           <td className="mt-12 ">
-            <div className="text-primary font-medium text-xl text-right">
+            <div className="text-primary font-bold text-xl text-right">
               €{totalPrice.toFixed(2)}
             </div>
           </td>

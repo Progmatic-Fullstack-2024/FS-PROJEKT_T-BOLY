@@ -3,7 +3,7 @@ import HttpError from "../utils/HttpError.js";
 
 const getWishlistByUserId = async (userId) => {
   if (!userId) {
-    throw new Error("Invalid userId.");
+    throw new Error("This user does not exist");
   }
 
   const wishlist = await prisma.wishList.findFirst({
@@ -41,7 +41,6 @@ const addToWishlist = async (userId, productId) => {
 };
 
 const removeFromWishlist = async (userId, productId) => {
-  console.table({ userId, productId });
   const wishlist = await prisma.wishList.findFirst({
     where: { userId },
   });

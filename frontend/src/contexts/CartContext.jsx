@@ -48,6 +48,8 @@ export function CartProvider({ children }) {
   const addToCart = async (productId, quantity) => {
     if (isSubmitting) return;
     setIsSubmitting(true);
+    if (isSubmitting) return;
+    setIsSubmitting(true);
     try {
       const newCartItem = await shoppingCartService.addCartItem(productId, quantity);
       const { id, name, pictureUrl, price } = newCartItem.product;
@@ -62,13 +64,16 @@ export function CartProvider({ children }) {
         setIsSubmitting(false);
         return [...cartItems, { id, name, pictureUrl, price, productId, quantity }];
       });
-      toast.success('Product(s) added to cart succesfully.');
     } catch (error) {
-      toast.error('Could not add product to cart.');
+      toast.error(error.response.data.error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   const removeFromCart = async (productId) => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
     if (isSubmitting) return;
     setIsSubmitting(true);
     try {
@@ -81,6 +86,8 @@ export function CartProvider({ children }) {
       toast.success('Product(s) deleted from cart succesfully.');
     } catch (error) {
       toast.error('Could not delete product from cart.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 

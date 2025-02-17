@@ -15,10 +15,11 @@ const getAllProducts = async (
   maximumPrice,
   minAge,
   maxAge,
+  showDeleted,
   players,
 ) => {
   const where = {
-    isDeleted: false,
+    isDeleted: showDeleted,
     AND: [
       { price: { gte: minimumPrice } },
       { price: { lte: maximumPrice } },
@@ -116,13 +117,14 @@ const getAllProductsByCategory = async (
   maximumPrice,
   minAge,
   maxAge,
+  showDeleted,
   players,
 ) => {
   const where = {
     categoryProduct: {
       some: { categoryId },
     },
-    isDeleted: false,
+    isDeleted: showDeleted,
     AND: [
       { price: { gte: minimumPrice } },
       { price: { lte: maximumPrice } },
@@ -323,7 +325,6 @@ const updateStock = async (id, quantityOrdered) => {
       where: { id },
       data: { quantity: data.product.quantity - quantityOrdered },
     });
-    console.log(updatedProduct);
     return updatedProduct;
   } catch (err) {
     throw new HttpError("Could not update stock", 404);

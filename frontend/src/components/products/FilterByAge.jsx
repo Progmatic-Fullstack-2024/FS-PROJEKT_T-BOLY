@@ -5,9 +5,10 @@ import './slider.css';
 import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
+import FilterBySkeleton from './FilterBySkeleton';
 import LanguageContext from '../../contexts/LanguageContext';
 
-export default function FilterByPrice({ minAge, maxAge, setMaxAge, setMinAge }) {
+export default function FilterByPrice({ minAge, maxAge, setMaxAge, setMinAge, isLoading }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const { t } = useContext(LanguageContext);
 
@@ -39,6 +40,10 @@ export default function FilterByPrice({ minAge, maxAge, setMaxAge, setMinAge }) 
       toast.error('You need to give a number.');
     }
   };
+
+  if (isLoading) {
+    return <FilterBySkeleton />;
+  }
 
   return (
     <div className="flex flex-col gap-2 p-6 border-2 rounded-lg mb-10">

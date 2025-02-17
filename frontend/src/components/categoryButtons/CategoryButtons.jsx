@@ -13,7 +13,7 @@ export default function CategoryButtons() {
     const fetchCategories = async () => {
       try {
         const data = await categoryService.getAllCategories();
-        setCategories(data);
+        setCategories(data.categories);
       } catch (error) {
         toast.error(`Failed to fetch categories: ${error.message}`);
       }
@@ -26,8 +26,8 @@ export default function CategoryButtons() {
       <h1 className="text-3xl font-bold mb-4">{t('find the perfect toy')}</h1>
       <p className="text-center mb-10">{t('our collections')}</p>
       <div className="flex flex-wrap justify-around p-4 gap-8 md:gap-16 text-center mx-10">
-        {categories.slice(0, 5).map((category, idx) => (
-          <CategoryButton key={category.id} category={category} idx={idx} />
+        {categories.slice(0, 5).map((category) => (
+          <CategoryButton key={category.id} category={category} />
         ))}
       </div>
     </div>

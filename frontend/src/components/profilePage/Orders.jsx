@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import { RxCross2 } from 'react-icons/rx';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -65,8 +66,8 @@ export default function Orders() {
   };
 
   return (
-    <div className="overflow-x-auto mr-32 ml-32 mt-20 mb-20">
-      <h1 className="text-2xl font-semibold mb-20">Your orders</h1>
+    <div className="mx-auto w-full bg-white rounded-lg shadow-md p-8">
+      <h1 className="text-xl font-bold text-gray-700 mb-4">Your Orders</h1>
       <table className="md:w-full border-collapse border-b border-gray-300">
         <thead>
           <tr className="bg-primary">
@@ -118,9 +119,16 @@ export default function Orders() {
       </table>
 
       {selectedOrder && (
-        <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-100">
-          <div className="bg-white p-10 rounded-lg shadow-lg w-3/5 max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-[100]">
+          <div className="relative bg-white p-10 rounded-lg shadow-lg w-3/5 max-h-[90vh] overflow-y-auto">
             <h2 className="text-2xl font-bold mb-8">Order details</h2>
+            <button
+              type="button"
+              onClick={handleCloseModal}
+              className="absolute top-10 -right-20 text-2xl w-40 rounded-xl hover:text-black hover:border-gray-900"
+            >
+              <RxCross2 />
+            </button>
             <div className="flex gap-10">
               <div className="flex flex-col gap-3 border-2 rounded-xl p-5 w-1/3">
                 <div>

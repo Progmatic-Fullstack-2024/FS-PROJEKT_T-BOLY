@@ -6,7 +6,7 @@ import AuthContext from '../../contexts/AuthContext.jsx';
 import LanguageContext from '../../contexts/LanguageContext.jsx';
 import { userValidationSchema } from '../../validations/user.validation.js';
 
-export default function RegistrationModal({ onClose }) {
+export default function RegistrationModal({ onClose, setLoginModalOpen }) {
   const { register } = useContext(AuthContext);
   const { t } = useContext(LanguageContext);
 
@@ -15,10 +15,11 @@ export default function RegistrationModal({ onClose }) {
       const result = await register(values);
       if (result.ok) {
         toast.success('Registration successful!');
+        onClose();
+        setLoginModalOpen();
       } else {
         toast.error(`Registration failed, ${result.message.response.data.error}`);
       }
-      onClose();
     } catch (error) {
       toast.error('An unexpected error occured. Please try again later');
     } finally {
