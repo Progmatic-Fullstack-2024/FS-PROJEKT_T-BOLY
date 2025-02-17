@@ -46,13 +46,20 @@ export default function LoginModal({ onClose }) {
             <Form className="space-y-4">
               <div>
                 <label className="block text-sm font-medium">{t('email or username')}</label>
-                <Field name="identifier" className="w-full p-2 border rounded-lg dark:bg-gray-800 dark:border-primary" />
+                <Field
+                  name="identifier"
+                  className="w-full p-2 border rounded-lg dark:bg-gray-800 dark:border-primary"
+                />
                 <ErrorMessage name="identifier" component="div" className="text-red-500 text-sm" />
               </div>
 
               <div>
                 <label className="block text-sm font-medium">{t('password')}</label>
-                <Field name="password" type="password" className="w-full p-2 border rounded-lg dark:bg-gray-800 dark:border-primary" />
+                <Field
+                  name="password"
+                  type="password"
+                  className="w-full p-2 border rounded-lg dark:bg-gray-800 dark:border-primary"
+                />
                 <ErrorMessage name="password" component="div" className="text-red-500 text-sm" />
               </div>
 

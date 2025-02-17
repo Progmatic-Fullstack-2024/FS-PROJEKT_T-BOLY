@@ -47,7 +47,7 @@ export default function Nav() {
 
         <div
           ref={dropdownRef}
-          className={`absolute top-44 left-0 transform w-full text-center border rounded-lg shadow-lg transition-all duration-300 ${
+          className={`absolute top-40 left-0 transform w-full text-center rounded-b-lg shadow-lg transition-all duration-300 ${
             isMenuOpen
               ? 'opacity-95 scale-100 bg-primary-light text-primary dark:text-gray-700'
               : 'opacity-0 scale-95 pointer-events-none'
@@ -58,7 +58,11 @@ export default function Nav() {
               <Link
                 to="/"
                 onClick={() => setIsMenuOpen(false)}
-                className={activePath === '/' ? 'text-orange-500 font-bold dark:text-orange-600' : 'hover:text-primary dark:hover:text-white'}
+                className={
+                  activePath === '/'
+                    ? 'text-orange-500 font-bold dark:text-orange-600'
+                    : 'hover:text-primary dark:hover:text-white'
+                }
               >
                 {t('home')}
               </Link>
@@ -68,7 +72,9 @@ export default function Nav() {
                 to="/about"
                 onClick={() => setIsMenuOpen(false)}
                 className={
-                  activePath === '/about' ? 'text-orange-500 font-bold dark:text-orange-600' : 'hover:text-primary dark:hover:text-white'
+                  activePath === '/about'
+                    ? 'text-orange-500 font-bold dark:text-orange-600'
+                    : 'hover:text-primary dark:hover:text-white'
                 }
               >
                 {t('about')}
@@ -92,7 +98,9 @@ export default function Nav() {
                 to="/contact"
                 onClick={() => setIsMenuOpen(false)}
                 className={
-                  activePath === '/contact' ? 'text-orange-500 font-bold dark:text-orange-600' : 'hover:text-primary dark:hover:text-white'
+                  activePath === '/contact'
+                    ? 'text-orange-500 font-bold dark:text-orange-600'
+                    : 'hover:text-primary dark:hover:text-white'
                 }
               >
                 {t('contact')}

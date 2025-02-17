@@ -7,9 +7,11 @@ import { toast } from 'react-toastify';
 
 import { VITE_PUBLIC_KEY, VITE_SERVICE_ID } from '../constants/constants';
 import LanguageContext from '../contexts/LanguageContext';
+import useDarkMode from '../hooks/useDarkMode';
 
 export default function Contacts() {
   const { t } = useContext(LanguageContext);
+  const { theme } = useDarkMode();
   const sendEmail = async (formData) => {
     try {
       const response = await emailjs.send(
@@ -59,8 +61,8 @@ export default function Contacts() {
         </div>
       </div>
 
-      <div className="flex md:flex-row flex-col dark:bg-gray-800">
-        <div className="md:w-2/3 m-5 text-center items-center h-80 md:h-auto">
+      <div className="flex px-10 pb-12 md:flex-row flex-col gap-5 dark:bg-gray-800">
+        <div className="md:w-2/3 text-center items-center h-72 md:h-auto rounded-xl overflow-hidden">
           <iframe
             title="map"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2694.007946620723!2d19.035464976789147!3d47.52870829335246!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4741d9583cee5b0f%3A0xc140539254ce4408!2sProgmatic%20Academy!5e0!3m2!1shu!2shu!4v1736574400135!5m2!1shu!2shu"
@@ -68,10 +70,11 @@ export default function Contacts() {
             height="100%"
             allowFullScreen=""
             loading="lazy"
+            style={{ filter: theme === 'dark' ? 'grayscale(0.9) contrast(0.9) opacity(0.5)' : '' }}
           />
         </div>
 
-        <div className="md:w-1/3 m-10">
+        <div className="md:w-1/3 md:pl-8">
           <div className="font-agbalumo text-2xl pb-10">{t('contact us')}</div>
           <Formik
             initialValues={{

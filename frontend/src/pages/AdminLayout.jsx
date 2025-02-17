@@ -46,7 +46,7 @@ export default function AdminLayout() {
             <SearchBar />
           </div>
           <div className="flex items-center relative gap-4">
-          <DarkModeToggle />
+            <DarkModeToggle className="py-3" />
             <Link
               to="/profile_page/personal_data"
               className="hidden md:flex items-center gap-3 p-2 bg-gray-100 bg-opacity-10 rounded-lg shadow-md hover:bg-opacity-20 focus:outline-none"

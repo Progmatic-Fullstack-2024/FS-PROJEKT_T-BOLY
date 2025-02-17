@@ -37,7 +37,9 @@ export default function PassChange() {
           {({ isSubmitting }) => (
             <Form className="space-y-4">
               <div>
-                <label className="block text-gray-600 text-sm mb-1 dark:text-primary">{t('old password')}</label>
+                <label className="block text-gray-600 text-sm mb-1 dark:text-primary">
+                  {t('old password')}
+                </label>
                 <Field
                   name="oldPassword"
                   type="password"
@@ -47,7 +49,9 @@ export default function PassChange() {
               </div>
 
               <div>
-                <label className="block text-gray-600 text-sm mb-1 dark:text-primary">{t('new password')}</label>
+                <label className="block text-gray-600 text-sm mb-1 dark:text-primary">
+                  {t('new password')}
+                </label>
                 <Field
                   name="newPassword"
                   type="password"

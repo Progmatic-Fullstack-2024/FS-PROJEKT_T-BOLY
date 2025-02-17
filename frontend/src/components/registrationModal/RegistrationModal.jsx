@@ -52,31 +52,48 @@ export default function RegistrationModal({ onClose, setLoginModalOpen }) {
             <Form className="space-y-4">
               <div>
                 <label className="block text-sm font-medium">{t('first name')}</label>
-                <Field name="firstName" className="w-full p-2 border rounded-lg dark:bg-gray-800 dark:border-primary" />
+                <Field
+                  name="firstName"
+                  className="w-full p-2 border rounded-lg dark:bg-gray-800 dark:border-primary"
+                />
                 <ErrorMessage name="firstName" component="div" className="text-red-500 text-sm" />
               </div>
 
               <div>
                 <label className="block text-sm font-medium">{t('last name')}</label>
-                <Field name="lastName" className="w-full p-2 border rounded-lg dark:bg-gray-800 dark:border-primary" />
+                <Field
+                  name="lastName"
+                  className="w-full p-2 border rounded-lg dark:bg-gray-800 dark:border-primary"
+                />
                 <ErrorMessage name="lastName" component="div" className="text-red-500 text-sm" />
               </div>
 
               <div>
                 <label className="block text-sm font-medium">{t('email')}</label>
-                <Field name="email" type="email" className="w-full p-2 border rounded-lg dark:bg-gray-800 dark:border-primary" />
+                <Field
+                  name="email"
+                  type="email"
+                  className="w-full p-2 border rounded-lg dark:bg-gray-800 dark:border-primary"
+                />
                 <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
               </div>
 
               <div>
                 <label className="block text-sm font-medium">{t('username')}</label>
-                <Field name="username" className="w-full p-2 border rounded-lg dark:bg-gray-800 dark:border-primary" />
+                <Field
+                  name="username"
+                  className="w-full p-2 border rounded-lg dark:bg-gray-800 dark:border-primary"
+                />
                 <ErrorMessage name="username" component="div" className="text-red-500 text-sm" />
               </div>
 
               <div>
                 <label className="block text-sm font-medium">{t('password')}</label>
-                <Field name="password" type="password" className="w-full p-2 border rounded-lg dark:bg-gray-800 dark:border-primary" />
+                <Field
+                  name="password"
+                  type="password"
+                  className="w-full p-2 border rounded-lg dark:bg-gray-800 dark:border-primary"
+                />
                 <ErrorMessage name="password" component="div" className="text-red-500 text-sm" />
               </div>
 

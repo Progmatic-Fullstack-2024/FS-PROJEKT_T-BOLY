@@ -4,6 +4,7 @@ import 'react-range-slider-input/dist/style.css';
 import './slider.css';
 import { useSearchParams } from 'react-router-dom';
 
+import FilterBySkeleton from './FilterBySkeleton';
 import LanguageContext from '../../contexts/LanguageContext';
 
 export default function FilterByPrice({
@@ -12,6 +13,7 @@ export default function FilterByPrice({
   setMaxPrice,
   setMinPrice,
   priceRange,
+  isLoading,
 }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const { t } = useContext(LanguageContext);
@@ -54,7 +56,9 @@ export default function FilterByPrice({
       }
     }
   };
-
+  if (isLoading) {
+    return <FilterBySkeleton />;
+  }
   return (
     <div className="flex flex-col gap-2 p-6 border-2 rounded-lg mb-10 dark:bg-gray-700 dark:border-primary">
       <h3 className="text-xl mb-6">{t('filter by price')}</h3>

@@ -62,7 +62,9 @@ export default function Adresses() {
 
   return (
     <div className="mx-auto w-full h-full bg-white rounded-2xl shadow-lg px-12 py-8 dark:text-primary dark:bg-gray-700 dark:border-primary">
-      <h1 className="text-2xl font-semibold text-gray-800 mb-8 dark:text-orange-600">{t('manage adresses')}</h1>
+      <h1 className="text-2xl font-semibold text-gray-800 mb-8 dark:text-orange-600">
+        {t('manage adresses')}
+      </h1>
 
       <Formik
         initialValues={{
@@ -86,11 +88,15 @@ export default function Adresses() {
         {({ resetForm, isSubmitting }) => (
           <Form className="space-y-5">
             <div>
-              <h2 className="text-xl font-semibold text-gray-700 mb-4 dark:text-orange-600">{t('main adress')}</h2>
+              <h2 className="text-xl font-semibold text-gray-700 mb-4 dark:text-orange-600">
+                {t('main adress')}
+              </h2>
               {isEditing ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm text-gray-600 mb-1 dark:text-primary">{t('country')}</label>
+                    <label className="block text-sm text-gray-600 mb-1 dark:text-primary">
+                      {t('country')}
+                    </label>
                     <Field
                       name="country"
                       type="text"
@@ -100,7 +106,9 @@ export default function Adresses() {
                   </div>
 
                   <div>
-                    <label className="block text-sm text-gray-600 mb-1 dark:text-primary">{t('city')}</label>
+                    <label className="block text-sm text-gray-600 mb-1 dark:text-primary">
+                      {t('city')}
+                    </label>
                     <Field
                       name="city"
                       type="text"
@@ -110,7 +118,9 @@ export default function Adresses() {
                   </div>
 
                   <div>
-                    <label className="block text-sm text-gray-600 mb-1 dark:text-primary">{t('postal code')}</label>
+                    <label className="block text-sm text-gray-600 mb-1 dark:text-primary">
+                      {t('postal code')}
+                    </label>
                     <Field
                       name="postalCode"
                       type="text"
@@ -124,7 +134,9 @@ export default function Adresses() {
                   </div>
 
                   <div>
-                    <label className="block text-sm text-gray-600 mb-1 dark:text-primary">{t('street')}</label>
+                    <label className="block text-sm text-gray-600 mb-1 dark:text-primary">
+                      {t('street')}
+                    </label>
                     <Field
                       name="street"
                       type="text"
@@ -134,7 +146,9 @@ export default function Adresses() {
                   </div>
 
                   <div>
-                    <label className="block text-sm text-gray-600 mb-1 dark:text-primary">{t('house number')}</label>
+                    <label className="block text-sm text-gray-600 mb-1 dark:text-primary">
+                      {t('house number')}
+                    </label>
                     <Field
                       name="houseNumber"
                       type="text"
@@ -155,7 +169,9 @@ export default function Adresses() {
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold text-gray-700 mb-4 dark:text-orange-600">{t('billing adress')}</h2>
+              <h2 className="text-xl font-semibold text-gray-700 mb-4 dark:text-orange-600">
+                {t('billing adress')}
+              </h2>
               {isEditing ? (
                 <>
                   <div className="flex items-center space-x-2 mb-4">
@@ -166,7 +182,10 @@ export default function Adresses() {
                       onChange={handleCheckboxChange}
                       className="w-5 h-5 text-primary border-gray-300 rounded focus:ring-primary"
                     />
-                    <label htmlFor="billingAdressCheckbox" className="text-sm text-gray-600 dark:text-primary">
+                    <label
+                      htmlFor="billingAdressCheckbox"
+                      className="text-sm text-gray-600 dark:text-primary"
+                    >
                       {t('same as main adress')}
                     </label>
                   </div>
@@ -174,7 +193,9 @@ export default function Adresses() {
                   {!billingAdressEqual && (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm text-gray-600 mb-1 dark:text-primary">{t('country')}</label>
+                        <label className="block text-sm text-gray-600 mb-1 dark:text-primary">
+                          {t('country')}
+                        </label>
                         <Field
                           name="billingCountry"
                           type="text"
@@ -188,7 +209,9 @@ export default function Adresses() {
                       </div>
 
                       <div>
-                        <label className="block text-sm text-gray-600 mb-1 dark:text-primary">{t('city')}</label>
+                        <label className="block text-sm text-gray-600 mb-1 dark:text-primary">
+                          {t('city')}
+                        </label>
                         <Field
                           name="billingCity"
                           type="text"
@@ -218,7 +241,9 @@ export default function Adresses() {
                       </div>
 
                       <div>
-                        <label className="block text-sm text-gray-600 mb-1 dark:text-primary">{t('street')}</label>
+                        <label className="block text-sm text-gray-600 mb-1 dark:text-primary">
+                          {t('street')}
+                        </label>
                         <Field
                           name="billingStreet"
                           type="text"

@@ -139,7 +139,7 @@ export default function PersonalData() {
           onMouseLeave={() => setIsHovered(false)}
           type="button"
           onClick={handlePictureUpload}
-          className="border w-32 h-32 mx-auto md:ml-0 md:mr-8 my-5 md:my-0 rounded-full overflow-hidden flex items-center justify-center bg-gray-50 hover:bg-gray-100 md:w-80 md:h-80 md:rounded dark:bg-gray-600 dark:hover:bg-gray-500 dark:border-primary dark:text-primary" 
+          className="border w-32 h-32 mx-auto md:ml-0 md:mr-8 my-5 md:my-0 rounded-full overflow-hidden flex items-center justify-center bg-gray-50 hover:bg-gray-100 md:w-80 md:h-80 md:rounded dark:bg-gray-600 dark:hover:bg-gray-500 dark:border-primary dark:text-primary"
         >
           {isLoading && !isEditing && (
             <div className="animate-spin border-4 border-gray-300 border-t-gray-800 rounded-full w-16 h-16 dark:border-primary dark:border-t-primary" />
@@ -281,20 +281,30 @@ export default function PersonalData() {
         ) : (
           <div className="space-y-4">
             <div>
-              <label className="block text-gray-600 text-sm mb-1 dark:text-orange-600">{t('name')}</label>
+              <label className="block text-gray-600 text-sm mb-1 dark:text-orange-600">
+                {t('name')}
+              </label>
               <p className="text-gray-800 dark:text-primary">{`${user?.firstName} ${user?.lastName}`}</p>
             </div>
             <div>
-              <label className="block text-gray-600 text-sm mb-1 dark:text-orange-600">{t('email')}</label>
+              <label className="block text-gray-600 text-sm mb-1 dark:text-orange-600">
+                {t('email')}
+              </label>
               <p className="text-gray-800 dark:text-primary">{user?.email}</p>
             </div>
             <div>
-              <label className="block text-gray-600 text-sm mb-1 dark:text-orange-600">{t('username')}</label>
+              <label className="block text-gray-600 text-sm mb-1 dark:text-orange-600">
+                {t('username')}
+              </label>
               <p className="text-gray-800 dark:text-primary">{user?.username}</p>
             </div>
             <div>
-              <label className="block text-gray-600 text-sm mb-1 dark:text-orange-600">{t('birthday')}</label>
-              <p className="text-gray-800 dark:text-primary">{new Date(user?.birthDate).toLocaleDateString()}</p>
+              <label className="block text-gray-600 text-sm mb-1 dark:text-orange-600">
+                {t('birthday')}
+              </label>
+              <p className="text-gray-800 dark:text-primary">
+                {new Date(user?.birthDate).toLocaleDateString()}
+              </p>
             </div>
 
             <div className="mt-6">
