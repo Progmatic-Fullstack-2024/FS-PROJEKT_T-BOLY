@@ -14,7 +14,7 @@ export default function SubtotalTable({ coupon }) {
       <table>
         <tr>
           <td className="pb-2 pr-16 font-medium dark:text-primary">{t('subtotal')}</td>
-          <td className="pb-2 font-medium text-rightdark:text-primary">
+          <td className="pb-2 font-medium text-right dark:text-primary">
             €{subtotalPrice.toFixed(2)}
           </td>
         </tr>
@@ -30,7 +30,7 @@ export default function SubtotalTable({ coupon }) {
         )}
         <tr>
           <td className="pb-2 pr-16 font-medium">{t('shipping')}</td>
-          <td className="pb-2 font-medium text-rightdark:text-primary">
+          <td className="pb-2 font-medium text-right dark:text-primary">
             €{shippingPrice.toFixed(2)}
           </td>
         </tr>
