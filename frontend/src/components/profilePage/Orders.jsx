@@ -66,8 +66,8 @@ export default function Orders() {
   };
 
   return (
-    <div className="mx-auto w-full bg-white rounded-lg shadow-md p-8">
-      <h1 className="text-xl font-bold text-gray-700 mb-4">Your Orders</h1>
+    <div className="mx-auto w-full bg-white rounded-lg shadow-md p-16">
+      <h1 className="text-xl font-bold text-gray-700 mb-10">Your Orders</h1>
       <table className="md:w-full border-collapse border-b border-gray-300">
         <thead>
           <tr className="bg-primary">
@@ -92,7 +92,7 @@ export default function Orders() {
                   {order.formattedDate}
                 </td>
                 <td className="py-10 px-12 text-left font-medium text-gray-900">
-                  €{order.totalPrice}
+                  €{order.totalPrice.toFixed(2)}
                 </td>
                 <td className="py-10 px-12 text-left font-medium text-gray-900">
                   {order.formattedStatus}
@@ -125,7 +125,7 @@ export default function Orders() {
             <button
               type="button"
               onClick={handleCloseModal}
-              className="absolute top-10 -right-20 text-2xl w-40 rounded-xl hover:text-black hover:border-gray-900"
+              className="absolute top-1 -right-24 text-2xl w-40 hover:text-primary"
             >
               <RxCross2 />
             </button>
@@ -137,7 +137,7 @@ export default function Orders() {
                 <div>
                   <span className="font-medium">Order date:</span> {selectedOrder.formattedDate}
                 </div>
-                <div className="font-medium">Total Price: €{selectedOrder.totalPrice}</div>
+                <div className="font-medium">Total Price: €{selectedOrder.totalPrice.toFixed(2)}</div>
                 <div className="text-xl font-medium text-primary">
                   Status: {selectedOrder.formattedStatus}
                 </div>
@@ -188,10 +188,10 @@ export default function Orders() {
                         </Link>
                       </div>
                       <td className=" mt-6 mb-6 pl-10 text-left">
-                        <div className="font-medium">{item.product.name}</div>
+                        <div className="font-medium mr-10">{item.product.name}</div>
                       </td>
                       <td className="mt-6 mb-6 pl-10 text-center">
-                        <div className="text-left">€{item.price}</div>
+                        <div className="text-left">€{item.price.toFixed(2)}</div>
                       </td>
                       <td className=" mt-6 mb-6 pl-10  text-center">
                         <div className="font-medium">{item.quantity}</div>

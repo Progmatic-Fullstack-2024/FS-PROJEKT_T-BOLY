@@ -148,102 +148,102 @@ export default function CheckoutForm() {
     return navigate('/profile_page/orders');
   }
   return (
-    <div className="mr-60 ml-60 mt-28 mb-28">
-      <h1 className="text-primary mb-20 text-3xl font-medium">Check out</h1>
-      <div className="flex gap-32">
-        <div className="flex flex-col gap-20 w-3/5">
+    <div className="md:mr-60 md:ml-60 md:mt-28 md:mb-28 mr-5 ml-5 mt-10 mb-10">
+      <h1 className="text-primary md:mb-20 mb-10 text-3xl font-medium">Check out</h1>
+      <div className="flex flex-col md:gap-20 gap-10">
+        <div className="md:flex md:gap-20">
           <DeliveryInfo formData={formData} setFormData={setFormData} />
-          <div className="p-12 border-2 rounded-2xl">
-            <h1 className="text-2xl font-medium mb-6">Payment</h1>
-            <div className="flex items-center mb-4 justify-between ml-3 ">
-              <label className="flex items-center font-medium">
-                <input
-                  type="radio"
-                  name="accept"
-                  checked
-                  className="mr-3 appearance-none rounded-full w-3 h-3 checked:bg-primary border-2 border-white checked:ring-1 ring-primary"
-                />
-                {t('Credit card')}
-              </label>
-              <div className="flex items-center gap-4">
-                <img src={masterCardLogo} alt="" className="h-5 w-9 m-2" />
-                <img src={visaLogo} alt="" className="h-9 w-9 m-2" />
-                <img src={amexLogo} alt="" className="h-9 w-9" />
-              </div>
+          <OrderTable />
+        </div>
+        <div className="md:p-12 p-4 border-2 rounded-2xl md:w-3/5">
+          <h1 className="text-2xl font-medium mb-6">Payment</h1>
+          <div className="flex items-center mb-4 justify-between ml-3 ">
+            <label className="flex items-center font-medium">
+              <input
+                type="radio"
+                name="accept"
+                checked
+                className="mr-3 appearance-none rounded-full w-3 h-3 checked:bg-primary border-2 border-white checked:ring-1 ring-primary"
+              />
+              {t('Credit card')}
+            </label>
+            <div className="flex items-center gap-4">
+              <img src={masterCardLogo} alt="" className="h-5 w-9 m-2" />
+              <img src={visaLogo} alt="" className="h-9 w-9 m-2" />
+              <img src={amexLogo} alt="" className="h-9 w-9" />
             </div>
+          </div>
 
-            <Formik
-              initialValues={{ name: '' }}
-              validationSchema={PaymentSchema}
-              onSubmit={handleSubmit}
-            >
-              {() => (
-                <Form>
-                  <div className="flex flex-col gap-6 mb-8">
-                    <div>
-                      <label htmlFor="name" className="block mb-1 font-medium">
-                        {t('name on card')}
-                      </label>
-                      <Field
-                        name="name"
-                        type="text"
+          <Formik
+            initialValues={{ name: '' }}
+            validationSchema={PaymentSchema}
+            onSubmit={handleSubmit}
+          >
+            {() => (
+              <Form>
+                <div className="flex flex-col gap-6 mb-8">
+                  <div>
+                    <label htmlFor="name" className="block mb-1 font-medium">
+                      {t('name on card')}
+                    </label>
+                    <Field
+                      name="name"
+                      type="text"
+                      className="block w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                    />
+                    <ErrorMessage
+                      name="name"
+                      component="div"
+                      className="text-red-500 text-sm mt-1"
+                    />
+                  </div>
+                  <div>
+                    <label className="block mb-1 font-medium">{t('card number')}</label>
+                    <div className="flex">
+                      {cardType && (
+                        <div className="mt- mr-2">
+                          <img
+                            src={getCardLogo(cardType)}
+                            alt={cardType}
+                            className="inline-block h-8 "
+                          />
+                        </div>
+                      )}
+                      <CardNumberElement
+                        onChange={handleCardChange}
+                        options={cardElementOptions}
                         className="block w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
                       />
-                      <ErrorMessage
-                        name="name"
-                        component="div"
-                        className="text-red-500 text-sm mt-1"
+                    </div>
+                  </div>{' '}
+                  <div className="grid grid-cols-2 gap-6">
+                    <div>
+                      <label className="block mb-1 font-medium">{t('expiration date')}</label>
+                      <CardExpiryElement
+                        options={cardElementOptions}
+                        className="block w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
                       />
                     </div>
                     <div>
-                      <label className="block mb-1 font-medium">{t('card number')}</label>
-                      <div className="flex">
-                        {cardType && (
-                          <div className="mt- mr-2">
-                            <img
-                              src={getCardLogo(cardType)}
-                              alt={cardType}
-                              className="inline-block h-8 "
-                            />
-                          </div>
-                        )}
-                        <CardNumberElement
-                          onChange={handleCardChange}
-                          options={cardElementOptions}
-                          className="block w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
-                        />
-                      </div>
-                    </div>{' '}
-                    <div className="grid grid-cols-2 gap-6">
-                      <div>
-                        <label className="block mb-1 font-medium">{t('expiration date')}</label>
-                        <CardExpiryElement
-                          options={cardElementOptions}
-                          className="block w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
-                        />
-                      </div>
-                      <div>
-                        <label className="block mb-1 font-medium">CVC</label>
-                        <CardCvcElement
-                          options={cardElementOptions}
-                          className="block w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
-                        />
-                      </div>
+                      <label className="block mb-1 font-medium">CVC</label>
+                      <CardCvcElement
+                        options={cardElementOptions}
+                        className="block w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                      />
                     </div>
                   </div>
-                  <button
-                    type="submit"
-                    disabled={!stripe || loading}
-                    className="w-full text-center rounded-xl border-2 border-primary bg-primary p-2 text-white  hover:text-black hover:border-gray-900"
-                  >
-                    {loading ? t('processing') : t('pay')}
-                  </button>
-                </Form>
-              )}
-            </Formik>
-          </div>
+                </div>
+                <button
+                  type="submit"
+                  disabled={!stripe || loading}
+                  className="w-full text-center rounded-xl border-2 border-primary bg-primary p-2 text-white  hover:text-black hover:border-gray-900"
+                >
+                  {loading ? t('processing') : t('pay')}
+                </button>
+              </Form>
+            )}
+          </Formik>
         </div>
-        <OrderTable />
       </div>
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
