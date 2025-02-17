@@ -34,7 +34,7 @@ export default function ReviewModal({ setIsReviewOpen }) {
 
   return (
     <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
-      <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+      <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md dark:bg-gray-800 dark:border-primary dark:border dark:text-primary">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-bold">{t('rate this product')}</h2>
           <button type="button" className="text-gray-500 hover:text-black" onClick={handleClose}>
@@ -55,7 +55,7 @@ export default function ReviewModal({ setIsReviewOpen }) {
           {({ values, setFieldValue }) => (
             <Form className="space-y-4">
               <div>
-                <label className="block text-sm font-medium mb-2 text-gray-900">
+                <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-primary">
                   {t('rating')}
                 </label>
                 <div className="flex space-x-1">
@@ -79,14 +79,14 @@ export default function ReviewModal({ setIsReviewOpen }) {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2 text-gray-900">
+                <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-primary">
                   {t('review')}
                 </label>
                 <Field
                   as="textarea"
                   name="review"
                   placeholder={t('write your thoughts here')}
-                  className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 h-40"
+                  className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 h-40 dark:bg-gray-700 dark:border dark:placeholder-primary dark:text-primary dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:border-primary"
                 />
                 <ErrorMessage name="review" component="div" className="text-red-500 text-sm" />
               </div>

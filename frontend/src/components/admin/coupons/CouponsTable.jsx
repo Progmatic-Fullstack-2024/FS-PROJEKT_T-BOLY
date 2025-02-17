@@ -52,7 +52,7 @@ export default function CouponsTable() {
     <section className="py-3 sm:py-5">
       <div className="px-4 mx-auto max-w-screen-2xl lg:px-12">
         <div className="overflow-hidden bg-gray-50 bg-opacity-80 shadow-md sm:rounded-lg">
-          <div className="relative overflow-hidden bg-gray-50 bg-opacity-80 shadow-md dark:bg-gray-700">
+          <div className="relative overflow-hidden bg-gray-50 bg-opacity-80 shadow-md dark:bg-gray-700 dark:border-primary dark:border">
             <div className="flex flex-row items-center justify-between px-4 py-3">
               <h5 className="text-black dark:text-primary">All Coupons: {totalCoupons}</h5>
               <button
@@ -108,7 +108,7 @@ export default function CouponsTable() {
             </div>
             {isOpen && <AddNewCouponModal setIsOpen={setIsOpen} onCreate={handleCreate} />}
           </div>
-          <div className="bg-primary bg-opacity-20 flex items-center justify-between p-8 dark:bg-gray-800">
+          <div className="bg-primary bg-opacity-20 flex items-center justify-between p-8 dark:bg-gray-800 dark:border-primary dark:border">
             <DisplayedProductsNumber totalProducts={totalCoupons} />
             <Pagination totalPages={totalPages} />
           </div>

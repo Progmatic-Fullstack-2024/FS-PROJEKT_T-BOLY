@@ -23,7 +23,7 @@ export default function Wishlist() {
 
   if (wishlist.length === 0) {
     return (
-      <div className="mx-auto w-full h-full bg-white rounded-2xl shadow-lg p-12 flex flex-col items-center justify-center">
+      <div className="mx-auto w-full h-full bg-white rounded-2xl shadow-lg p-12 flex flex-col items-center justify-center dark:bg-gray-700 dark:border-primary dark:border">
         <AiOutlineHeart className="text-primary text-6xl mb-6" />
         <p className="text-center text-3xl font-semibold text-gray-700 dark:text-primary">
           {t('your wishlist is empty')}
