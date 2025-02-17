@@ -68,7 +68,7 @@
 
 | **Dátum**              | **Idő** | **Esemény**                |
 | ---------------------- | ------- | -------------------------- |
-| **Február 24** (hétfő) | TBC     | Demó és projekt bemutatása |
+| **Február 24** (hétfő) | 16:00 - | Demó és projekt bemutatása |
 
 ---
 
