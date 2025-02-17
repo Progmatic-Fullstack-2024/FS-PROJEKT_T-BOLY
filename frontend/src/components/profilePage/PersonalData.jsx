@@ -8,10 +8,11 @@ import * as yup from 'yup';
 import AuthContext from '../../contexts/AuthContext';
 import LanguageContext from '../../contexts/LanguageContext';
 import userService from '../../services/userService';
+import hasUserTurned18 from '../../utils/hasUserTurned18';
 
 export default function PersonalData() {
   const { t } = useContext(LanguageContext);
-  const { user, setUser } = useContext(AuthContext);
+  const { user, setUser, setIsUserAdult } = useContext(AuthContext);
   const [isEditing, setIsEditing] = useState(false);
   const [usernames, setUsernames] = useState([]);
   const [image, setImage] = useState(null);
@@ -70,12 +71,16 @@ export default function PersonalData() {
           ...updatedUser,
         });
 
+        setIsUserAdult(hasUserTurned18(new Date(values.birthDate).toISOString()));
+
         setIsEditing(false);
       } else {
         toast.error(`Failed to update user data, ${response.message.response.data.error}`);
       }
     } catch (error) {
       toast.error(`Failed to update user data.`);
+      console.error(error)
+      
     } finally {
       setSubmitting(false);
     }
@@ -173,22 +178,22 @@ export default function PersonalData() {
         />
         {showConfirmation && !isLoading && (
           <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
-            <div className="bg-white p-6 rounded shadow-lg">
+            <div className="bg-white flex flex-col items-center justify-center p-6 rounded shadow-lg dark:bg-gray-700 dark:border-primary dark:border dark:rounded-xl">
               <img alt="" src={previewImage} className="w-60 h-60 rounded" />
               <p className="mb-4 text-lg font-semibold">
                 {t('would you like to save this picture')}
               </p>
-              <div className="flex justify-end space-x-4">
+              <div className="flex w-full space-x-4">
                 <button
                   onClick={handleCancelPictureUpload}
-                  className="px-4 py-2 bg-primary-light text-gray-700 rounded-lg hover:bg-gray-400"
+                  className="px-4 py-2 w-1/2 bg-primary-light text-gray-700 rounded-lg hover:bg-gray-400 dark:bg-gray-800 dark:border-primary dark:border dark:text-primary dark:hover:bg-gray-600 dark:hover:border-white dark:hover:text-white"
                   type="button"
                 >
                   {t('cancel')}
                 </button>
                 <button
                   onClick={handleSavePictureUpload}
-                  className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-opacity-90"
+                  className="px-4 py-2 w-1/2 bg-primary text-white rounded-lg hover:bg-opacity-90"
                   type="button"
                 >
                   {t('save')}

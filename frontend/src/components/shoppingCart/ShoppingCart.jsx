@@ -33,15 +33,15 @@ export default function ShoppingCart() {
   };
 
   return (
-    <div className="md:pl-80 pl-2 pr-2 md:pr-80 md:pt-28 pt-10 pb-28 flex flex-col dark:text-primary dark:bg-gray-800">
+    <div className="md:pl-80 pl-2 pr-2 md:pr-80 md:pt-28 pt-10 pb-28 flex flex-col dark:text-primary dark:bg-gray-800 dark:border-primary dark:border">
       <h1 className="text-primary md:pb-28 pb-10 text-3xl font-medium dark:text-primary">
         {t('your shopping cart')}
       </h1>
       <div className="md:flex md:justify-center overflow-x-scroll md:overflow-x-visible dark:text-primary">
-        <table className="md:w-full border-collapse border-b border-gray-300 dark:text-primary">
+        <table className="md:w-full border-collapse border-b border-gray-300 dark:text-primary dark:border-primary dark:border">
           <thead>
-            <tr className="bg-primary text-white rounded-xl border-gray-30 dark:bg-gray-600 ">
-              <th colSpan={2} className="text-left pl-12 p-6 ">
+            <tr className="bg-primary text-white rounded-xl border-gray-30 dark:bg-gray-700 dark:text-primary dark:border-primary dark:border">
+              <th colSpan={2} className="text-left pl-12 p-6">
                 {t('product')}
               </th>
               <th className="text-left pr-20 ">{t('price')}</th>
@@ -56,7 +56,7 @@ export default function ShoppingCart() {
             {cart.length > 0 ? (
               cart.map((product) => <CartItemRow cartProduct={product} key={product.id} />)
             ) : (
-              <tr className="border-t border-gray-300 dark:text-primary">
+              <tr className="border-t border-gray-300 dark:text-primary dark:border-primary dark:border">
                 <td colSpan={6} className="p-20">
                   <div className="flex md:justify-center items-center text-xl dark:text-primary">
                     {t('your shopping cart is empty')}.
@@ -76,7 +76,7 @@ export default function ShoppingCart() {
               <input
                 value={code}
                 onChange={(e) => setCode(e.target.value)}
-                className={`md:w-96 w-64 rounded-xl border-2 border-gray-300 p-2 ${coupon?.discount ? '' : 'hover:border-gray-900 dark:text-primary dark:bg-gray-700 dark:border-primary'}`}
+                className={`md:w-96 w-64 rounded-xl border-2 border-gray-300 p-2 ${coupon?.discount ? '' : 'hover:border-gray-900 dark:text-primary dark:bg-gray-700 dark:border-primary dark:placeholder:text-primary'}`}
                 type="text"
                 placeholder={t('coupon code')}
               />
@@ -84,7 +84,7 @@ export default function ShoppingCart() {
             </div>
             <button
               onClick={applyCoupon}
-              className={`w-28 h-11 text-center rounded-xl border-2 p-2 text-white ${coupon?.discount ? 'bg-gray-400 border-gray-400' : 'bg-primary border-primary hover:text-black hover:border-gray-900'}`}
+              className={`w-28 h-11 text-center rounded-xl border-2 p-2 text-white ${coupon?.discount ? 'bg-gray-400 border-gray-400' : 'bg-primary border-primary hover:text-black hover:border-gray-900 dark:text-primary dark:bg-gray-700 dark:border-primary dark:placeholder:text-primary'}`}
               type="submit"
               disabled={coupon?.discount}
             >

@@ -7,18 +7,18 @@ export default function OrderTable() {
   const { cart, subtotalPrice, totalPrice, shippingPrice, coupon } = useContext(CartContext);
 
   return (
-    <div className="md:w-2/5 border-2 rounded-xl md:p-12 p-4 h-fit">
+    <div className="md:w-2/5 border-2 rounded-xl md:p-12 p-4 h-fitdark:bg-gray-700 dark:border-primary dark:border dark:text-primary">
       <h1 className="text-2xl font-medium mb-8">Your order</h1>
       <table className="w-full">
         {cart.map((product) => (
           <tr
             key={product.id}
-            className=" border-b border-gray-300 flex items-center justify-start"
+            className=" border-b border-gray-300 flex items-center justify-start dark:border-primary"
           >
             <td className="w-2/6 mt-6 mb-6 mr-2">
               <Link to={`/products/${product.productId}`}>
                 <img
-                  className="border-2 object-contain rounded-2xl p-3 w-28 h-28 hover:border-gray-900"
+                  className="border-2 object-contain rounded-2xl p-3 w-28 h-28 hover:border-gray-900 dark:bg-gray-800 dark:border-primary dark:border dark:text-primary"
                   src={product.pictureUrl}
                   alt="Product"
                 />
@@ -33,7 +33,7 @@ export default function OrderTable() {
             </td>
           </tr>
         ))}
-        <tr className="border-b border-gray-300 flex justify-between ">
+        <tr className="border-b border-gray-300 flex justify-between dark:border-primary">
           <td className="flex justify-center mt-12 mb-12 flex-col gap-5">
             <div className="font-medium">Subtotal</div>
             {coupon && <div className="font-medium">{coupon.discount}% Discount</div>}

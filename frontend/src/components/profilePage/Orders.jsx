@@ -66,16 +66,16 @@ export default function Orders() {
   };
 
   return (
-    <div className="mx-auto w-full bg-white rounded-lg shadow-md p-16">
-      <h1 className="text-xl font-bold text-gray-700 mb-10">Your Orders</h1>
-      <table className="md:w-full border-collapse border-b border-gray-300">
+    <div className="mx-auto w-full bg-white rounded-lg shadow-md p-16 dark:bg-gray-700 dark:border-primary dark:border">
+      <h1 className="text-xl font-bold text-gray-700 mb-10 dark:text-primary">Your Orders</h1>
+      <table className="md:w-full border-collapse border-b border-gray-300 dark:text-primary dark:border-primary">
         <thead>
-          <tr className="bg-primary">
-            <th className="py-6 px-12 text-left font-bold text-white">Order ID</th>
-            <th className="py-6 px-12 text-left font-bold text-white">Order date</th>
-            <th className="py-6 px-12 text-left font-bold text-white">Total price</th>
-            <th className="py-6 px-12 text-left font-bold text-white">Status</th>
-            <th className="py-6 px-12 text-left font-bold text-white">Action</th>
+          <tr className="bg-primary dark:bg-gray-800 dark:border-primary dark:border">
+            <th className="py-6 px-12 text-left font-bold text-white dark:text-orange-600">Order ID</th>
+            <th className="py-6 px-12 text-left font-bold text-white dark:text-orange-600">Order date</th>
+            <th className="py-6 px-12 text-left font-bold text-white dark:text-orange-600">Total price</th>
+            <th className="py-6 px-12 text-left font-bold text-white dark:text-orange-600">Status</th>
+            <th className="py-6 px-12 text-left font-bold text-white dark:text-orange-600">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -83,18 +83,18 @@ export default function Orders() {
             orders.map((order) => (
               <tr
                 key={order.id}
-                className={`border-t border-gray-300 ${hoveredOrderId === order.id ? 'bg-primary-light' : ''}`}
+                className={`border-t border-gray-300 ${hoveredOrderId === order.id ? 'bg-primary-light dark:bg-gray-600' : ''}`}
                 onMouseEnter={() => setHoveredOrderId(order.id)}
                 onMouseLeave={() => setHoveredOrderId(null)}
               >
-                <td className="py-10 px-12 text-left font-medium text-gray-900">{order.id}</td>
-                <td className="py-10 px-12 text-left font-medium text-gray-900">
+                <td className="py-10 px-12 text-left font-medium text-gray-900 dark:text-primary">{order.id}</td>
+                <td className="py-10 px-12 text-left font-medium text-gray-900 dark:text-primary">
                   {order.formattedDate}
                 </td>
-                <td className="py-10 px-12 text-left font-medium text-gray-900">
+                <td className="py-10 px-12 text-left font-medium text-gray-900 dark:text-primary">
                   €{order.totalPrice.toFixed(2)}
                 </td>
-                <td className="py-10 px-12 text-left font-medium text-gray-900">
+                <td className="py-10 px-12 text-left font-medium text-gray-900 dark:text-primary">
                   {order.formattedStatus}
                 </td>
                 <td className="py-10 px-12 text-left">
@@ -120,49 +120,49 @@ export default function Orders() {
 
       {selectedOrder && (
         <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-[100]">
-          <div className="relative bg-white p-10 rounded-lg shadow-lg w-3/5 max-h-[90vh] overflow-y-auto">
+          <div className="relative bg-white p-10 rounded-lg shadow-lg w-3/5 max-h-[90vh] overflow-y-auto dark:bg-gray-800  dark:border-primary dark:border">
             <h2 className="text-2xl font-bold mb-8">Order details</h2>
             <button
               type="button"
               onClick={handleCloseModal}
-              className="absolute top-1 -right-24 text-2xl w-40 hover:text-primary"
+              className="absolute top-1 -right-24 rounded-xl text-2xl w-40 hover:text-primary dark:hover:text-white"
             >
               <RxCross2 />
             </button>
             <div className="flex gap-10">
-              <div className="flex flex-col gap-3 border-2 rounded-xl p-5 w-1/3">
+              <div className="flex flex-col gap-3 border-2 rounded-xl p-5 w-1/3 dark:bg-gray-700 dark:border-primary dark:border">
                 <div>
-                  <span className="font-medium">Order ID:</span> {selectedOrder.id}
+                  <span className="font-medium dark:text-orange-600">Order ID:</span> {selectedOrder.id}
                 </div>
                 <div>
-                  <span className="font-medium">Order date:</span> {selectedOrder.formattedDate}
+                  <span className="font-medium dark:text-orange-600">Order date:</span> {selectedOrder.formattedDate}
                 </div>
-                <div className="font-medium">Total Price: €{selectedOrder.totalPrice.toFixed(2)}</div>
-                <div className="text-xl font-medium text-primary">
+                <div className="font-medium dark:text-orange-600">Total Price: €{selectedOrder.totalPrice.toFixed(2)}</div>
+                <div className="text-xl font-medium text-primary dark:text-orange-600">
                   Status: {selectedOrder.formattedStatus}
                 </div>
               </div>
-              <div className="flex flex-col gap-3 border-2 rounded-xl p-5 w-2/3">
+              <div className="flex flex-col gap-3 border-2 rounded-xl p-5 w-2/3 dark:bg-gray-700 dark:border-primary dark:border">
                 <div>
-                  <span className="font-medium">Name: </span>
+                  <span className="font-medium dark:text-orange-600">Name: </span>
                   {user.firstName} {user.lastName}
                 </div>
                 <div>
-                  <span className="font-medium">Phone Number: </span>
+                  <span className="font-medium dark:text-orange-600">Phone Number: </span>
                   {selectedOrder.phoneNumber}
                 </div>
                 <div>
-                  <h2 className="font-medium">Delivery Address:</h2>
+                  <h2 className="font-medium dark:text-orange-600">Delivery Address:</h2>
                   <div> {selectedOrder.address}</div>
                 </div>
                 <div>
-                  <h2 className="font-medium">Billing Address:</h2>
+                  <h2 className="font-medium dark:text-orange-600">Billing Address:</h2>
                   <div> {selectedOrder.billingAddress}</div>
                 </div>
               </div>
             </div>
 
-            <div className="w-full border-2 rounded-xl p-10 h-fit mt-10">
+            <div className="w-full border-2 rounded-xl p-10 h-fit mt-10 dark:bg-gray-700 dark:border-primary dark:border">
               <h1 className="text-xl font-medium mb-10">Order Items</h1>
               <table className="w-full">
                 <thead>
@@ -177,11 +177,11 @@ export default function Orders() {
                 </thead>
                 {orderItems.length > 0 ? (
                   orderItems.map((item) => (
-                    <tr key={item.id} className="border-b">
+                    <tr key={item.id} className="border-b dark:border-primary">
                       <div className="w-32 h-32 ">
                         <Link to={`/products/${item.productId}`}>
                           <img
-                            className="border-2 object-contain rounded-2xl mt-6 mb-6 p-2 w-28 h-28 hover:border-gray-900"
+                            className="border-2 object-contain rounded-2xl mt-6 mb-6 p-2 w-28 h-28 hover:border-gray-900 dark:bg-gray-800 dark:border-primary dark:border dark:text-primary"
                             src={item.product.pictureUrl}
                             alt=""
                           />

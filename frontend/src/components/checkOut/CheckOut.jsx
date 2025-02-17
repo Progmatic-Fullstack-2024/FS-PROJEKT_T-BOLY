@@ -155,9 +155,9 @@ export default function CheckoutForm() {
           <DeliveryInfo formData={formData} setFormData={setFormData} />
           <OrderTable />
         </div>
-        <div className="md:p-12 p-4 border-2 rounded-2xl md:w-3/5">
+        <div className="md:p-12 p-4 border-2 rounded-2xl dark:border-primary dark:border dark:text-primary dark:bg-gray-700 md:w-3/5">
           <h1 className="text-2xl font-medium mb-6">Payment</h1>
-          <div className="flex items-center mb-4 justify-between ml-3 ">
+          <div className="flex items-center mb-4 justify-between ml-3">
             <label className="flex items-center font-medium">
               <input
                 type="radio"
@@ -189,7 +189,7 @@ export default function CheckoutForm() {
                     <Field
                       name="name"
                       type="text"
-                      className="block w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                      className="block w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary dark:border-primary dark:border dark:text-primary dark:placeholder-primary dark:bg-gray-800"
                     />
                     <ErrorMessage
                       name="name"
@@ -205,14 +205,14 @@ export default function CheckoutForm() {
                           <img
                             src={getCardLogo(cardType)}
                             alt={cardType}
-                            className="inline-block h-8 "
+                            className="inline-block h-8"
                           />
                         </div>
                       )}
                       <CardNumberElement
                         onChange={handleCardChange}
                         options={cardElementOptions}
-                        className="block w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                        className="block w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary dark:border-primary dark:border dark:text-primary dark:placeholder-primary dark:bg-gray-800"
                       />
                     </div>
                   </div>{' '}
@@ -221,14 +221,14 @@ export default function CheckoutForm() {
                       <label className="block mb-1 font-medium">{t('expiration date')}</label>
                       <CardExpiryElement
                         options={cardElementOptions}
-                        className="block w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                        className="block w-full px-4 py-2 border-2 rounded-xl focus:outline-none focus:border-2 focus:border-primary dark:border-primary dark:border dark:placeholder-primary dark:bg-gray-800"
                       />
                     </div>
                     <div>
                       <label className="block mb-1 font-medium">CVC</label>
                       <CardCvcElement
                         options={cardElementOptions}
-                        className="block w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                        className="block w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary dark:border-primary dark:border dark:text-primary dark:placeholder-primary dark:bg-gray-800"
                       />
                     </div>
                   </div>

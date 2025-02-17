@@ -4,7 +4,7 @@ import { deliveryInfoValidationSchema } from '../../validations/deliveryInfo.val
 
 export default function DeliveryInfo({ formData, setFormData }) {
   return (
-    <div className="border-2 rounded-xl md:p-12 p-4 md:w-3/5 mb-10">
+    <div className="border-2 rounded-xl md:p-12 dark:border-primary dark:border dark:text-primary dark:bg-gray-700 p-4 md:w-3/5 mb-10">
       <h1 className="text-2xl font-medium mb-12">Delivery info</h1>
       <Formik validationSchema={deliveryInfoValidationSchema} initialValues={formData}>
         {({ values, setFieldValue }) => (
@@ -22,7 +22,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
                   }}
                   name="firstName"
                   type="text"
-                  className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 bg-gray-100 focus:outline-none"
+                  className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 bg-gray-100 focus:outline-none dark:bg-gray-800 dark:border-primary dark:border dark:text-primary"
                 />
                 <ErrorMessage name="firstName" component="div" className="text-red-500" />
               </div>
@@ -38,7 +38,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
                   }}
                   name="lastName"
                   type="text"
-                  className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 bg-gray-100 focus:outline-none"
+                  className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 bg-gray-100 focus:outline-none dark:bg-gray-800 dark:border-primary dark:border dark:text-primary"
                 />
                 <ErrorMessage name="lastName" component="div" className="text-red-500" />
               </div>
@@ -55,7 +55,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
                   }}
                   name="street"
                   type="text"
-                  className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                  className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 focus:outline-none focus:border-2 focus:border-primary dark:bg-gray-800 dark:border-primary dark:border dark:text-primary"
                 />
                 <ErrorMessage name="street" component="div" className="text-red-500" />
               </div>
@@ -70,7 +70,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
                   }}
                   name="houseNumber"
                   type="text"
-                  className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                  className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 focus:outline-none focus:border-2 focus:border-primary dark:bg-gray-800 dark:border-primary dark:border dark:text-primary"
                 />
                 <ErrorMessage name="houseNumber" component="div" className="text-red-500" />
               </div>
@@ -87,7 +87,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
                   }}
                   name="country"
                   type="text"
-                  className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                  className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 focus:outline-none focus:border-2 focus:border-primary dark:bg-gray-800 dark:border-primary dark:border dark:text-primary"
                 />
                 <ErrorMessage name="country" component="div" className="text-red-500" />
               </div>
@@ -102,7 +102,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
                   }}
                   name="city"
                   type="text"
-                  className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                  className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 focus:outline-none focus:border-2 focus:border-primary dark:bg-gray-800 dark:border-primary dark:border dark:text-primary"
                 />
                 <ErrorMessage name="city" component="div" className="text-red-500" />
               </div>
@@ -119,7 +119,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
                   }}
                   name="postalCode"
                   type="text"
-                  className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                  className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 focus:outline-none focus:border-2 focus:border-primary dark:bg-gray-800 dark:border-primary dark:border dark:text-primary"
                 />
                 <ErrorMessage name="postalCode" component="div" className="text-red-500" />
               </div>
@@ -135,7 +135,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
                   name="phoneNumber"
                   type="text"
                   placeholder="+36-11-1111111"
-                  className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 focus:outline-none focus:border-2 focus:border-primary placeholder:text-gray-400 placeholder:font-normal"
+                  className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 focus:outline-none focus:border-2 focus:border-primary placeholder:text-gray-400 placeholder:font-normal dark:bg-gray-800 dark:border-primary dark:border dark:text-primary dark:placeholder-primary"
                 />
                 <ErrorMessage name="phoneNumber" component="div" className="text-red-500" />
               </div>
@@ -152,7 +152,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
                   }}
                   name="email"
                   type="email"
-                  className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 bg-gray-100 focus:outline-none"
+                  className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 bg-gray-100 focus:outline-none dark:bg-gray-800 dark:border-primary dark:border dark:text-primary"
                   readOnly
                 />
               </div>
@@ -166,7 +166,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
                 }}
                 name="orderNotes"
                 as="textarea"
-                className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                className="w-full px-4 py-2 border-2 rounded-xl font-medium text-gray-700 focus:outline-none focus:border-2 focus:border-primary dark:bg-gray-800 dark:border-primary dark:border dark:text-primary"
                 rows="4"
               />
               <ErrorMessage name="orderNotes" component="div" className="text-red-500" />

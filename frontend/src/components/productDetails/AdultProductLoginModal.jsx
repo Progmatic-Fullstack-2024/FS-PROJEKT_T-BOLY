@@ -10,7 +10,7 @@ export default function AdultProductLoginModal() {
   const handleCloser = () => {
     navigate('/products/category/all');
   };
-  const { user } = useContext(AuthContext);
+  const { isUserAdult } = useContext(AuthContext);
 
   return (
     <div className="fixed inset-0 bg-gray-800 bg-opacity-50 backdrop-blur-md flex justify-center items-center z-50">
@@ -28,7 +28,7 @@ export default function AdultProductLoginModal() {
             <span className="sr-only">Close modal</span>
           </button>
         </div>
-        {user ? (
+        {!isUserAdult ? (
           <div className="h-32 p-3 text-center text-2xl">
             You need to be an adult for watch this product!
           </div>
@@ -40,7 +40,9 @@ export default function AdultProductLoginModal() {
           type="submit"
           className="bg-primary text-white w-full py-2 rounded-lg dark:bg-gray-800 dark:text-primary dark:border-primary dark:border dark:hover:bg-primary dark:hover:text-white"
         >
-          {user ? 'I understand' : 'Go to Login'}
+          {!isUserAdult ? 'I understand' : 'Go to Login'}
+
+          
         </button>
       </div>
     </div>
