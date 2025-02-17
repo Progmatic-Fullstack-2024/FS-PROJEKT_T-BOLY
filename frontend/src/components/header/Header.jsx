@@ -17,6 +17,7 @@ import LogoText from '../../assets/t-boly-orange.png';
 import AuthContext from '../../contexts/AuthContext';
 import CartContext from '../../contexts/CartContext';
 import LanguageContext from '../../contexts/LanguageContext';
+import DarkModeToggle from '../DarkModeToggle';
 import LoginModal from '../loginModal/LoginModal';
 import RegistrationModal from '../registrationModal/RegistrationModal';
 
@@ -58,17 +59,18 @@ export default function Header() {
   return (
     <header className="flex flex-col">
       {!user?.username && (
-        <div className="flex bg-primary justify-end h-8 items-center">
+        <div className="flex bg-primary justify-end h-8 items-center dark:text-primary dark:bg-gray-800">
+          <DarkModeToggle />
           <button
             type="button"
-            className="text-white px-3 text-m cursor-pointer"
+            className="text-white px-3 text-m cursor-pointer dark:text-primary"
             onClick={() => setLoginModalOpen(true)}
           >
             {t('login')}
           </button>
           <button
             type="button"
-            className="text-white px-3 text-m cursor-pointer"
+            className="text-white px-3 text-m cursor-pointer dark:text-primary"
             onClick={() => setRegisterModalOpen(true)}
           >
             {t('register')}
@@ -76,8 +78,9 @@ export default function Header() {
         </div>
       )}
       {user?.username && (
-        <div className="flex bg-primary justify-end h-8 items-center">
+        <div className="flex bg-primary justify-end h-8 items-center dark:text-primary dark:bg-gray-800">
           <div ref={dropdownRef} className="relative inline-block">
+            <DarkModeToggle />
             <button
               onClick={toggleDropdown}
               className="text-white hover:bg-opacity-90 font-medium text-sm px-5 py-2.5 text-center inline-flex items-center"
@@ -88,15 +91,15 @@ export default function Header() {
             </button>
 
             {isDropdownOpen && (
-              <div className="absolute top-10 right-0 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
-                <div className="px-4 py-3 text-sm text-gray-900">
+              <div className="absolute top-10 right-0 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-800">
+                <div className="px-4 py-3 text-sm text-gray-900 dark:text-primary">
                   <div>{user.username}</div>
                   <div className="font-medium truncate">{user.email}</div>
                 </div>
-                <ul className="py-2 text-sm text-gray-700">
+                <ul className="py-2 text-sm text-gray-700 dark:text-primary">
                   <li>
                     <Link
-                      className="px-4 py-2 hover:bg-gray-100 flex"
+                      className="px-4 py-2 hover:bg-gray-100 flex dark:hover:bg-gray-600"
                       to="profile_page/orders"
                       onClick={toggleDropdown}
                     >
@@ -106,7 +109,7 @@ export default function Header() {
                   </li>
                   <li>
                     <Link
-                      className="px-4 py-2 hover:bg-gray-100 flex"
+                      className="px-4 py-2 hover:bg-gray-100 flex dark:hover:bg-gray-600"
                       to="profile_page/wishlist"
                       onClick={toggleDropdown}
                     >
@@ -116,7 +119,7 @@ export default function Header() {
                   </li>
                   <li>
                     <Link
-                      className="px-4 py-2 hover:bg-gray-100 flex"
+                      className="px-4 py-2 hover:bg-gray-100 flex dark:hover:bg-gray-600"
                       to="profile_page/personal_data"
                       onClick={toggleDropdown}
                     >
@@ -126,7 +129,7 @@ export default function Header() {
                   </li>
                   <li>
                     <Link
-                      className="px-4 py-2 hover:bg-gray-100 flex"
+                      className="px-4 py-2 hover:bg-gray-100 flex dark:hover:bg-gray-600"
                       to="profile_page/change_password"
                       onClick={toggleDropdown}
                     >
@@ -136,7 +139,7 @@ export default function Header() {
                   </li>
                   <li>
                     <Link
-                      className="px-4 py-2 hover:bg-gray-100 flex"
+                      className="px-4 py-2 hover:bg-gray-100 flex dark:hover:bg-gray-600"
                       to="profile_page/adresses"
                       onClick={toggleDropdown}
                     >
@@ -148,7 +151,7 @@ export default function Header() {
                   {user.role === 'ADMIN' && (
                     <li>
                       <Link
-                        className="px-4 py-2 hover:bg-gray-100 flex"
+                        className="px-4 py-2 hover:bg-gray-100 flex dark:hover:bg-gray-600"
                         to="/admin"
                         onClick={toggleDropdown}
                       >
@@ -175,7 +178,7 @@ export default function Header() {
         </div>
       )}
 
-      <div className="flex w-full py-8 bg-primary-light md:justify-around">
+      <div className="flex w-full py-8 bg-primary-light md:justify-around dark:text-primary dark:bg-gray-700">
         <div className="flex items-center md:mr-0 mr-auto">
           <Link to="/">
             <img src={LogoOrange} alt="" className="w-18 h-10 hover:opacity-50" />

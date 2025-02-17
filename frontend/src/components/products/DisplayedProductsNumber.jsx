@@ -19,7 +19,7 @@ export default function DisplayedProductsNumber({ totalProducts, isLoading }) {
   }
 
   return (
-    <div className="hidden md:block">
+    <div className="hidden md:block dark:text-primary">
       <h1>
         {t('showing')} {Math.min((page - 1) * limit + 1, totalProducts)} -{' '}
         {Math.min(page * limit, totalProducts)} {t('of')} {totalProducts} {t('results')}

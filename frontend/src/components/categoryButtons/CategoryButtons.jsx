@@ -22,8 +22,8 @@ export default function CategoryButtons() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center my-16">
-      <h1 className="text-3xl font-bold mb-4">{t('find the perfect toy')}</h1>
+    <div className="flex flex-col items-center py-16 dark:text-primary dark:bg-gray-700">
+      <h1 className="text-3xl font-bold mb-4 dark:text-orange-600">{t('find the perfect toy')}</h1>
       <p className="text-center mb-10">{t('our collections')}</p>
       <div className="flex flex-wrap justify-around p-4 gap-8 md:gap-16 text-center mx-10">
         {categories.slice(0, 5).map((category) => (

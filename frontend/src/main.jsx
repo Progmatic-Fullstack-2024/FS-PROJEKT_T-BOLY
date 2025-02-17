@@ -11,6 +11,7 @@ import ProductsTable from './components/admin/products/ProductsTable.jsx';
 import UserTable from './components/admin/users/UserTable.jsx';
 import Payment from './components/checkOut/Payment.jsx';
 import MemberRoute from './components/MemberRoute.jsx';
+import NotFound from './components/NotFound.jsx';
 import ProductById from './components/productDetails/ProductById.jsx';
 import ProductsByCategory from './components/products/ProductsByCategory.jsx';
 import './index.css';
@@ -24,6 +25,7 @@ import ShoppingCart from './components/shoppingCart/ShoppingCart.jsx';
 import { AuthProvider } from './contexts/AuthContext.jsx';
 import { CartProvider } from './contexts/CartContext.jsx';
 import { LanguageProvider } from './contexts/LanguageContext.jsx';
+import ThemeProvider from './contexts/ThemeContext.jsx';
 import { WishlistProvider } from './contexts/WishlistContext.jsx';
 import About from './pages/About.jsx';
 import AdminLayout from './pages/AdminLayout.jsx';
@@ -124,16 +126,19 @@ const router = createBrowserRouter([
       },
     ],
   },
+  { path: '*', element: <NotFound /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <LanguageProvider>
     <AuthProvider>
-      <CartProvider>
-        <WishlistProvider>
-          <RouterProvider router={router} />
-        </WishlistProvider>
-      </CartProvider>
+      <ThemeProvider>
+        <CartProvider>
+          <WishlistProvider>
+            <RouterProvider router={router} />
+          </WishlistProvider>
+        </CartProvider>
+      </ThemeProvider>
     </AuthProvider>
   </LanguageProvider>,
 );

@@ -28,7 +28,7 @@ export default function Nav() {
         data-drawer-toggle="separator-sidebar"
         aria-controls="separator-sidebar"
         type="button"
-        className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 "
+        className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-primary dark:hover:bg-primary dark:focus:ring-gray-600"
       >
         <span className="sr-only">Open sidebar</span>
         <HiMenu className="w-6 h-6" />
@@ -45,24 +45,24 @@ export default function Nav() {
           <li className="mt-4">
             <Link
               onClick={() => setIsSideBarOpen(false)}
-              className="flex justify-between p-4 text-gray-900 rounded-lg hover:bg-gray-100 group"
+              className="flex justify-between p-4 text-gray-900 rounded-lg hover:bg-gray-100 group dark:text-primary dark:hover:bg-gray-700"
               to="orders"
             >
               <span className="flex ">
                 <img
                   src={orderIcon}
                   alt=""
-                  className="mr-4 w-8 h-8 text-gray-500 transition duration-75 group-hover:text-gray-900 "
+                  className="mr-4 w-8 h-8 text-gray-500 transition duration-75 group-hover:text-gray-900"
                 />
                 {t('orders')}
               </span>
-              <MdKeyboardArrowRight className="w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 " />
+              <MdKeyboardArrowRight className="w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-primary" />
             </Link>
           </li>
           <li className="">
             <Link
               onClick={() => setIsSideBarOpen(false)}
-              className="border-t border-gray-200 flex justify-between p-4 text-gray-900 rounded-lg  hover:bg-gray-100  group"
+              className="border-t border-gray-200 flex justify-between p-4 text-gray-900 rounded-lg  hover:bg-gray-100  group dark:text-primary dark:hover:bg-gray-700"
               to="wishlist"
             >
               <span className="flex  pb-0">
@@ -73,30 +73,30 @@ export default function Nav() {
                 />
                 {t('wishlist')}
               </span>
-              <MdKeyboardArrowRight className="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 " />
+              <MdKeyboardArrowRight className="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 dark:text-primary" />
             </Link>
           </li>
           <li className="">
             <Link
               onClick={() => setIsSideBarOpen(false)}
-              className="border-t border-gray-200   flex justify-between p-4 text-gray-900 rounded-lg  hover:bg-gray-100  group"
+              className="border-t border-gray-200   flex justify-between p-4 text-gray-900 rounded-lg  hover:bg-gray-100  group dark:text-primary dark:hover:bg-gray-700"
               to="personal_data"
             >
               <span className="flex">
                 <img
                   src={pesronalDataIcon}
                   alt=""
-                  className="mr-4 flex-shrink-0 w-8 h-8 text-gray-500 transition duration-75  group-hover:text-gray-900 "
+                  className="mr-4 flex-shrink-0 w-8 h-8 text-gray-500 transition duration-75  group-hover:text-gray-900"
                 />
                 {t('personal data')}
               </span>
-              <MdKeyboardArrowRight className="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 " />
+              <MdKeyboardArrowRight className="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 dark:text-primary" />
             </Link>
           </li>
           <li className="">
             <Link
               onClick={() => setIsSideBarOpen(false)}
-              className="border-t border-gray-200   flex justify-between p-4 text-gray-900 rounded-lg  hover:bg-gray-100  group"
+              className="border-t border-gray-200   flex justify-between p-4 text-gray-900 rounded-lg  hover:bg-gray-100  group dark:text-primary dark:hover:bg-gray-700"
               to="change_password"
             >
               <span className="flex">
@@ -107,13 +107,13 @@ export default function Nav() {
                 />
                 {t('change password')}
               </span>
-              <MdKeyboardArrowRight className="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 " />
+              <MdKeyboardArrowRight className="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 dark:text-primary" />
             </Link>
           </li>
           <li className="">
             <Link
               onClick={() => setIsSideBarOpen(false)}
-              className="border-t border-gray-200   flex justify-between p-4 text-gray-900 rounded-lg  hover:bg-gray-100  group"
+              className="border-t border-gray-200   flex justify-between p-4 text-gray-900 rounded-lg  hover:bg-gray-100  group dark:text-primary dark:hover:bg-gray-700"
               to="adresses"
             >
               <span className="flex">
@@ -124,7 +124,7 @@ export default function Nav() {
                 />
                 {t('adresses')}
               </span>
-              <MdKeyboardArrowRight className="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 " />
+              <MdKeyboardArrowRight className="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 dark:text-primary" />
             </Link>
           </li>
         </ul>

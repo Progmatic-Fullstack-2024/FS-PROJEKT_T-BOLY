@@ -58,39 +58,45 @@ export default function CategoriesTable() {
   return (
     <section className="py-3 sm:py-5">
       <div className="px-4 mx-auto max-w-screen-2xl lg:px-12">
-        <div className="overflow-hidden bg-gray-50 bg-opacity-80 shadow-md sm:rounded-lg">
-          <div className="relative overflow-hidden bg-gray-50 bg-opacity-80 shadow-md">
+        <div className="overflow-hidden bg-gray-50 bg-opacity-80 shadow-md sm:rounded-lg dark:bg-gray-800 dark:border-primary dark:border-2">
+          <div className="relative overflow-hidden bg-gray-50 bg-opacity-80 shadow-md dark:bg-gray-700 dark:border-primary">
             <div className="flex flex-col md:flex-row md:items-center gap-4 justify-between px-4 py-3">
-              <h5 className="text-black">All Categories: {totalCategories}</h5>
+              <h5 className="text-black dark:text-primary">All Categories: {totalCategories}</h5>
               <AddNewCategoryModal onCreate={handleCreate} />
             </div>
             <div className="overflow-x-auto">
-              <table className="w-full text-sm text-left text-gray-500 bg-white">
+              <table className="w-full text-sm text-left text-gray-500 bg-white dark:bg-gray-700">
                 <thead className="text-xs text-gray-700 uppercase bg-primary">
-                  <tr className="text-gray-700 uppercase bg-primary">
-                    <th className="px-4 py-3 text-gray-100">Category Image</th>
-                    <th className="px-4 py-3 text-gray-100">Category Name</th>
-                    <th className="px-4 py-3 text-gray-100">Category Description</th>
-                    <th className="px-4 py-3 text-gray-100">Last Updated</th>
-                    <th className="px-4 py-3 w-48 text-gray-100 text-center">Actions</th>
+                  <tr className="text-gray-700 uppercase bg-primary dark:bg-gray-800 dark:border-primary dark:border-2">
+                    <th className="px-4 py-3 text-gray-100 dark:text-orange-600">Category Image</th>
+                    <th className="px-4 py-3 text-gray-100 dark:text-orange-600">Category Name</th>
+                    <th className="px-4 py-3 text-gray-100 dark:text-orange-600">
+                      Category Description
+                    </th>
+                    <th className="px-4 py-3 text-gray-100 dark:text-orange-600">Last Updated</th>
+                    <th className="px-4 py-3 w-48 text-gray-100 text-center dark:text-orange-600">
+                      Actions
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {categories.map((category) => (
                     <tr
                       key={category.id}
-                      className="border-b dark:border-gray-600  hover:bg-orange-200"
+                      className="border-b dark:border-primary hover:bg-orange-200 dark:hover:bg-gray-600"
                     >
                       <td className="px-4 py-3">
                         <img
-                          className="w-12 h-12 rounded-lg"
+                          className="w-12 h-12 rounded-lg dark:border-primary dark:border-2"
                           src={category.pictureUrl || noImage}
                           alt={category.name}
                         />
                       </td>
-                      <td className="px-4 py-3">{category.name}</td>
-                      <td className="px-4 py-3">{category.description.slice(0, 100)}...</td>
-                      <td className="px-4 py-3">
+                      <td className="px-4 py-3 dark:text-primary">{category.name}</td>
+                      <td className="px-4 py-3 dark:text-primary">
+                        {category.description.slice(0, 100)}...
+                      </td>
+                      <td className="px-4 py-3 dark:text-primary">
                         {new Date(category.updatedAt).toLocaleDateString()}
                       </td>
                       <td className="px-4 py-3 text-center">
@@ -103,7 +109,7 @@ export default function CategoriesTable() {
               </table>
             </div>
           </div>
-          <div className="bg-primary bg-opacity-20 flex items-center justify-between p-8">
+          <div className="bg-primary bg-opacity-20 flex items-center justify-between p-8 dark:bg-gray-800">
             <DisplayedProductsNumber totalProducts={totalCategories} />
             <Pagination totalPages={totalPages} />
           </div>

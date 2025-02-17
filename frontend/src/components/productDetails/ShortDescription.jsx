@@ -5,7 +5,7 @@ import LanguageContext from '../../contexts/LanguageContext';
 export default function ShortDescription({ categoryNames, product }) {
   const { t } = useContext(LanguageContext);
   return (
-    <div className="flex flex-col rounded-xl border-2 p-5 gap-2 w-full">
+    <div className="flex flex-col rounded-xl border-2 p-5 gap-2 w-full dark:bg-gray-700 dark:border-primary">
       <div className="font-semibold text-xl mb-3">{t('short descripton')}</div>
       <div className="flex md:flex-row flex-col md:justify-between gap-3">
         <div className="md:w-2/3">

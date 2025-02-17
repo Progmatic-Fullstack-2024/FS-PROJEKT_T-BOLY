@@ -52,13 +52,13 @@ export default function CouponsTable() {
     <section className="py-3 sm:py-5">
       <div className="px-4 mx-auto max-w-screen-2xl lg:px-12">
         <div className="overflow-hidden bg-gray-50 bg-opacity-80 shadow-md sm:rounded-lg">
-          <div className="relative overflow-hidden bg-gray-50 bg-opacity-80 shadow-md">
+          <div className="relative overflow-hidden bg-gray-50 bg-opacity-80 shadow-md dark:bg-gray-700">
             <div className="flex flex-row items-center justify-between px-4 py-3">
-              <h5 className="text-black">All Coupons: {totalCoupons}</h5>
+              <h5 className="text-black dark:text-primary">All Coupons: {totalCoupons}</h5>
               <button
                 type="button"
                 onClick={() => setIsOpen(true)}
-                className="flex items-center justify-center px-4 py-2 text-sm font-medium text-black rounded-lg bg-primary-700 border border-gray-400 hover:bg-primary focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
+                className="flex items-center justify-center px-4 py-2 text-sm font-medium text-black rounded-lg bg-primary-700 border border-gray-400 hover:bg-primary focus:ring-4 focus:ring-primary-300 dark:bg-gray-800 dark:hover:bg-gray-600 dark:border-primary dark:text-primary dark:focus:outline-none dark:focus:ring-primary-800"
               >
                 <IoMdAddCircle className="h-5 w-5 mr-2" /> Add New Coupon
               </button>
@@ -66,18 +66,20 @@ export default function CouponsTable() {
             <div className="overflow-x-auto">
               <table className="w-full text-sm text-left text-gray-500 bg-white">
                 <thead className="text-xs text-gray-700 uppercase bg-primary">
-                  <tr className="text-gray-700 uppercase bg-primary">
-                    <th className="px-4 py-3 w-24 text-left text-gray-100 cursor-pointer">Code</th>
-                    <th className="px-4 py-3 w-48 text-center text-gray-100 cursor-pointer">
+                  <tr className="text-gray-700 uppercase bg-primary dark:bg-gray-800 dark:border-primary dark:border">
+                    <th className="px-4 py-3 w-24 text-left text-gray-100 cursor-pointer dark:text-primary">
+                      Code
+                    </th>
+                    <th className="px-4 py-3 w-48 text-center text-gray-100 cursor-pointer dark:text-primary">
                       Discount
                     </th>
-                    <th className="px-4 py-3 w-48 text-center text-gray-100 cursor-pointer">
+                    <th className="px-4 py-3 w-48 text-center text-gray-100 cursor-pointer dark:text-primary">
                       Valid From
                     </th>
-                    <th className="px-4 py-3 w-48 text-center text-gray-100 cursor-pointer">
+                    <th className="px-4 py-3 w-48 text-center text-gray-100 cursor-pointer dark:text-primary">
                       Valid To
                     </th>
-                    <th className="px-4 py-3 w-48 text-gray-100 cursor-pointer text-center">
+                    <th className="px-4 py-3 w-48 text-gray-100 cursor-pointer text-center dark:text-primary">
                       Actions
                     </th>
                   </tr>
@@ -86,7 +88,7 @@ export default function CouponsTable() {
                   {coupons.map((coupon) => (
                     <tr
                       key={coupon.id}
-                      className="border-b dark:border-gray-600 hover:bg-orange-200"
+                      className="border-b dark:border-primary hover:bg-orange-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-primary"
                     >
                       <td className="px-4 py-5">{coupon.code}</td>
                       <td className="px-4 py-5 text-center">{coupon.discount}%</td>
@@ -106,7 +108,7 @@ export default function CouponsTable() {
             </div>
             {isOpen && <AddNewCouponModal setIsOpen={setIsOpen} onCreate={handleCreate} />}
           </div>
-          <div className="bg-primary bg-opacity-20 flex items-center justify-between p-8">
+          <div className="bg-primary bg-opacity-20 flex items-center justify-between p-8 dark:bg-gray-800">
             <DisplayedProductsNumber totalProducts={totalCoupons} />
             <Pagination totalPages={totalPages} />
           </div>

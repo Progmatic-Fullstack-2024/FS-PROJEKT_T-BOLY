@@ -20,7 +20,7 @@ export default function FilterByPlayersNumber() {
 
   return (
     <select
-      className="p-2 w-60 border-2 rounded-lg hover:border-gray-900 focus:border-primary"
+      className="p-2 w-60 border-2 rounded-lg hover:border-gray-900 focus:border-primary dark:text-primary dark:bg-gray-700 dark:border-primary dark:hover:bg-gray-600 dark:focus:border-primary"
       id="players-number"
       onChange={handleFilterByPlayersNumber}
       value={searchParams.get('players') || 'all'}

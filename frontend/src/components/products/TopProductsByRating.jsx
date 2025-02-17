@@ -36,7 +36,7 @@ export default function TopProductsByRating() {
   }
 
   return (
-    <div className="md:mt-28 mt-12 md:m-52 mb-10">
+    <div className="pd:pt-28 pt-12 pd:m-52 pb-10 dark:text-primary dark:bg-gray-700">
       <h2 className="text-3xl font-semibold text-center md:mb-28 mb-10">
         {t('top products by rating')}
       </h2>
@@ -51,7 +51,7 @@ export default function TopProductsByRating() {
                   </div>
                 )}
                 <img
-                  className="border-2 rounded-2xl w-80 h-80 p-7 pr-8 shrink-0 object-contain hover:border-gray-900"
+                  className="border-2 rounded-2xl w-80 h-80 p-7 pr-8 shrink-0 object-contain dark:border-primary hover:border-gray-900 dark:hover:border-white dark:bg-gray-800"
                   src={topProduct.pictureUrl}
                   alt={topProduct.name}
                 />

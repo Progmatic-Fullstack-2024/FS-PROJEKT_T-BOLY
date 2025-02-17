@@ -35,18 +35,22 @@ export default function CartItemRow({ cartProduct }) {
   };
 
   return (
-    <tr key={cartProduct.id} className="border-t border-gray-300">
-      <div className="w-48 h-48 mt-8 mb-8 ml-5">
+    <tr key={cartProduct.id} className="border-t border-gray-300 dark:text-white dark:bg-gray-700 ">
+      <div className="w-48 h-48 mt-8 mb-8 ml-5 dark:text-white dark:bg-gray-700">
         <Link to={`/products/${cartProduct.productId}`}>
           <img
-            className="border-2 object-contain rounded-2xl mt-6 mb-6 p-5 w-48 h-48 hover:border-gray-900"
+            className="border-2 object-contain rounded-2xl mt-6 mb-6 p-5 w-48 h-48 hover:border-gray-900 dark:text-white dark:bg-gray-700 dark:border-primary"
             src={cartProduct.pictureUrl}
             alt=""
           />
         </Link>
       </div>
-      <td className="pl-12 pr-20 text-left font-medium">{cartProduct.name}</td>
-      <td className="pr-20 text-left font-medium">€{cartProduct.price}</td>
+      <td className="pl-12 pr-20 text-left font-medium dark:text-primary dark:bg-gray-700">
+        {cartProduct.name}
+      </td>
+      <td className="pr-20 text-left font-medium dark:text-primary dark:bg-gray-700">
+        €{cartProduct.price}
+      </td>
       <td>
         <QuantityChangeButtons
           handleDecrement={() => handleDecrement()}
@@ -56,10 +60,10 @@ export default function CartItemRow({ cartProduct }) {
           maxQuantity={maxQuantity}
         />
       </td>
-      <td className="pl-12 pr-20 text-left font-medium">
+      <td className="pl-12 pr-20 text-left font-medium dark:text-primary dark:bg-gray-700">
         €{(cartProduct.price * cartProduct.quantity).toFixed(2)}
       </td>
-      <td className="text-red-500 cursor-pointer text-xl">
+      <td className="text-red-500 cursor-pointer text-xl dark:text-red-500 dark:bg-gray-700">
         <button
           type="button"
           onClick={() => removeFromCart(cartProduct.productId, isSubmitting, setIsSubmittung)}

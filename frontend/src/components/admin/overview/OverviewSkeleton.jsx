@@ -1,7 +1,12 @@
+import { IoStatsChart } from 'react-icons/io5';
+
 export default function OverviewSkeleton() {
   return (
     <div className="animate-pulse p-6">
-      <h1 className="text-3xl font-bold mb-6">📊 Admin Dashboard</h1>
+      <h1 className="flex items-center gap-4 text-3xl font-bold mb-6  dark:text-primary">
+        <IoStatsChart className="text-primary" />
+        Admin Dashboard
+      </h1>
 
       <div className="grid grid-cols-5 gap-4 mb-6">
         <div className="h-28 bg-blue-300 rounded-md" />

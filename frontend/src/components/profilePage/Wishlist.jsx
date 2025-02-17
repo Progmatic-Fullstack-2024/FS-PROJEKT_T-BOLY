@@ -25,23 +25,23 @@ export default function Wishlist() {
     return (
       <div className="mx-auto w-full h-full bg-white rounded-2xl shadow-lg p-12 flex flex-col items-center justify-center">
         <AiOutlineHeart className="text-primary text-6xl mb-6" />
-        <p className="text-center text-3xl font-semibold text-gray-700">
+        <p className="text-center text-3xl font-semibold text-gray-700 dark:text-primary">
           {t('your wishlist is empty')}
         </p>
-        <p className="text-center text-gray-500 mt-4">
+        <p className="text-center text-gray-500 mt-4 dark:text-primary">
           {t('start adding items to your wishlist by browsing our products')}
         </p>
       </div>
     );
   }
   return (
-    <div className="mx-auto w-full h-full bg-white rounded-lg shadow-md p-8">
+    <div className="mx-auto w-full h-full bg-white rounded-lg shadow-md p-8 dark:bg-gray-700 dark:border-primary">
       <h1 className="text-2xl font-bold mb-4">{t('wishlist')}</h1>
       <ul className="space-y-4">
         {wishlist.map((item) => (
           <li
             key={item.product.id}
-            className="flex items-center justify-between p-4 border rounded-lg shadow-sm"
+            className="flex items-center justify-between p-4 border rounded-lg shadow-sm dark:bg-gray-800 dark:border-primary"
           >
             <Link to={`/products/${item.product.id}`} className="flex items-center space-x-4">
               <img

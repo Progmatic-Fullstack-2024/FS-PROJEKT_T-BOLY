@@ -3,7 +3,7 @@ export default function StatCard({ title, value, subValue, icon, color, onClick 
     <button
       type="button"
       onClick={onClick}
-      className={`p-4 rounded-lg shadow-md text-white cursor-pointer hover:opacity-90 transition-all ${color}`}
+      className={`p-4 rounded-lg shadow-md text-white cursor-pointer hover:opacity-90 transition-all ${color} dark:bg-opacity-70`}
     >
       <div className="flex items-center">
         <span className="text-2xl">{icon}</span>

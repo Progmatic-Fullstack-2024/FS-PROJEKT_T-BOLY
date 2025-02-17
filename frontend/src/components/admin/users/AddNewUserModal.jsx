@@ -58,7 +58,7 @@ export default function AddNewUserModal({ setIsOpen }) {
   };
   return (
     <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50 ">
-      <div className="bg-white rounded-lg shadow-lg p-6 w-96 ">
+      <div className="bg-white rounded-lg shadow-lg p-6 w-96 dark:bg-gray-700 dark:border-primary dark:text-primary dark:border-2">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-bold text-orange-500">Create new USER</h2>
 
@@ -81,25 +81,37 @@ export default function AddNewUserModal({ setIsOpen }) {
               <div className="flex flex-col justify-between items-center mb-4 w-full">
                 <div className="w-full">
                   <label className="block text-left text-sm font-medium  w-full">First Name</label>
-                  <Field name="firstName" className="block w-full p-2 border rounded-lg " />
+                  <Field
+                    name="firstName"
+                    className="block w-full p-2 border rounded-lg dark:bg-gray-600 dark:border-primary dark:border-2"
+                  />
                   <ErrorMessage name="firstName" component="div" className="text-red-500 text-sm" />
                 </div>
 
                 <div className="w-full">
                   <label className="block text-left text-sm font-medium">Last Name</label>
-                  <Field name="lastName" className="w-full p-2 border rounded-lg" />
+                  <Field
+                    name="lastName"
+                    className="w-full p-2 border rounded-lg dark:bg-gray-600 dark:border-primary dark:border-2"
+                  />
                   <ErrorMessage name="lastName" component="div" className="text-red-500 text-sm" />
                 </div>
 
                 <div className="w-full">
                   <label className="block text-left text-sm font-medium">Email</label>
-                  <Field name="email" className="w-full p-2 border rounded-lg" />
+                  <Field
+                    name="email"
+                    className="w-full p-2 border rounded-lg dark:bg-gray-600 dark:border-primary dark:border-2"
+                  />
                   <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
                 </div>
 
                 <div className="w-full">
                   <label className="block text-left text-sm font-medium">Username</label>
-                  <Field name="username" className="w-full p-2 border rounded-lg" />
+                  <Field
+                    name="username"
+                    className="w-full p-2 border rounded-lg dark:bg-gray-600 dark:border-primary dark:border-2"
+                  />
                   <ErrorMessage name="username" component="div" className="text-red-500 text-sm" />
                 </div>
                 <div className="w-full  mb-4">
@@ -110,7 +122,7 @@ export default function AddNewUserModal({ setIsOpen }) {
                     name="colors"
                     options={roleOptions}
                     className="blockya basic-select"
-                    classNamePrefix="select"
+                    classNamePrefix="select dark:bg-gray-600 dark:border-primary dark:text-primary"
                     onChange={(selectedOptions) => setFieldValue('role', selectedOptions)}
                   />
 

@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import { useEffect, useState } from 'react';
+import { IoStatsChart } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import {
@@ -46,7 +47,10 @@ export default function Overview() {
 
   return (
     <div className="p-5">
-      <h1 className="text-3xl font-bold mb-6">📊 Admin Dashboard</h1>
+      <h1 className="flex items-center gap-4 text-3xl font-bold mb-6  dark:text-primary">
+        <IoStatsChart className="text-primary" />
+        Admin Dashboard
+      </h1>
 
       {/* Clickable Overview Cards */}
       <div className="grid grid-cols-5 gap-4 mb-6">
@@ -93,7 +97,7 @@ export default function Overview() {
       {/* Charts Section */}
       <div className="grid grid-cols-2 gap-6">
         {/* Bar Chart */}
-        <div className="bg-white bg-opacity-50 hover:bg-opacity-60 p-4 rounded-lg shadow-md">
+        <div className="bg-white bg-opacity-50 dark:bg-gray-800 dark:text-primary hover:bg-opacity-60 p-4 rounded-lg shadow-md">
           <h2 className="text-lg font-semibold mb-2">
             📈 {activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)} Overview
           </h2>
@@ -110,7 +114,7 @@ export default function Overview() {
         </div>
 
         {/* Pie Chart */}
-        <div className="bg-white bg-opacity-50 hover:bg-opacity-60 p-4 rounded-lg shadow-md">
+        <div className="bg-white bg-opacity-50 dark:bg-gray-800 dark:text-primary hover:bg-opacity-60 p-4 rounded-lg shadow-md">
           <h2 className="text-lg font-semibold mb-2">
             📊 {activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)} Distribution
           </h2>
@@ -141,14 +145,14 @@ export default function Overview() {
 
       {/* Most Ordered Products List (Orders Section) */}
       {activeCategory === 'orders' && (
-        <div className="bg-white bg-opacity-80 p-4 rounded-lg shadow-md mt-6">
+        <div className="bg-white bg-opacity-80 dark:bg-gray-800 dark:text-primary p-4 rounded-lg shadow-md mt-6">
           <h2 className="text-lg font-semibold mb-4">📦 Most Ordered Products</h2>
           <ul className="space-y-2">
             {stats.orders.mostOrdered.map((product) => (
               <li key={product.productId} className="flex justify-between border-b pb-2">
                 <Link
                   to={`/products/${product.productId}`}
-                  className="text-blue-600 hover:underline"
+                  className="text-primary hover:underline"
                 >
                   {product.name}
                 </Link>
@@ -161,7 +165,7 @@ export default function Overview() {
 
       {/* Highest Value Orders List (Revenue Section) */}
       {activeCategory === 'revenue' && (
-        <div className="bg-white bg-opacity-80 hover:bg-opacity-60 p-4 rounded-lg shadow-md mt-6">
+        <div className="bg-white bg-opacity-80 dark:bg-gray-800 dark:text-primary hover:bg-opacity-60 p-4 rounded-lg shadow-md mt-6">
           <h2 className="text-lg font-semibold mb-4">💰 Highest Value Orders</h2>
           <ul className="space-y-2">
             {stats.revenue.highestOrders.map((order) => (
@@ -176,14 +180,14 @@ export default function Overview() {
 
       {/* Top Selling Products List */}
       {activeCategory === 'products' && (
-        <div className="bg-white bg-opacity-80 hover:bg-opacity-60 p-4 rounded-lg shadow-md mt-6">
+        <div className="bg-white bg-opacity-80 dark:bg-gray-800 dark:text-primary hover:bg-opacity-60 p-4 rounded-lg shadow-md mt-6">
           <h2 className="text-lg font-semibold mb-4">🏆 Bestselling Products</h2>
           <ul className="space-y-2">
             {stats.products.topSelling.map((product) => (
               <li key={product.productId} className="flex justify-between border-b pb-2">
                 <Link
                   to={`/products/${product.productId}`}
-                  className="text-blue-600 hover:underline"
+                  className="text-primary hover:underline"
                 >
                   {product.name}
                 </Link>
@@ -195,14 +199,14 @@ export default function Overview() {
       )}
       {/* Most Reviewed Products List */}
       {activeCategory === 'reviews' && (
-        <div className="bg-white bg-opacity-80 hover:bg-opacity-60 p-4 rounded-lg shadow-md mt-6">
+        <div className="bg-white bg-opacity-80 dark:bg-gray-800 dark:text-primary hover:bg-opacity-60 p-4 rounded-lg shadow-md mt-6">
           <h2 className="text-lg font-semibold mb-4">📝 Most Reviewed Products</h2>
           <ul className="space-y-2">
             {stats.reviews.mostReviewed.map((product) => (
               <li key={product.productId} className="flex justify-between border-b pb-2">
                 <Link
                   to={`/products/${product.productId}`}
-                  className="text-blue-600 hover:underline"
+                  className="text-primary hover:underline"
                 >
                   {product.name}
                 </Link>

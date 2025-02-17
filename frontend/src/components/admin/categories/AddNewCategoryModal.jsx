@@ -56,7 +56,7 @@ export default function AddNewCategoryModal({ onCreate, categoryToUpdate }) {
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className="flex items-center justify-center px-4 py-2 text-sm font-medium text-black rounded-lg bg-primary-700 border border-gray-400 hover:bg-primary focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
+          className="flex items-center justify-center px-4 py-2 text-sm font-medium text-black rounded-lg bg-primary-700 border border-gray-400 hover:bg-primary focus:ring-4 focus:ring-primary-300 dark:bg-gray-800 dark:hover:bg-gray-600 dark:border-primary dark:text-primary focus:outline-none dark:focus:ring-primary-800"
         >
           <IoMdAddCircle className="h-5 w-5 mr-2" /> Add New Category
         </button>
@@ -67,7 +67,7 @@ export default function AddNewCategoryModal({ onCreate, categoryToUpdate }) {
       )}
       {isOpen && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white rounded-lg shadow-lg p-6 w-96">
+          <div className="bg-white rounded-lg shadow-lg p-6 w-96 dark:bg-gray-700 dark:border-primary dark:border-2">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-lg font-bold text-orange-500">
                 {categoryToUpdate ? 'Update Category' : 'Create New Category'}
@@ -88,17 +88,22 @@ export default function AddNewCategoryModal({ onCreate, categoryToUpdate }) {
             >
               {({ setFieldValue, values }) => (
                 <Form className="flex flex-col">
-                  <label className="block text-left text-sm font-medium">Category Name</label>
-                  <Field name="name" className="block w-full p-2 border rounded-lg" />
+                  <label className="block text-left text-sm font-medium dark:text-primary">
+                    Category Name
+                  </label>
+                  <Field
+                    name="name"
+                    className="block w-full p-2 border rounded-lg dark:text-primary dark:bg-gray-600 dark:border-primary dark:border-2"
+                  />
                   <ErrorMessage name="name" component="div" className="text-red-500 text-sm" />
 
-                  <label className="block text-left text-sm font-medium">
+                  <label className="block text-left text-sm font-medium dark:text-primary">
                     Category Description
                   </label>
                   <Field
                     as="textarea"
                     name="description"
-                    className="block w-full p-2 border rounded-lg min-h-40 text-justify"
+                    className="block w-full p-2 border rounded-lg min-h-40 text-justify dark:text-primary dark:bg-gray-600 dark:border-primary dark:border-2"
                   />
                   <ErrorMessage
                     name="description"
@@ -106,12 +111,14 @@ export default function AddNewCategoryModal({ onCreate, categoryToUpdate }) {
                     className="text-red-500 text-sm"
                   />
 
-                  <label className="block text-left text-sm font-medium mt-2">Upload Image</label>
+                  <label className="block text-left text-sm font-medium mt-2 dark:text-primary">
+                    Upload Image
+                  </label>
                   <div className="w-full">
                     <button
                       onClick={() => fileInputRef.current.click()}
                       type="button"
-                      className="relative flex h-[170px] w-full border align-middle justify-center rounded-lg"
+                      className="relative flex h-[170px] w-full border align-middle justify-center rounded-lg dark:bg-gray-600 dark:border-primary dark:border-2"
                     >
                       <input
                         ref={fileInputRef}
@@ -138,7 +145,7 @@ export default function AddNewCategoryModal({ onCreate, categoryToUpdate }) {
 
                   <button
                     type="submit"
-                    className="block bg-primary text-white w-full mt-4 p-2 rounded-lg"
+                    className="block bg-primary text-white w-full mt-4 p-2 rounded-lg dark:text-primary dark:bg-gray-600 dark:border-primary dark:border-2"
                   >
                     {!isLoading && (categoryToUpdate ? 'Update Category' : 'Create Category')}
                     {isLoading && <Spinner />}

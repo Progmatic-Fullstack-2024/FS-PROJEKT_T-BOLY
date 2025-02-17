@@ -31,7 +31,7 @@ export default function SelectCategoryInput({ setSelectedCategory }) {
       <select
         value={categoryId}
         onChange={handleCategoryChange}
-        className="w-60 p-2 px-4 py-2 text-sm font-medium text-black rounded-lg bg-primary-700 bg-opacity-50 border border-gray-400 "
+        className="w-60 p-2 px-4 py-2 text-sm font-medium text-black rounded-lg bg-primary-700 bg-opacity-50 border border-gray-400 dark:text-primary dark:bg-gray-800 dark:border-primary dark:hover:bg-gray-600"
       >
         <option className={categoryId === 'all' ? 'text-primary' : ''} value="all">
           {t('all')} {t('product')}
