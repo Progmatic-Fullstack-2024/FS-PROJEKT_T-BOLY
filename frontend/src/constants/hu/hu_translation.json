@@ -61,12 +61,10 @@
   "shipping": "Szállítás",
   "proceed to checkout": "Tovább a fizetéshez",
   "in cart": "Kosárban",
-
   "costumer service": "Ügyfélszolgálat",
   "monday to friday": "Hétfőtől péntekig",
   "call us": "Telefon",
   "email us": "Email",
-
   "email or username": "Email cím vagy felhasználónév",
   "password": "Jelszó",
   "username": "Felhasználónév",
@@ -76,7 +74,6 @@
   "shop now": "Vásárolok",
   "Crafting smiles with every toy, made for learning, fun, and growth": "Mosolyt hoz minden játék, fejlődés és móka vár már is...",
   "how do you start": "...kezdhetjük?",
-
   "filter by age": "Szűrés kor szerint",
   "clear": "Törlés",
   "pair": "Pár",
@@ -145,5 +142,11 @@
   "stay connected": "Maradj kapcsolatban",
   "subscribe to our newsletter": "Iratkozz fel hírlevelünkre a legfrissebb hírekért és ajánlatokért.",
   "10 AM - 6 PM": "10:00 - 18:00",
-  "customer service": "Ügyfélszolgálat"
+  "customer service": "Ügyfélszolgálat",
+  "pay": "Fizetés",
+  "processing": "Feldolgozás...",
+  "card number": "Kártyaszám",
+  "name on card": "Kártyán szereplő név",
+  "we accept": "Elfogadunk: ",
+  "expiration date": "Lejárati dátum"
 }

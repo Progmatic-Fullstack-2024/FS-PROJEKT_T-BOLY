@@ -1,21 +1,5 @@
-import { BsFillStarFill, BsStar, BsStarHalf } from 'react-icons/bs';
-
 import ProductAdminModal from './CreateProductByAdmin.jsx';
 import DeleteProductModal from './DeleteProductModal.jsx';
-
-function renderStars(rating) {
-  const stars = [];
-  for (let i = 1; i <= 5; i += 1) {
-    if (i <= Math.floor(rating)) {
-      stars.push(<BsFillStarFill key={`${i}-${rating}`} className="h-full text-yellow-500" />);
-    } else if (i === Math.ceil(rating) && rating % 1 !== 0) {
-      stars.push(<BsStarHalf key={`${i}-${rating}`} className="h-full text-yellow-500" />);
-    } else {
-      stars.push(<BsStar key={`${i}-${rating}`} className="h-full text-gray-300" />);
-    }
-  }
-  return stars;
-}
 
 export default function ProductRow({ product, onUpdate, onDelete, isStatus }) {
   return (
@@ -47,7 +31,9 @@ export default function ProductRow({ product, onUpdate, onDelete, isStatus }) {
       <td className="px-4 py-3 text-right max-w-5">€ {product.price}</td>
       <td className="px-4 py-3 text-right w-3">{product.quantity}</td>
       <td className="px-4 py-3">
-        <div className="flex justify-center space-x-1">{renderStars(4.5)}</div>
+        <div className="flex justify-center space-x-1">
+          {Math.round(product.rating * 100) / 100}
+        </div>
       </td>
       {isStatus ? (
         <td className="px-4 py-3">

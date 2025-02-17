@@ -51,10 +51,21 @@ const deleteCoupon = async (req, res, next) => {
   }
 };
 
+const getCouponByCode = async (req, res, next) => {
+  const { code } = req.params;
+  try {
+    const coupon = await couponsService.getCouponByCode(code);
+    res.status(200).json(coupon);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getAllCoupons,
   getCouponById,
   createCoupon,
   updateCoupon,
   deleteCoupon,
+  getCouponByCode,
 };

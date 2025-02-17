@@ -74,8 +74,8 @@ export default function Overview() {
         />
         <StatCard
           title="Total Revenue"
-          value={`$${stats.orders.totalRevenue.toFixed(2)}`}
-          subValue={`Avg Order: $${stats.orders.avgOrderValue.toFixed(2)}`}
+          value={`€${stats.orders.totalRevenue.toFixed(2)}`}
+          subValue={`Avg Order: €${stats.orders.avgOrderValue.toFixed(2)}`}
           icon="💰"
           color="bg-purple-500"
           onClick={() => setActiveCategory('revenue')}
@@ -167,7 +167,7 @@ export default function Overview() {
             {stats.revenue.highestOrders.map((order) => (
               <li key={order.id} className="flex justify-between border-b pb-2">
                 <span>Order #{order.id}</span>
-                <span className="font-bold">${order.totalPrice.toFixed(2)}</span>
+                <span className="font-bold">€{order.totalPrice.toFixed(2)}</span>
               </li>
             ))}
           </ul>

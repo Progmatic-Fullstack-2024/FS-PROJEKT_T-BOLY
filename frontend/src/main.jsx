@@ -9,7 +9,7 @@ import OrdersTable from './components/admin/OrdersTable.jsx';
 import Overview from './components/admin/overview/Overview.jsx';
 import ProductsTable from './components/admin/products/ProductsTable.jsx';
 import UserTable from './components/admin/users/UserTable.jsx';
-import CheckOut from './components/checkOut/CheckOut.jsx';
+import Payment from './components/checkOut/Payment.jsx';
 import MemberRoute from './components/MemberRoute.jsx';
 import ProductById from './components/productDetails/ProductById.jsx';
 import ProductsByCategory from './components/products/ProductsByCategory.jsx';
@@ -69,7 +69,7 @@ const router = createBrowserRouter([
         path: '/checkOut',
         element: (
           <MemberRoute>
-            <CheckOut />
+            <Payment />
           </MemberRoute>
         ),
       },
