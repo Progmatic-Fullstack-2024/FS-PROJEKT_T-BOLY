@@ -21,7 +21,7 @@ export default function EditOrderStatus({ order }) {
     <select
       value={status}
       onChange={handleChange}
-      className="border border-gray-300 rounded p-1 bg-white"
+      className="border border-gray-300 rounded p-1 bg-white dark:bg-gray-800 dark:border-primary"
     >
       <option value="AWAITING PAYMENT">AWAITING PAYMENT</option>
       <option value="PROCESSING">PROCESSING</option>
