@@ -8,10 +8,11 @@ import * as yup from 'yup';
 import AuthContext from '../../contexts/AuthContext';
 import LanguageContext from '../../contexts/LanguageContext';
 import userService from '../../services/userService';
+import hasUserTurned18 from '../../utils/hasUserTurned18';
 
 export default function PersonalData() {
   const { t } = useContext(LanguageContext);
-  const { user, setUser } = useContext(AuthContext);
+  const { user, setUser, setIsUserAdult } = useContext(AuthContext);
   const [isEditing, setIsEditing] = useState(false);
   const [usernames, setUsernames] = useState([]);
   const [image, setImage] = useState(null);
@@ -70,12 +71,16 @@ export default function PersonalData() {
           ...updatedUser,
         });
 
+        setIsUserAdult(hasUserTurned18(new Date(values.birthDate).toISOString()));
+
         setIsEditing(false);
       } else {
         toast.error(`Failed to update user data, ${response.message.response.data.error}`);
       }
     } catch (error) {
       toast.error(`Failed to update user data.`);
+      console.error(error)
+      
     } finally {
       setSubmitting(false);
     }
