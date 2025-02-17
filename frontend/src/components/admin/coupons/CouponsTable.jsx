@@ -29,7 +29,7 @@ export default function CouponsTable() {
       } catch (error) {
         toast.error('Failed to fetch coupons');
       } finally {
-        setIsLoading(true);
+        setIsLoading(false);
       }
     };
 
