@@ -132,7 +132,7 @@ export default function ProductById() {
               <h1 className="md:text-3xl text-2xl md:font-normal font-semibold text-center">
                 {product.name}
               </h1>
-              <div className="mt-8 mb-8 font-medium text-2xl text-center">€{product.price}</div>
+              <div className="mt-8 mb-8 font-medium text-2xl text-center">€{product.price.toFixed(2)}</div>
               <div className="flex gap-2 pb-2 items-center">
                 <RatingStars rating={product.rating} /> ({numberOfAllRating})
                 <button
@@ -242,7 +242,7 @@ export default function ProductById() {
                   <h1 className="md:text-3xl text-2xl md:font-normal font-semibold text-center">
                     {product.name}
                   </h1>
-                  <div className="mt-8 mb-8 font-medium text-2xl text-center">€{product.price}</div>
+                  <div className="mt-8 mb-8 font-medium text-2xl text-center">€{product.price.toFixed(2)}</div>
                   <div className="flex gap-2 pb-2 items-center">
                     <RatingStars rating={product.rating} /> ({numberOfAllRating})
                     <button

@@ -28,7 +28,7 @@ export default function ProductRow({ product, onUpdate, onDelete, isStatus }) {
       <td className="px-4 py-3">
         {product?.categoryProduct?.map((c) => c.category.name).join(', ')}
       </td>
-      <td className="px-4 py-3 text-right max-w-5">€ {product.price}</td>
+      <td className="px-4 py-3 text-right max-w-5">€ {product.price.toFixed(2)}</td>
       <td className="px-4 py-3 text-right w-3">{product.quantity}</td>
       <td className="px-4 py-3">
         <div className="flex justify-center space-x-1">

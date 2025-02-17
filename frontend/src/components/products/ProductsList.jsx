@@ -40,7 +40,7 @@ export default function ProductsList({ productsByCategory, isLoading }) {
               <div className="flex flex-col w-1/2 gap-3 justify-center">
                 <div className="text-lg font-medium">{product.name}</div>
                 <div className="text-justify">{product.description}</div>
-                <div className="font-medium text-lg pt-3 pb-3">€{product.price}</div>
+                <div className="font-medium text-lg pt-3 pb-3">€{product.price.toFixed(2)}</div>
                 <div className="flex gap-2 pb-2">
                   <RatingStars rating={product.rating} />
                 </div>
