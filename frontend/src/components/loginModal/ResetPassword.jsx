@@ -26,7 +26,7 @@ export default function ResetPassword({ onClose }) {
 
   return (
     <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
-      <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+      <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md dark:bg-gray-800 dark:border-primary dark:border">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-bold">{t(`reset password`)}</h2>
           <button type="button" className="text-gray-500 hover:text-black" onClick={onClose}>
@@ -44,13 +44,20 @@ export default function ResetPassword({ onClose }) {
           <Form className="space-y-4">
             <div>
               <label className="block text-sm font-medium">{t(`username`)}</label>
-              <Field name="username" className="w-full p-2 border rounded-lg" />
+              <Field
+                name="username"
+                className="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-primary dark:border"
+              />
               <ErrorMessage name="username" component="div" className="text-red-500 text-sm" />
             </div>
 
             <div>
               <label className="block text-sm font-medium">{t(`email`)}</label>
-              <Field name="email" type="email" className="w-full p-2 border rounded-lg" />
+              <Field
+                name="email"
+                type="email"
+                className="w-full p-2  border rounded-lg dark:bg-gray-700 dark:border-primary dark:border"
+              />
               <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
             </div>
 

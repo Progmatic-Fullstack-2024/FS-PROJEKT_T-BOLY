@@ -63,7 +63,7 @@ export default function Header() {
     <header className="flex flex-col">
       {!user?.username && (
         <div className="flex bg-primary justify-end h-8 items-center dark:text-primary dark:bg-gray-800">
-          <div className="text-white ml-2 md:ml-24 md:w-96 w-32 flex items-center md:gap-3 gap-2 md:text-sm text-xs font-medium">
+          <div className="text-white ml-2 md:ml-24 md:w-96 w-32 flex items-center md:gap-3 gap-2 md:text-sm text-xs font-medium mr-auto">
             <TbTruckDelivery className="text-3xl" />{' '}
             <span>{t(`Free shipping on orders over`)} €150</span>
           </div>
@@ -85,8 +85,8 @@ export default function Header() {
         </div>
       )}
       {user?.username && (
-        <div className="flex bg-primary justify-between h-8 items-center dark:text-primary dark:bg-gray-800">
-          <div className="text-white ml-2 md:ml-24 md:w-96 w-32 flex items-center md:gap-3 gap-2 md:text-sm text-xs font-medium">
+        <div className="flex bg-primary justify-end h-8 items-center dark:text-primary dark:bg-gray-800">
+          <div className="text-white ml-2 md:ml-24 md:w-96 w-28 md:flex items-center md:gap-3 gap-2 md:text-sm text-xs font-medium hidden mr-auto">
             <TbTruckDelivery className="text-2xl" />{' '}
             <span>{t(`Free shipping on orders over`)} €150</span>
           </div>
