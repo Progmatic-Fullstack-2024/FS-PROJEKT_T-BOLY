@@ -1,3 +1,5 @@
+import { t } from 'i18next';
+
 import useDarkMode from '../hooks/useDarkMode';
 
 export default function DarkModeToggle({ className }) {
@@ -11,11 +13,11 @@ export default function DarkModeToggle({ className }) {
     >
       {theme === 'light' ? (
         <span>
-          ☀️<span className="hidden md:inline-block">Light Mode</span>
+          ☀️<span className="hidden md:inline-block">{t('light mode')}</span>
         </span>
       ) : (
         <span>
-          🌙<span className="hidden md:inline-block">Dark Mode</span>
+          🌙<span className="hidden md:inline-block">{t('dark mode')}</span>
         </span>
       )}
     </button>

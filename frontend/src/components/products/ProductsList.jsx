@@ -70,7 +70,7 @@ export default function ProductsList({ productsByCategory, isLoading }) {
                         disabled={product.quantity < 1 || !isUserAdult && product.ageRecommendationMin >= 18}
                       >
                         <FiShoppingCart />
-                        {product.quantity < 1 ? 'Out of Stock' : 'Add to Cart'}
+                        {product.quantity < 1 ? t('out of stock') : t(`add to cart`)}
                       </button>
                     )}
                   </div>

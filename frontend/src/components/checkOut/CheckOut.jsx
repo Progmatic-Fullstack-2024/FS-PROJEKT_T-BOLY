@@ -156,7 +156,7 @@ export default function CheckoutForm() {
           <OrderTable />
         </div>
         <div className="md:p-12 p-4 border-2 rounded-2xl dark:border-primary dark:border dark:text-primary dark:bg-gray-700 md:w-3/5">
-          <h1 className="text-2xl font-medium mb-6">Payment</h1>
+          <h1 className="text-2xl font-medium mb-6">{t(`payment`)}</h1>
           <div className="flex items-center mb-4 justify-between ml-3">
             <label className="flex items-center font-medium">
               <input
@@ -249,10 +249,10 @@ export default function CheckoutForm() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-12 rounded-xl max-w-lg mx-auto transform -translate-y-40 w-1/4">
             <div className="text-2xl font-medium mb-10 text-center text-primary">
-              Successful payment!
+              {t(`successful payment`)}!
             </div>
             <div className="text-xl font-medium mb-10 text-center">
-              Thank you for your purchase!
+              {t(`thank you for your purchase`)}!
             </div>
             <div className="flex justify-center">
               <button
