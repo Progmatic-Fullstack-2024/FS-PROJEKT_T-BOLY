@@ -62,7 +62,7 @@ export default function TopProductsByRating() {
               <AddToShoppingCart product={topProduct} />
             </div>
             <div className="w-60 font-medium">{topProduct.name}</div>
-            <div className="font-medium text-lg">€{topProduct.price}</div>
+            <div className="font-medium text-lg">€{topProduct.price.toFixed(2)}</div>
             <div className="flex gap-2 pb-2">
               <RatingStars rating={topProduct.rating} />
             </div>

@@ -49,7 +49,7 @@ export default function CartItemRow({ cartProduct }) {
         {cartProduct.name}
       </td>
       <td className="pr-20 text-left font-medium dark:text-primary dark:bg-gray-700">
-        €{cartProduct.price}
+        €{cartProduct.price.toFixed(2)}
       </td>
       <td>
         <QuantityChangeButtons

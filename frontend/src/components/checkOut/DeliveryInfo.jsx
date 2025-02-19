@@ -4,12 +4,12 @@ import { deliveryInfoValidationSchema } from '../../validations/deliveryInfo.val
 
 export default function DeliveryInfo({ formData, setFormData }) {
   return (
-    <div className=" border-2 rounded-xl p-12 dark:border-primary dark:border dark:text-primary dark:bg-gray-700">
+    <div className="border-2 rounded-xl md:p-12 dark:border-primary dark:border dark:text-primary dark:bg-gray-700 p-4 md:w-3/5 mb-10">
       <h1 className="text-2xl font-medium mb-12">Delivery info</h1>
       <Formik validationSchema={deliveryInfoValidationSchema} initialValues={formData}>
         {({ values, setFieldValue }) => (
-          <Form className="flex flex-col gap-6">
-            <div className=" flex justify-between gap-10">
+          <Form className="flex flex-col md:gap-6 gap-3">
+            <div className=" flex justify-between md:gap-10 gap-4">
               <div className="w-1/2">
                 <label className="block mb-2 font-medium">
                   First name <span className="text-red-500 font-bold">*</span>
@@ -43,8 +43,8 @@ export default function DeliveryInfo({ formData, setFormData }) {
                 <ErrorMessage name="lastName" component="div" className="text-red-500" />
               </div>
             </div>
-            <div className=" flex justify-between gap-10">
-              <div className="w-2/3">
+            <div className=" flex justify-between md:gap-10 gap-4">
+              <div className="md:w-2/3 w-1/2">
                 <label className="block mb-2 font-medium">
                   Street <span className="text-red-500 font-bold">*</span>
                 </label>
@@ -59,7 +59,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
                 />
                 <ErrorMessage name="street" component="div" className="text-red-500" />
               </div>
-              <div className="w-1/3">
+              <div className="md:w-1/3 w-1/2">
                 <label className="block mb-2 font-medium">
                   House number <span className="text-red-500 font-bold">*</span>
                 </label>
@@ -75,7 +75,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
                 <ErrorMessage name="houseNumber" component="div" className="text-red-500" />
               </div>
             </div>
-            <div className=" flex justify-between gap-10">
+            <div className=" flex justify-between md:gap-10 gap-4">
               <div className="w-1/2">
                 <label className="block mb-2 font-medium">
                   Country <span className="text-red-500 font-bold">*</span>
@@ -107,7 +107,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
                 <ErrorMessage name="city" component="div" className="text-red-500" />
               </div>
             </div>
-            <div className=" flex justify-between gap-10">
+            <div className=" flex justify-between md:gap-10 gap-4">
               <div className="w-1/2">
                 <label className="block mb-2 font-medium">
                   ZIP code <span className="text-red-500 font-bold">*</span>
@@ -187,9 +187,9 @@ export default function DeliveryInfo({ formData, setFormData }) {
             </div>
             {!values.isSameAddress && (
               <div className="flex flex-col gap-6">
-                <h1 className="text-2xl font-medium mt-8 mb-12">Billing Address</h1>
-                <div className="flex justify-between gap-10">
-                  <div className="w-2/3">
+                <h1 className="text-2xl font-medium mt-8 md:mb-12 mb-6">Billing Address</h1>
+                <div className="flex justify-between md:gap-10 gap-4">
+                  <div className="md:w-2/3 w-1/2">
                     <label className="block mb-2 font-medium">
                       Billing Street <span className="text-red-500 font-bold">*</span>
                     </label>
@@ -204,7 +204,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
                     />
                     <ErrorMessage name="billingStreet" component="div" className="text-red-500" />
                   </div>
-                  <div className="w-1/3">
+                  <div className="md:w-1/3 w-1/2">
                     <label className="block mb-2 font-medium">
                       Billing house number <span className="text-red-500 font-bold">*</span>
                     </label>
@@ -224,7 +224,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
                     />
                   </div>
                 </div>
-                <div className="flex justify-between gap-10">
+                <div className="flex justify-between md:gap-10 gap-4">
                   <div className="w-1/2">
                     <label className="block mb-2 font-medium">
                       Billing Country <span className="text-red-500 font-bold">*</span>
@@ -256,7 +256,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
                     <ErrorMessage name="billingCity" component="div" className="text-red-500" />
                   </div>
                 </div>
-                <div className="mr-10">
+                <div className="md:mr-10 mr-4">
                   <div className="w-1/2">
                     <label className="block mb-2 font-medium">
                       Billing ZIP code <span className="text-red-500 font-bold">*</span>

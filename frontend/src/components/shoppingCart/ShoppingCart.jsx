@@ -34,11 +34,11 @@ export default function ShoppingCart() {
 
   return (
     <div className="md:pl-80 pl-2 pr-2 md:pr-80 md:pt-28 pt-10 pb-28 flex flex-col dark:text-primary dark:bg-gray-800 dark:border-primary dark:border">
-      <h1 className="text-primary md:pb-28 pb-10 text-3xl font-medium text-center dark:text-primary">
+      <h1 className="text-primary md:pb-28 pb-10 text-3xl font-medium dark:text-primary">
         {t('your shopping cart')}
       </h1>
       <div className="md:flex md:justify-center overflow-x-scroll md:overflow-x-visible dark:text-primary">
-        <table className=" md:w-full border-collapse border-b border-gray-300 dark:text-primary dark:border-primary dark:border">
+        <table className="md:w-full border-collapse border-b border-gray-300 dark:text-primary dark:border-primary dark:border">
           <thead>
             <tr className="bg-primary text-white rounded-xl border-gray-30 dark:bg-gray-700 dark:text-primary dark:border-primary dark:border">
               <th colSpan={2} className="text-left pl-12 p-6">

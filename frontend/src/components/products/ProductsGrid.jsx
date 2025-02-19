@@ -46,7 +46,7 @@ export default function ProductsGrid({ productsByCategory, isLoading }) {
                 
               </div>
               <div className="w-60 font-medium">{product.name}</div>
-              <div className="font-medium text-lg">€{product.price}</div>
+              <div className="font-medium text-lg">€{product.price.toFixed(2)}</div>
               <div className="flex gap-2 pb-2">
                 <RatingStars rating={product.rating} />
               </div>
