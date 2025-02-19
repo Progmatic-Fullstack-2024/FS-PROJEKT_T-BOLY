@@ -172,7 +172,7 @@
   "waiting for payment": "Fizetésre vár",
   "packed": "Összekészítve",
   "out for delivery": "Futárnak átadva",
-  "delivery processing":"Kiszállítás alatt",
+  "delivery processing": "Kiszállítás alatt",
   "delivered": "Kiszállítva",
   "completed": "Teljesítve",
   "canceled": "Törölve",
@@ -182,6 +182,16 @@
   "rating is required": "Az értékelés kötelező",
   "you need to be an adult for watch this product": "Csak felnőtt felhasználónak engedélyezett a termék megtekintés",
   "alert": "Figyelmeztetés",
-  "i understand":"Megértettem",
-  "please register first or log in":"Először regisztrálj vagy Jelentkezz be"
+  "i understand": "Megértettem",
+  "please register first or log in": "Először regisztrálj vagy Jelentkezz be",
+  "T-Boly Webshop Project": "T-Boly Webshop Projekt",
+  "The T-Boly full-stack project was part of the Progmatic Bootcamp, aimed at creating a modern and interactive webshop for board games and beyond. The focus was on an engaging user experience, ensuring users can easily browse and find the best games available.": "A T-Boly full-stack projekt a Progmatic Bootcamp része volt, amelynek célja egy modern és interaktív webshop létrehozása társasjátékok és más játékok számára. A projekt fő fókusza egy élvezetes felhasználói élmény biztosítása volt, amely megkönnyíti a játékok böngészését és megtalálását.",
+  "Meet the Team": "Ismerd meg a csapatot",
+  "Fullstack Developer": "Fullstack Fejlesztő",
+  "Scrum Master": "Scrum Master",
+  "Product Owner": "PO",
+  "Development Insights": "Fejlesztési Információk",
+  "The project had 26 branches, over 400 commits, and 5 developers worked collaboratively on both backend and frontend.": "A projekt 26 brnchből állt, több mint 400 commit készült, és 5 fejlesztő dolgozott együtt a backend és frontend fejlesztésén.",
+  "Features & Goals": "Funkciók és Célok",
+  "A seamless experience for users with filtering, browsing, and intuitive recommendations to find the best games. Integrated Stripe payments, authentication, and a powerful admin panel.": "Zökkenőmentes felhasználói élmény szűréssel, böngészéssel és intuitív ajánlásokkal a legjobb játékok megtalálásához. Integrált Stripe fizetés, hitelesítés és egy erőteljes adminisztrációs panel."
 }
