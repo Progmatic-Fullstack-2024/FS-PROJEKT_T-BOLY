@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import AuthContext from '../../contexts/AuthContext.jsx';
 import LanguageContext from '../../contexts/LanguageContext.jsx';
 
-export default function LoginModal({ onClose }) {
+export default function LoginModal({ onClose, openResetPasswordModal }) {
   const { login } = useContext(AuthContext);
   const { t } = useContext(LanguageContext);
 
@@ -73,6 +73,13 @@ export default function LoginModal({ onClose }) {
             </Form>
           )}
         </Formik>
+        <button
+          type="button"
+          className="text-blue-500 underline mt-4"
+          onClick={openResetPasswordModal}
+        >
+          Forgot your password?
+        </button>
       </div>
     </div>
   );

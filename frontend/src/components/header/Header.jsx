@@ -19,6 +19,7 @@ import CartContext from '../../contexts/CartContext';
 import LanguageContext from '../../contexts/LanguageContext';
 import DarkModeToggle from '../DarkModeToggle';
 import LoginModal from '../loginModal/LoginModal';
+import ResetPassword from '../loginModal/ResetPassword';
 import RegistrationModal from '../registrationModal/RegistrationModal';
 
 export default function Header() {
@@ -27,6 +28,7 @@ export default function Header() {
   const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [isResetPasswordModalOpen, setIsResetPasswordModalOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
   const { user, logout } = useContext(AuthContext);
   const { cart } = useContext(CartContext);
@@ -210,7 +212,15 @@ export default function Header() {
           setLoginModalOpen={() => setLoginModalOpen(true)}
         />
       )}
-      {isLoginModalOpen && <LoginModal onClose={() => setLoginModalOpen(false)} />}
+      {isLoginModalOpen && (
+        <LoginModal
+          onClose={() => setLoginModalOpen(false)}
+          openResetPasswordModal={() => setIsResetPasswordModalOpen(true)}
+        />
+      )}
+      {isResetPasswordModalOpen && (
+        <ResetPassword onClose={() => setIsResetPasswordModalOpen(false)} />
+      )}
     </header>
   );
 }
