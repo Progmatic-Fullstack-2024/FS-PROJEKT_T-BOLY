@@ -1,9 +1,11 @@
-import { t } from 'i18next';
+import { useContext } from 'react';
 
+import LanguageContext from '../contexts/LanguageContext';
 import useDarkMode from '../hooks/useDarkMode';
 
 export default function DarkModeToggle({ className }) {
   const { theme, toggleTheme } = useDarkMode();
+  const { t } = useContext(LanguageContext);
 
   return (
     <button

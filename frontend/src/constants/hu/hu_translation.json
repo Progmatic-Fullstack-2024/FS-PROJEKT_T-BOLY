@@ -164,7 +164,7 @@
   "your review": "A te értékelésed:",
   "light mode": "Világós mód",
   "dark mode": "Sötét mód",
-  "Free shipping on orders over": "Ingyenes szállítás rendelési összeg fölött",
+  "Free shipping on orders over": "Ingyenes szállítás, ha legalább ennyiért vásárolsz: ",
   "your orders": "Megrendeléseid",
   "your order": "Megrendelésed",
   "payment": "Fizetés",
@@ -202,7 +202,7 @@
   "Scrum Master": "Scrum Master",
   "Product Owner": "PO",
   "Development Insights": "Fejlesztési Információk",
-  "The project had 26 branches, over 400 commits, and 5 developers worked collaboratively on both backend and frontend.": "A projekt 26 brnchből állt, több mint 400 commit készült, és 5 fejlesztő dolgozott együtt a backend és frontend fejlesztésén.",
+  "The project had 26 branches, over 400 commits, and 5 developers worked collaboratively on both backend and frontend.": "A projekt 26 branchből állt, több mint 400 commit készült, és 5 fejlesztő dolgozott együtt a backend és frontend fejlesztésén.",
   "Features & Goals": "Funkciók és Célok",
   "A seamless experience for users with filtering, browsing, and intuitive recommendations to find the best games. Integrated Stripe payments, authentication, and a powerful admin panel.": "Zökkenőmentes felhasználói élmény szűréssel, böngészéssel és intuitív ajánlásokkal a legjobb játékok megtalálásához. Integrált Stripe fizetés, hitelesítés és egy erőteljes adminisztrációs panel."
 }

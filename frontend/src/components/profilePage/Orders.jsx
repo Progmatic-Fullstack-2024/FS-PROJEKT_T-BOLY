@@ -1,10 +1,10 @@
-import { t } from 'i18next';
 import { useContext, useEffect, useState } from 'react';
 import { RxCross2 } from 'react-icons/rx';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import AuthContext from '../../contexts/AuthContext';
+import LanguageContext from '../../contexts/LanguageContext';
 import orderItemsService from '../../services/orderItemService';
 import orderService from '../../services/orderService';
 
@@ -14,6 +14,7 @@ export default function Orders() {
   const [orderItems, setOrderItems] = useState([]);
   const [hoveredOrderId, setHoveredOrderId] = useState(null);
   const { user } = useContext(AuthContext);
+  const { t } = useContext(LanguageContext);
 
   const statusMap = {
     AWAITINGPAYMENT: t('waiting for payment'),

@@ -1,11 +1,12 @@
-import { t } from 'i18next';
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import CartContext from '../../contexts/CartContext';
+import LanguageContext from '../../contexts/LanguageContext';
 
 export default function OrderTable() {
   const { cart, subtotalPrice, totalPrice, shippingPrice, coupon } = useContext(CartContext);
+  const { t } = useContext(LanguageContext);
 
   return (
     <div className="border-2 rounded-xl md:p-12 p-4 h-fitdark:bg-gray-700 dark:border-primary dark:border dark:text-primary dark:bg-gray-700 h-fit order-first md:order-none md:w-2/5">

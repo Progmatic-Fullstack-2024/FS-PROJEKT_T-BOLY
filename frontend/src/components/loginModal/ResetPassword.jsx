@@ -1,12 +1,15 @@
 import emailjs from 'emailjs-com';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { t } from 'i18next';
+import { useContext } from 'react';
 import { toast } from 'react-toastify';
 
 import { VITE_PUBLIC_KEY, VITE_SERVICE_ID } from '../../constants/constants';
+import LanguageContext from '../../contexts/LanguageContext';
 import authService from '../../services/authService';
 
 export default function ResetPassword({ onClose }) {
+  const { t } = useContext(LanguageContext);
+
   const handleResetPassword = async (values) => {
     try {
       const result = await authService.forgottenPasswordUpdate(values);

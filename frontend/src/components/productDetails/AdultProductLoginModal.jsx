@@ -1,12 +1,13 @@
-import { t } from 'i18next';
 import { useContext } from 'react';
 import { RxCross2 } from 'react-icons/rx';
 import { useNavigate } from 'react-router-dom';
 
 import AuthContext from '../../contexts/AuthContext';
+import LanguageContext from '../../contexts/LanguageContext';
 
 export default function AdultProductLoginModal() {
   const navigate = useNavigate();
+  const { t } = useContext(LanguageContext);
 
   const handleCloser = () => {
     navigate('/products/category/all');

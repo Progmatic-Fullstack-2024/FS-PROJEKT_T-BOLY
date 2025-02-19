@@ -1,9 +1,12 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { t } from 'i18next';
+import { useContext } from 'react';
 
+import LanguageContext from '../../contexts/LanguageContext';
 import { deliveryInfoValidationSchema } from '../../validations/deliveryInfo.validation';
 
 export default function DeliveryInfo({ formData, setFormData }) {
+  const { t } = useContext(LanguageContext);
+
   return (
     <div className="border-2 rounded-xl md:p-12 dark:border-primary dark:border dark:text-primary dark:bg-gray-700 p-4 h-fit md:mb-0 mb-10">
       <h1 className="text-2xl font-medium mb-12">{t(`delivery info`)}</h1>
