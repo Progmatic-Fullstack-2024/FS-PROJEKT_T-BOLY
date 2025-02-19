@@ -15,4 +15,9 @@ const passwordChange = async (id, credentials) => {
   return response.data;
 };
 
-export default { register, login, passwordChange };
+const forgottenPasswordUpdate = async (userData) => {
+  const response = await axiosInstance.put('/auth/forgotten_password', userData);
+  return response;
+};
+
+export default { register, login, passwordChange, forgottenPasswordUpdate };
