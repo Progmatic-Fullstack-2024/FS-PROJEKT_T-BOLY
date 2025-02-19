@@ -147,7 +147,7 @@ export default function ProductById() {
                 <div className="flex items-center gap-2">
                   <RatingStars rating={product.rating} /> ({numberOfAllRating})
                 </div>
-                {!hasReviewed && user?.email ? (
+                {(!hasReviewed && user?.email) || user === null ? (
                   <button
                     className="flex items-center justify-center ml-4 gap-3 w-40 border-2 border-primary rounded-xl bg-primary p-2 text-white hover:border-gray-900 hover:text-black"
                     type="button"
@@ -197,7 +197,7 @@ export default function ProductById() {
                       disabled={product.quantity < 1}
                     >
                       <FiShoppingCart />
-                      {product.quantity < 1 ? 'Out of Stock' : t('add to cart')}
+                      {product.quantity < 1 ? t('out of stock') : t('add to cart')}
                     </button>
                   )}
                 </div>

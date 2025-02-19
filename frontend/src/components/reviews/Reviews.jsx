@@ -103,10 +103,10 @@ export default function Reviews(product) {
             {rating ? (
               <div className="flex">
                 <div className="text-orange-500">
-                  Now only {rating} rating-star reviews are visible
+                  {t(`now only`)} {rating} {t(`rating-star reviews are visible`)}
                 </div>{' '}
                 <button type="button" className="px-5 text-orange-500" onClick={handleShowAll}>
-                  Show All
+                  {t(`show all`)}
                 </button>
               </div>
             ) : (

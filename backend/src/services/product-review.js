@@ -63,7 +63,7 @@ const hasReviewed = async (userId, productId) => {
   const review = await prisma.review.findFirst({
     where: { userId, productId },
   });
-  return review
+  return review;
 };
 
 export default { createReview, listAllReviewByProduct, hasReviewed };

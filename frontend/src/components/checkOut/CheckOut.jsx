@@ -149,12 +149,12 @@ export default function CheckoutForm() {
   }
   return (
     <div className="md:mr-60 md:ml-60 md:mt-28 md:mb-28 mr-5 ml-5 mt-10 mb-10">
-      <h1 className="text-primary md:mb-20 mb-10 text-3xl font-medium">Check out</h1>
+      <h1 className="text-primary md:mb-20 mb-10 text-3xl font-medium">{t(`check out`)}</h1>
       <div className="flex flex-col md:flex-row md:gap-20 gap-10 ">
         <div className="flex flex-col md:gap-20 order-2 md:order-none md:w-3/5">
           <DeliveryInfo formData={formData} setFormData={setFormData} />
           <div className="h-fit md:p-12 p-4 border-2 rounded-2xl dark:border-primary dark:border dark:text-primary dark:bg-gray-700">
-            <h1 className="text-2xl font-medium mb-6">Payment</h1>
+            <h1 className="text-2xl font-medium mb-6">{t(`payment`)}</h1>
             <div className="flex items-center mb-4 justify-between ml-3">
               <label className="flex items-center font-medium">
                 <input
@@ -246,12 +246,12 @@ export default function CheckoutForm() {
       </div>
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-12 rounded-xl max-w-lg mx-auto transform -translate-y-40 md:w-1/4">
+          <div className="bg-white p-12 rounded-xl max-w-lg mx-auto transform -translate-y-40 md:w-1/4 dark:bg-gray-700 dark:border-primary dark:border">
             <div className="text-2xl font-medium mb-10 text-center text-primary">
-              Successful payment!
+              {t(`successful payment`)}!
             </div>
             <div className="text-xl font-medium mb-10 text-center">
-              Thank you for your purchase!
+              {t(`thank you for your purchase`)}!
             </div>
             <div className="flex justify-center">
               <button

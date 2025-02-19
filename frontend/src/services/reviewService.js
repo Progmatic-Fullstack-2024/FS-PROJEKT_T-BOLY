@@ -17,7 +17,6 @@ const allReviewByProduct = async (productId, page, itemsPerPage, rating) => {
 
 const checkUserReview = async (userId, productId) => {
   const response = await api.get(`api/productReview/hasreviewed/${userId}/${productId}`);
-  console.log(userId, productId);
   return response.data;
 };
 

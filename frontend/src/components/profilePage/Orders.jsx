@@ -1,3 +1,4 @@
+import { t } from 'i18next';
 import { useContext, useEffect, useState } from 'react';
 import { RxCross2 } from 'react-icons/rx';
 import { Link } from 'react-router-dom';
@@ -15,13 +16,13 @@ export default function Orders() {
   const { user } = useContext(AuthContext);
 
   const statusMap = {
-    AWAITINGPAYMENT: 'Waiting for payment',
-    PROCESSING: 'Processing',
-    PACKED: 'Packed',
-    OUTFORDELIVERY: 'Out for delivery',
-    DELIVERED: 'Delivered',
-    COMPLETED: 'Completed',
-    CANCELED: 'Canceled',
+    AWAITINGPAYMENT: t('waiting for payment'),
+    PROCESSING: t('processing'), // --Delivery processing
+    PACKED: t('packed'),
+    OUTFORDELIVERY: t('out for delivery'),
+    DELIVERED: t('delivered'),
+    COMPLETED: t(`completed`),
+    CANCELED: t(`canceled`),
   };
 
   useEffect(() => {
@@ -67,7 +68,9 @@ export default function Orders() {
 
   return (
     <div className="md:mx-auto md:w-full bg-white rounded-lg shadow-md md:p-16 p-5 dark:bg-gray-700 dark:border-primary dark:border">
-      <h1 className="text-xl font-bold text-gray-700 mb-10 dark:text-primary">Your Orders</h1>
+      <h1 className="text-xl font-bold text-gray-700 mb-10 dark:text-primary">
+        {t(`your orders`)}
+      </h1>
 
       {/* mobile */}
 
@@ -109,16 +112,16 @@ export default function Orders() {
           <thead>
             <tr className="bg-primary dark:bg-gray-800 dark:border-primary dark:border">
               <th className="py-6 px-12 text-left font-bold text-white dark:text-orange-600">
-                Order ID
+                {t(`order`)} ID
               </th>
               <th className="py-6 px-12 text-left font-bold text-white dark:text-orange-600">
-                Order date
+                {t(`order date`)}
               </th>
               <th className="py-6 px-12 text-left font-bold text-white dark:text-orange-600">
-                Total price
+                {t(`total price`)}
               </th>
               <th className="py-6 px-12 text-left font-bold text-white dark:text-orange-600">
-                Status
+                {t(`status`)}
               </th>
               <th className="py-6 px-12 text-left font-bold text-white dark:text-orange-600">
                 Action
@@ -152,7 +155,7 @@ export default function Orders() {
                       onClick={() => handleViewDetails(order)}
                       className="w-28 rounded-xl border-2 border-primary bg-primary p-2 text-white  hover:text-black hover:border-gray-900"
                     >
-                      View Details
+                      {t(`view details`)}
                     </button>
                   </td>
                 </tr>
@@ -171,7 +174,7 @@ export default function Orders() {
       {selectedOrder && (
         <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-[100]">
           <div className="relative bg-white md:p-10 p-4 rounded-lg shadow-lg md:w-3/5 w-11/12 max-h-[90vh] overflow-y-auto dark:bg-gray-800  dark:border-primary dark:border">
-            <h2 className="text-2xl font-bold mb-8">Order details</h2>
+            <h2 className="text-2xl font-bold mb-8">{t(`order details`)}</h2>
             <button
               type="button"
               onClick={handleCloseModal}
@@ -182,42 +185,45 @@ export default function Orders() {
             <div className="md:flex gap-10">
               <div className="flex flex-col gap-3 border-2 rounded-xl md:p-5 p-3 md:w-1/3 dark:bg-gray-700 dark:border-primary dark:border md:mb-0 mb-5">
                 <div>
-                  <span className="font-medium dark:text-orange-600">Order ID:</span>{' '}
+                  <span className="font-medium dark:text-orange-600">{t(`order`)} ID:</span>{' '}
                   {selectedOrder.id}
                 </div>
                 <div>
-                  <span className="font-medium dark:text-orange-600">Order date:</span>{' '}
+                  <span className="font-medium dark:text-orange-600">{t(`order date`)}:</span>{' '}
                   {selectedOrder.formattedDate}
+                </div>
+                <div className="font-medium dark:text-orange-600">
+                  {t(`total price`)}: €{selectedOrder.totalPrice.toFixed(2)}
                 </div>
                 <div className="font-medium dark:text-orange-600">
                   Total Price: €{selectedOrder.totalPrice.toFixed(2)}
                 </div>
                 <div className="text-xl font-medium text-primary dark:text-orange-600">
-                  Status: {selectedOrder.formattedStatus}
+                  {t(`status`)}: {selectedOrder.formattedStatus}
                 </div>
               </div>
               <div className="flex flex-col gap-3 border-2 rounded-xl md:p-5 p-3 md:w-2/3 dark:bg-gray-700 dark:border-primary dark:border">
                 <div>
-                  <span className="font-medium dark:text-orange-600">Name: </span>
+                  <span className="font-medium dark:text-orange-600">{t(`name`)}: </span>
                   {user.firstName} {user.lastName}
                 </div>
                 <div>
-                  <span className="font-medium dark:text-orange-600">Phone Number: </span>
+                  <span className="font-medium dark:text-orange-600">{t(`phone number`)}: </span>
                   {selectedOrder.phoneNumber}
                 </div>
                 <div>
-                  <h2 className="font-medium dark:text-orange-600">Delivery Address:</h2>
+                  <h2 className="font-medium dark:text-orange-600">{t(`delivery address`)}:</h2>
                   <div> {selectedOrder.address}</div>
                 </div>
                 <div>
-                  <h2 className="font-medium dark:text-orange-600">Billing Address:</h2>
+                  <h2 className="font-medium dark:text-orange-600">{t(`billing address`)}:</h2>
                   <div> {selectedOrder.billingAddress}</div>
                 </div>
               </div>
             </div>
 
             <div className="w-full border-2 rounded-xl md:p-10 p-3 h-fit md:mt-10 mt-5 dark:bg-gray-700 dark:border-primary dark:border">
-              <h1 className="text-xl font-medium md:mb-10 mb-8">Order Items</h1>
+              <h1 className="text-xl font-medium md:mb-10 mb-8">{t(`order items`)}</h1>
 
               {/* mobile */}
 
@@ -258,11 +264,11 @@ export default function Orders() {
                 <thead>
                   <tr className="bg-primary text-white rounded-xl border-gray-300">
                     <th colSpan={2} className="text-left pt-5 pb-5 pl-10">
-                      Product
+                      {t(`product`)}
                     </th>
-                    <th className="text-left pt-5 pb-5 pl-10">Price</th>
-                    <th className="text-left pt-5 pb-5 pl-10">Quantity</th>
-                    <th className="text-left pt-5 pb-5 pl-10 pr-10">Subtotal</th>
+                    <th className="text-left pt-5 pb-5 pl-10">{t(`price`)}</th>
+                    <th className="text-left pt-5 pb-5 pl-10">{t(`quantity`)}</th>
+                    <th className="text-left pt-5 pb-5 pl-10 pr-10">{t(`subtotal`)}</th>
                   </tr>
                 </thead>
                 {orderItems.length > 0 ? (
@@ -304,7 +310,7 @@ export default function Orders() {
             </div>
             {selectedOrder.orderNotes && (
               <div className=" border-2 rounded-xl md:p-5 p-3 w-full md:mt-10 mt-5">
-                <span className="font-medium">Customer notes: </span>
+                <span className="font-medium">{t(`customer notes`)}: </span>
                 {selectedOrder.orderNotes}
               </div>
             )}
@@ -315,7 +321,7 @@ export default function Orders() {
                 onClick={handleCloseModal}
                 className="w-40 text-center rounded-xl border-2 border-primary bg-primary p-2 text-white  hover:text-black hover:border-gray-900"
               >
-                Close
+                {t(`close`)}
               </button>
             </div>
           </div>

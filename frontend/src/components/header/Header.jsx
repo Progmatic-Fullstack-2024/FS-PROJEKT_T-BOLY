@@ -20,6 +20,7 @@ import CartContext from '../../contexts/CartContext';
 import LanguageContext from '../../contexts/LanguageContext';
 import DarkModeToggle from '../DarkModeToggle';
 import LoginModal from '../loginModal/LoginModal';
+import ResetPassword from '../loginModal/ResetPassword';
 import RegistrationModal from '../registrationModal/RegistrationModal';
 
 export default function Header() {
@@ -28,6 +29,7 @@ export default function Header() {
   const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [isResetPasswordModalOpen, setIsResetPasswordModalOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
   const { user, logout } = useContext(AuthContext);
   const { cart } = useContext(CartContext);
@@ -62,7 +64,8 @@ export default function Header() {
       {!user?.username && (
         <div className="flex bg-primary justify-end h-8 items-center dark:text-primary dark:bg-gray-800">
           <div className="text-white ml-2 md:ml-24 md:w-96 w-32 flex items-center md:gap-3 gap-2 md:text-sm text-xs font-medium">
-            <TbTruckDelivery className="text-3xl"/> <span>Free shipping on orders over €150</span>
+            <TbTruckDelivery className="text-3xl" />{' '}
+            <span>{t(`Free shipping on orders over`)} €150</span>
           </div>
           <DarkModeToggle />
           <button
@@ -84,7 +87,8 @@ export default function Header() {
       {user?.username && (
         <div className="flex bg-primary justify-between h-8 items-center dark:text-primary dark:bg-gray-800">
           <div className="text-white ml-2 md:ml-24 md:w-96 w-32 flex items-center md:gap-3 gap-2 md:text-sm text-xs font-medium">
-            <TbTruckDelivery className="text-2xl"/> <span>Free shipping on orders over €150</span>
+            <TbTruckDelivery className="text-2xl" />{' '}
+            <span>{t(`Free shipping on orders over`)} €150</span>
           </div>
           <div className="flex">
             <div ref={dropdownRef} className="relative inline-block">
@@ -219,7 +223,15 @@ export default function Header() {
           setLoginModalOpen={() => setLoginModalOpen(true)}
         />
       )}
-      {isLoginModalOpen && <LoginModal onClose={() => setLoginModalOpen(false)} />}
+      {isLoginModalOpen && (
+        <LoginModal
+          onClose={() => setLoginModalOpen(false)}
+          openResetPasswordModal={() => setIsResetPasswordModalOpen(true)}
+        />
+      )}
+      {isResetPasswordModalOpen && (
+        <ResetPassword onClose={() => setIsResetPasswordModalOpen(false)} />
+      )}
     </header>
   );
 }
