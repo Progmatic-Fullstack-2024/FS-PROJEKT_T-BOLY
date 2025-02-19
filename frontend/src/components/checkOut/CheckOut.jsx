@@ -149,7 +149,7 @@ export default function CheckoutForm() {
   }
   return (
     <div className="md:mr-60 md:ml-60 md:mt-28 md:mb-28 mr-5 ml-5 mt-10 mb-10">
-      <h1 className="text-primary md:mb-20 mb-10 text-3xl font-medium">Check out</h1>
+      <h1 className="text-primary md:mb-20 mb-10 text-3xl font-medium">{t(`check out`)}</h1>
       <div className="flex flex-col md:gap-20 gap-10">
         <div className="md:flex md:gap-20">
           <DeliveryInfo formData={formData} setFormData={setFormData} />

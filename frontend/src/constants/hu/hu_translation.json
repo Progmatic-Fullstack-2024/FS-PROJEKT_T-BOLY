@@ -7,7 +7,9 @@
   "contact us": "Lépjen velünk kapcsolatba",
   "phone number": "Telefonszám",
   "address": "Cím",
+  "use shipping address as billing address":"A szállítási cím és Számlázási cím megeggyező",
   "delivery address": "Szállítási cím",
+  "delivery info": "Szállítási információk",
   "login": "Bejelentkezés",
   "log in": "Bejelentkezem",
   "logging in": "Bejelentkezés folyamatban",
@@ -19,6 +21,9 @@
   "order date": "Rendelés időpontja",
   "order items": "Rendelés tételei",
   "order details": "Rendelés információi",
+  "order notes": "Rendeléssel kapcsolatos megjegyzés (opcionális)",
+
+
   "wishlist": "Kívánságlistám",
   "personal data": "Szeméyes adatok",
   "change password": "Jelszó megváltoztatása",
@@ -121,6 +126,7 @@
   "manage addresses": "Címek kezelése",
   "main address": "Szállítási cím",
   "billing address": "Számlázási cím",
+  "billing":"Számlázási",
   "country": "Ország",
   "city": "Város",
   "street": "Utca",
@@ -162,6 +168,7 @@
   "dark mode": "Sötét mód",
   "Free shipping on orders over": "Ingyenes szállítás rendelési összeg fölött",
   "your orders": "Megrendeléseid",
+  "your order": "Megrendelésed",
   "payment": "Fizetés",
   "successful payment": "Sikeres vásárlás",
   "thank you for your purchase": "Köszönjük megrendelését",
@@ -183,5 +190,8 @@
   "you need to be an adult for watch this product": "Csak felnőtt felhasználónak engedélyezett a termék megtekintés",
   "alert": "Figyelmeztetés",
   "i understand":"Megértettem",
-  "please register first or log in":"Először regisztrálj vagy Jelentkezz be"
+  "please register first or log in":"Először regisztrálj vagy Jelentkezz be",
+  "check out":"Megrendelés véglegesítése",
+  "amount":"Mennyiség",
+  "discount":"Kedvezmény"
 }

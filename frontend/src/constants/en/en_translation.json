@@ -7,7 +7,10 @@
   "contact us": "Contact Us",
   "phone number": "Phone Number",
   "address": "Address",
+  "use shipping address as billing address":"Use shipping address as billing address",
   "delivery address": "Deliver address",
+  "delivery info": "Delivery info",
+
   "login": "Login",
   "log in": "Log in",
   "logging in": "Logging in...",
@@ -19,6 +22,7 @@
   "order date": "Order date",
   "order items": "Order items",
   "order details": "Order details",
+  "order notes": "Order notes (optional)",
   "wishlist": "Wishlist",
   "personal data": "Personal data",
   "change password": "Change password",
@@ -163,6 +167,7 @@
   "dark mode": "Dark Mode",
   "Free shipping on orders over": "Free shipping on orders over",
   "your orders": "Your Orders",
+  "your order": "Your Order",
   "payment": "Payment",
   "successful payment": "Successful payment",
   "thank you for your purchase": "Thank you for your purchase",
@@ -184,5 +189,8 @@
   "you need to be an adult for watch this product": "You need to be an adult for watch this product",
   "alert":"Alert",
   "i understand":"I understand",
-  "please register first or log in":"Please register first or log in"
+  "please register first or log in":"Please register first or log in",
+  "check out":"Check out",
+  "amount":"Amount",
+  "discount":"Discount"
 }
