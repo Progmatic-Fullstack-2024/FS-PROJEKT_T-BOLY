@@ -11,7 +11,7 @@ import AuthContext from '../../contexts/AuthContext';
 
 export default function ProductsGrid({ productsByCategory, isLoading }) {
   const { isUserAdult } = useContext(AuthContext);
-  
+
   if (isLoading) {
     return <ProductsGridSkeleton />;
   }
@@ -37,13 +37,12 @@ export default function ProductsGrid({ productsByCategory, isLoading }) {
                 <div className="absolute top-2 right-2">
                   <AddToWishlistHeart product={product} />
                 </div>
-                
-                  {!isUserAdult && product.ageRecommendationMin >= 18 ? (
-                    <TbRating18Plus className='absolute top-9 right-2 text-red-500 text-4xl rounded-full flex items-center justify-center'/>
-                  ) : (
-                    <AddToShoppingCart product={product} />
-                  )}
-                
+
+                {!isUserAdult && product.ageRecommendationMin >= 18 ? (
+                  <TbRating18Plus className="absolute top-9 right-2 text-red-500 text-4xl rounded-full flex items-center justify-center" />
+                ) : (
+                  <AddToShoppingCart product={product} />
+                )}
               </div>
               <div className="w-60 font-medium">{product.name}</div>
               <div className="font-medium text-lg">€{product.price.toFixed(2)}</div>

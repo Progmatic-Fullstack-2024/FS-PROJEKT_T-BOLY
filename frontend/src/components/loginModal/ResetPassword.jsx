@@ -1,5 +1,6 @@
 import emailjs from 'emailjs-com';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { t } from 'i18next';
 import { toast } from 'react-toastify';
 
 import { VITE_PUBLIC_KEY, VITE_SERVICE_ID } from '../../constants/constants';
@@ -24,7 +25,7 @@ export default function ResetPassword({ onClose }) {
     <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-bold">Reset password</h2>
+          <h2 className="text-lg font-bold">{t(`reset password`)}</h2>
           <button type="button" className="text-gray-500 hover:text-black" onClick={onClose}>
             ✖
           </button>
@@ -39,19 +40,19 @@ export default function ResetPassword({ onClose }) {
         >
           <Form className="space-y-4">
             <div>
-              <label className="block text-sm font-medium">Username</label>
+              <label className="block text-sm font-medium">{t(`username`)}</label>
               <Field name="username" className="w-full p-2 border rounded-lg" />
               <ErrorMessage name="username" component="div" className="text-red-500 text-sm" />
             </div>
 
             <div>
-              <label className="block text-sm font-medium">Email</label>
+              <label className="block text-sm font-medium">{t(`email`)}</label>
               <Field name="email" type="email" className="w-full p-2 border rounded-lg" />
               <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
             </div>
 
             <button type="submit" className="bg-primary text-white w-full py-2 rounded-lg">
-              Reset password
+              {t(`reset password`)}
             </button>
           </Form>
         </Formik>

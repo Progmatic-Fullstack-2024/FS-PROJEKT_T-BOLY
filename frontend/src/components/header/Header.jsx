@@ -64,7 +64,8 @@ export default function Header() {
       {!user?.username && (
         <div className="flex bg-primary justify-end h-8 items-center dark:text-primary dark:bg-gray-800">
           <div className="text-white ml-2 md:ml-24 md:w-96 w-32 flex items-center md:gap-3 gap-2 md:text-sm text-xs font-medium">
-            <TbTruckDelivery className="text-3xl"/> <span>{t(`Free shipping on orders over`)} €150</span>
+            <TbTruckDelivery className="text-3xl" />{' '}
+            <span>{t(`Free shipping on orders over`)} €150</span>
           </div>
           <DarkModeToggle />
           <button
@@ -86,7 +87,8 @@ export default function Header() {
       {user?.username && (
         <div className="flex bg-primary justify-between h-8 items-center dark:text-primary dark:bg-gray-800">
           <div className="text-white ml-2 md:ml-24 md:w-96 w-32 flex items-center md:gap-3 gap-2 md:text-sm text-xs font-medium">
-            <TbTruckDelivery className="text-2xl"/> <span>{t(`Free shipping on orders over`)} €150</span>
+            <TbTruckDelivery className="text-2xl" />{' '}
+            <span>{t(`Free shipping on orders over`)} €150</span>
           </div>
           <div className="flex">
             <div ref={dropdownRef} className="relative inline-block">

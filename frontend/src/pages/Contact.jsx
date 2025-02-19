@@ -39,7 +39,9 @@ export default function Contacts() {
   };
   return (
     <div className="flex flex-col h-full dark:bg-gray-800 dark:text-primary ">
-      <div className="font-agbalumo mt-5 text-6xl p-5 text-center">{t('contact')}</div>
+      <div className="font-agbalumo mt-5 text-[11vw] md:text-6xl p-5 text-center">
+        {t('contact')}
+      </div>
       <div className="flex md:flex-row m-5 flex-col">
         <div className="md:w-1/3 border rounded-xl p-5 m-5 grid place-items-center dark:bg-gray-700 dark:border-primary">
           <FiPhone className="text-orange-500 w-12 h-12 dark:text-orange-600" />

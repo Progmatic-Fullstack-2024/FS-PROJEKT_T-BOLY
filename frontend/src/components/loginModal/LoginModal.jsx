@@ -78,7 +78,7 @@ export default function LoginModal({ onClose, openResetPasswordModal }) {
           className="text-blue-500 underline mt-4"
           onClick={openResetPasswordModal}
         >
-          Forgot your password?
+          {t(`forgot your password`)}?
         </button>
       </div>
     </div>

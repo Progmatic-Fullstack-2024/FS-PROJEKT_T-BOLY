@@ -37,10 +37,10 @@ export function CartProvider({ children }) {
     const calculateSubtotalPrice = () => {
       const total = cart.reduce((sum, product) => sum + product.price * product.quantity, 0);
       setSubtotalPrice(total);
-      setShippingPrice(total > 150 ? 0 : 10);
-      setTotalPrice(
-        coupon ? (total / 100) * (100 - coupon.discount) + shippingPrice : total + shippingPrice,
-      );
+      const discountPrice = coupon ? (total / 100) * (100 - coupon.discount) : total;
+      const newShippingPrice = discountPrice > 150 ? 0 : 10;
+      setShippingPrice(newShippingPrice);
+      setTotalPrice(discountPrice + newShippingPrice);
     };
     calculateSubtotalPrice();
   }, [cart, coupon]);
