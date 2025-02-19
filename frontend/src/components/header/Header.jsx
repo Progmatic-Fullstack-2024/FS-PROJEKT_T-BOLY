@@ -212,7 +212,12 @@ export default function Header() {
           setLoginModalOpen={() => setLoginModalOpen(true)}
         />
       )}
-      {isLoginModalOpen && <LoginModal onClose={() => setLoginModalOpen(false)} openResetPasswordModal={() => setIsResetPasswordModalOpen(true)} />}
+      {isLoginModalOpen && (
+        <LoginModal
+          onClose={() => setLoginModalOpen(false)}
+          openResetPasswordModal={() => setIsResetPasswordModalOpen(true)}
+        />
+      )}
       {isResetPasswordModalOpen && (
         <ResetPassword onClose={() => setIsResetPasswordModalOpen(false)} />
       )}
