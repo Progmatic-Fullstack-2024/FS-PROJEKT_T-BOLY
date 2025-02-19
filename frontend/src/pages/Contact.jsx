@@ -91,7 +91,7 @@ export default function Contacts() {
                   name="name"
                   type="text"
                   placeholder={t('your name')}
-                  className="w-full p-2 border rounded-lg  dark:text-primary dark:bg-gray-700"
+                  className="w-full p-2 border rounded-lg  dark:text-primary dark:bg-gray-700 dark:border-primary dark:placeholder-primary"
                 />
                 <ErrorMessage name="name" component="div" className="text-red-500 text-sm" />
               </div>
@@ -100,7 +100,7 @@ export default function Contacts() {
                   name="phone"
                   type="tel"
                   placeholder={t('your phone number')}
-                  className="w-full p-2 border rounded-lg dark:text-primary dark:bg-gray-700"
+                  className="w-full p-2 border rounded-lg dark:text-primary dark:bg-gray-700 dark:border-primary dark:placeholder-primary"
                 />
                 <ErrorMessage name="phone" component="div" className="text-red-500 text-sm" />
               </div>
@@ -109,7 +109,7 @@ export default function Contacts() {
                   name="email"
                   type="email"
                   placeholder={t('your email address')}
-                  className="w-full p-2 border rounded-lg  dark:text-primary dark:bg-gray-700"
+                  className="w-full p-2 border rounded-lg  dark:text-primary dark:bg-gray-700 dark:border-primary dark:placeholder-primary"
                 />
                 <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
               </div>
@@ -118,7 +118,7 @@ export default function Contacts() {
                   name="message"
                   as="textarea"
                   placeholder={t('write your message')}
-                  className="w-full p-2 h-40 border rounded-lg  dark:text-primary dark:bg-gray-700"
+                  className="w-full p-2 h-40 border rounded-lg  dark:text-primary dark:bg-gray-700 dark:border-primary dark:placeholder-primary"
                 />
                 <ErrorMessage name="message" component="div" className="text-red-500 text-sm" />
               </div>
