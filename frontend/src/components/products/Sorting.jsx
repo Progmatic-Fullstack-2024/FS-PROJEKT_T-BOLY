@@ -39,7 +39,7 @@ export default function Sorting() {
         {t('price')} ({t('low to high')})
       </option>
       <option value="price-desc">
-        {t('price')}({t('high to low')})
+        {t('price')} ({t('high to low')})
       </option>
       <option value="rating-asc">
         {t('rating')} ({t('low to high')})

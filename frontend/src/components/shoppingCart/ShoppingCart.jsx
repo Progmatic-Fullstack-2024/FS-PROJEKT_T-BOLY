@@ -10,7 +10,7 @@ import couponsService from '../../services/couponsService';
 import isDateValid from '../../utils/isDateValid';
 
 export default function ShoppingCart() {
-  const { cart, coupon, setCoupon } = useContext(CartContext);
+  const { cart, coupon, setCoupon, removeFromCart } = useContext(CartContext);
   const { t } = useContext(LanguageContext);
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
@@ -37,7 +37,7 @@ export default function ShoppingCart() {
       <h1 className="text-primary md:pb-28 pb-10 text-3xl font-medium dark:text-primary">
         {t('your shopping cart')}
       </h1>
-      <div className="md:flex md:justify-center overflow-x-scroll md:overflow-x-visible dark:text-primary">
+      <div className="hidden md:block md:justify-center overflow-x-scroll md:overflow-x-visible dark:text-primary">
         <table className="md:w-full border-collapse border-b border-gray-300 dark:text-primary dark:border-primary dark:border">
           <thead>
             <tr className="bg-primary text-white rounded-xl border-gray-30 dark:bg-gray-700 dark:text-primary dark:border-primary dark:border">
@@ -67,8 +67,60 @@ export default function ShoppingCart() {
           </tbody>
         </table>
       </div>
+
+      {/* mobile */}
+
+      <div className="md:hidden flex flex-col gap-4">
+        {cart.length > 0 ? (
+          cart.map((product) => (
+            <div
+              key={product.id}
+              className="border-2 rounded-xl p-4 mb-6 dark:bg-gray-700 dark:border-primary dark:border"
+            >
+              <div className="flex gap-6 w-full items-center">
+                <Link to={`/products/${product.productId}`}>
+                  <img
+                    className="object-contain border-2 p-2 rounded-2xl w-32 h-32 mr-3 dark:bg-gray-800 dark:border-primary"
+                    src={product.pictureUrl}
+                    alt={product.name}
+                  />
+                </Link>
+                <div className="flex flex-col w-full gap-2">
+                  <div className="flex items-start justify-between gap-3 mt-2">
+                    <h3 className=" font-semibold dark:text-white">{product.name}</h3>{' '}
+                    <div className="flex justify-between">
+                      <button
+                        type="button"
+                        className="text-red-500 text-xl"
+                        onClick={() => removeFromCart(product.productId)}
+                      >
+                        <RiDeleteBin5Line />
+                      </button>
+                    </div>
+                  </div>
+
+                  <p className=" text-gray-700 dark:text-gray-300">
+                    Price: €{product.price.toFixed(2)}
+                  </p>
+                  <p className=" text-gray-700 dark:text-gray-300">
+                    {t('quantity')}: {product.quantity}
+                  </p>
+                  <p className=" dark:text-gray-300 font-semibold">
+                    {t('subtotal')}: €{(product.price * product.quantity).toFixed(2)}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="text-center text-xl dark:text-white">
+            {t('your shopping cart is empty')}
+          </div>
+        )}
+      </div>
+
       <div
-        className={`mt-20 md:ml-5 md:mr-5 md:mb-20 mb-10 flex md:flex-row flex-col items-center gap-10 dark:text-primary ${cart.length > 0 ? 'justify-between' : 'justify-end'}`}
+        className={`md:mt-20 mt-10 md:ml-5 md:mr-5 md:mb-20 mb-10 flex md:flex-row flex-col items-center gap-10 dark:text-primary ${cart.length > 0 ? 'justify-between' : 'justify-end'}`}
       >
         {cart.length > 0 && (
           <div className="flex gap-6">

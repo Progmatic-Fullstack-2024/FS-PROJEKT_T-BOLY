@@ -121,7 +121,7 @@ export default function ProductById() {
                 />
               </button>
               {allPictures.length > 1 && (
-                <div className="flex h-40 gap-2 justify-between">
+                <div className="flex h-40 gap-6">
                   {product.morePictureUrl.slice(0, 3).map((picture, index) => (
                     <button
                       key={index}
@@ -143,7 +143,7 @@ export default function ProductById() {
               <div className="mt-8 mb-8 font-medium text-2xl text-center">
                 €{product.price.toFixed(2)}
               </div>
-              <div className={`flex ${hasReviewed && 'flex-col'} gap-2 pb-2`}>
+              <div className={`flex ${hasReviewed && 'flex-col'} gap-2 pb-2 w-full`}>
                 <div className="flex items-center gap-2">
                   <RatingStars rating={product.rating} /> ({numberOfAllRating})
                 </div>
@@ -156,7 +156,7 @@ export default function ProductById() {
                     {t('rate this product')}
                   </button>
                 ) : (
-                  <div className="flex flex-col border rounded dark:border-primary p-2 gap-2">
+                  <div className="flex flex-col border-2 rounded-xl dark:border-primary dark:bg-gray-700 md:p-5 p-2 gap-3 w-full md:mt-4">
                     {t('your review')}
                     <div className="flex items-center gap-2">
                       <RatingStars rating={hasReviewed.rating} />

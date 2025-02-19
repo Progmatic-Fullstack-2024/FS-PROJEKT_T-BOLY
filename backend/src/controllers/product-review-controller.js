@@ -29,7 +29,7 @@ const listAllReviewByProduct = async (req, res, next) => {
         id,
         pageNumber,
         itemsPer,
-        rating ? Number(rating) : null
+        rating ? Number(rating) : null,
       );
     res.status(200).json({ reviews, totalPages, allReviews, totalReviews });
   } catch (error) {
