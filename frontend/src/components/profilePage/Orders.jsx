@@ -221,7 +221,7 @@ export default function Orders() {
 
               {/* mobile */}
 
-              <div className="md:hidden">
+              <div className="md:hidden flex flex-col gap-6">
                 {orderItems.length > 0 ? (
                   orderItems.map((item) => (
                     <div
@@ -236,7 +236,7 @@ export default function Orders() {
                             alt=""
                           />
                         </Link>
-                        <div className="flex flex-col gap-2 w-full">
+                        <div className="flex flex-col ">
                           <div className="font-medium">{item.product.name}</div>
                           <div>Price: €{item.price.toFixed(2)}</div>
                           <div>Quantity: {item.quantity}</div>

@@ -7,7 +7,7 @@ export default function OrderTable() {
   const { cart, subtotalPrice, totalPrice, shippingPrice, coupon } = useContext(CartContext);
 
   return (
-    <div className="md:w-2/5 border-2 rounded-xl md:p-12 p-4 h-fitdark:bg-gray-700 dark:border-primary dark:border dark:text-primary">
+    <div className="border-2 rounded-xl md:p-12 p-4 h-fitdark:bg-gray-700 dark:border-primary dark:border dark:text-primary h-fit order-first md:order-none md:w-2/5">
       <h1 className="text-2xl font-medium mb-8">Your order</h1>
       <table className="w-full">
         {cart.map((product) => (

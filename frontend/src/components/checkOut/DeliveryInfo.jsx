@@ -4,7 +4,7 @@ import { deliveryInfoValidationSchema } from '../../validations/deliveryInfo.val
 
 export default function DeliveryInfo({ formData, setFormData }) {
   return (
-    <div className="border-2 rounded-xl md:p-12 dark:border-primary dark:border dark:text-primary dark:bg-gray-700 p-4 md:w-3/5 mb-10">
+    <div className="border-2 rounded-xl md:p-12 dark:border-primary dark:border dark:text-primary dark:bg-gray-700 p-4 h-fit md:mb-0 mb-10">
       <h1 className="text-2xl font-medium mb-12">Delivery info</h1>
       <Formik validationSchema={deliveryInfoValidationSchema} initialValues={formData}>
         {({ values, setFieldValue }) => (
