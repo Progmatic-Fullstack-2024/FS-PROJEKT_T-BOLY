@@ -3,12 +3,19 @@ import { FiShoppingCart } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
 import AddToWishlistHeart from './AddToWishlistHeart';
+import ProductsGridSkeleton from './ProductsGridSkeleton';
 import RatingStars from './RatingStars';
 import OutOfStock from '../../assets/out_of_stock.png';
 import CartContext from '../../contexts/CartContext';
+import LanguageContext from '../../contexts/LanguageContext';
 
-export default function ProductsList({ productsByCategory }) {
+export default function ProductsList({ productsByCategory, isLoading }) {
   const { addToCart, cart } = useContext(CartContext);
+  const { t } = useContext(LanguageContext);
+
+  if (isLoading) {
+    return <ProductsGridSkeleton />;
+  }
 
   return (
     <div className="flex flex-col gap-12">
@@ -24,7 +31,7 @@ export default function ProductsList({ productsByCategory }) {
                     </div>
                   )}
                   <img
-                    className={`border-2 rounded-2xl w-80 h-80 p-7 pr-8 shrink-0 hover:border-gray-900 object-contain ${product.quantity === 0 && 'grayscale opacity-50'} `}
+                    className={`border-2 rounded-2xl w-80 h-80 p-7 pr-8 shrink-0 hover:border-gray-900 dark:hover:border-white dark:bg-gray-700 dark:border-primary object-contain ${product.quantity === 0 && 'grayscale opacity-50'} `}
                     src={product.pictureUrl}
                     alt={product.name}
                   />
@@ -45,7 +52,7 @@ export default function ProductsList({ productsByCategory }) {
                         className="flex items-center justify-center gap-3 w-40 rounded-xl border-2 border-green-600 bg-green-600 text-white hover:border-gray-900 hover:text-black"
                       >
                         <FiShoppingCart />
-                        In cart
+                        {t('in cart')}
                       </Link>
                     ) : (
                       <button

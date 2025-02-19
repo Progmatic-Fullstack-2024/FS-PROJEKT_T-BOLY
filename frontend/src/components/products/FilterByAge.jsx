@@ -1,11 +1,16 @@
+import { useContext } from 'react';
 import RangeSlider from 'react-range-slider-input';
 import 'react-range-slider-input/dist/style.css';
 import './slider.css';
 import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-export default function FilterByPrice({ minAge, maxAge, setMaxAge, setMinAge }) {
+import FilterBySkeleton from './FilterBySkeleton';
+import LanguageContext from '../../contexts/LanguageContext';
+
+export default function FilterByPrice({ minAge, maxAge, setMaxAge, setMinAge, isLoading }) {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { t } = useContext(LanguageContext);
 
   const handleFilterByAge = () => {
     searchParams.set('minAge', minAge);
@@ -36,9 +41,13 @@ export default function FilterByPrice({ minAge, maxAge, setMaxAge, setMinAge }) 
     }
   };
 
+  if (isLoading) {
+    return <FilterBySkeleton />;
+  }
+
   return (
-    <div className="flex flex-col gap-2 p-6 border-2 rounded-lg mb-10">
-      <h3 className="text-xl mb-6">Filter by Age</h3>
+    <div className="flex flex-col gap-2 p-6 border-2 rounded-lg mb-10 dark:bg-gray-700 dark:border-primary">
+      <h3 className="text-xl mb-6">{t('filter by age')}</h3>
       <RangeSlider
         min={0}
         max={100}
@@ -56,7 +65,7 @@ export default function FilterByPrice({ minAge, maxAge, setMaxAge, setMinAge }) 
             name="inputMinAge"
             value={minAge}
             onChange={handleInputChange}
-            className="w-20 p-2 border-2 rounded-xl text-center hover:border-gray-900"
+            className="w-20 p-2 border-2 rounded-xl text-center hover:border-gray-900 dark:border-primary dark:hover:border-white dark:hover:text-white dark:bg-gray-800"
             min={0}
           />
         </div>
@@ -66,25 +75,25 @@ export default function FilterByPrice({ minAge, maxAge, setMaxAge, setMinAge }) 
             name="inputMaxAge"
             value={maxAge}
             onChange={handleInputChange}
-            className="w-20 p-2 border-2 rounded-xl text-center hover:border-gray-900"
+            className="w-20 p-2 border-2 rounded-xl text-center hover:border-gray-900 dark:border-primary dark:hover:border-white dark:hover:text-white dark:bg-gray-800"
             min={0}
           />
         </div>
       </div>
       <div className="flex justify-between">
         <button
-          className="w-28 rounded-xl border-2 p-2 hover:border-gray-900"
+          className="w-28 rounded-xl border-2 p-2 hover:border-gray-900 dark:border-primary dark:hover:border-white dark:hover:text-white dark:bg-gray-800"
           type="button"
           onClick={handleClearFilterByAge}
         >
-          Clear
+          {t('clear')}
         </button>
         <button
-          className="w-28 rounded-xl border-2 border-primary bg-primary p-2 text-white  hover:text-black hover:border-gray-900"
+          className="w-28 rounded-xl border-2 border-primary bg-primary p-2 text-white  hover:text-black hover:border-gray-800"
           type="button"
           onClick={handleFilterByAge}
         >
-          Apply
+          {t('apply')}
         </button>
       </div>
     </div>

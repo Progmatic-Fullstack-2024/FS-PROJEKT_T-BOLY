@@ -1,17 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import AddToShoppingCart from './AddToShoppingCart';
 import AddToWishlistHeart from './AddToWishlistHeart';
 import RatingStars from './RatingStars';
+import TopProductsByRatingSkeleton from './TopProductsByRatingSkeleton';
 import OutOfStock from '../../assets/out_of_stock.png';
+import LanguageContext from '../../contexts/LanguageContext';
 import productService from '../../services/productService';
 
 export default function TopProductsByRating() {
   const [productsByRating, setProductsByRating] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState(true);
 
+  const { t } = useContext(LanguageContext);
   useEffect(() => {
     const fetchTopProductsByRating = async () => {
       try {
@@ -28,14 +31,16 @@ export default function TopProductsByRating() {
     fetchTopProductsByRating();
   }, []);
 
-  if (loading) {
-    return <div className="text-center p-32 text-3xl">Loading...</div>;
+  if (isLoading) {
+    return <TopProductsByRatingSkeleton />;
   }
 
   return (
-    <div className="md:mt-28 mt-12 md:m-52 mb-10">
-      <h2 className="text-3xl font-semibold text-center md:mb-28 mb-10">Top Products</h2>
-      <div className="flex flex-wrap justify-center gap-8 mt-8">
+    <div className="pd:pt-28 pt-12 pd:m-52 pb-10 dark:text-primary dark:bg-gray-700">
+      <h2 className="text-3xl font-semibold text-center md:mb-28 mb-10">
+        {t('top products by rating')}
+      </h2>
+      <div className="flex flex-wrap justify-center gap-8 mt-8 mb-20">
         {productsByRating.map((topProduct) => (
           <div key={topProduct.id} className="flex flex-col gap-2">
             <div className="relative">
@@ -46,7 +51,7 @@ export default function TopProductsByRating() {
                   </div>
                 )}
                 <img
-                  className="border-2 rounded-2xl w-80 h-80 p-7 pr-8 shrink-0 object-contain hover:border-gray-900"
+                  className="border-2 rounded-2xl w-80 h-80 p-7 pr-8 shrink-0 object-contain dark:border-primary hover:border-gray-900 dark:hover:border-white dark:bg-gray-800"
                   src={topProduct.pictureUrl}
                   alt={topProduct.name}
                 />

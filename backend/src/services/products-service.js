@@ -15,10 +15,11 @@ const getAllProducts = async (
   maximumPrice,
   minAge,
   maxAge,
+  showDeleted,
   players,
 ) => {
   const where = {
-    isDeleted: false,
+    isDeleted: showDeleted,
     AND: [
       { price: { gte: minimumPrice } },
       { price: { lte: maximumPrice } },
@@ -116,13 +117,14 @@ const getAllProductsByCategory = async (
   maximumPrice,
   minAge,
   maxAge,
+  showDeleted,
   players,
 ) => {
   const where = {
     categoryProduct: {
       some: { categoryId },
     },
-    isDeleted: false,
+    isDeleted: showDeleted,
     AND: [
       { price: { gte: minimumPrice } },
       { price: { lte: maximumPrice } },
@@ -310,6 +312,25 @@ const exportProducts = async () => {
   return tempFilePath;
 };
 
+const updateStock = async (id, quantityOrdered) => {
+  try {
+    const data = await getProductById(id);
+    if (data.product.quantity - quantityOrdered < 0) {
+      throw new HttpError(
+        `Insufficient stock: Only ${data.product.quantity} units available, but you requested ${quantityOrdered}.`,
+      );
+    }
+
+    const updatedProduct = await prisma.product.update({
+      where: { id },
+      data: { quantity: data.product.quantity - quantityOrdered },
+    });
+    return updatedProduct;
+  } catch (err) {
+    throw new HttpError("Could not update stock", 404);
+  }
+};
+
 export default {
   exportProducts,
   getAllProducts,
@@ -318,4 +339,5 @@ export default {
   createProduct,
   updateProduct,
   destroyProduct,
+  updateStock,
 };

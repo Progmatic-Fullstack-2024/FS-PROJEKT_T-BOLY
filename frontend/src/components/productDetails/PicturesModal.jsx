@@ -31,7 +31,7 @@ function PictureModal({ isOpen, onClose, allPictures, selectedPictureIndex }) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
-      <div className=" md:w-[900px] md:h-[700px] w-[400px] h-[400px] relative flex justify-center bg-white rounded-xl">
+      <div className=" md:w-[900px] md:h-[700px] w-[400px] h-[400px] relative flex justify-center bg-white rounded-xl dark:bg-gray-700">
         <img
           src={allPictures[currentIndex]}
           alt="Large view"

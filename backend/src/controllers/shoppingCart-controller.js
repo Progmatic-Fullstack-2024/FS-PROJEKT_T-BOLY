@@ -76,6 +76,16 @@ const removeCartItem = async (req, res, next) => {
   }
 };
 
+const clearShoppingCart = async (req, res, next) => {
+  const userId = req.user.id;
+  try {
+    const emptyCart = await shoppingCartService.clearShoppingCart(userId);
+    res.status(200).json(emptyCart);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getAllShoppingCarts,
   getShoppingCartByUserId,
@@ -83,4 +93,5 @@ export default {
   addCartItem,
   updateCartItem,
   removeCartItem,
+  clearShoppingCart,
 };

@@ -1,18 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
+import LanguageContext from '../../contexts/LanguageContext';
 import categoryService from '../../services/categoryService';
 
 export default function SelectCategoryInput() {
   const [categories, setCategories] = useState([]);
   const { categoryId } = useParams();
+  const { t } = useContext(LanguageContext);
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const data = await categoryService.getAllCategories();
-        setCategories(data);
+        setCategories(data.categories);
       } catch (error) {
         toast.error(`Failed to fetch categories: ${error.message}. Please try again later.`);
       }
@@ -32,7 +34,7 @@ export default function SelectCategoryInput() {
         className="w-60 p-2 border-2 rounded-lg md:hidden"
       >
         <option className={categoryId === 'all' ? 'text-primary' : ''} value="all">
-          All products
+          {t('all')} {t('products')}
         </option>
         {categories.map((category) => (
           <option

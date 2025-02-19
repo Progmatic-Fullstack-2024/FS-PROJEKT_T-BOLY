@@ -1,8 +1,26 @@
 import prisma from "../models/prismaClient.js";
 import HttpError from "../utils/HttpError.js";
 
-const getAllCategories = async (order) =>
-  prisma.category.findMany({ orderBy: { name: order } });
+const getAllCategories = async (order, pageNumber, limitNumber, search) => {
+  const where = search
+    ? { name: { contains: search, mode: "insensitive" } }
+    : undefined;
+
+  const skip = (pageNumber - 1) * limitNumber;
+  const take = limitNumber;
+
+  const categories = await prisma.category.findMany({
+    where,
+    orderBy: { name: order },
+    skip,
+    take,
+  });
+
+  const totalCategories = await prisma.category.count({ where });
+  const totalPages = Math.ceil(totalCategories / limitNumber);
+
+  return { categories, totalCategories, totalPages };
+};
 
 const getCategoryById = async (id) => {
   const category = await prisma.category.findUnique({

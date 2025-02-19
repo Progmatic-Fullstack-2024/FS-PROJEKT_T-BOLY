@@ -10,6 +10,11 @@ export function CartProvider({ children }) {
   const { user } = useContext(AuthContext);
   const [cart, setCart] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [subtotalPrice, setSubtotalPrice] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [shippingPrice, setShippingPrice] = useState(10);
+  const [coupon, setCoupon] = useState('');
 
   useEffect(() => {
     const getCart = async () => {
@@ -28,7 +33,23 @@ export function CartProvider({ children }) {
     setIsLoading(false);
   }, [user?.username]);
 
+  useEffect(() => {
+    const calculateSubtotalPrice = () => {
+      const total = cart.reduce((sum, product) => sum + product.price * product.quantity, 0);
+      setSubtotalPrice(total);
+      setShippingPrice(total > 150 ? 0 : 10);
+      setTotalPrice(
+        coupon ? (total / 100) * (100 - coupon.discount) + shippingPrice : total + shippingPrice,
+      );
+    };
+    calculateSubtotalPrice();
+  }, [cart, coupon]);
+
   const addToCart = async (productId, quantity) => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+    if (isSubmitting) return;
+    setIsSubmitting(true);
     try {
       const newCartItem = await shoppingCartService.addCartItem(productId, quantity);
       const { id, name, pictureUrl, price } = newCartItem.product;
@@ -40,25 +61,33 @@ export function CartProvider({ children }) {
           return cartItems.map((item) =>
             item.productId === productId ? { ...item, quantity: item.quantity + quantity } : item,
           );
-
+        setIsSubmitting(false);
         return [...cartItems, { id, name, pictureUrl, price, productId, quantity }];
       });
-      toast.success('Product(s) added to cart succesfully.');
     } catch (error) {
-      toast.error('Could not add product to cart.');
+      toast.error(error.response.data.error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   const removeFromCart = async (productId) => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+    if (isSubmitting) return;
+    setIsSubmitting(true);
     try {
       await shoppingCartService.removeCartItem(productId);
 
       const newCart = await shoppingCartService.getShoppingCartByUserId();
 
       setCart(newCart);
+      setIsSubmitting(false);
       toast.success('Product(s) deleted from cart succesfully.');
     } catch (error) {
       toast.error('Could not delete product from cart.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -80,7 +109,27 @@ export function CartProvider({ children }) {
     }
   };
 
-  const value = { cart, addToCart, removeFromCart, updateCartItem };
+  const clearCart = async () => {
+    try {
+      await shoppingCartService.clearShoppingCart();
+      setCart([]);
+    } catch (error) {
+      toast.error('Could not clear the cart.');
+    }
+  };
+
+  const value = {
+    cart,
+    addToCart,
+    removeFromCart,
+    updateCartItem,
+    clearCart,
+    subtotalPrice,
+    totalPrice,
+    shippingPrice,
+    coupon,
+    setCoupon,
+  };
 
   return <CartContext.Provider value={value}>{!isLoading && children}</CartContext.Provider>;
 }

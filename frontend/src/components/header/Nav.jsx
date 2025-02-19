@@ -1,10 +1,13 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import { AiOutlineCloseCircle, AiOutlineMenu } from 'react-icons/ai';
 import { Link, useLocation } from 'react-router-dom';
+
+import LanguageContext from '../../contexts/LanguageContext';
 
 export default function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activePath, setActivePath] = useState('/');
+  const { t } = useContext(LanguageContext);
   const location = useLocation();
   const dropdownRef = useRef(null);
 
@@ -26,7 +29,7 @@ export default function Nav() {
   }, [location]);
 
   return (
-    <nav className="text-text-dark text-2xl">
+    <nav className="text-text-dark text-2xl dark:text-primary">
       <div className="max-w-screen-xl flex items-center justify-between mx-auto p-4">
         <button
           type="button"
@@ -44,20 +47,24 @@ export default function Nav() {
 
         <div
           ref={dropdownRef}
-          className={`absolute top-44 left-0 transform w-full text-center border rounded-lg shadow-lg transition-all duration-300 ${
+          className={`absolute top-40 left-0 transform w-full text-center rounded-b-lg shadow-lg transition-all duration-300 ${
             isMenuOpen
-              ? 'opacity-95 scale-100 bg-primary-light text-primary'
+              ? 'opacity-95 scale-100 bg-primary-light text-primary dark:text-gray-700'
               : 'opacity-0 scale-95 pointer-events-none'
-          } md:pointer-events-auto md:static md:transform-none md:opacity-100 md:scale-100 md:w-auto md:flex md:border-none md:shadow-none md:bg-primary-light`}
+          } md:pointer-events-auto md:static md:transform-none md:opacity-100 md:scale-100 md:w-auto md:flex md:border-none md:shadow-none md:bg-primary-light dark:text-primary dark:bg-gray-700 dark:bg-opacity-50`}
         >
           <ul className="flex flex-col p-4 md:p-0 md:space-x-8 md:flex-row">
             <li>
               <Link
                 to="/"
                 onClick={() => setIsMenuOpen(false)}
-                className={activePath === '/' ? 'text-orange-500 font-bold' : 'hover:text-primary'}
+                className={
+                  activePath === '/'
+                    ? 'text-orange-500 font-bold dark:text-orange-600'
+                    : 'hover:text-primary dark:hover:text-white'
+                }
               >
-                Home
+                {t('home')}
               </Link>
             </li>
             <li>
@@ -65,10 +72,12 @@ export default function Nav() {
                 to="/about"
                 onClick={() => setIsMenuOpen(false)}
                 className={
-                  activePath === '/about' ? 'text-orange-500 font-bold' : 'hover:text-primary'
+                  activePath === '/about'
+                    ? 'text-orange-500 font-bold dark:text-orange-600'
+                    : 'hover:text-primary dark:hover:text-white'
                 }
               >
-                About
+                {t('about')}
               </Link>
             </li>
             <li>
@@ -77,11 +86,11 @@ export default function Nav() {
                 onClick={() => setIsMenuOpen(false)}
                 className={
                   activePath === '/products/category/all'
-                    ? 'text-orange-500 font-bold'
-                    : 'hover:text-primary'
+                    ? 'text-orange-500 font-bold dark:text-orange-600'
+                    : 'hover:text-primary dark:hover:text-white'
                 }
               >
-                Shop
+                {t('shop')}
               </Link>
             </li>
             <li>
@@ -89,10 +98,12 @@ export default function Nav() {
                 to="/contact"
                 onClick={() => setIsMenuOpen(false)}
                 className={
-                  activePath === '/contact' ? 'text-orange-500 font-bold' : 'hover:text-primary'
+                  activePath === '/contact'
+                    ? 'text-orange-500 font-bold dark:text-orange-600'
+                    : 'hover:text-primary dark:hover:text-white'
                 }
               >
-                Contact
+                {t('contact')}
               </Link>
             </li>
           </ul>

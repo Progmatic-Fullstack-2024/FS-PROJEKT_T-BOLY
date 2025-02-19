@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+
+import LanguageContext from '../../contexts/LanguageContext';
 
 export default function SearchBar() {
   const [query, setQuery] = useState('');
   const navigate = useNavigate();
+  const { t } = useContext(LanguageContext);
 
   const handleSearch = () => {
     if (query) {
@@ -15,8 +17,6 @@ export default function SearchBar() {
       }
 
       navigate(`/products/category/all?${params.toString()}`);
-    } else {
-      toast.error('Add a keyword for searching');
     }
   };
 
@@ -32,8 +32,8 @@ export default function SearchBar() {
         <input
           type="text"
           id="simple-search"
-          className="bg-gray-50 border-2 border-gray-300 text-gray-900 text-sm rounded-full focus:ring-primary focus:border-2 outline-none block w-full p-2.5 ps-4 pr-10"
-          placeholder="Search"
+          className="bg-gray-50 border-2 border-gray-300 text-gray-900 text-sm rounded-full focus:ring-primary focus:border-2 outline-none block w-full p-2.5 ps-4 pr-10 dark:border-primary dark:bg-gray-700 dark:text-white dark:focus:ring-primary dark:focus:border-primary dark:placeholder-primary"
+          placeholder={t('search')}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}

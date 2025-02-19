@@ -6,9 +6,11 @@ import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
 import AuthContext from '../../contexts/AuthContext';
+import LanguageContext from '../../contexts/LanguageContext';
 import userService from '../../services/userService';
 
 export default function PersonalData() {
+  const { t } = useContext(LanguageContext);
   const { user, setUser } = useContext(AuthContext);
   const [isEditing, setIsEditing] = useState(false);
   const [usernames, setUsernames] = useState([]);
@@ -69,7 +71,6 @@ export default function PersonalData() {
         });
 
         setIsEditing(false);
-        toast.success('User data updated successfully!');
       } else {
         toast.error(`Failed to update user data, ${response.message.response.data.error}`);
       }
@@ -91,7 +92,6 @@ export default function PersonalData() {
       const { updatedUser, token } = await userService.updateProfilePictureUrl(formData);
       setUser(updatedUser);
       localStorage.setItem('token', token);
-      toast.success('Image uploaded successfully!');
     } catch (error) {
       toast.error('Error uploading image');
     } finally {
@@ -128,9 +128,9 @@ export default function PersonalData() {
   };
 
   return (
-    <div className="mx-auto w-full bg-white rounded-lg shadow-md p-8">
-      <h1 className="text-xl font-bold text-gray-700 mb-4">
-        {isEditing ? 'Edit Profile' : 'User Profile'}
+    <div className="mx-auto w-full bg-white rounded-lg shadow-md p-8 dark:bg-gray-700">
+      <h1 className="text-xl font-bold text-gray-700 mb-4 dark:text-primary">
+        {isEditing ? t('edit profile') : t('user profile')}
       </h1>
       <div className="flex flex-col lg:flex-row md:flex-row ">
         <button
@@ -139,10 +139,10 @@ export default function PersonalData() {
           onMouseLeave={() => setIsHovered(false)}
           type="button"
           onClick={handlePictureUpload}
-          className="border w-32 h-32 mx-auto md:ml-0 md:mr-8 my-5 md:my-0 rounded-full overflow-hidden flex items-center justify-center bg-gray-50 hover:bg-gray-100 md:w-80 md:h-80 md:rounded"
+          className="border w-32 h-32 mx-auto md:ml-0 md:mr-8 my-5 md:my-0 rounded-full overflow-hidden flex items-center justify-center bg-gray-50 hover:bg-gray-100 md:w-80 md:h-80 md:rounded dark:bg-gray-600 dark:hover:bg-gray-500 dark:border-primary dark:text-primary"
         >
           {isLoading && !isEditing && (
-            <div className="animate-spin border-4 border-gray-300 border-t-gray-800 rounded-full w-16 h-16" />
+            <div className="animate-spin border-4 border-gray-300 border-t-gray-800 rounded-full w-16 h-16 dark:border-primary dark:border-t-primary" />
           )}
 
           {!isLoading && previewImage && (
@@ -175,21 +175,23 @@ export default function PersonalData() {
           <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
             <div className="bg-white p-6 rounded shadow-lg">
               <img alt="" src={previewImage} className="w-60 h-60 rounded" />
-              <p className="mb-4 text-lg font-semibold">Would you like to save this picture?</p>
+              <p className="mb-4 text-lg font-semibold">
+                {t('would you like to save this picture')}
+              </p>
               <div className="flex justify-end space-x-4">
                 <button
                   onClick={handleCancelPictureUpload}
                   className="px-4 py-2 bg-primary-light text-gray-700 rounded-lg hover:bg-gray-400"
                   type="button"
                 >
-                  Cancel
+                  {t('cancel')}
                 </button>
                 <button
                   onClick={handleSavePictureUpload}
                   className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-opacity-90"
                   type="button"
                 >
-                  Save
+                  {t('save')}
                 </button>
               </div>
             </div>
@@ -205,31 +207,31 @@ export default function PersonalData() {
               <Form className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-gray-500 text-sm mb-1">First Name</label>
+                    <label className="block text-gray-500 text-sm mb-1">{t('first name')}</label>
                     <Field
                       name="firstName"
                       type="text"
-                      className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-primary-light"
+                      className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-primary-light dark:bg-gray-800 dark:border-primary dark:border dark:text-primary"
                     />
                     <ErrorMessage name="firstName" component="div" className="text-red-500" />
                   </div>
 
                   <div>
-                    <label className="block text-gray-600 text-sm mb-1">Last Name</label>
+                    <label className="block text-gray-600 text-sm mb-1">{t('last name')}</label>
                     <Field
                       name="lastName"
                       type="text"
-                      className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-primary-light"
+                      className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-primary-light dark:bg-gray-800 dark:border-primary dark:border dark:text-primary"
                     />
                     <ErrorMessage name="lastName" component="div" className="text-red-500" />
                   </div>
 
                   <div>
-                    <label className="block text-gray-600 text-sm mb-1">Username</label>
+                    <label className="block text-gray-600 text-sm mb-1">{t('username')}</label>
                     <Field
                       name="username"
                       type="text"
-                      className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-primary-light"
+                      className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-primary-light dark:bg-gray-800 dark:border-primary dark:border dark:text-primary"
                     />
                     <ErrorMessage name="username" component="div" className="text-red-500" />
                   </div>
@@ -237,21 +239,21 @@ export default function PersonalData() {
 
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-gray-600 text-sm mb-1">Email</label>
+                    <label className="block text-gray-600 text-sm mb-1">{t('email')}</label>
                     <Field
                       name="email"
                       type="email"
-                      className="w-full px-4 py-2 border rounded-lg text-gray-700 bg-gray-100 focus:outline-none"
+                      className="w-full px-4 py-2 border rounded-lg text-gray-700 bg-gray-100 focus:outline-none dark:bg-gray-800 dark:border-primary dark:border dark:text-primary"
                       readOnly
                     />
                   </div>
 
                   <div>
-                    <label className="block text-gray-600 text-sm mb-1">Birthday</label>
+                    <label className="block text-gray-600 text-sm mb-1">{t('birthday')}</label>
                     <Field
                       name="birthDate"
                       type="date"
-                      className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-primary-light"
+                      className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-primary-light dark:bg-gray-800 dark:border-primary dark:border dark:text-primary"
                     />
                     <ErrorMessage name="birthDate" component="div" className="text-red-500" />
                   </div>
@@ -261,16 +263,16 @@ export default function PersonalData() {
                   <button
                     type="button"
                     onClick={handleCancelClick}
-                    className="px-4 py-2 lg:w-1/3 bg-primary-light text-gray-700 rounded-lg hover:bg-gray-400"
+                    className="px-4 py-2 lg:w-1/3 bg-primary-light text-gray-700 rounded-lg hover:bg-gray-400 dark:text-primary dark:bg-gray-800 dark:border-primary dark:border dark:hover:bg-primary dark:hover:text-white"
                   >
-                    Cancel
+                    {t('cancel')}
                   </button>
                   <button
                     type="submit"
-                    className="px-4 py-2 lg:w-1/2 bg-primary text-white rounded-lg hover:bg-opacity-90"
+                    className="px-4 py-2 lg:w-1/2 bg-primary text-white rounded-lg hover:bg-opacity-90 dark:hover:bg-gray-600 dark:border-primary dark:border"
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? 'Saving...' : 'Save'}
+                    {isSubmitting ? t('saving') : t('save')}
                   </button>
                 </div>
               </Form>
@@ -279,20 +281,30 @@ export default function PersonalData() {
         ) : (
           <div className="space-y-4">
             <div>
-              <label className="block text-gray-600 text-sm mb-1">Name</label>
-              <p className="text-gray-800">{`${user?.firstName} ${user?.lastName}`}</p>
+              <label className="block text-gray-600 text-sm mb-1 dark:text-orange-600">
+                {t('name')}
+              </label>
+              <p className="text-gray-800 dark:text-primary">{`${user?.firstName} ${user?.lastName}`}</p>
             </div>
             <div>
-              <label className="block text-gray-600 text-sm mb-1">Email</label>
-              <p className="text-gray-800">{user?.email}</p>
+              <label className="block text-gray-600 text-sm mb-1 dark:text-orange-600">
+                {t('email')}
+              </label>
+              <p className="text-gray-800 dark:text-primary">{user?.email}</p>
             </div>
             <div>
-              <label className="block text-gray-600 text-sm mb-1">Username</label>
-              <p className="text-gray-800">{user?.username}</p>
+              <label className="block text-gray-600 text-sm mb-1 dark:text-orange-600">
+                {t('username')}
+              </label>
+              <p className="text-gray-800 dark:text-primary">{user?.username}</p>
             </div>
             <div>
-              <label className="block text-gray-600 text-sm mb-1">Birthday</label>
-              <p className="text-gray-800">{new Date(user?.birthDate).toLocaleDateString()}</p>
+              <label className="block text-gray-600 text-sm mb-1 dark:text-orange-600">
+                {t('birthday')}
+              </label>
+              <p className="text-gray-800 dark:text-primary">
+                {new Date(user?.birthDate).toLocaleDateString()}
+              </p>
             </div>
 
             <div className="mt-6">
@@ -301,7 +313,7 @@ export default function PersonalData() {
                 onClick={handleEditClick}
                 className="px-4 py-2 mt-4 w-full bg-primary text-white rounded-lg hover:bg-opacity-90"
               >
-                Edit
+                {t('edit')}
               </button>
             </div>
           </div>

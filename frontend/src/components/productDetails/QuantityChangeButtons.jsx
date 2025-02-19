@@ -6,12 +6,12 @@ export default function QuantityChangeButtons({
   maxQuantity,
 }) {
   return (
-    <div className="flex items-center">
+    <div className="flex items-center dark:text-primary">
       <button
         type="button"
         onClick={handleDecrement}
         disabled={productInCartCount <= 1}
-        className={`px-5 py-2 text-xl font-bold border-t-2 border-l-2 border-b-2 rounded-l-xl  ${productInCartCount <= 1 ? 'bg-gray-200 cursor-not-allowed border-gray-200' : 'border-primary hover:bg-primary hover:text-white text-gray-900'}`}
+        className={`px-5 py-2 text-xl font-bold border-t-2 border-l-2 border-b-2 rounded-l-xl dark:bg-gray-700 dark:border-primary dark:hover:bg-gray-600 ${productInCartCount <= 1 ? 'bg-gray-200 cursor-not-allowed border-gray-200 dark:hover:bg-gray-600 dark:text-primary dark:bg-gray-700 dark:cursor-not-allowed' : 'border-primary hover:bg-primary hover:text-white text-gray-900 dark:text-primary dark:bg-gray-700'}`}
       >
         -
       </button>
@@ -24,7 +24,7 @@ export default function QuantityChangeButtons({
         type="button"
         onClick={handleIncrement}
         disabled={productInCartCount >= maxQuantity}
-        className={`px-5 py-2 text-xl font-bold border-t-2 border-r-2 border-b-2 rounded-r-xl ${productInCartCount >= maxQuantity ? 'bg-gray-200 cursor-not-allowed border-gray-200' : 'border-primary hover:bg-primary hover:text-white text-gray-900'}`}
+        className={`px-5 py-2 text-xl font-bold border-t-2 border-r-2 border-b-2 rounded-r-xl dark:bg-gray-700 ${productInCartCount >= maxQuantity ? 'bg-gray-200 cursor-not-allowed dark:text-primary dark:bg-gray-700 dark:cursor-not-allowed border-gray-200 dark:border-primary dark:hover:bg-gray-600' : 'border-primary hover:bg-primary dark:border-primary dark:hover:bg-gray-600 hover:text-white text-gray-primary'}`}
       >
         +
       </button>

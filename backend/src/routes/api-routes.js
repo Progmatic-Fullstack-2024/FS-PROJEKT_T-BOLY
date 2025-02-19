@@ -7,9 +7,14 @@ import productCategoryConnection from "./product-category.routes.js";
 import shoppingCartRoutes from "./shoppingCart-routes.js";
 import wishlistRoutes from "./wishlist-routes.js";
 import reviewRoutes from "./review-routes.js";
+import paymentRoutes from "./payment-routes.js";
+import couponsRoutes from "./coupons-routes.js";
+import orderRoutes from "./order-routes.js";
+import statisticsRoutes from "./statistics-routes.js";
 
 const router = express.Router();
 
+router.use("/coupons", couponsRoutes);
 router.use("/categories", categoriesRoutes);
 router.use("/products", productsRoutes);
 router.use("/images", productImagesRoutes);
@@ -18,5 +23,8 @@ router.use("/productCategoryConnection", productCategoryConnection);
 router.use("/shoppingCart", shoppingCartRoutes);
 router.use("/wishlist", wishlistRoutes);
 router.use("/productReview", reviewRoutes);
+router.use("/payment", paymentRoutes);
+router.use("/order", orderRoutes);
+router.use("/statistics", statisticsRoutes);
 
 export default router;

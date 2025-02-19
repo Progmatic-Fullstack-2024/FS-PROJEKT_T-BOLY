@@ -1,14 +1,17 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import OutOfStock from '../../assets/out_of_stock.png';
+import LanguageContext from '../../contexts/LanguageContext';
 import AddToShoppingCart from '../products/AddToShoppingCart';
 import AddToWishlistHeart from '../products/AddToWishlistHeart';
 import RatingStars from '../products/RatingStars';
 
 export default function RelatedProducts({ relatedProductsByCategory }) {
+  const { t } = useContext(LanguageContext);
   return (
     <div className="md:mt-20 mt-12">
-      <h2 className="text-2xl font-semibold text-center md:mb-16 mb-10">Related Products</h2>
+      <h2 className="text-2xl font-semibold text-center md:mb-16 mb-10">{t('related products')}</h2>
       <div className="flex flex-wrap md:flex-row justify-center md:justify-between gap-8 mt-8">
         {relatedProductsByCategory.map((relatedProduct) => (
           <div key={relatedProduct.id} className="flex flex-col gap-2">
@@ -20,7 +23,7 @@ export default function RelatedProducts({ relatedProductsByCategory }) {
                   </div>
                 )}
                 <img
-                  className="border-2 rounded-2xl w-80 h-80 p-7 pr-8 shrink-0 hover:border-gray-900 object-contain"
+                  className="border-2 rounded-2xl w-80 h-80 p-7 pr-8 shrink-0 hover:border-gray-900 object-contain dark:border-primary dark:bg-gray-700"
                   src={relatedProduct.pictureUrl}
                   alt={relatedProduct.name}
                 />

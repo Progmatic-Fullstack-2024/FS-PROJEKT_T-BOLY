@@ -2,10 +2,14 @@ import { Link } from 'react-router-dom';
 
 import AddToShoppingCart from './AddToShoppingCart';
 import AddToWishlistHeart from './AddToWishlistHeart';
+import ProductsGridSkeleton from './ProductsGridSkeleton';
 import RatingStars from './RatingStars';
 import OutOfStock from '../../assets/out_of_stock.png';
 
-export default function ProductsGrid({ productsByCategory }) {
+export default function ProductsGrid({ productsByCategory, isLoading }) {
+  if (isLoading) {
+    return <ProductsGridSkeleton />;
+  }
   return (
     <div className="flex flex-wrap gap-8 justify-between md:mr-44">
       {productsByCategory && productsByCategory.length > 0 ? (
@@ -20,7 +24,7 @@ export default function ProductsGrid({ productsByCategory }) {
                     </div>
                   )}
                   <img
-                    className={`border-2 rounded-2xl w-80 h-80 p-7 pr-8 shrink-0 hover:border-gray-900 object-contain ${product.quantity === 0 && 'grayscale opacity-50'}`}
+                    className={`border-2 rounded-2xl w-80 h-80 p-7 pr-8 shrink-0 hover:border-gray-900 dark:hover:border-white dark:bg-gray-700 dark:border-primary object-contain ${product.quantity === 0 && 'grayscale opacity-50'}`}
                     src={product.pictureUrl}
                     alt={product.name}
                   />

@@ -1,6 +1,5 @@
 import prisma from "../models/prismaClient.js";
 import HttpError from "../utils/HttpError.js";
-// import { updateFile, uploadMoreFiles } from "./file.service.js";
 
 const getProductMoreImagesById = async (id) => {
   const product = prisma.product.findUnique({
@@ -25,15 +24,7 @@ const updateProductImages = async (id, morePictureUrl) => {
   return updatedProductImages;
 };
 
-// const destroyProductMoreImages = async (id) => {
-//   await getProductById(id);
-//   return prisma.product.delete({
-//     where: { id },
-//   });
-// };
-
 export default {
   getProductMoreImagesById,
   updateProductImages,
-  // destroyProduct2,
 };
