@@ -9,4 +9,6 @@ router.post("/register", authController.register);
 
 router.put("/password_change/:id", authController.passwordChange);
 
+router.put("/forgotten_password", authController.forgottenPasswordUpdate);
+
 export default router;

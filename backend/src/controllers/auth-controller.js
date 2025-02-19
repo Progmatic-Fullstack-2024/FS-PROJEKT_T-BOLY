@@ -52,4 +52,19 @@ const passwordChange = async (req, res, next) => {
   }
 };
 
-export default { register, login, passwordChange };
+const forgottenPasswordUpdate = async (req, res, next) => {
+  const { username, email } = req.body;
+
+  try {
+    const updatedUser = await authService.forgottenPasswordUpdate(
+      username,
+      email,
+    );
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
+export default { register, login, passwordChange, forgottenPasswordUpdate };
