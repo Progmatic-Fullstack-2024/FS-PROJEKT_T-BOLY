@@ -247,7 +247,7 @@ export default function CheckoutForm() {
       </div>
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-12 rounded-xl max-w-lg mx-auto transform -translate-y-40 w-1/4">
+          <div className="bg-white p-12 rounded-xl max-w-lg mx-auto transform -translate-y-40 w-1/4 dark:bg-gray-700 dark:border-primary dark:border">
             <div className="text-2xl font-medium mb-10 text-center text-primary">
               Successful payment!
             </div>
