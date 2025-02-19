@@ -51,7 +51,7 @@ export default function Nav() {
             isMenuOpen
               ? 'opacity-95 scale-100 bg-primary-light text-primary dark:text-gray-700'
               : 'opacity-0 scale-95 pointer-events-none'
-          } md:pointer-events-auto md:static md:transform-none md:opacity-100 md:scale-100 md:w-auto md:flex md:border-none md:shadow-none md:bg-primary-light dark:text-primary dark:bg-gray-700 dark:bg-opacity-50`}
+          } md:pointer-events-auto md:static md:transform-none md:opacity-100 md:scale-100 md:w-auto md:flex md:border-none md:shadow-none md:bg-primary-light dark:text-primary dark:bg-gray-700`}
         >
           <ul className="flex flex-col p-4 md:p-0 md:space-x-8 md:flex-row">
             <li>
