@@ -17,7 +17,7 @@ export default function Orders() {
 
   const statusMap = {
     AWAITINGPAYMENT: t('waiting for payment'),
-    PROCESSING: t('processing'), //--Delivery processing
+    PROCESSING: t('delivery processing'),
     PACKED: t('packed'),
     OUTFORDELIVERY: t('out for delivery'),
     DELIVERED: t('delivered'),
@@ -126,7 +126,7 @@ export default function Orders() {
           ) : (
             <tr>
               <td colSpan="5" className="py-20 px-12 text-center text-gray-500">
-                No orders found
+                {t(`no orders found`)}
               </td>
             </tr>
           )}

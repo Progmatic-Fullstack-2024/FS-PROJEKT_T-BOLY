@@ -28,9 +28,9 @@ export default function ProductsList({ productsByCategory, isLoading }) {
             <div className="flex gap-12 " key={index}>
               <div className="relative">
                 <Link to={`/products/${product.id}`}>
-                {!isUserAdult && product.ageRecommendationMin >= 18 && (
-                  <TbRating18Plus className='absolute top-2 right-2 text-red-500 text-4xl rounded-full flex items-center justify-center'/>
-                )}
+                  {!isUserAdult && product.ageRecommendationMin >= 18 && (
+                    <TbRating18Plus className="absolute top-2 right-2 text-red-500 text-4xl rounded-full flex items-center justify-center" />
+                  )}
                   {product.quantity === 0 && (
                     <div className="absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-red-600">
                       <img src={OutOfStock} alt="" />
@@ -52,8 +52,6 @@ export default function ProductsList({ productsByCategory, isLoading }) {
                 </div>
                 <div className="flex gap-4">
                   <div className="flex">
-
-
                     {cart.find((item) => item.productId === product.id) ? (
                       <Link
                         to="/shoppingCart"
@@ -65,9 +63,12 @@ export default function ProductsList({ productsByCategory, isLoading }) {
                     ) : (
                       <button
                         type="button"
-                        className={`flex items-center justify-center gap-3 w-40 rounded-xl border-2 ${product.quantity < 1 || !isUserAdult && product.ageRecommendationMin >= 18 ? 'border-gray-200 bg-gray-200 text-gray-900 cursor-not-allowed' : 'border-primary bg-primary p-2 text-white hover:border-gray-900 hover:text-black'} `}
+                        className={`flex items-center justify-center gap-3 w-40 rounded-xl border-2 ${product.quantity < 1 || (!isUserAdult && product.ageRecommendationMin >= 18) ? 'border-gray-200 bg-gray-200 text-gray-900 cursor-not-allowed' : 'border-primary bg-primary p-2 text-white hover:border-gray-900 hover:text-black'} `}
                         onClick={() => addToCart(product.id, 1)}
-                        disabled={product.quantity < 1 || !isUserAdult && product.ageRecommendationMin >= 18}
+                        disabled={
+                          product.quantity < 1 ||
+                          (!isUserAdult && product.ageRecommendationMin >= 18)
+                        }
                       >
                         <FiShoppingCart />
                         {product.quantity < 1 ? t('out of stock') : t(`add to cart`)}

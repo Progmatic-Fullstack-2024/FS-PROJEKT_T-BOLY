@@ -12,7 +12,7 @@ export default function AdultProductLoginModal() {
     navigate('/products/category/all');
   };
   const { isUserAdult, user } = useContext(AuthContext);
-  
+
   return (
     <div className="fixed inset-0 bg-gray-800 bg-opacity-50 backdrop-blur-md flex justify-center items-center z-50">
       <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md dark:bg-gray-700 dark:border-primary dark:border dark:text-primary">
@@ -34,7 +34,9 @@ export default function AdultProductLoginModal() {
             {t(`you need to be an adult for watch this product`)}!
           </div>
         ) : (
-          <div className="h-32 p-3 text-center text-2xl">{t(`please register first or log in`)}!</div>
+          <div className="h-32 p-3 text-center text-2xl">
+            {t(`please register first or log in`)}!
+          </div>
         )}
         <button
           onClick={handleCloser}
@@ -42,7 +44,6 @@ export default function AdultProductLoginModal() {
           className="bg-primary text-white w-full py-2 rounded-lg dark:bg-gray-800 dark:text-primary dark:border-primary dark:border dark:hover:bg-primary dark:hover:text-white"
         >
           {!isUserAdult && user !== null ? t(`i understand`) : t(`login`)}
-          
         </button>
       </div>
     </div>

@@ -79,8 +79,6 @@ export default function PersonalData() {
       }
     } catch (error) {
       toast.error(`Failed to update user data.`);
-      console.error(error)
-      
     } finally {
       setSubmitting(false);
     }

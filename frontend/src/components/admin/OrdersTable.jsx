@@ -138,7 +138,9 @@ export default function OrdersTable() {
                     Created
                     {renderSortIcon('createdAt')}
                   </th>
-                  <th className="px-4 py-3  text-center text-gray-100  w-10 dark:text-orange-600">Ordered products</th>
+                  <th className="px-4 py-3  text-center text-gray-100  w-10 dark:text-orange-600">
+                    Ordered products
+                  </th>
                 </tr>
               </thead>
               <tbody>

@@ -192,5 +192,8 @@
   "please register first or log in":"Please register first or log in",
   "check out":"Check out",
   "amount":"Amount",
-  "discount":"Discount"
+  "discount":"Discount",
+  "forgot your password":"Forgot your password",
+  "reset password":"Reset password",
+  "no orders found":"No orders found"
 }

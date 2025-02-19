@@ -29,7 +29,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
               </div>
               <div className="w-1/2">
                 <label className="block mb-2 font-medium">
-                {t(`last name`)} <span className="text-red-500 font-bold">*</span>
+                  {t(`last name`)} <span className="text-red-500 font-bold">*</span>
                 </label>
                 <Field
                   readOnly
@@ -47,7 +47,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
             <div className=" flex justify-between md:gap-10 gap-4">
               <div className="md:w-2/3 w-1/2">
                 <label className="block mb-2 font-medium">
-                {t(`street`)}  <span className="text-red-500 font-bold">*</span>
+                  {t(`street`)} <span className="text-red-500 font-bold">*</span>
                 </label>
                 <Field
                   onChange={(e) => {
@@ -62,7 +62,8 @@ export default function DeliveryInfo({ formData, setFormData }) {
               </div>
               <div className="md:w-1/3 w-1/2">
                 <label className="block mb-2 font-medium">
-                {t(`house number`)}<span className="text-red-500 font-bold">*</span>
+                  {t(`house number`)}
+                  <span className="text-red-500 font-bold">*</span>
                 </label>
                 <Field
                   onChange={(e) => {
@@ -79,7 +80,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
             <div className=" flex justify-between md:gap-10 gap-4">
               <div className="w-1/2">
                 <label className="block mb-2 font-medium">
-                {t(`country`)} <span className="text-red-500 font-bold">*</span>
+                  {t(`country`)} <span className="text-red-500 font-bold">*</span>
                 </label>
                 <Field
                   onChange={(e) => {
@@ -94,7 +95,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
               </div>
               <div className="w-1/2">
                 <label className="block mb-2 font-medium">
-                {t(`city`)} <span className="text-red-500 font-bold">*</span>
+                  {t(`city`)} <span className="text-red-500 font-bold">*</span>
                 </label>
                 <Field
                   onChange={(e) => {
@@ -111,7 +112,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
             <div className=" flex justify-between md:gap-10 gap-4">
               <div className="w-1/2">
                 <label className="block mb-2 font-medium">
-                {t(`postal code`)} <span className="text-red-500 font-bold">*</span>
+                  {t(`postal code`)} <span className="text-red-500 font-bold">*</span>
                 </label>
                 <Field
                   onChange={(e) => {
@@ -126,7 +127,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
               </div>
               <div className="w-1/2">
                 <label className="block mb-2 font-medium">
-                {t(`phone number`)} <span className="text-red-500 font-bold">*</span>
+                  {t(`phone number`)} <span className="text-red-500 font-bold">*</span>
                 </label>
                 <Field
                   onChange={(e) => {
@@ -144,7 +145,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
             <div className="space-y-4">
               <div>
                 <label className="block mb-2 font-medium">
-                {t(`email`)} <span className="text-red-500 font-bold">*</span>
+                  {t(`email`)} <span className="text-red-500 font-bold">*</span>
                 </label>
                 <Field
                   onChange={(e) => {
@@ -192,7 +193,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
                 <div className="flex justify-between md:gap-10 gap-4">
                   <div className="md:w-2/3 w-1/2">
                     <label className="block mb-2 font-medium">
-                    {t(`billing`)}  {t(`street`)} <span className="text-red-500 font-bold">*</span>
+                      {t(`billing`)} {t(`street`)} <span className="text-red-500 font-bold">*</span>
                     </label>
                     <Field
                       onChange={(e) => {
@@ -207,7 +208,8 @@ export default function DeliveryInfo({ formData, setFormData }) {
                   </div>
                   <div className="md:w-1/3 w-1/2">
                     <label className="block mb-2 font-medium">
-                    {t(`billing`)}  {t(`house number`)} <span className="text-red-500 font-bold">*</span>
+                      {t(`billing`)} {t(`house number`)}{' '}
+                      <span className="text-red-500 font-bold">*</span>
                     </label>
                     <Field
                       onChange={(e) => {
@@ -228,7 +230,8 @@ export default function DeliveryInfo({ formData, setFormData }) {
                 <div className="flex justify-between md:gap-10 gap-4">
                   <div className="w-1/2">
                     <label className="block mb-2 font-medium">
-                    {t(`billing`)} {t(`country`)} <span className="text-red-500 font-bold">*</span>
+                      {t(`billing`)} {t(`country`)}{' '}
+                      <span className="text-red-500 font-bold">*</span>
                     </label>
                     <Field
                       onChange={(e) => {
@@ -243,7 +246,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
                   </div>
                   <div className="w-1/2">
                     <label className="block mb-2 font-medium">
-                    {t(`billing`)} {t(`city`)} <span className="text-red-500 font-bold">*</span>
+                      {t(`billing`)} {t(`city`)} <span className="text-red-500 font-bold">*</span>
                     </label>
                     <Field
                       onChange={(e) => {
@@ -260,7 +263,8 @@ export default function DeliveryInfo({ formData, setFormData }) {
                 <div className="md:mr-10 mr-4">
                   <div className="w-1/2">
                     <label className="block mb-2 font-medium">
-                    {t(`billing`)} {t(`postal code`)}  <span className="text-red-500 font-bold">*</span>
+                      {t(`billing`)} {t(`postal code`)}{' '}
+                      <span className="text-red-500 font-bold">*</span>
                     </label>
                     <Field
                       onChange={(e) => {

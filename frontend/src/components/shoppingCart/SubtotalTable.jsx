@@ -21,7 +21,7 @@ export default function SubtotalTable({ coupon }) {
         {coupon && (
           <tr>
             <td className="pb-2 pr-16 font-medium dark:text-primary">
-              {coupon.discount}% Discount
+              {coupon.discount}% {t(`discount`)}
             </td>
             <td className="pb-2 text-red-500 font-medium text-right">
               - €{((subtotalPrice / 100) * coupon.discount).toFixed(2)}

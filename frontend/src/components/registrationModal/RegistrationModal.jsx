@@ -102,7 +102,7 @@ export default function RegistrationModal({ onClose, setLoginModalOpen }) {
                 type="submit"
                 className="bg-primary text-white w-full py-2 rounded-lg dark:bg-gray-800 dark:border-primary dark:text-primary dark:border dark:hover:bg-primary dark:hover:text-white"
               >
-                {isSubmitting ? 'Registering...' : 'Register'}
+                {isSubmitting ? 'Registering...' : t('register')}
               </button>
             </Form>
           )}

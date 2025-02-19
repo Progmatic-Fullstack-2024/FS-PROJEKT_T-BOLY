@@ -27,7 +27,9 @@ export default function OrderTable() {
             </td>
             <td className="w-1/2 mt-6 mb-6 mr-6">
               <div className="text-left mb-3 font-medium">{product.name}</div>
-              <div className="text-left ">{t(`amount`)}: {product.quantity}</div>
+              <div className="text-left ">
+                {t(`amount`)}: {product.quantity}
+              </div>
             </td>
             <td className="w-1/6 mt-6 mb-6 text-right font-medium">
               €{(product.price * product.quantity).toFixed(2)}
@@ -37,7 +39,11 @@ export default function OrderTable() {
         <tr className="border-b border-gray-300 flex justify-between dark:border-primary">
           <td className="flex justify-center mt-12 mb-12 flex-col gap-5">
             <div className="font-medium">{t(`subtotal`)}</div>
-            {coupon && <div className="font-medium">{coupon.discount}% {t(`discount`)}</div>}
+            {coupon && (
+              <div className="font-medium">
+                {coupon.discount}% {t(`discount`)}
+              </div>
+            )}
             <div className="font-medium">{t(`shipping`)}</div>
           </td>
           <td className="flex justify-center mt-12 mb-12 flex-col gap-5">
