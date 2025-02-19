@@ -1,6 +1,10 @@
-import { t } from 'i18next';
+import { useContext } from 'react';
+
+import LanguageContext from '../../contexts/LanguageContext';
 
 export default function TopProductsByRatingSkeleton() {
+  const { t } = useContext(LanguageContext);
+
   return (
     <div className="pd:pt-28 pt-12 pd:m-52 pb-10 dark:text-primary dark:bg-gray-700">
       <h2 className="text-3xl font-semibold text-center md:mb-28 mb-10">

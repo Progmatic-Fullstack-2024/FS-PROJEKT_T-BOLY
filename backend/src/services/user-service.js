@@ -39,8 +39,8 @@ const updateProfilePicture = async (id, userData) => {
       firstName: updatedUser.firstName,
       lastName: updatedUser.lastName,
       birthDate: updatedUser.birthDate,
-      adress: updatedUser.adress,
-      billingAdress: updatedUser.billingAdress,
+      address: updatedUser.address,
+      billingAddress: updatedUser.billingAddress,
       profilePictureUrl: updatedUser.profilePictureUrl,
     },
     JWT_SECRET,
@@ -55,7 +55,7 @@ const createUser = async (userData) => {
   });
 
   if (existingEmail)
-    throw new HttpError("This email adress is already registered", 401);
+    throw new HttpError("This email address is already registered", 401);
 
   const existingUsername = await prisma.user.findFirst({
     where: { username: userData.username },
@@ -114,8 +114,8 @@ const updateUser = async (id, userData, currentUserId, currentUserRole) => {
       firstName: updatedUser.firstName,
       lastName: updatedUser.lastName,
       birthDate: updatedUser.birthDate,
-      adress: updatedUser.adress,
-      billingAdress: updatedUser.billingAdress,
+      address: updatedUser.address,
+      billingAddress: updatedUser.billingAddress,
       profilePictureUrl: updatedUser.profilePictureUrl,
     },
     JWT_SECRET,

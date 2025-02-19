@@ -3,7 +3,7 @@ import { HiMenu } from 'react-icons/hi';
 import { MdKeyboardArrowRight } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 
-import adressIcon from '../../assets/icons/address.png';
+import addressIcon from '../../assets/icons/address.png';
 import pesronalDataIcon from '../../assets/icons/data-breach.png';
 import heartIcon from '../../assets/icons/heart.png';
 import orderIcon from '../../assets/icons/order-delivery.png';
@@ -114,15 +114,15 @@ export default function Nav() {
             <Link
               onClick={() => setIsSideBarOpen(false)}
               className="border-t border-gray-200   flex justify-between p-4 text-gray-900 rounded-lg  hover:bg-gray-100  group dark:text-primary dark:hover:bg-gray-700"
-              to="adresses"
+              to="addresses"
             >
               <span className="flex">
                 <img
-                  src={adressIcon}
+                  src={addressIcon}
                   alt=""
                   className="mr-4 flex-shrink-0 w-8 h-8 text-gray-500 transition duration-75  group-hover:text-gray-900 "
                 />
-                {t('adresses')}
+                {t('addresses')}
               </span>
               <MdKeyboardArrowRight className="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 dark:text-primary" />
             </Link>

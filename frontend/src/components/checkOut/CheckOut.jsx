@@ -49,20 +49,20 @@ export default function CheckoutForm() {
   const [formData, setFormData] = useState({
     firstName: user.firstName || '',
     lastName: user.lastName || '',
-    street: user.adress?.split(', ')[3] || '',
-    houseNumber: user.adress?.split(', ')[4] || '',
-    country: user.adress?.split(', ')[0] || '',
-    city: user.adress?.split(', ')[1] || '',
-    postalCode: user.adress?.split(', ')[2] || '',
+    street: user.address?.split(', ')[3] || '',
+    houseNumber: user.address?.split(', ')[4] || '',
+    country: user.address?.split(', ')[0] || '',
+    city: user.address?.split(', ')[1] || '',
+    postalCode: user.address?.split(', ')[2] || '',
     phoneNumber: '',
     email: user.email,
     orderNotes: '',
-    billingStreet: user.billingAdress?.split(', ')[3] || '',
-    billingHouseNumber: user.billingAdress?.split(', ')[4] || '',
-    billingCountry: user.billingAdress?.split(', ')[0] || '',
-    billingCity: user.billingAdress?.split(', ')[1] || '',
-    billingPostalCode: user.billingAdress?.split(', ')[2] || '',
-    isSameAdress: true,
+    billingStreet: user.billingAddress?.split(', ')[3] || '',
+    billingHouseNumber: user.billingAddress?.split(', ')[4] || '',
+    billingCountry: user.billingAddress?.split(', ')[0] || '',
+    billingCity: user.billingAddress?.split(', ')[1] || '',
+    billingPostalCode: user.billingAddress?.split(', ')[2] || '',
+    isSameAddress: true,
   });
 
   const navigate = useNavigate();
@@ -97,8 +97,8 @@ export default function CheckoutForm() {
         await orderService.createOrder({
           totalPrice,
           orderItems: cart,
-          adress: `${formData.country}, ${formData.city}, ${formData.postalCode}, ${formData.street}, ${formData.houseNumber}`,
-          billingAdress: formData.isSameAdress
+          address: `${formData.country}, ${formData.city}, ${formData.postalCode}, ${formData.street}, ${formData.houseNumber}`,
+          billingAddress: formData.isSameAddress
             ? `${formData.country}, ${formData.city}, ${formData.postalCode}, ${formData.street}, ${formData.houseNumber}`
             : `${formData.billingCountry}, ${formData.billingCity}, ${formData.billingPostalCode}, ${formData.billingStreet}, ${formData.billingHouseNumber}`,
           phoneNumber: formData.phoneNumber,
@@ -148,14 +148,14 @@ export default function CheckoutForm() {
     return navigate('/profile_page/orders');
   }
   return (
-    <div className="mr-60 ml-60 mt-28 mb-28">
-      <h1 className="text-primary mb-20 text-3xl font-medium">Check out</h1>
-      <div className="flex gap-32">
-        <div className="flex flex-col gap-20 w-3/5">
+    <div className="md:mr-60 md:ml-60 md:mt-28 md:mb-28 mr-5 ml-5 mt-10 mb-10">
+      <h1 className="text-primary md:mb-20 mb-10 text-3xl font-medium">{t(`check out`)}</h1>
+      <div className="flex flex-col md:flex-row md:gap-20 gap-10 ">
+        <div className="flex flex-col md:gap-20 order-2 md:order-none md:w-3/5">
           <DeliveryInfo formData={formData} setFormData={setFormData} />
-          <div className="p-12 border-2 rounded-2xl">
-            <h1 className="text-2xl font-medium mb-6">Payment</h1>
-            <div className="flex items-center mb-4 justify-between ml-3 ">
+          <div className="h-fit md:p-12 p-4 border-2 rounded-2xl dark:border-primary dark:border dark:text-primary dark:bg-gray-700">
+            <h1 className="text-2xl font-medium mb-6">{t(`payment`)}</h1>
+            <div className="flex items-center mb-4 justify-between ml-3">
               <label className="flex items-center font-medium">
                 <input
                   type="radio"
@@ -171,7 +171,6 @@ export default function CheckoutForm() {
                 <img src={amexLogo} alt="" className="h-9 w-9" />
               </div>
             </div>
-
             <Formik
               initialValues={{ name: '' }}
               validationSchema={PaymentSchema}
@@ -187,7 +186,7 @@ export default function CheckoutForm() {
                       <Field
                         name="name"
                         type="text"
-                        className="block w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                        className="block w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary dark:border-primary dark:border dark:text-primary dark:placeholder-primary dark:bg-gray-800"
                       />
                       <ErrorMessage
                         name="name"
@@ -203,14 +202,14 @@ export default function CheckoutForm() {
                             <img
                               src={getCardLogo(cardType)}
                               alt={cardType}
-                              className="inline-block h-8 "
+                              className="inline-block h-8"
                             />
                           </div>
                         )}
                         <CardNumberElement
                           onChange={handleCardChange}
                           options={cardElementOptions}
-                          className="block w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                          className="block w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary dark:border-primary dark:border dark:text-primary dark:placeholder-primary dark:bg-gray-800"
                         />
                       </div>
                     </div>{' '}
@@ -219,14 +218,14 @@ export default function CheckoutForm() {
                         <label className="block mb-1 font-medium">{t('expiration date')}</label>
                         <CardExpiryElement
                           options={cardElementOptions}
-                          className="block w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                          className="block w-full px-4 py-2 border-2 rounded-xl focus:outline-none focus:border-2 focus:border-primary dark:border-primary dark:border dark:placeholder-primary dark:bg-gray-800"
                         />
                       </div>
                       <div>
                         <label className="block mb-1 font-medium">CVC</label>
                         <CardCvcElement
                           options={cardElementOptions}
-                          className="block w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary"
+                          className="block w-full px-4 py-2 border-2 rounded-xl text-gray-700 focus:outline-none focus:border-2 focus:border-primary dark:border-primary dark:border dark:text-primary dark:placeholder-primary dark:bg-gray-800"
                         />
                       </div>
                     </div>
@@ -247,12 +246,12 @@ export default function CheckoutForm() {
       </div>
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-12 rounded-xl max-w-lg mx-auto transform -translate-y-40 w-1/4">
+          <div className="bg-white p-12 rounded-xl max-w-lg mx-auto transform -translate-y-40 md:w-1/4 dark:bg-gray-700 dark:border-primary dark:border">
             <div className="text-2xl font-medium mb-10 text-center text-primary">
-              Successful payment!
+              {t(`successful payment`)}!
             </div>
             <div className="text-xl font-medium mb-10 text-center">
-              Thank you for your purchase!
+              {t(`thank you for your purchase`)}!
             </div>
             <div className="flex justify-center">
               <button

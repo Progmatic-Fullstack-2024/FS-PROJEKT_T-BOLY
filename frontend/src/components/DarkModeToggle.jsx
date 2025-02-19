@@ -1,7 +1,11 @@
+import { useContext } from 'react';
+
+import LanguageContext from '../contexts/LanguageContext';
 import useDarkMode from '../hooks/useDarkMode';
 
 export default function DarkModeToggle({ className }) {
   const { theme, toggleTheme } = useDarkMode();
+  const { t } = useContext(LanguageContext);
 
   return (
     <button
@@ -11,11 +15,11 @@ export default function DarkModeToggle({ className }) {
     >
       {theme === 'light' ? (
         <span>
-          ☀️<span className="hidden md:inline-block">Light Mode</span>
+          ☀️<span className="hidden md:inline-block">{t('light mode')}</span>
         </span>
       ) : (
         <span>
-          🌙<span className="hidden md:inline-block">Dark Mode</span>
+          🌙<span className="hidden md:inline-block">{t('dark mode')}</span>
         </span>
       )}
     </button>

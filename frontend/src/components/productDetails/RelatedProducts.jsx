@@ -34,7 +34,7 @@ export default function RelatedProducts({ relatedProductsByCategory }) {
               <AddToShoppingCart product={relatedProduct} />
             </div>
             <div className="w-60 font-medium">{relatedProduct.name}</div>
-            <div className="font-medium text-lg">€{relatedProduct.price}</div>
+            <div className="font-medium text-lg">€{relatedProduct.price.toFixed(2)}</div>
             <div className="flex gap-2 pb-2">
               <RatingStars rating={relatedProduct.rating} />
             </div>

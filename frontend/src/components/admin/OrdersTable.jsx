@@ -43,7 +43,7 @@ export default function OrdersTable() {
       searchParams.set('order', order === 'asc' ? 'desc' : 'asc');
     }
     if (column === 'userAddress') {
-      searchParams.set('sorting', 'adress');
+      searchParams.set('sorting', 'address');
       searchParams.set('table', 'user');
       searchParams.set('order', order === 'asc' ? 'desc' : 'asc');
     }
@@ -84,61 +84,63 @@ export default function OrdersTable() {
     <section className="py-3 sm:py-5">
       <div className="px-4 mx-auto max-w-screen-2xl lg:px-12">
         <div className="relative overflow-hidden bg-gray-50 bg-opacity-80 shadow-md sm:rounded-lg">
-          <div className="flex flex-col px-4 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4">
+          <div className="flex flex-col px-4 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4 dark:bg-gray-700 dark:border-primary dark:border">
             <div className="flex items-center flex-1 space-x-4">
               <h5>
-                <span className="text-black">All Orders: </span>
-                <span className="text-black">{totalOrders}</span>
+                <span className="text-black dark:text-primary">All Orders: </span>
+                <span className="text-black dark:text-primary">{totalOrders}</span>
               </h5>
             </div>
           </div>
           <div className="overflow-x-auto">
-            <table className="w-full text-sm text-left text-gray-500 overflow-x-scroll">
-              <thead className="text-xs text-gray-700 uppercase bg-primary">
+            <table className="w-full text-sm text-left text-gray-500 overflow-x-scroll dark:text-primary">
+              <thead className="text-xs text-gray-700 uppercase bg-primary dark:bg-gray-800 dark:text-primary dark:border-primary dark:border">
                 <tr>
                   <th
                     onClick={() => handleSort('userLastName')}
-                    className="px-4 py-3 w-48 text-left text-gray-100 cursor-pointer"
+                    className="px-4 py-3 w-48 text-left text-gray-100 cursor-pointer dark:text-orange-600"
                   >
                     Costumer Name
                     {renderSortIcon('lastName')}
                   </th>
                   <th
                     onClick={() => handleSort('userEmail')}
-                    className="px-4 py-3 w-48 text-left text-gray-100 cursor-pointer"
+                    className="px-4 py-3 w-48 text-left text-gray-100 cursor-pointer dark:text-orange-600"
                   >
                     Email {renderSortIcon('email')}
                   </th>
 
                   <th
                     onClick={() => handleSort('userAddress')}
-                    className="px-4 py-3 w-48 text-left text-gray-100 "
+                    className="px-4 py-3 w-48 text-left text-gray-100 dark:text-orange-600"
                   >
-                    Adress {renderSortIcon('adress')}
+                    Address {renderSortIcon('address')}
                   </th>
 
                   <th
                     onClick={() => handleSort('totalPrice')}
-                    className="px-4 py-3 text-left text-gray-100 cursor-pointer hidden md:table-cell"
+                    className="px-4 py-3 text-left text-gray-100 cursor-pointer hidden md:table-cell dark:text-orange-600"
                   >
                     Paid
                     {renderSortIcon('totalPrice')}
                   </th>
                   <th
                     onClick={() => handleSort('status')}
-                    className="px-4 py-3  text-left text-gray-100"
+                    className="px-4 py-3  text-left text-gray-100 dark:text-orange-600"
                   >
                     Status
                     {renderSortIcon('status')}
                   </th>
                   <th
                     onClick={() => handleSort('createdAt')}
-                    className="px-4 py-3  text-left text-gray-100 cursor-pointer"
+                    className="px-4 py-3  text-left text-gray-100 cursor-pointer dark:text-orange-600"
                   >
                     Created
                     {renderSortIcon('createdAt')}
                   </th>
-                  <th className="px-4 py-3  text-center text-gray-100  w-10">Ordered products</th>
+                  <th className="px-4 py-3  text-center text-gray-100  w-10 dark:text-orange-600">
+                    Ordered products
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -148,7 +150,7 @@ export default function OrdersTable() {
               </tbody>
             </table>
           </div>
-          <div className="bg-primary bg-opacity-20 flex items-center justify-between p-8">
+          <div className="bg-primary bg-opacity-20 flex items-center justify-between p-8 dark:bg-gray-800 dark:border-primary dark:border">
             <DisplayedProductsNumber totalProducts={totalOrders} />
             <Pagination totalPages={totalPages} />
           </div>

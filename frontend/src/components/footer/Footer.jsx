@@ -71,9 +71,9 @@ export default function Footer() {
               </Link>
             </li>
             <li>
-              <Link className="flex items-center hover:text-primary" to="profile_page/adresses">
+              <Link className="flex items-center hover:text-primary" to="profile_page/addresses">
                 <img src={addressIcon} alt="" className="h-5 w-5 mr-2" />
-                {t('adresses')}
+                {t('addresses')}
               </Link>
             </li>
           </ul>

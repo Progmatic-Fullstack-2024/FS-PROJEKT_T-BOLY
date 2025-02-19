@@ -21,8 +21,8 @@ const login = async ({ identifier, password }) => {
     firstName: user.firstName,
     lastName: user.lastName,
     birthDate: user.birthDate,
-    adress: user.adress,
-    billingAdress: user.billingAdress,
+    address: user.address,
+    billingAddress: user.billingAddress,
     profilePictureUrl: user.profilePictureUrl,
   };
 

@@ -9,14 +9,14 @@ export default function OrderRow({ order }) {
 
   return (
     <>
-      <tr className="border-b dark:border-gray-600 hover:bg-orange-200">
+      <tr className="border-b hover:bg-orange-200 dark:border-primary dark:bg-gray-700 dark:hover:bg-gray-600">
         <td className="px-4 py-3">
           {order.user.lastName} {order.user.firstName}
         </td>
         <td className="px-4 py-3 hidden md:table-cell">{order.user.email}</td>
         {/* <td className="px-4 py-3 hidden md:table-cell">{order.user.phoneNumber || "No number"}</td> */}
-        <td className="px-4 py-3 hidden md:table-cell">{order.user.adress}</td>
-        <td className="px-4 py-3 hidden md:table-cell">€{order.totalPrice}</td>
+        <td className="px-4 py-3 hidden md:table-cell">{order.user.address}</td>
+        <td className="px-4 py-3 hidden md:table-cell">€{order.totalPrice.toFixed(2)}</td>
         <td className="px-4 py-3">
           <EditOrderStatus order={order} />
         </td>
@@ -30,9 +30,9 @@ export default function OrderRow({ order }) {
       {isOpen && (
         <tr className="">
           <td colSpan="7" className=" w-full">
-            <div className="overflow-x-auto w-full bg-white">
-              <table className="w-full text-sm text-left text-gray-500 overflow-x-scroll">
-                <thead className="text-xs text-white uppercase bg-gray-300">
+            <div className="overflow-x-auto w-full bg-white dark:bg-gray-800">
+              <table className="w-full text-sm text-left text-gray-500 overflow-x-scroll dark:text-primary">
+                <thead className="text-xs text-white uppercase bg-gray-300 dark:bg-gray-900 dark:text-orange-700">
                   <tr>
                     <th>Product name</th>
                     <th>Product image</th>

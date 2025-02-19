@@ -15,4 +15,9 @@ const allReviewByProduct = async (productId, page, itemsPerPage, rating) => {
   return { reviews, totalPages, allReviews, totalReviews };
 };
 
-export default { createReview, allReviewByProduct };
+const checkUserReview = async (userId, productId) => {
+  const response = await api.get(`api/productReview/hasreviewed/${userId}/${productId}`);
+  return response.data;
+};
+
+export default { createReview, allReviewByProduct, checkUserReview };

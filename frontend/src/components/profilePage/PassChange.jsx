@@ -9,8 +9,8 @@ export default function PassChange() {
   const { passwordChange, user } = useContext(AuthContext);
   const { t } = useContext(LanguageContext);
 
-  const handleSave = async (values, actions, { setSubmitting }) => {
-    actions.setSubmitting(true);
+  const handleSave = async (values, { setSubmitting }) => {
+    setSubmitting(true);
     try {
       const result = await passwordChange(user.id, values);
       if (result.ok) {

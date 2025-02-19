@@ -35,6 +35,7 @@ export default function ProductById() {
   const [selectedPictureIndex, setSelectedPictureIndex] = useState(0);
   const { user, isUserAdult } = useContext(AuthContext);
   const { t } = useContext(LanguageContext);
+  const [hasReviewed, setHasReviewed] = useState(false);
 
   useEffect(() => {
     const fetchProductById = async () => {
@@ -53,7 +54,14 @@ export default function ProductById() {
         setLoading(false);
       }
     };
+
+    const checkReview = async () => {
+      const data = await reviewService.checkUserReview(user.id, productId);
+      setHasReviewed(data);
+    };
+
     fetchProductById();
+    checkReview();
   }, [productId]);
 
   if (loading) {
@@ -113,7 +121,7 @@ export default function ProductById() {
                 />
               </button>
               {allPictures.length > 1 && (
-                <div className="flex h-40 gap-2 justify-between">
+                <div className="flex h-40 gap-6">
                   {product.morePictureUrl.slice(0, 3).map((picture, index) => (
                     <button
                       key={index}
@@ -132,16 +140,30 @@ export default function ProductById() {
               <h1 className="md:text-3xl text-2xl md:font-normal font-semibold text-center">
                 {product.name}
               </h1>
-              <div className="mt-8 mb-8 font-medium text-2xl text-center">€{product.price}</div>
-              <div className="flex gap-2 pb-2 items-center">
-                <RatingStars rating={product.rating} /> ({numberOfAllRating})
-                <button
-                  className="flex items-center justify-center ml-4 gap-3 w-40 border-2 border-primary rounded-xl bg-primary p-2 text-white hover:border-gray-900 hover:text-black"
-                  type="button"
-                  onClick={handleNewReview}
-                >
-                  {t('rate this product')}
-                </button>
+              <div className="mt-8 mb-8 font-medium text-2xl text-center">
+                €{product.price.toFixed(2)}
+              </div>
+              <div className={`flex ${hasReviewed && 'flex-col'} gap-2 pb-2 w-full`}>
+                <div className="flex items-center gap-2">
+                  <RatingStars rating={product.rating} /> ({numberOfAllRating})
+                </div>
+                {(!hasReviewed && user?.email) || user === null ? (
+                  <button
+                    className="flex items-center justify-center ml-4 gap-3 w-40 border-2 border-primary rounded-xl bg-primary p-2 text-white hover:border-gray-900 hover:text-black"
+                    type="button"
+                    onClick={handleNewReview}
+                  >
+                    {t('rate this product')}
+                  </button>
+                ) : (
+                  <div className="flex flex-col border-2 rounded-xl dark:border-primary dark:bg-gray-700 md:p-5 p-2 gap-3 w-full md:mt-4">
+                    {t('your review')}
+                    <div className="flex items-center gap-2">
+                      <RatingStars rating={hasReviewed.rating} />
+                    </div>
+                    {hasReviewed.review}
+                  </div>
+                )}
               </div>
               {isReviewOpen && <ReviewModal setIsReviewOpen={setIsReviewOpen} />}
               <div className="mt-6 mb-6">{product.description}</div>
@@ -175,7 +197,7 @@ export default function ProductById() {
                       disabled={product.quantity < 1}
                     >
                       <FiShoppingCart />
-                      {product.quantity < 1 ? 'Out of Stock' : t('add to cart')}
+                      {product.quantity < 1 ? t('out of stock') : t('add to cart')}
                     </button>
                   )}
                 </div>
@@ -242,7 +264,9 @@ export default function ProductById() {
                   <h1 className="md:text-3xl text-2xl md:font-normal font-semibold text-center">
                     {product.name}
                   </h1>
-                  <div className="mt-8 mb-8 font-medium text-2xl text-center">€{product.price}</div>
+                  <div className="mt-8 mb-8 font-medium text-2xl text-center">
+                    €{product.price.toFixed(2)}
+                  </div>
                   <div className="flex gap-2 pb-2 items-center">
                     <RatingStars rating={product.rating} /> ({numberOfAllRating})
                     <button

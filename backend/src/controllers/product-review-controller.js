@@ -1,4 +1,5 @@
 import productReview from "../services/product-review.js";
+import HttpError from "../utils/HttpError.js";
 
 const createReview = async (req, res, next) => {
   const { productId, userId, rating, review } = req.body;
@@ -36,4 +37,16 @@ const listAllReviewByProduct = async (req, res, next) => {
   }
 };
 
-export default { createReview, listAllReviewByProduct };
+const checkUserReview = async (req, res, next) => {
+  const { userId, productId } = req.params;
+  try {
+    if (!userId || !productId)
+      throw new HttpError("No userId or productId", 400);
+    const hasReviewed = await productReview.hasReviewed(userId, productId);
+    res.json(hasReviewed);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export default { createReview, listAllReviewByProduct, checkUserReview };

@@ -29,7 +29,7 @@ export default function LoginModal({ onClose, openResetPasswordModal }) {
     <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md dark:bg-gray-700">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-bold">Login</h2>
+          <h2 className="text-lg font-bold">{t(`login`)}</h2>
           <button type="button" className="text-gray-500 hover:text-black" onClick={onClose}>
             ✖
           </button>
@@ -68,7 +68,7 @@ export default function LoginModal({ onClose, openResetPasswordModal }) {
                 type="submit"
                 className="bg-primary text-white w-full py-2 rounded-lg dark:bg-gray-800 dark:border-primary dark:border-2 dark:text-primary dark:hover:bg-primary dark:hover:text-white"
               >
-                {isSubmitting ? 'Logging in...' : 'Log in'}
+                {isSubmitting ? t(`logging in`) : t('log in')}
               </button>
             </Form>
           )}
@@ -78,7 +78,7 @@ export default function LoginModal({ onClose, openResetPasswordModal }) {
           className="text-blue-500 underline mt-4"
           onClick={openResetPasswordModal}
         >
-          Forgot your password?
+          {t(`forgot your password`)}?
         </button>
       </div>
     </div>

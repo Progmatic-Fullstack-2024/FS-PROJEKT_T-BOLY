@@ -1,13 +1,14 @@
 import { useState, useContext, useEffect, useRef } from 'react';
 import { FiShoppingCart, FiLogOut } from 'react-icons/fi';
 import { IoIosArrowDown } from 'react-icons/io';
+import { TbTruckDelivery } from 'react-icons/tb';
 import { Link, useNavigate } from 'react-router-dom';
 
 import LanguageDropdown from './LanguageDropdown';
 import Nav from './Nav';
 import Searchbar from './Searchbar';
 import LogoOrange from '../../assets/ant-orange.png';
-import adressIcon from '../../assets/icons/address.png';
+import addressIcon from '../../assets/icons/address.png';
 import pesronalDataIcon from '../../assets/icons/data-breach.png';
 import heartIcon from '../../assets/icons/heart.png';
 import orderIcon from '../../assets/icons/order-delivery.png';
@@ -62,6 +63,10 @@ export default function Header() {
     <header className="flex flex-col">
       {!user?.username && (
         <div className="flex bg-primary justify-end h-8 items-center dark:text-primary dark:bg-gray-800">
+          <div className="text-white ml-2 md:ml-24 md:w-96 w-32 flex items-center md:gap-3 gap-2 md:text-sm text-xs font-medium mr-auto">
+            <TbTruckDelivery className="text-3xl" />{' '}
+            <span>{t(`Free shipping on orders over`)} €150</span>
+          </div>
           <DarkModeToggle />
           <button
             type="button"
@@ -81,102 +86,108 @@ export default function Header() {
       )}
       {user?.username && (
         <div className="flex bg-primary justify-end h-8 items-center dark:text-primary dark:bg-gray-800">
-          <div ref={dropdownRef} className="relative inline-block">
-            <DarkModeToggle />
-            <button
-              onClick={toggleDropdown}
-              className="text-white hover:bg-opacity-90 font-medium text-sm px-5 py-2.5 text-center inline-flex items-center"
-              type="button"
-            >
-              Hello {user.username}!
-              <IoIosArrowDown className="w-4 h-4 ml-3" />
-            </button>
+          <div className="text-white ml-2 md:ml-24 md:w-96 w-28 md:flex items-center md:gap-3 gap-2 md:text-sm text-xs font-medium hidden mr-auto">
+            <TbTruckDelivery className="text-2xl" />{' '}
+            <span>{t(`Free shipping on orders over`)} €150</span>
+          </div>
+          <div className="flex">
+            <div ref={dropdownRef} className="relative inline-block">
+              <DarkModeToggle />
+              <button
+                onClick={toggleDropdown}
+                className="text-white hover:bg-opacity-90 font-medium text-sm px-5 py-2.5 text-center inline-flex items-center"
+                type="button"
+              >
+                Hello {user.username}!
+                <IoIosArrowDown className="w-4 h-4 ml-3" />
+              </button>
 
-            {isDropdownOpen && (
-              <div className="absolute top-10 right-0 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-800">
-                <div className="px-4 py-3 text-sm text-gray-900 dark:text-primary">
-                  <div>{user.username}</div>
-                  <div className="font-medium truncate">{user.email}</div>
-                </div>
-                <ul className="py-2 text-sm text-gray-700 dark:text-primary">
-                  <li>
-                    <Link
-                      className="px-4 py-2 hover:bg-gray-100 flex dark:hover:bg-gray-600"
-                      to="profile_page/orders"
-                      onClick={toggleDropdown}
-                    >
-                      <img src={orderIcon} alt="" className="h-6 w-6 mr-2" />
-                      {t('orders')}
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className="px-4 py-2 hover:bg-gray-100 flex dark:hover:bg-gray-600"
-                      to="profile_page/wishlist"
-                      onClick={toggleDropdown}
-                    >
-                      <img src={heartIcon} alt="" className="h-6 w-6 mr-2 " />
-                      {t('wishlist')}
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className="px-4 py-2 hover:bg-gray-100 flex dark:hover:bg-gray-600"
-                      to="profile_page/personal_data"
-                      onClick={toggleDropdown}
-                    >
-                      <img src={pesronalDataIcon} alt="" className="h-6 w-6 mr-2 " />
-                      {t('personal data')}
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className="px-4 py-2 hover:bg-gray-100 flex dark:hover:bg-gray-600"
-                      to="profile_page/change_password"
-                      onClick={toggleDropdown}
-                    >
-                      <img src={resetPasswordIcon} alt="" className="h-6 w-6 mr-2 " />
-                      {t('change password')}
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className="px-4 py-2 hover:bg-gray-100 flex dark:hover:bg-gray-600"
-                      to="profile_page/adresses"
-                      onClick={toggleDropdown}
-                    >
-                      <img src={adressIcon} alt="" className="h-6 w-6 mr-2 " />
-                      {t('adresses')}
-                    </Link>
-                  </li>
-
-                  {user.role === 'ADMIN' && (
+              {isDropdownOpen && (
+                <div className="absolute top-10 right-0 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-800">
+                  <div className="px-4 py-3 text-sm text-gray-900 dark:text-primary">
+                    <div>{user.username}</div>
+                    <div className="font-medium truncate">{user.email}</div>
+                  </div>
+                  <ul className="py-2 text-sm text-gray-700 dark:text-primary">
                     <li>
                       <Link
                         className="px-4 py-2 hover:bg-gray-100 flex dark:hover:bg-gray-600"
-                        to="/admin"
+                        to="profile_page/orders"
                         onClick={toggleDropdown}
                       >
-                        <img src={userIcon} alt="" className="h-6 w-6 mr-2 " />
-                        {t('admin page')}
+                        <img src={orderIcon} alt="" className="h-6 w-6 mr-2" />
+                        {t('orders')}
                       </Link>
                     </li>
-                  )}
-                </ul>
-              </div>
-            )}
-          </div>
+                    <li>
+                      <Link
+                        className="px-4 py-2 hover:bg-gray-100 flex dark:hover:bg-gray-600"
+                        to="profile_page/wishlist"
+                        onClick={toggleDropdown}
+                      >
+                        <img src={heartIcon} alt="" className="h-6 w-6 mr-2 " />
+                        {t('wishlist')}
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        className="px-4 py-2 hover:bg-gray-100 flex dark:hover:bg-gray-600"
+                        to="profile_page/personal_data"
+                        onClick={toggleDropdown}
+                      >
+                        <img src={pesronalDataIcon} alt="" className="h-6 w-6 mr-2 " />
+                        {t('personal data')}
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        className="px-4 py-2 hover:bg-gray-100 flex dark:hover:bg-gray-600"
+                        to="profile_page/change_password"
+                        onClick={toggleDropdown}
+                      >
+                        <img src={resetPasswordIcon} alt="" className="h-6 w-6 mr-2 " />
+                        {t('change password')}
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        className="px-4 py-2 hover:bg-gray-100 flex dark:hover:bg-gray-600"
+                        to="profile_page/addresses"
+                        onClick={toggleDropdown}
+                      >
+                        <img src={addressIcon} alt="" className="h-6 w-6 mr-2 " />
+                        {t('addresses')}
+                      </Link>
+                    </li>
 
-          <button
-            type="button"
-            className="flex items-center text-white px-3 text-sm cursor-pointer hover:bg-red-600 hover:text-white rounded-md p-2 transition duration-300"
-            onClick={() => {
-              logout();
-              navigate('/');
-            }}
-          >
-            <FiLogOut className="w-5 h-5 mr-1" /> {t('logout')}
-          </button>
+                    {user.role === 'ADMIN' && (
+                      <li>
+                        <Link
+                          className="px-4 py-2 hover:bg-gray-100 flex dark:hover:bg-gray-600"
+                          to="/admin"
+                          onClick={toggleDropdown}
+                        >
+                          <img src={userIcon} alt="" className="h-6 w-6 mr-2 " />
+                          {t('admin page')}
+                        </Link>
+                      </li>
+                    )}
+                  </ul>
+                </div>
+              )}
+            </div>
+
+            <button
+              type="button"
+              className="flex items-center text-white px-3 text-sm cursor-pointer hover:bg-red-600 hover:text-white rounded-md p-2 transition duration-300"
+              onClick={() => {
+                logout();
+                navigate('/');
+              }}
+            >
+              <FiLogOut className="w-5 h-5 mr-1" /> {t('logout')}
+            </button>
+          </div>
         </div>
       )}
 

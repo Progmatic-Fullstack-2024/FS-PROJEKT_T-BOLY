@@ -7,4 +7,9 @@ router.post("/", productReviewController.createReview);
 
 router.get("/:id", productReviewController.listAllReviewByProduct);
 
+router.get(
+  "/hasreviewed/:userId/:productId",
+  productReviewController.checkUserReview,
+);
+
 export default router;

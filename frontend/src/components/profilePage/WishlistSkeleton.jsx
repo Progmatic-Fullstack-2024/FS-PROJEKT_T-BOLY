@@ -1,6 +1,10 @@
-import { t } from 'i18next';
+import { useContext } from 'react';
+
+import LanguageContext from '../../contexts/LanguageContext';
 
 export default function WishlistSkeleton() {
+  const { t } = useContext(LanguageContext);
+
   return (
     <div className="mx-auto w-full h-full bg-white rounded-lg shadow-md p-8 animate-pulse">
       <h1 className="text-2xl font-bold mb-4">{t('wishlist')}</h1>

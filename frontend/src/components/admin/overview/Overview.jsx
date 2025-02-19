@@ -97,7 +97,7 @@ export default function Overview() {
       {/* Charts Section */}
       <div className="grid grid-cols-2 gap-6">
         {/* Bar Chart */}
-        <div className="bg-white bg-opacity-50 dark:bg-gray-800 dark:text-primary hover:bg-opacity-60 p-4 rounded-lg shadow-md">
+        <div className="bg-white bg-opacity-50 dark:bg-gray-800 dark:text-primary hover:bg-opacity-60 p-4 rounded-lg shadow-md dark:border-primary dark:border">
           <h2 className="text-lg font-semibold mb-2">
             📈 {activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)} Overview
           </h2>
@@ -114,7 +114,7 @@ export default function Overview() {
         </div>
 
         {/* Pie Chart */}
-        <div className="bg-white bg-opacity-50 dark:bg-gray-800 dark:text-primary hover:bg-opacity-60 p-4 rounded-lg shadow-md">
+        <div className="bg-white bg-opacity-50 dark:bg-gray-800 dark:text-primary hover:bg-opacity-60 p-4 rounded-lg shadow-md dark:border-primary dark:border">
           <h2 className="text-lg font-semibold mb-2">
             📊 {activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)} Distribution
           </h2>

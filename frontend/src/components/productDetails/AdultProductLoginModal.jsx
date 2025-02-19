@@ -3,20 +3,22 @@ import { RxCross2 } from 'react-icons/rx';
 import { useNavigate } from 'react-router-dom';
 
 import AuthContext from '../../contexts/AuthContext';
+import LanguageContext from '../../contexts/LanguageContext';
 
 export default function AdultProductLoginModal() {
   const navigate = useNavigate();
+  const { t } = useContext(LanguageContext);
 
   const handleCloser = () => {
     navigate('/products/category/all');
   };
-  const { user } = useContext(AuthContext);
+  const { isUserAdult, user } = useContext(AuthContext);
 
   return (
     <div className="fixed inset-0 bg-gray-800 bg-opacity-50 backdrop-blur-md flex justify-center items-center z-50">
       <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md dark:bg-gray-700 dark:border-primary dark:border dark:text-primary">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-bold">Alert</h2>
+          <h2 className="text-lg font-bold">{t(`alert`)}</h2>
 
           <button
             type="button"
@@ -28,19 +30,21 @@ export default function AdultProductLoginModal() {
             <span className="sr-only">Close modal</span>
           </button>
         </div>
-        {user ? (
+        {!isUserAdult && user !== null ? (
           <div className="h-32 p-3 text-center text-2xl">
-            You need to be an adult for watch this product!
+            {t(`you need to be an adult for watch this product`)}!
           </div>
         ) : (
-          <div className="h-32 p-3 text-center text-2xl">Please register first or log in!</div>
+          <div className="h-32 p-3 text-center text-2xl">
+            {t(`please register first or log in`)}!
+          </div>
         )}
         <button
           onClick={handleCloser}
           type="submit"
           className="bg-primary text-white w-full py-2 rounded-lg dark:bg-gray-800 dark:text-primary dark:border-primary dark:border dark:hover:bg-primary dark:hover:text-white"
         >
-          {user ? 'I understand' : 'Go to Login'}
+          {!isUserAdult && user !== null ? t(`i understand`) : t(`login`)}
         </button>
       </div>
     </div>

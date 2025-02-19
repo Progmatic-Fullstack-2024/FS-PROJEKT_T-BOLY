@@ -1,3 +1,5 @@
+import { useContext } from 'react';
+import { TbRating18Plus } from 'react-icons/tb';
 import { Link } from 'react-router-dom';
 
 import AddToShoppingCart from './AddToShoppingCart';
@@ -5,8 +7,11 @@ import AddToWishlistHeart from './AddToWishlistHeart';
 import ProductsGridSkeleton from './ProductsGridSkeleton';
 import RatingStars from './RatingStars';
 import OutOfStock from '../../assets/out_of_stock.png';
+import AuthContext from '../../contexts/AuthContext';
 
 export default function ProductsGrid({ productsByCategory, isLoading }) {
+  const { isUserAdult } = useContext(AuthContext);
+
   if (isLoading) {
     return <ProductsGridSkeleton />;
   }
@@ -32,10 +37,15 @@ export default function ProductsGrid({ productsByCategory, isLoading }) {
                 <div className="absolute top-2 right-2">
                   <AddToWishlistHeart product={product} />
                 </div>
-                <AddToShoppingCart product={product} />
+
+                {!isUserAdult && product.ageRecommendationMin >= 18 ? (
+                  <TbRating18Plus className="absolute top-9 right-2 text-red-500 text-4xl rounded-full flex items-center justify-center" />
+                ) : (
+                  <AddToShoppingCart product={product} />
+                )}
               </div>
               <div className="w-60 font-medium">{product.name}</div>
-              <div className="font-medium text-lg">€{product.price}</div>
+              <div className="font-medium text-lg">€{product.price.toFixed(2)}</div>
               <div className="flex gap-2 pb-2">
                 <RatingStars rating={product.rating} />
               </div>

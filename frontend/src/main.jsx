@@ -15,7 +15,7 @@ import NotFound from './components/NotFound.jsx';
 import ProductById from './components/productDetails/ProductById.jsx';
 import ProductsByCategory from './components/products/ProductsByCategory.jsx';
 import './index.css';
-import Adresses from './components/profilePage/Adresses.jsx';
+import Addresses from './components/profilePage/Addresses.jsx';
 import Orders from './components/profilePage/Orders.jsx';
 import PassChange from './components/profilePage/PassChange.jsx';
 import PersonalData from './components/profilePage/PersonalData.jsx';
@@ -83,7 +83,7 @@ const router = createBrowserRouter([
           </MemberRoute>
         ),
         children: [
-          { path: 'adresses', element: <Adresses /> },
+          { path: 'addresses', element: <Addresses /> },
           { path: 'orders', element: <Orders /> },
           { path: 'personal_data', element: <PersonalData /> },
           { path: 'wishlist', element: <Wishlist /> },
