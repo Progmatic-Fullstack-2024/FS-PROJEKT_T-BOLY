@@ -30,7 +30,8 @@ export default function CreateProductByAdmin({ productIdFromProductRow, onUpdate
     const fetchCategories = async () => {
       try {
         const data = await categoryService.getAllCategories();
-        setCategoryOptions(data.map((c) => ({ value: c.id, label: c.name })));
+        
+        setCategoryOptions(data.categories.map((c) => ({ value: c.id, label: c.name })));
       } catch (error) {
         toast.error('Failed to fetch categories.');
       }
