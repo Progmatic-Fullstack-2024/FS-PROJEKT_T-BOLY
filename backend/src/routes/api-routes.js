@@ -14,17 +14,17 @@ import statisticsRoutes from "./statistics-routes.js";
 
 const router = express.Router();
 
-router.use("/coupons", couponsRoutes);
-router.use("/categories", categoriesRoutes);
-router.use("/products", productsRoutes);
-router.use("/images", productImagesRoutes);
 router.use("/user", userRoutes);
-router.use("/productCategoryConnection", productCategoryConnection);
-router.use("/shoppingCart", shoppingCartRoutes);
+router.use("/order", orderRoutes);
+router.use("/coupons", couponsRoutes);
+router.use("/payment", paymentRoutes);
+router.use("/products", productsRoutes);
 router.use("/wishlist", wishlistRoutes);
 router.use("/productReview", reviewRoutes);
-router.use("/payment", paymentRoutes);
-router.use("/order", orderRoutes);
+router.use("/images", productImagesRoutes);
 router.use("/statistics", statisticsRoutes);
+router.use("/categories", categoriesRoutes);
+router.use("/shoppingCart", shoppingCartRoutes);
+router.use("/productCategoryConnection", productCategoryConnection);
 
 export default router;
