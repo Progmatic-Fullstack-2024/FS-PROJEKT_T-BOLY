@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
 
+import Avatar from '../../assets/avatar.jpg';
 import LanguageContext from '../../contexts/LanguageContext';
 import userService from '../../services/userService';
 import RatingStars from '../products/RatingStars';
@@ -38,7 +39,11 @@ export default function Review({ review }) {
       <div>
         <div className="flex mb-4">
           <div className="font-medium flex items-center justify-center">
-            <img src={user.profilePictureUrl} alt="" className="rounded-full w-10 h-10 mr-4 ml-2" />
+            <img
+              src={user.profilePictureUrl || Avatar}
+              alt=""
+              className="rounded-full w-10 h-10 mr-4 ml-2"
+            />
             <p className="block text-sm text-gray-500 dark:text-orange-600">{`${user.firstName}  ${user.lastName}`}</p>
           </div>
         </div>
