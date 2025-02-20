@@ -4,9 +4,9 @@ import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import OrderRow from './OrderRow';
-import orderService from '../../services/orderService';
-import DisplayedProductsNumber from '../products/DisplayedProductsNumber.jsx';
-import Pagination from '../products/Pagination.jsx';
+import orderService from '../../../services/orderService.js';
+import DisplayedProductsNumber from '../../products/DisplayedProductsNumber.jsx';
+import Pagination from '../../products/Pagination.jsx';
 
 export default function OrdersTable() {
   const [orders, setOrders] = useState([]);

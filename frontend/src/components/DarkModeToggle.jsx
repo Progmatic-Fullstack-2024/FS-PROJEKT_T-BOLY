@@ -13,7 +13,7 @@ export default function DarkModeToggle({ className }) {
       onClick={() => toggleTheme()}
       className={`px-2 bg-gray-300 bg-opacity-50 dark:bg-gray-700 text-black dark:text-white rounded-md transition ${className}`}
     >
-      {theme === 'light' ? (
+      {theme === 'dark' ? (
         <span>
           ☀️<span className="hidden md:inline-block">{t('light mode')}</span>
         </span>

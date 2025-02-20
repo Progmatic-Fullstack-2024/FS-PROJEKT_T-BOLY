@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 
-import orderService from '../../services/orderService';
+import orderService from '../../../services/orderService';
 
 export default function EditOrderStatus({ order }) {
   const [status, setStatus] = useState(order.status);

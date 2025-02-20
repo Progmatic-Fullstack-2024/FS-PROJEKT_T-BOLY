@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 import CategoriesTable from './components/admin/categories/CategoriesTable.jsx';
 import CouponsTable from './components/admin/coupons/CouponsTable.jsx';
-import OrdersTable from './components/admin/OrdersTable.jsx';
+import OrdersTable from './components/admin/orders/OrdersTable.jsx';
 import Overview from './components/admin/overview/Overview.jsx';
 import ProductsTable from './components/admin/products/ProductsTable.jsx';
 import UserTable from './components/admin/users/UserTable.jsx';
