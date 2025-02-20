@@ -98,7 +98,7 @@ export default function ProductsByCategory() {
   };
 
   return (
-    <div className="md:m-20">
+    <div className="2xl:m-20">
       <h1 className="text-primary m-8 text-3xl font-medium">{t('products')}</h1>
       {isError && (
         <div className="text-center text-red-500 text-lg">
@@ -106,8 +106,8 @@ export default function ProductsByCategory() {
         </div>
       )}
       {!isError && (
-        <div className="flex gap-32 m-8">
-          <div className="shrink-0 md:w-80 hidden md:block">
+        <div className="flex gap-12 2xl:gap-32 m-8">
+          <div className="shrink-0 2xl:w-80 hidden md:block">
             <Nav />
             {priceRange?.rangeMin && (
               <FilterByPrice
@@ -127,39 +127,35 @@ export default function ProductsByCategory() {
               isLoading={isLoading}
             />
           </div>
-          <div>
-            <h1 className="hidden md:block mb-12 text-3xl">{t(categoryName)}</h1>
-            <div className="flex flex-col md:flex-row md:gap-80 gap-6 md:items-center md:mb-12">
-              <div className="flex md:flex-row flex-col justify-between gap-6 md:mb-0 mb-8">
-                <SelectCategoryInput />
-                <button
-                  onClick={handleGridView}
-                  className={`hidden md:block text-2xl ${gridView ? 'text-primary border-primary' : 'text-gray-200 hover:text-gray-900'}`}
-                  type="button"
-                >
-                  <MdGridView />
-                </button>
-                <button
-                  onClick={handleListView}
-                  className={`hidden md:block text-xl ${!gridView ? 'text-primary border-primary' : 'text-gray-200 hover:text-gray-900'}`}
-                  type="button"
-                >
-                  <ImList />
-                </button>
-                <Sorting />
-                <FilterByPlayersNumber />
-              </div>
+          <div className="flex flex-col gap-8 max-w-5xl w-full">
+            {categoryName && <h1 className="hidden md:block text-3xl">{t(categoryName)}</h1>}
+            <div className="flex md:flex-row flex-col justify-between items-center gap-6 md:mb-0 mb-8">
+              <SelectCategoryInput />
+              <button
+                onClick={handleGridView}
+                className={`hidden md:block text-2xl ${gridView ? 'text-primary border-primary' : 'text-gray-200 hover:text-gray-900'}`}
+                type="button"
+              >
+                <MdGridView />
+              </button>
+              <button
+                onClick={handleListView}
+                className={`hidden md:block text-xl ${!gridView ? 'text-primary border-primary' : 'text-gray-200 hover:text-gray-900'}`}
+                type="button"
+              >
+                <ImList />
+              </button>
+              <Sorting />
+              <FilterByPlayersNumber />
               <DisplayedProductsNumber totalProducts={totalProducts} isLoading={isLoading} />
             </div>
-            <div>
-              {gridView ? (
-                <ProductsGrid productsByCategory={productsByCategory} isLoading={isLoading} />
-              ) : (
-                <ProductsList productsByCategory={productsByCategory} isLoading={isLoading} />
-              )}
-              <div className="mt-16">
-                <Pagination totalPages={totalPages} />
-              </div>
+            {gridView ? (
+              <ProductsGrid productsByCategory={productsByCategory} isLoading={isLoading} />
+            ) : (
+              <ProductsList productsByCategory={productsByCategory} isLoading={isLoading} />
+            )}
+            <div className="mt-16">
+              <Pagination totalPages={totalPages} />
             </div>
           </div>
         </div>

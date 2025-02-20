@@ -12,14 +12,14 @@ export default function DisplayedProductsNumber({ totalProducts, isLoading }) {
 
   if (isLoading) {
     return (
-      <div className="hidden md:block">
+      <div className="hidden md:block ml-auto">
         <h1>{`${t('showing')} ... - ... ${t('of')} ... ${t('results')}`}</h1>
       </div>
     );
   }
 
   return (
-    <div className="hidden md:block dark:text-primary">
+    <div className="hidden md:block dark:text-primary ml-auto">
       <h1>
         {t('showing')} {Math.min((page - 1) * limit + 1, totalProducts)} -{' '}
         {Math.min(page * limit, totalProducts)} {t('of')} {totalProducts} {t('results')}
