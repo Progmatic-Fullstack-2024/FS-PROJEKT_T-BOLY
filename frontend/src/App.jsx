@@ -3,8 +3,11 @@ import { ToastContainer } from 'react-toastify';
 
 import Footer from './components/footer/Footer';
 import Header from './components/header/Header';
+import useDarkMode from './hooks/useDarkMode';
 
 export default function App() {
+  const { theme } = useDarkMode();
+
   return (
     <div className="flex flex-col h-screen dark:text-primary">
       <Header />
@@ -22,7 +25,7 @@ export default function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="light"
+        theme={theme === 'dark' ? 'dark' : 'light'}
       />
     </div>
   );

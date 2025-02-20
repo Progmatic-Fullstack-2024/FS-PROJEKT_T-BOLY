@@ -53,7 +53,7 @@ export default function Overview() {
       </h1>
 
       {/* Clickable Overview Cards */}
-      <div className="grid grid-cols-5 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-4 mb-4 sm:mb-6">
         <StatCard
           title="Total Users"
           value={stats.users.total}
@@ -95,7 +95,7 @@ export default function Overview() {
       </div>
 
       {/* Charts Section */}
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
         {/* Bar Chart */}
         <div className="bg-white bg-opacity-50 dark:bg-gray-800 dark:text-primary hover:bg-opacity-60 p-4 rounded-lg shadow-md dark:border-primary dark:border">
           <h2 className="text-lg font-semibold mb-2">
