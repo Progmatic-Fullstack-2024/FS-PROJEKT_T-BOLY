@@ -192,7 +192,7 @@ export default function DeliveryInfo({ formData, setFormData }) {
             </div>
             {!values.isSameAddress && (
               <div className="flex flex-col gap-6">
-                <h1 className="text-2xl font-medium mt-8 md:mb-12 mb-6">{t(`billing`)} Address</h1>
+                <h1 className="text-2xl font-medium mt-8 md:mb-12 mb-6">{t(`billing address`)}</h1>
                 <div className="flex justify-between md:gap-10 gap-4">
                   <div className="md:w-2/3 w-1/2">
                     <label className="block mb-2 font-medium">
